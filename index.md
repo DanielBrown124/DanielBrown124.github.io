@@ -318,7 +318,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
     <span class="social-icon">
     <img src="zenodo.ico" alt="ZENODO logo" />
   </span>
-  <span>ORCID</span>
+  <span>ZENODO</span>
 </a>
 
   <a href="https://independent.academia.edu/DanielBrown462" class="social-link" target="_blank">
