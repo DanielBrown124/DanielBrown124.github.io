@@ -754,72 +754,265 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
   <summary><span class="summary-label">References</span></summary>
   <div class="details-body">
 
-    <ol class="ref-list">
-      <li>B. P. Abbott et al. GW170817: Observation of gravitational waves from a binary neutron star inspiral. Physical Review Letters, 119:161101, 2017. doi: 10.1103/PhysRevLett.119.161101.</li>
-      <li>Jeremy Sakstein and Bhuvnesh Jain. Implications of the neutron star merger GW170817 for cosmological scalar-tensor theories. Physical Review Letters, 119:251303, 2017. doi: 10.1103/PhysRevLett.119.251303.</li>
-      <li>Giulia Gubitosi, Federico Piazza, and Filippo Vernizzi. The effective field theory of dark energy. JCAP, 02:032, 2013. doi: 10.1088/1475-7516/2013/02/032.</li>
-      <li>Jolyon K. Bloomfield, Eanna E. Flanagan, Minjoon Park, and Scott Watson. Dark energy or modified gravity? An effective field theory approach. JCAP, 08:010, 2013. doi: 10.1088/1475-7516/2013/08/010.</li>
-      <li>Emiliano Bellini and Ignacy Sawicki. Maximal freedom at minimum cost: Linear large-scale structure in general modifications of gravity. JCAP, 07:050, 2014. doi: 10.1088/1475-7516/2014/07/050.</li>
-      <li>Jaume Garriga and Viatcheslav Mukhanov. Perturbations in k-inflation. Physics Letters B, 458:219–225, 1999. doi: 10.1016/S0370-2693(99)00602-4.</li>
-      <li>N. D. Birrell and P. C. W. Davies. Quantum Fields in Curved Space. Cambridge University Press, 1982. doi: 10.1017/CBO9780511622632.</li>
-      <li>Leonard Parker. Particle creation in expanding universes. Physical Review, 183:1057–1068, 1969. doi: 10.1103/PhysRev.183.1057.</li>
-      <li>Leonard Parker and Stephen A. Fulling. Adiabatic regularization of the energy-momentum tensor of a quantum field in homogeneous cosmologies. Physical Review D, 9:341–354, 1974. doi: 10.1103/PhysRevD.9.341.</li>
-      <li>T. S. Bunch. Calculation of the renormalized stress tensor in de Sitter space via point-splitting. Journal of Physics A, 13:1297, 1980. doi: 10.1088/0305-4470/13/4/022.</li>
-      <li>I. L. Buchbinder, S. D. Odintsov, and I. L. Shapiro. Effective Action in Quantum Gravity. IOP Publishing, 1992.</li>
-      <li>Leonard Parker and David J. Toms. Quantum Field Theory in Curved Spacetime. Cambridge University Press, 2009. doi: 10.1017/CBO9780511813924.</li>
-      <li>A. O. Barvinsky and G. A. Vilkovisky. The generalized Schwinger–DeWitt technique in gauge theories and quantum gravity. Physics Reports, 119:1–74, 1985.</li>
-      <li>John F. Donoghue. General relativity as an effective field theory: The leading quantum corrections. Physical Review D, 50:3874–3888, 1994. doi: 10.1103/PhysRevD.50.3874.</li>
-      <li>Bharat Ratra and P. J. E. Peebles. Cosmological consequences of a rolling homogeneous scalar field. Astrophysical Journal Letters, 325:L17–L20, 1988. doi: 10.1086/185100.</li>
-      <li>Robert R. Caldwell, Rahul Dave, and Paul J. Steinhardt. Cosmological imprint of an energy component with general equation of state. Physical Review Letters, 80:1582–1585, 1998. doi: 10.1103/PhysRevLett.80.1582.</li>
-      <li>Cristian Armendariz-Picon, Viatcheslav Mukhanov, and Paul Steinhardt. Essentials of k-essence. Physical Review D, 63:103510, 2001. doi: 10.1103/PhysRevD.63.103510.</li>
-      <li>Chung-Pei Ma and Edmund Bertschinger. Cosmological perturbation theory in the synchronous and conformal Newtonian gauges. Astrophysical Journal, 455:7–25, 1995. doi: 10.1086/176550.</li>
-      <li>Planck Collaboration. Planck 2018 results. VI. Cosmological parameters. Astronomy and Astrophysics, 641:A6, 2020. doi: 10.1051/0004-6361/201833910.</li>
-      <li>Eric V. Linder. Cosmic growth history and expansion history. Physical Review D, 72:043529, 2005. doi: 10.1103/PhysRevD.72.043529.</li>
-      <li>Daniel J. Eisenstein et al. Detection of the baryon acoustic peak in the large-scale correlation function of SDSS luminous red galaxies. Astrophysical Journal, 633:560–574, 2005. doi: 10.1086/466512.</li>
-      <li>Clifford Cheung, Paolo Creminelli, A. Liam Fitzpatrick, Jared Kaplan, and Leonardo Senatore. The effective field theory of inflation. Journal of High Energy Physics, 2008(03):014, 2008. doi: 10.1088/1126-6708/2008/03/014.</li>
-      <li>Viatcheslav Mukhanov. Physical Foundations of Cosmology. Cambridge University Press, 2005. doi: 10.1017/CBO9780511790553.</li>
-      <li>Scott Dodelson. Modern Cosmology. Academic Press, 2003.</li>
-      <li>Earl A. Coddington and Norman Levinson. Theory of Ordinary Differential Equations. McGraw–Hill, 1955.</li>
-      <li>C. P. Burgess. Quantum gravity in everyday life: General relativity as an effective field theory. Living Reviews in Relativity, 7:5, 2004. doi: 10.12942/lrr-2004-5.</li>
-      <li>Éric Aubourg, Stephen Bailey, Julian E. Bautista, et al. Cosmological implications of baryon acoustic oscillation measurements. Physical Review D, 92:123516, 2015. doi: 10.1103/PhysRevD.92.123516.</li>
-      <li>Planck Collaboration. Planck 2018 results. VI. Cosmological parameters. Astronomy and Astrophysics, 641:A6, 2020. doi: 10.1051/0004-6361/201833910.</li>
-      <li>Steven Weinberg. The Quantum Theory of Fields, Volume II: Modern Applications. Cambridge University Press, 1996.</li>
-      <li>Michael E. Peskin and Daniel V. Schroeder. An Introduction to Quantum Field Theory. Westview Press, 1995.</li>
-      <li>Michel Chevallier and David Polarski. Accelerating universes with scaling dark matter? International Journal of Modern Physics D, 10:213–224, 2001. doi: 10.1142/S0218271801000822.</li>
-      <li>Eric V. Linder. Exploring the expansion history of the universe. Physical Review Letters, 90:091301, 2003. doi: 10.1103/PhysRevLett.90.091301.</li>
-      <li>Antonio De Felice and Shinji Tsujikawa. \(f(R)\) theories. Living Reviews in Relativity, 13:3, 2010. doi: 10.12942/lrr-2010-3.</li>
-      <li>Steven Weinberg. Cosmology. Oxford University Press, 2008.</li>
-      <li>Austin Joyce, Bhuvnesh Jain, Justin Khoury, and Mark Trodden. Beyond the cosmological standard model. Physics Reports, 568:1–98, 2015. doi: 10.1016/j.physrep.2014.12.002.</li>
-      <li>Tsutomu Kobayashi. Horndeski theory and beyond. Reports on Progress in Physics, 82:086901, 2019. doi: 10.1088/1361-6633/ab2429.</li>
-      <li>Jeremy Gleyzes, David Langlois, Federico Piazza, and Filippo Vernizzi. Healthy theories beyond Horndeski. Physical Review Letters, 114:211101, 2015. doi: 10.1103/PhysRevLett.114.211101.</li>
-      <li>Thomas P. Sotiriou and Valerio Faraoni. \(f(R)\) theories of gravity. Reviews of Modern Physics, 82:451–497, 2010. doi: 10.1103/RevModPhys.82.451.</li>
-      <li>Timothy Clifton, Pedro G. Ferreira, Antonio Padilla, and Constantinos Skordis. Modified gravity and cosmology. Physics Reports, 513:1–189, 2012. doi: 10.1016/j.physrep.2012.01.001.</li>
-      <li>David W. Hogg. Distance measures in cosmology, 1999.</li>
-      <li>Charles Alcock and Bohdan Paczyński. An evolution free test for non-zero cosmological constant? Nature, 281:358–359, 1979. doi: 10.1038/281358a0.</li>
-      <li>Wayne Hu and Naoshi Sugiyama. Small-scale cosmological perturbations: An analytic approach. Astrophysical Journal, 471:542–570, 1996. doi: 10.1086/177989.</li>
-      <li>Daniel J. Eisenstein and Wayne Hu. Baryonic features in the matter transfer function. Astrophysical Journal, 496:605–614, 1998. doi: 10.1086/305424.</li>
-      <li>P. J. E. Peebles. The Large-Scale Structure of the Universe. Princeton University Press, 1980.</li>
-      <li>Yong-Seon Song and Will J. Percival. Reconstructing the redshift-space distortion parameter beta from galaxy power spectrum measurements. JCAP, 10:004, 2009. doi: 10.1088/1475-7516/2009/10/004.</li>
-      <li>D. N. Limber. The analysis of counts of the extragalactic nebulae in terms of a fluctuating density field. Astrophysical Journal, 119:655, 1954. doi: 10.1086/145870.</li>
-      <li>Marilena LoVerde and Niayesh Afshordi. Extended Limber approximation. Physical Review D, 78:123506, 2008. doi: 10.1103/PhysRevD.78.123506.</li>
-      <li>Matthias Bartelmann and Peter Schneider. Weak gravitational lensing. Physics Reports, 340:291–472, 2001. doi: 10.1016/S0370-1573(00)00082-X.</li>
-      <li>R. K. Sachs and A. M. Wolfe. Perturbations of a cosmological model and angular variations of the microwave background. Astrophysical Journal, 147:73–90, 1967. doi: 10.1086/148982.</li>
-      <li>J. R. Dormand and P. J. Prince. A family of embedded Runge–Kutta formulae. Journal of Computational and Applied Mathematics, 6:19–26, 1980. doi: 10.1016/0771-050X(80)90013-3.</li>
-      <li>Ernst Hairer, Syvert P. Norsett, and Gerhard Wanner. Solving Ordinary Differential Equations I: Nonstiff Problems. Springer, 1993.</li>
-      <li>R. Piessens, E. de Doncker-Kapenga, C. W. Uberhuber, and D. Kahaner. QUADPACK: A Subroutine Package for Automatic Integration. Springer, 1983.</li>
-      <li>Max Tegmark, Andy Taylor, and Alan Heavens. Karhunen–Loève eigenmode analysis of galaxy redshift surveys. Astrophysical Journal, 480:22–35, 1997. doi: 10.1086/303939.</li>
-      <li>Max Tegmark. Measuring cosmological parameters with galaxy surveys. Physical Review Letters, 79:3806–3809, 1997. doi: 10.1103/PhysRevLett.79.3806.</li>
-      <li>Yong-Seon Song and Will J. Percival. Reconstructing the redshift-space distortion parameter beta from galaxy power spectrum measurements. JCAP, 10:004, 2009. doi: 10.1088/1475-7516/2009/10/004.</li>
-      <li>R. E. Smith, J. A. Peacock, A. Jenkins, et al. Stable clustering, the halo model and nonlinear cosmological power spectra. Monthly Notices of the Royal Astronomical Society, 341:1311–1332, 2003. doi: 10.1046/j.1365-8711.2003.06503.x.</li>
-      <li>Ryuichi Takahashi, Masanori Sato, Takahiro Nishimichi, Atsushi Taruya, and Masamune Oguri. Revising the halofit model for the nonlinear matter power spectrum. Astrophysical Journal, 761:152, 2012. doi: 10.1088/0004-637X/761/2/152.</li>
-      <li>Robert M. Wald. General Relativity. University of Chicago Press, 1984.</li>
-      <li>Misao Sasaki. Large scale quantum fluctuations in the inflationary universe. Progress of Theoretical Physics, 76:1036–1046, 1986. doi: 10.1143/PTP.76.1036.</li>
-      <li>Viatcheslav F. Mukhanov. Quantum theory of gauge invariant cosmological perturbations. Soviet Physics JETP, 67:1297–1302, 1988.</li>
-      <li>Hideo Kodama and Misao Sasaki. Cosmological perturbation theory. Progress of Theoretical Physics Supplement, 78:1–166, 1984. doi: 10.1143/PTPS.78.1.</li>
-      <li>Rachel Bean and Olivier Doré. Probing dark energy perturbations: The dark energy equation of state and speed of sound as measured by WMAP. Physical Review D, 69:083503, 2004. doi: 10.1103/PhysRevD.69.083503.</li>
-      <li>Wayne Hu. Structure formation with generalized dark matter. Astrophysical Journal, 506:485–494, 1998. doi: 10.1086/306274.</li>
-      <li>Luca Amendola and Shinji Tsujikawa. Dark Energy: Theory and Observations. Cambridge University Press, 2010. doi: 10.1017/CBO9780511750823.</li>
-    </ol>
+ <ol class="ref-list">
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.119.161101" target="_blank">
+B. P. Abbott et al. GW170817: Observation of gravitational waves…
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.119.251303" target="_blank">
+Jeremy Sakstein and Bhuvnesh Jain. Implications of the neutron star merger…
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1475-7516/2013/02/032" target="_blank">
+Giulia Gubitosi et al. The effective field theory of dark energy.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1475-7516/2013/08/010" target="_blank">
+Bloomfield et al. Dark energy or modified gravity?
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1475-7516/2014/07/050" target="_blank">
+Bellini & Sawicki. Maximal freedom at minimum cost.
+</a></li>
+
+<li><a href="https://doi.org/10.1016/S0370-2693(99)00602-4" target="_blank">
+Garriga & Mukhanov. Perturbations in k-inflation.
+</a></li>
+
+<li><a href="https://doi.org/10.1017/CBO9780511622632" target="_blank">
+Birrell & Davies. Quantum Fields in Curved Space.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRev.183.1057" target="_blank">
+Parker. Particle creation in expanding universes.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.9.341" target="_blank">
+Parker & Fulling. Adiabatic regularization…
+</a></li>
+
+<li><a href="https://doi.org/10.1088/0305-4470/13/4/022" target="_blank">
+Bunch. Renormalized stress tensor in de Sitter space.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1992eaqg.book.....B" target="_blank">
+Buchbinder, Odintsov & Shapiro. Effective Action in Quantum Gravity.
+</a></li>
+
+<li><a href="https://doi.org/10.1017/CBO9780511813924" target="_blank">
+Parker & Toms. QFT in Curved Spacetime.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1985PhR...119....1B" target="_blank">
+Barvinsky & Vilkovisky. Generalized Schwinger–DeWitt technique.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.50.3874" target="_blank">
+Donoghue. GR as an effective field theory.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/185100" target="_blank">
+Ratra & Peebles. Rolling homogeneous scalar field.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.80.1582" target="_blank">
+Caldwell, Dave & Steinhardt. Cosmological imprint…
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.63.103510" target="_blank">
+Armendariz-Picon, Mukhanov & Steinhardt. Essentials of k-essence.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/176550" target="_blank">
+Ma & Bertschinger. Cosmological perturbation theory.
+</a></li>
+
+<li><a href="https://doi.org/10.1051/0004-6361/201833910" target="_blank">
+Planck Collaboration. Cosmological parameters (2018).
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.72.043529" target="_blank">
+Linder. Cosmic growth history.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/466512" target="_blank">
+Eisenstein et al. Detection of the BAO peak.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1126-6708/2008/03/014" target="_blank">
+Cheung et al. EFT of Inflation.
+</a></li>
+
+<li><a href="https://doi.org/10.1017/CBO9780511790553" target="_blank">
+Mukhanov. Physical Foundations of Cosmology.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/2003mc..book.....D" target="_blank">
+Dodelson. Modern Cosmology.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1955tode.book.....C" target="_blank">
+Coddington & Levinson. ODE Theory.
+</a></li>
+
+<li><a href="https://doi.org/10.12942/lrr-2004-5" target="_blank">
+Burgess. Quantum gravity in everyday life.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.92.123516" target="_blank">
+Aubourg et al. BAO cosmological implications.
+</a></li>
+
+<li><a href="https://doi.org/10.1051/0004-6361/201833910" target="_blank">
+Planck Collaboration 2018 (duplicate entry).
+</a></li>
+
+<li><a href="https://doi.org/10.1017/CBO9781139644167" target="_blank">
+Weinberg. Quantum Theory of Fields II.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1995itqf.book.....P" target="_blank">
+Peskin & Schroeder. QFT textbook.
+</a></li>
+
+<li><a href="https://doi.org/10.1142/S0218271801000822" target="_blank">
+Chevallier & Polarski. Scaling dark matter universes.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.90.091301" target="_blank">
+Linder. Expansion history of the universe.
+</a></li>
+
+<li><a href="https://doi.org/10.12942/lrr-2010-3" target="_blank">
+De Felice & Tsujikawa. f(R) theories.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/2008cosm.book.....W" target="_blank">
+Weinberg. Cosmology.
+</a></li>
+
+<li><a href="https://doi.org/10.1016/j.physrep.2014.12.002" target="_blank">
+Joyce et al. Beyond the standard model.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1361-6633/ab2429" target="_blank">
+Kobayashi. Horndeski theory and beyond.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.114.211101" target="_blank">
+Gleyzes et al. Healthy theories beyond Horndeski.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/RevModPhys.82.451" target="_blank">
+Sotiriou & Faraoni. f(R) theories.
+</a></li>
+
+<li><a href="https://doi.org/10.1016/j.physrep.2012.01.001" target="_blank">
+Clifton et al. Modified gravity and cosmology.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1999astro.ph..5116H" target="_blank">
+Hogg. Distance measures in cosmology.
+</a></li>
+
+<li><a href="https://doi.org/10.1038/281358a0" target="_blank">
+Alcock & Paczyński. Evolution-free test…
+</a></li>
+
+<li><a href="https://doi.org/10.1086/177989" target="_blank">
+Hu & Sugiyama. Small-scale perturbations.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/305424" target="_blank">
+Eisenstein & Hu. Baryonic features in transfer function.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1980lssu.book.....P" target="_blank">
+Peebles. Large-Scale Structure of the Universe.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1475-7516/2009/10/004" target="_blank">
+Song & Percival. Redshift-space distortion parameter.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/145870" target="_blank">
+Limber. Counts of extragalactic nebulae.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.78.123506" target="_blank">
+LoVerde & Afshordi. Extended Limber approximation.
+</a></li>
+
+<li><a href="https://doi.org/10.1016/S0370-1573(00)00082-X" target="_blank">
+Bartelmann & Schneider. Weak lensing review.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/148982" target="_blank">
+Sachs & Wolfe. Angular variations of the CMB.
+</a></li>
+
+<li><a href="https://doi.org/10.1016/0771-050X(80)90013-3" target="_blank">
+Dormand & Prince. Runge–Kutta formulae.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1993sode.book.....H" target="_blank">
+Hairer et al. ODEs I: Nonstiff Problems.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1983qspa.book.....P" target="_blank">
+Piessens et al. QUADPACK.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/303939" target="_blank">
+Tegmark, Taylor & Heavens. KL eigenmode analysis.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevLett.79.3806" target="_blank">
+Tegmark. Measuring cosmological parameters.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/1475-7516/2009/10/004" target="_blank">
+Song & Percival (duplicate).
+</a></li>
+
+<li><a href="https://doi.org/10.1046/j.1365-8711.2003.06503.x" target="_blank">
+Smith et al. Nonlinear matter power spectra.
+</a></li>
+
+<li><a href="https://doi.org/10.1088/0004-637X/761/2/152" target="_blank">
+Takahashi et al. Revised halofit model.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1984ucp..book.....W" target="_blank">
+Wald. General Relativity.
+</a></li>
+
+<li><a href="https://doi.org/10.1143/PTP.76.1036" target="_blank">
+Sasaki. Large-scale quantum fluctuations.
+</a></li>
+
+<li><a href="https://ui.adsabs.harvard.edu/abs/1988JETP...67.1297M" target="_blank">
+Mukhanov. Gauge-invariant perturbations.
+</a></li>
+
+<li><a href="https://doi.org/10.1143/PTPS.78.1" target="_blank">
+Kodama & Sasaki. Cosmological perturbation theory.
+</a></li>
+
+<li><a href="https://doi.org/10.1103/PhysRevD.69.083503" target="_blank">
+Bean & Doré. Dark energy speed of sound.
+</a></li>
+
+<li><a href="https://doi.org/10.1086/306274" target="_blank">
+Hu. Structure formation with generalized dark matter.
+</a></li>
+
+<li><a href="https://doi.org/10.1017/CBO9780511750823" target="_blank">
+Amendola & Tsujikawa. Dark Energy: Theory & Observations.
+</a></li>
+
+</ol>
 
   </div>
 </details>
