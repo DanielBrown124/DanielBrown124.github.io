@@ -1098,7 +1098,8 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 </a></li>
 
 </ol>
-
+</div>
+</details>
 <!-- BEGIN CITE BOX (must stay inside details-body) -->
 <div class="cite-box">
   <h3>Cite This Work</h3>
