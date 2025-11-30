@@ -248,11 +248,26 @@ details[open] .summary-label::before {
   padding-left: 22px;
   font-size: 0.92rem;
   background: rgba(40,60,85,0.7);
-  color: #e8e9ef;
+  color: #ffffff; /* text inside the list is white */
 }
 
+/* Each list item */
 .ref-list li {
   margin-bottom: 6px;
+  color: #ffffff; /* ensure all li are white */
+}
+
+/* Reference links inside list */
+.ref-list a {
+  color: #ffffff;             /* default = white */
+  text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* Hover effect */
+.ref-list a:hover {
+  color: #9bd8ff; /* soft light blue */
+  text-shadow: 0 0 6px rgba(140,200,255,0.8);
 }
 
 </style>
