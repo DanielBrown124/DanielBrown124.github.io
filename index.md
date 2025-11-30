@@ -135,7 +135,12 @@ hr {
   height: 100%;
   fill: #aeeaff;
 }
-
+.social-icon img {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
 /* Paper box */
 .paper-box {
   background: rgba(15, 22, 32, 0.45);
