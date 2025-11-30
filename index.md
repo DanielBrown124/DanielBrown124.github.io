@@ -300,7 +300,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 
   <a href="https://orcid.org/0009-0001-8082-9702" class="social-link" target="_blank">
   <span class="social-icon">
-    <img src="ORCID_iD.svg" alt="ORCID logo" />
+    <img src="ORCID_iD.svg.png" alt="ORCID logo" />
   </span>
   <span>ORCID</span>
 </a>
