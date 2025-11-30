@@ -61,7 +61,97 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   margin-bottom: 14px;
   font-size: 0.95rem;
 }
+/* ===== Enhanced Cite Box Styling ===== */
 
+.enhanced-cite {
+  margin-top: 55px;
+  padding: 28px 28px 32px;
+  background: linear-gradient(
+      to bottom right,
+      rgba(15, 22, 32, 0.7),
+      rgba(12, 18, 28, 0.55)
+    );
+  border-radius: 14px;
+  border: 1px solid rgba(102,252,241,0.18);
+  box-shadow: 0 0 25px rgba(102,252,241,0.15);
+  position: relative;
+}
+
+.enhanced-cite::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(to right, #66fcf1, #45a0c9, #66fcf1);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  opacity: 0.8;
+}
+
+.cite-header h3 {
+  margin-bottom: 4px;
+  font-size: 1.45rem;
+}
+
+.cite-subtext {
+  color: #c9e6f8;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* Citation Text Block */
+.cite-text {
+  font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(120,160,200,0.25);
+  padding: 14px 16px;
+  border-radius: 8px;
+  color: #e8e9ef;
+  font-size: 0.88rem;
+  max-height: 220px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+}
+
+/* Buttons container */
+.cite-buttons {
+  margin-top: 14px;
+  display: flex;
+  gap: 14px;
+}
+
+/* Second button style */
+.alt-cite-btn {
+  background: #c8f5ff;
+}
+
+.alt-cite-btn:hover {
+  background: #aee8f7;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: rgba(20, 160, 200, 0.9);
+  padding: 12px 18px;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.35s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 .cite-select:hover {
   border-color: rgba(102,252,241,0.40);
   cursor: pointer;
@@ -1101,59 +1191,79 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 </div>
 </details>
 <!-- BEGIN CITE BOX (must stay inside details-body) -->
-<div class="cite-box">
-  <h3>Cite This Work</h3>
+<!-- ===================== CITE THIS WORK ===================== -->
 
-  <label for="cite-select" class="cite-label">Select format:</label>
+<div class="cite-box enhanced-cite">
+  <div class="cite-header">
+    <h3>Cite This Work</h3>
+    <p class="cite-subtext">Choose a citation format and copy it directly for your paper, thesis, or project.</p>
+  </div>
+
+  <label for="cite-select" class="cite-label">Citation style:</label>
   <select id="cite-select" class="cite-select" onchange="updateCitation()">
     <option value="bibtex">BibTeX</option>
-    <option value="apa">APA</option>
-    <option value="mla">MLA</option>
-    <option value="chicago">Chicago</option>
+    <option value="apa">APA (7th Edition)</option>
+    <option value="mla">MLA (9th Edition)</option>
+    <option value="chicago">Chicago (17th Edition)</option>
     <option value="ieee">IEEE</option>
     <option value="harvard">Harvard</option>
   </select>
 
   <pre id="cite-output" class="cite-text"></pre>
 
-  <button onclick="copyCitation()" class="paper-button" style="margin-top:10px;">
-    Copy Citation
-  </button>
+  <div class="cite-buttons">
+    <button onclick="copyCitation()" class="paper-button cite-btn">
+      Copy to Clipboard
+    </button>
+
+    <a id="download-bib" class="paper-button cite-btn alt-cite-btn"
+       href="#" download="qkde_citation.bib">
+      Download BibTeX
+    </a>
+  </div>
 </div>
-<!-- END CITE BOX -->
 
 <script>
 function updateCitation() {
   const style = document.getElementById("cite-select").value;
   const output = document.getElementById("cite-output");
+  const downloadBib = document.getElementById("download-bib");
 
-  const bibtex = `@misc{brown2025qkde,
+  const citations = {
+    bibtex: `@misc{brown2025qkde,
   author = {Daniel Brown},
   title = {Quantum–Kinetic Dark Energy (QKDE)},
   year = {2025},
+  publisher = {Zenodo},
   doi = {10.5281/zenodo.17757109},
-  url = {https://danielbrown124.github.io/}
-}`;
+  url = {https://doi.org/10.5281/zenodo.17757109}
+}`,
+    apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109`,
+    mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17757109.`,
+    chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109.`,
+    ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17757109.`,
+    harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17757109.`
+  };
 
-  const apa = `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109`;
+  output.textContent = citations[style];
 
-  const mla = `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* 2025. Zenodo, doi:10.5281/zenodo.17757109.`;
-
-  const chicago = `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109.`;
-
-  const ieee = `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025, doi:10.5281/zenodo.17757109.`;
-
-  const harvard = `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17757109.`;
-
-  const map = { bibtex, apa, mla, chicago, ieee, harvard };
-
-  output.textContent = map[style];
+  // Also update BibTeX downloadable file
+  const blob = new Blob([citations.bibtex], { type: 'text/plain' });
+  downloadBib.href = URL.createObjectURL(blob);
 }
 
 function copyCitation() {
   const citation = document.getElementById("cite-output").textContent;
   navigator.clipboard.writeText(citation);
-  alert("Citation copied!");
+  
+  // Smooth, non-annoying copy notification
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = "Citation copied!";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add("show"), 10);
+  setTimeout(() => toast.classList.remove("show"), 2000);
+  setTimeout(() => toast.remove(), 2600);
 }
 
 document.addEventListener("DOMContentLoaded", updateCitation);
