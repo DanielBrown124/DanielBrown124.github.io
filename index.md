@@ -38,35 +38,54 @@ h1, h2, h3 {
   margin-top: 0;
 }
 
-/* Author photo */
-.author-photo {
-  display: block;
-  width: 220px;
-  border-radius: 10px;
-  margin: 0 auto 25px auto;
-  box-shadow: 0 0 20px rgba(102, 252, 241, 0.3);
+/* ===== AUTHOR BOX ===== */
+.author-box {
+  display: flex;
+  align-items: center;
+  background: rgba(10, 15, 22, 0.55);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 12px rgba(102, 252, 241, 0.15);
 }
 
-/* Download button */
-.download-button {
+.author-photo {
+  width: 140px;
+  border-radius: 10px;
+  margin-right: 25px;
+  box-shadow: 0 0 14px rgba(102, 252, 241, 0.3);
+}
+
+.author-info h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.7rem;
+  color: #66fcf1;
+}
+
+.author-info p {
+  margin: 5px 0;
+}
+
+/* ===== PAPER BUTTON ===== */
+.paper-button {
   display: inline-block;
   text-align: center;
-  margin: 40px auto;
-  padding: 14px 34px;
+  margin: 25px auto 40px auto;
+  padding: 12px 26px;
   background: #66fcf1;
   color: #0b0c10;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 0 18px rgba(102, 252, 241, 0.7);
+  box-shadow: 0 0 14px rgba(102, 252, 241, 0.7);
   transition: 0.2s;
 }
 
-.download-button:hover {
+.paper-button:hover {
   background: #45a29e;
-  color: #0b0c10;
-  box-shadow: 0 0 25px rgba(102, 252, 241, 1);
+  box-shadow: 0 0 22px rgba(102, 252, 241, 1);
 }
 
 /* Section spacing */
@@ -81,9 +100,6 @@ hr {
   margin: 40px 0;
 }
 
-/* Center text helper */
-.center { text-align: center; }
-
 </style>
 
 <!-- =======================
@@ -94,71 +110,71 @@ hr {
 
 # Quantum–Kinetic Dark Energy (QKDE)
 
-<img src="photoDaniel.jpg" alt="Daniel Brown" class="author-photo">
-
----
-
-<section>
-
-## 👤 About the Author
-
-**Daniel Brown**  
-Independent researcher investigating minimal, GR-preserving models for late-time cosmic acceleration.  
-Focus areas include scalar-field dynamics, EFT of dark energy, and quantum field theory in curved spacetime.
-
-</section>
+<!-- AUTHOR BOX -->
+<div class="author-box">
+  <img src="photoDaniel.jpg" alt="Daniel Brown" class="author-photo">
+  <div class="author-info">
+    <h2>Daniel Brown</h2>
+    <p><strong>Independent Researcher, Cosmology & Scalar-Field Theory</strong></p>
+    <p>Investigating minimal, GR-preserving models for late-time acceleration.</p>
+    <p>Focus: scalar-field dynamics, EFT of DE, and QFT in curved spacetime.</p>
+  </div>
+</div>
 
 <hr>
 
+<!-- PAPER DESCRIPTION -->
 <section>
 
-## 📘 What Is QKDE?
+## 📘 Paper Overview
 
-**Quantum–Kinetic Dark Energy (QKDE)** is a minimal extension of ΛCDM in which the late-time acceleration of the universe arises from a slowly time-evolving **kinetic normalization** of a scalar field:
+**Quantum–Kinetic Dark Energy (QKDE)** proposes that cosmic acceleration is driven not by modifying gravity, but by a **time-evolving scalar kinetic normalization**:
 
 \[
 P(X,\phi,t) = K(t)\,X - V(\phi), \qquad K(t) > 0.
 \]
 
-QKDE preserves the entire structure of General Relativity:
+This framework preserves the entire Einstein–Hilbert sector and yields:
 
-- Luminal gravitational waves  
-- No gravitational slip (\(\Phi = \Psi\))  
-- No braiding or extra forces  
-- Canonical sound speed (\(c_s^2 = 1\))  
-- Einstein–Hilbert action unmodified  
+- luminal gravitational waves  
+- no gravitational slip (\(\Phi = \Psi\))  
+- canonical sound speed \(c_s^2 = 1\)  
+- no braiding or modified gravity terms  
+- GR-consistent perturbations
 
-All observable deviations from ΛCDM arise solely through:
+All deviations from ΛCDM arise **only** through the background expansion \(H(a)\)  
+and the growth factor \(D(a)\).
 
-\[
-H(a) \quad \text{and} \quad D(a)
-\]
+The paper presents:
 
-making QKDE a **background-only** extension with sharp null tests.
+- a covariant definition of QKDE  
+- EFT-of-DE parameter mapping  
+- a closed first-order background system  
+- curvature-based and phenomenological \(K(t)\) models  
+- stability and admissibility conditions  
+- a numerical + Fisher pipeline  
+- null tests:  
+  \[
+  \mu = \Sigma = 1, \qquad \text{slip} = 0
+  \]
 
 </section>
 
-<hr>
-
-<section>
-
-## 📄 Download the Full Paper
-
-<div class="center">
-  <a class="download-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
-    ⬇️ Download QKDE Paper (PDF)
+<!-- PAPER BUTTON -->
+<div style="text-align:center;">
+  <a class="paper-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
+    📄 Quantum–Kinetic Dark Energy (Full Paper PDF)
   </a>
 </div>
 
-</section>
-
 <hr>
 
+<!-- CONTACT -->
 <section>
 
 ## 📬 Contact
 
-For questions, discussion, or collaboration:  
+For discussion or collaboration:  
 📧 **your email goes here**
 
 </section>
