@@ -1,6 +1,6 @@
 ---
 layout: none
-title: Quantum–Kinetic Dark Energy (QKDE)
+title: Quantum–Kinetic Dark Energy (QKDE): An effective dark energy framework with the Einstein–Hilbert metric sector intact and a time–dependent scalar kinetic normalization
 ---
 
 <!-- MathJax for LaTeX -->
@@ -302,7 +302,7 @@ while
 
 <div class="center" style="margin-top: 35px;">
   <a class="paper-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
-    📄 Download the Full QKDE Paper
+    📄 QKDE Paper
   </a>
 </div>
 
