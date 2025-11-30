@@ -329,7 +329,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
   </a>
 <a href="https://www.lulu.com/shop/daniel-brown/quantum-kinetic-dark-energy/paperback/product-65jdmgn.html?q=dark+energy&page=1&pageSize=4" class="social-link" target="_blank">
     <span class="social-icon">
-    <img src="academia.png" alt="LULU LOGO" />
+    <img src="Lulu_logo.svg.png" alt="LULU LOGO" />
   </span>
     <span>LULU BOOKSTORE</span>
   </a>
