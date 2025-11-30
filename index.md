@@ -1099,7 +1099,8 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 
 </ol>
 
-  <div class="cite-box">
+<!-- BEGIN CITE BOX (must stay inside details-body) -->
+<div class="cite-box">
   <h3>Cite This Work</h3>
 
   <label for="cite-select" class="cite-label">Select format:</label>
@@ -1108,10 +1109,17 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
     <option value="apa">APA</option>
     <option value="mla">MLA</option>
     <option value="chicago">Chicago</option>
+    <option value="ieee">IEEE</option>
+    <option value="harvard">Harvard</option>
   </select>
 
   <pre id="cite-output" class="cite-text"></pre>
+
+  <button onclick="copyCitation()" class="paper-button" style="margin-top:10px;">
+    Copy Citation
+  </button>
 </div>
+<!-- END CITE BOX -->
 
 <script>
 function updateCitation() {
@@ -1132,16 +1140,25 @@ function updateCitation() {
 
   const chicago = `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109.`;
 
-  const map = { bibtex, apa, mla, chicago };
+  const ieee = `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025, doi:10.5281/zenodo.17757109.`;
+
+  const harvard = `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17757109.`;
+
+  const map = { bibtex, apa, mla, chicago, ieee, harvard };
 
   output.textContent = map[style];
 }
 
-// Initialize default
+function copyCitation() {
+  const citation = document.getElementById("cite-output").textContent;
+  navigator.clipboard.writeText(citation);
+  alert("Citation copied!");
+}
+
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
+
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
 </footer>
 </div> <!-- end page -->
-
