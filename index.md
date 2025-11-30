@@ -44,6 +44,28 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   border-radius: 8px;
   overflow-x: auto;
 }
+  .cite-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #c5f2ff;
+  font-family: "Merriweather", serif;
+}
+
+.cite-select {
+  background: rgba(20, 30, 45, 0.7);
+  color: #e8e9ef;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(102,252,241,0.20);
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.cite-select:hover {
+  border-color: rgba(102,252,241,0.40);
+  cursor: pointer;
+}
   .site-footer {
   margin-top: 55px;
   text-align: center;
@@ -1077,20 +1099,47 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 
 </ol>
 
-  </div>
-</details>
-<div class="cite-box">
+  <div class="cite-box">
   <h3>Cite This Work</h3>
-  <pre class="cite-text">
-@misc{brown2025qkde,
+
+  <label for="cite-select" class="cite-label">Select format:</label>
+  <select id="cite-select" class="cite-select" onchange="updateCitation()">
+    <option value="bibtex">BibTeX</option>
+    <option value="apa">APA</option>
+    <option value="mla">MLA</option>
+    <option value="chicago">Chicago</option>
+  </select>
+
+  <pre id="cite-output" class="cite-text"></pre>
+</div>
+
+<script>
+function updateCitation() {
+  const style = document.getElementById("cite-select").value;
+  const output = document.getElementById("cite-output");
+
+  const bibtex = `@misc{brown2025qkde,
   author = {Daniel Brown},
   title = {Quantum–Kinetic Dark Energy (QKDE)},
   year = {2025},
   doi = {10.5281/zenodo.17757109},
   url = {https://danielbrown124.github.io/}
+}`;
+
+  const apa = `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109`;
+
+  const mla = `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* 2025. Zenodo, doi:10.5281/zenodo.17757109.`;
+
+  const chicago = `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109.`;
+
+  const map = { bibtex, apa, mla, chicago };
+
+  output.textContent = map[style];
 }
-  </pre>
-</div>
+
+// Initialize default
+document.addEventListener("DOMContentLoaded", updateCitation);
+</script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
 </footer>
