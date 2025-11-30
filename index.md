@@ -300,14 +300,10 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 
   <a href="https://doi.org/10.5281/zenodo.17757109" class="social-link" target="_blank">
     <span class="social-icon">
-      <!-- Zenodo-like badge (simplified) -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="16" rx="3" />
-        <path d="M9 9h6v1.5H11.3L15 14.9V16H9v-1.5h3.7L9 10.1z" />
-      </svg>
-    </span>
-    <span>Zenodo DOI</span>
-  </a>
+    <img src="zenodo.ico" alt="ZENODO logo" />
+  </span>
+  <span>ORCID</span>
+</a>
 
   <a href="https://independent.academia.edu/DanielBrown462" class="social-link" target="_blank">
     <span class="social-icon">
