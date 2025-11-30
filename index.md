@@ -22,38 +22,17 @@ body {
   overflow-x: hidden;
 }
 
-/* Starfield background */
+/* Starfield background (static image) */
 body {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(40,60,80,0.4), transparent 70%),
-    radial-gradient(circle at 80% 80%, rgba(30,40,60,0.4), transparent 70%),
-    black;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  color: #e8e9ef;
+  line-height: 1.75;
+  background: url("cosmos.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
 }
-
-.star-layer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 200%;
-  height: 200%;
-  z-index: -2;
-  background-image:
-    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9), transparent 60%),
-    radial-gradient(2px 2px at 70% 80%, rgba(255,255,255,0.7), transparent 60%),
-    radial-gradient(1.5px 1.5px at 40% 60%, rgba(255,255,255,0.8), transparent 60%),
-    radial-gradient(1px 1px at 90% 20%, rgba(255,255,255,0.6), transparent 60%);
-  animation: drift 140s linear infinite;
-  opacity: 0.7;
-}
-
-.star-layer:nth-child(1) { animation-duration: 220s; opacity: 0.45; }
-.star-layer:nth-child(2) { animation-duration: 150s; opacity: 0.7; }
-.star-layer:nth-child(3) { animation-duration: 90s; opacity: 0.9; }
-
-@keyframes drift {
-  from { transform: translate(0,0); }
-  to   { transform: translate(-400px, -400px); }
-}
-
 /* Page container */
 .page {
   max-width: 900px;
