@@ -4,7 +4,7 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 ---
 
 <!-- =======================
-     COSMOLOGY THEME STYLES
+       COSMOLOGY THEME
      ======================= -->
 
 <style>
@@ -13,169 +13,189 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at 20% 30%, #1f2833, #0b0c10 60%);
-  color: #e6e6e6;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: linear-gradient(135deg, #0b0c10 20%, #1a1f2b 60%, #0b0e14 90%);
+  color: #e8e9eb;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.75;
 }
 
 /* Page wrapper */
 .page {
   max-width: 900px;
-  margin: 60px auto;
-  background: rgba(16, 22, 30, 0.65);
-  padding: 40px;
-  border-radius: 14px;
-  box-shadow: 0 0 25px rgba(102, 252, 241, 0.25);
-  backdrop-filter: blur(8px);
+  margin: 70px auto;
+  background: rgba(15, 20, 30, 0.6);
+  padding: 45px;
+  border-radius: 18px;
+  box-shadow: 0 0 35px rgba(102, 252, 241, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 252, 241, 0.12);
 }
 
 /* Headings */
-h1, h2, h3 {
+h1, h2 {
   font-family: "Merriweather", serif;
   color: #66fcf1;
-  text-align: center;
   margin-top: 0;
+  text-align: center;
 }
 
-/* ===== AUTHOR BOX ===== */
+/* ===== AUTHOR CARD ===== */
 .author-box {
   display: flex;
+  gap: 25px;
   align-items: center;
-  background: rgba(10, 15, 22, 0.55);
-  padding: 20px;
-  border-radius: 12px;
+  background: rgba(12, 18, 27, 0.55);
+  padding: 25px;
+  border-radius: 14px;
   margin-bottom: 40px;
-  box-shadow: 0 0 12px rgba(102, 252, 241, 0.15);
+  box-shadow: inset 0 0 15px rgba(102, 252, 241, 0.12),
+              0 0 15px rgba(102, 252, 241, 0.12);
+  border: 1px solid rgba(102, 252, 241, 0.11);
 }
 
+/* Rounded author photo with cosmic glow */
 .author-photo {
-  width: 140px;
+  width: 135px;
+  height: 135px;
+  object-fit: cover;
   border-radius: 10px;
-  margin-right: 25px;
-  box-shadow: 0 0 14px rgba(102, 252, 241, 0.3);
+  box-shadow: 0 0 18px rgba(102, 252, 241, 0.4);
+  border: 2px solid rgba(102, 252, 241, 0.25);
 }
 
+/* Author info */
 .author-info h2 {
-  margin: 0;
-  padding: 0;
-  font-size: 1.7rem;
+  margin: 0 0 6px 0;
   color: #66fcf1;
+  font-size: 1.6rem;
 }
 
 .author-info p {
-  margin: 5px 0;
+  margin: 3px 0;
+  opacity: 0.88;
+}
+
+/* ===== SECTION DIVIDERS ===== */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #45a29e, transparent);
+  margin: 50px 0;
+}
+
+/* ===== PAPER CONTAINER ===== */
+.paper-box {
+  background: rgba(10, 15, 22, 0.45);
+  padding: 30px 28px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.12);
+  border: 1px solid rgba(102, 252, 241, 0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.paper-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(102, 252, 241, 0.22);
 }
 
 /* ===== PAPER BUTTON ===== */
 .paper-button {
   display: inline-block;
   text-align: center;
-  margin: 25px auto 40px auto;
-  padding: 12px 26px;
+  padding: 14px 30px;
   background: #66fcf1;
   color: #0b0c10;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 0 14px rgba(102, 252, 241, 0.7);
-  transition: 0.2s;
+  box-shadow: 0 0 18px rgba(102, 252, 241, 0.7);
+  transition: 0.22s ease;
 }
 
 .paper-button:hover {
-  background: #45a29e;
-  box-shadow: 0 0 22px rgba(102, 252, 241, 1);
+  background: #3fc7c1;
+  box-shadow: 0 0 28px rgba(102, 252, 241, 1);
 }
 
 /* Section spacing */
-section {
-  margin-bottom: 55px;
-}
-
-hr {
-  border: none;
-  height: 1px;
-  background: #45a29e;
-  margin: 40px 0;
-}
+section { margin-bottom: 55px; }
 
 </style>
 
 <!-- =======================
-       PAGE CONTENT
+         PAGE CONTENT
      ======================= -->
 
 <div class="page">
 
 # Quantum–Kinetic Dark Energy (QKDE)
 
-<!-- AUTHOR BOX -->
+<!-- AUTHOR CARD -->
 <div class="author-box">
   <img src="photoDaniel.jpg" alt="Daniel Brown" class="author-photo">
   <div class="author-info">
     <h2>Daniel Brown</h2>
-    <p><strong>Independent Researcher, Cosmology & Scalar-Field Theory</strong></p>
-    <p>Investigating minimal, GR-preserving models for late-time acceleration.</p>
-    <p>Focus: scalar-field dynamics, EFT of DE, and QFT in curved spacetime.</p>
+    <p><strong>Independent Researcher in Cosmology & Scalar-Field Theory</strong></p>
+    <p>Specializing in GR-consistent extensions of late-time cosmic acceleration.</p>
+    <p>Focus: EFT of Dark Energy, scalar-field dynamics, QFT in curved spacetime.</p>
   </div>
 </div>
 
 <hr>
 
 <!-- PAPER DESCRIPTION -->
-<section>
+<section class="paper-box">
 
-## 📘 Paper Overview
+<h2>📘 Paper Overview</h2>
 
-**Quantum–Kinetic Dark Energy (QKDE)** proposes that cosmic acceleration is driven not by modifying gravity, but by a **time-evolving scalar kinetic normalization**:
+**Quantum–Kinetic Dark Energy (QKDE)** proposes that late-time cosmic acceleration is driven not by modifying gravity, but by a **time-evolving scalar kinetic normalization**:
 
 \[
-P(X,\phi,t) = K(t)\,X - V(\phi), \qquad K(t) > 0.
+P(X,\phi,t) = K(t)\,X - V(\phi),\qquad K(t) > 0.
 \]
 
-This framework preserves the entire Einstein–Hilbert sector and yields:
+QKDE preserves the entire Einstein–Hilbert structure:
 
-- luminal gravitational waves  
-- no gravitational slip (\(\Phi = \Psi\))  
-- canonical sound speed \(c_s^2 = 1\)  
-- no braiding or modified gravity terms  
-- GR-consistent perturbations
+- Luminal gravitational waves  
+- No gravitational slip (\(\Phi = \Psi\))  
+- Canonical sound speed (\(c_s^2 = 1\))  
+- No braiding or fifth forces  
+- GR-consistent perturbations  
 
-All deviations from ΛCDM arise **only** through the background expansion \(H(a)\)  
-and the growth factor \(D(a)\).
+All departures from ΛCDM arise **solely through the expansion history**:
 
-The paper presents:
+\[
+H(a) \quad \text{and} \quad D(a)
+\]
 
-- a covariant definition of QKDE  
+The framework includes:
+
+- A covariant definition of QKDE  
 - EFT-of-DE parameter mapping  
-- a closed first-order background system  
-- curvature-based and phenomenological \(K(t)\) models  
-- stability and admissibility conditions  
-- a numerical + Fisher pipeline  
-- null tests:  
-  \[
-  \mu = \Sigma = 1, \qquad \text{slip} = 0
-  \]
+- A closed first-order background system  
+- Curvature-driven and phenomenological forms of \(K(t)\)  
+- Stability and admissibility conditions  
+- A reproducible numerical + Fisher forecast pipeline  
+- Sharp null tests: \(\mu = \Sigma = 1\), slip \(= 0\)
 
-</section>
-
-<!-- PAPER BUTTON -->
-<div style="text-align:center;">
+<div style="text-align:center; margin-top: 35px;">
   <a class="paper-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
     📄 Quantum–Kinetic Dark Energy (Full Paper PDF)
   </a>
 </div>
+
+</section>
 
 <hr>
 
 <!-- CONTACT -->
 <section>
 
-## 📬 Contact
+<h2>📬 Contact</h2>
 
-For discussion or collaboration:  
-📧 **your email goes here**
+For questions, collaboration, or discussion:  
+📧 **u0448673@utah.edu**
 
 </section>
 
