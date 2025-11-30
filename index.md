@@ -1229,10 +1229,7 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
       Copy to Clipboard
     </button>
 
-    <a id="download-bib" class="paper-button cite-btn alt-cite-btn"
-       href="#" download="qkde_citation.bib">
-      Download BibTeX
-    </a>
+   
   </div>
 </div>
 
