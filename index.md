@@ -277,16 +277,11 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 <div class="social-box">
 
   <a href="https://orcid.org/0009-0001-8082-9702" class="social-link" target="_blank">
-    <span class="social-icon">
-      <!-- ORCID logo (simplified circular) -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="10.5" />
-        <rect x="10.4" y="7.2" width="1.8" height="9.6" />
-        <path d="M14.2 9.2a2.5 2.5 0 0 1 0 5h-.9v-1.4h.8a1.1 1.1 0 0 0 0-2.2h-.8V9.2z" />
-      </svg>
-    </span>
-    <span>ORCID</span>
-  </a>
+  <span class="social-icon">
+    <img src="ocrid.png" alt="ORCID logo" />
+  </span>
+  <span>ORCID</span>
+</a>
 
   <a href="https://github.com/DanielBrown124/QKDE" class="social-link" target="_blank">
     <span class="social-icon">
