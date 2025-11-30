@@ -10,7 +10,49 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
+.alt-button {
+  background: #fff0b3;
+  color: #0b0c10;
+}
 
+.alt-button:hover {
+  background: #ffe680;
+  box-shadow: 0 0 14px rgba(255, 230, 128, 0.8);
+}
+  .cite-box {
+  margin-top: 40px;
+  background: rgba(15, 22, 32, 0.55);
+  border: 1px solid rgba(102, 252, 241, 0.12);
+  border-radius: 12px;
+  padding: 20px 25px;
+  box-shadow: 0 0 20px rgba(102,252,241,0.12);
+}
+
+.cite-box h3 {
+  color: #b9ecff;
+  font-family: "Merriweather", serif;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+.cite-text {
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 0.85rem;
+  color: #e8e9ef;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 12px 14px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+  .site-footer {
+  margin-top: 55px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #a8c3d9;
+  opacity: 0.8;
+  padding-top: 20px;
+  border-top: 1px solid rgba(102,252,241,0.10);
+}
 /* Global resets */
 body {
   margin: 0;
@@ -339,6 +381,13 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 <div class="center" style="margin-top: 35px;">
   <a class="paper-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
     QKDE Paper (PDF)
+  </a>
+</div>
+<div class="center" style="margin-top: 18px;">
+  <a class="paper-button alt-button" 
+     href="https://www.lulu.com/shop/daniel-brown/quantum-kinetic-dark-energy/paperback/product-65jdmgn.html?q=&page=1&pageSize=4"
+     target="_blank">
+    Purchase Paperback
   </a>
 </div>
 <h2>What This Work Proposes</h2>
@@ -1030,5 +1079,20 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 
   </div>
 </details>
-
+<div class="cite-box">
+  <h3>Cite This Work</h3>
+  <pre class="cite-text">
+@misc{brown2025qkde,
+  author = {Daniel Brown},
+  title = {Quantum–Kinetic Dark Energy (QKDE)},
+  year = {2025},
+  doi = {10.5281/zenodo.17757109},
+  url = {https://danielbrown124.github.io/}
+}
+  </pre>
+</div>
+<footer class="site-footer">
+  © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
+</footer>
 </div> <!-- end page -->
+
