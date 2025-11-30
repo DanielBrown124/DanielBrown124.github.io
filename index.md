@@ -317,7 +317,11 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 </div>
 
 <hr>
-
+<div class="center" style="margin-top: 35px;">
+  <a class="paper-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
+    QKDE Paper (PDF)
+  </a>
+</div>
 <h2>What This Work Proposes</h2>
 
 <div class="paper-box">
