@@ -351,12 +351,12 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
   <img src="photoDaniel.jpg" alt="Author photo" class="author-photo">
 
   <div>
-    <h2>Daniel Brown</h2>
-    <p>Cosmology enthusiast and independent researcher</p>
-    <p>Graduate of the University of Utah</p>
-    <p>Investigating dark energy, scalar fields, and late-time cosmic expansion</p>
-    <p>Based in Salt Lake City, Utah</p>
-  </div>
+  <h2>Daniel Brown</h2>
+  <p>Independent researcher exploring dark energy, scalar-field physics, and cosmic expansion through effective field theory and first-principles modeling.</p>
+  <p>Graduate of the University of Utah and resident of Salt Lake City, Utah.</p>
+  <p>Author of the monograph <em>Quantum–Kinetic Dark Energy</em>, a revision and expansion of the earlier Scalar-Cost Dark Energy framework.</p>
+  <p>My work aims to clarify minimal, GR-consistent explanations of late-time acceleration while developing reproducible numerical tools and observational tests.</p>
+</div>
 </div>
 
 <div class="social-box">
