@@ -247,6 +247,7 @@ details[open] .summary-label::before {
   margin: 0;
   padding-left: 22px;
   font-size: 0.92rem;
+  background: rgba(40,60,85,0.7);
 }
 
 .ref-list li {
