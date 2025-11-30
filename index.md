@@ -323,12 +323,8 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 
   <a href="https://independent.academia.edu/DanielBrown462" class="social-link" target="_blank">
     <span class="social-icon">
-      <!-- Academia-like tower mark (simplified) -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 3 4.5 20.5h2.4l1.6-4h7l1.6 4h2.4zm-1.8 11.1L12 7.9l1.8 6.2z" />
-      </svg>
-    </span>
-    <span>Academia.edu</span>
+    <img src="academia.png" alt="ACADEMIA logo" />
+  </span>
   </a>
 
 </div>
