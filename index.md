@@ -325,6 +325,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
     <span class="social-icon">
     <img src="academia.png" alt="ACADEMIA logo" />
   </span>
+    <span>ACADEMIA</span>
   </a>
 
 </div>
