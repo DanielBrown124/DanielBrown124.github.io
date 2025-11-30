@@ -94,7 +94,7 @@ hr {
 
 # Quantum–Kinetic Dark Energy (QKDE)
 
-<img src="/assets/images/author.jpg" alt="Daniel Brown" class="author-photo">
+<img src="photoDaniel.jpg" alt="Daniel Brown" class="author-photo">
 
 ---
 
@@ -145,7 +145,7 @@ making QKDE a **background-only** extension with sharp null tests.
 ## 📄 Download the Full Paper
 
 <div class="center">
-  <a class="download-button" href="/assets/papers/QKDE_Daniel_Brown.pdf">
+  <a class="download-button" href="Quantum_Kinetic_Dark_Energy_QKDE.pdf">
     ⬇️ Download QKDE Paper (PDF)
   </a>
 </div>
