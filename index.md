@@ -455,7 +455,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
   <span class="social-icon">
     <img src="ORCID_iD.svg.png" alt="ORCID logo" />
   </span>
-  <span>ORCID</span>
+  <span>ORCiD</span>
 </a>
 
   <a href="https://github.com/DanielBrown124/QKDE" class="social-link" target="_blank">
@@ -465,7 +465,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
         <path d="M12 1.5A10.5 10.5 0 0 0 1.5 12c0 4.63 3 8.56 7.17 9.95.53.1.73-.23.73-.5v-1.75c-2.92.64-3.54-1.4-3.54-1.4-.48-1.2-1.17-1.52-1.17-1.52-.96-.65.07-.63.07-.63 1.06.08 1.62 1.1 1.62 1.1.95 1.63 2.5 1.16 3.11.89.1-.7.37-1.16.68-1.43-2.33-.27-4.78-1.18-4.78-5.25 0-1.16.42-2.1 1.1-2.84-.11-.27-.48-1.36.1-2.83 0 0 .9-.29 2.95 1.08a10.1 10.1 0 0 1 5.38 0c2.05-1.37 2.95-1.08 2.95-1.08.58 1.47.21 2.56.1 2.83.68.74 1.1 1.68 1.1 2.84 0 4.08-2.45 4.98-4.79 5.25.38.33.73.97.73 1.96v2.9c0 .27.2.6.73.5A10.52 10.52 0 0 0 22.5 12 10.5 10.5 0 0 0 12 1.5Z" />
       </svg>
     </span>
-    <span>GitHub Repository</span>
+    <span>GITHUB REPOSITORY</span>
   </a>
 
   <a href="https://doi.org/10.5281/zenodo.17757109" class="social-link" target="_blank">
