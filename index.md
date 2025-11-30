@@ -66,7 +66,7 @@ body {
   backdrop-filter: blur(12px);
 }
 
-/* Headings (no bold) */
+/* Headings */
 h1, h2, h3 {
   font-family: "Merriweather", serif;
   font-weight: 300;
@@ -78,6 +78,7 @@ h1 {
   text-align: center;
   font-size: 2.4rem;
   letter-spacing: 0.5px;
+  margin-bottom: 0;
 }
 
 h2 {
@@ -166,9 +167,56 @@ hr {
 
 .center { text-align: center; }
 
+/* Collapsible sections */
+.collapse-container {
+  margin-top: 45px;
+  background: rgba(15,22,32,0.45);
+  border-radius: 12px;
+  border: 1px solid rgba(102,252,241,0.10);
+  overflow: hidden;
+}
+
+.collapse-btn {
+  width: 100%;
+  background: rgba(20,28,40,0.65);
+  color: #bfe6f7;
+  cursor: pointer;
+  padding: 16px 22px;
+  text-align: left;
+  font-size: 1.25rem;
+  border: none;
+  font-family: "Merriweather", serif;
+  letter-spacing: 0.3px;
+}
+
+.collapse-btn:hover {
+  background: rgba(30,40,55,0.75);
+}
+
+.collapse-content {
+  padding: 0 22px 25px 22px;
+  display: none;
+}
+
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.symbol-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
 </style>
 
-<!-- Stars -->
+<script>
+function toggleCollapse(id) {
+  const el = document.getElementById(id);
+  el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+</script>
+
 <div class="star-layer"></div>
 <div class="star-layer"></div>
 <div class="star-layer"></div>
@@ -176,11 +224,10 @@ hr {
 <div class="page">
 
 <h1>Quantum–Kinetic Dark Energy (QKDE)</h1>
-<p style="text-align:center; margin-top:-10px; font-style: italic;">
+<p style="text-align:center; margin-top:4px; font-style: italic;">
 A GR-preserving, background-only extension of ΛCDM
 </p>
 
-<!-- Author -->
 <div class="author-box">
   <img src="photoDaniel.jpg" alt="Author photo" class="author-photo">
 
@@ -189,7 +236,7 @@ A GR-preserving, background-only extension of ΛCDM
     <p>Cosmology enthusiast and independent researcher</p>
     <p>Graduate of the University of Utah</p>
     <p>Research interests: dark energy, scalar fields, late-time expansion</p>
-    <p>Based in Salt Lake City, Utah</p>
+    <p>Salt Lake City, Utah</p>
   </div>
 </div>
 
@@ -206,56 +253,44 @@ A GR-preserving, background-only extension of ΛCDM
 
 <div class="paper-box">
 
-<h3>1. A minimal and GR-respecting dark energy model</h3>
+<h3>1. A minimal General-Relativity–preserving dark energy model</h3>
 
 <p>QKDE introduces a time-dependent kinetic normalization for a scalar field while leaving General Relativity fully intact. The scalar sector is</p>
 
 \[
-P(X,\phi,t) = K(t)\,X - V(\phi), \qquad K(t) > 0,
+P(X,\phi,t) = K(t)X - V(\phi), \qquad K(t) > 0,
 \]
 
-\[
-X = -\tfrac12 g^{\mu\nu}\partial_\mu\phi\,\partial_\nu\phi.
-\]
-
-<p>This structure arises naturally from curvature-suppressed operators in quantum field theory in curved spacetime.</p>
+<p>This structure is motivated by curvature-suppressed operators in quantum field theory in curved spacetime.</p>
 
 <hr>
 
 <h3>2. Gravity remains exactly Einsteinian</h3>
 
-<p>The Einstein–Hilbert metric sector is unchanged. This implies:</p>
+<p>The Einstein–Hilbert sector is unchanged:</p>
 
-<p>Gravitational waves propagate at the speed of light</p>
-<p>The Planck mass is constant</p>
-<p>No braiding or fifth forces are generated</p>
-<p>No gravitational slip</p>
-
-\[
-\Phi = \Psi
-\]
+<p>Gravitational waves propagate at $c_T = 1$</p>
+<p>Planck mass is constant</p>
+<p>No braiding or fifth forces</p>
+<p>No gravitational slip: $\Phi = \Psi$</p>
 
 <hr>
 
-<h3>3. Observable effects originate only from background evolution</h3>
-
-<p>The model predicts deviations from ΛCDM solely through</p>
+<h3>3. Observable effects arise only from background evolution</h3>
 
 \[
-H(a), \qquad D(a),
+H(a), \qquad D(a)
 \]
 
-<p>not through modified perturbations or new forces.</p>
+<p>No modified growth equation, no additional operators in perturbation theory.</p>
 
 <hr>
 
-<h3>4. EFT of Dark Energy characterization</h3>
+<h3>4. EFT-of-DE character</h3>
 
 \[
 \alpha_K > 0,
-\]
-
-\[
+\qquad
 \alpha_B = \alpha_M = \alpha_T = \alpha_H = 0.
 \]
 
@@ -284,5 +319,62 @@ K = 1 + K_0 (1+z)^p
 </div>
 
 </div> <!-- end paper-box -->
+
+<!-- ============================
+      SYMBOLS DROPDOWN
+============================ -->
+
+<div class="collapse-container">
+  <button class="collapse-btn" onclick="toggleCollapse('symbols')">Symbol Index</button>
+  <div id="symbols" class="collapse-content">
+
+    <table class="symbol-table">
+      <tr><td>a(t)</td><td>Scale factor</td></tr>
+      <tr><td>N</td><td>E-fold time</td></tr>
+      <tr><td>H</td><td>Hubble parameter</td></tr>
+      <tr><td>E = H'/H</td><td>Logarithmic Hubble derivative</td></tr>
+      <tr><td>R</td><td>Ricci scalar</td></tr>
+      <tr><td>Mₚₗ</td><td>Reduced Planck mass</td></tr>
+      <tr><td>φ</td><td>Scalar field</td></tr>
+      <tr><td>X</td><td>Kinetic invariant</td></tr>
+      <tr><td>K(t)</td><td>Kinetic normalization</td></tr>
+      <tr><td>Ωᵢ</td><td>Density fractions</td></tr>
+      <tr><td>D(a)</td><td>Growth factor</td></tr>
+      <tr><td>f</td><td>Growth rate</td></tr>
+      <tr><td>χ(z)</td><td>Comoving distance</td></tr>
+      <tr><td>D_A, D_L</td><td>Distances</td></tr>
+      <tr><td>α_K</td><td>EFT kineticity</td></tr>
+      <tr><td>μ(a,k)</td><td>Poisson modifier</td></tr>
+      <tr><td>Σ(a,k)</td><td>Lensing modifier</td></tr>
+      <tr><td>ϖ(a,k)</td><td>Slip parameter</td></tr>
+      <tr><td>σ₈</td><td>RMS clustering amplitude</td></tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- ============================
+         REFERENCES DROPDOWN
+============================ -->
+
+<div class="collapse-container">
+  <button class="collapse-btn" onclick="toggleCollapse('references')">References</button>
+
+  <div id="references" class="collapse-content">
+    <p>Abbott et al. 2017 — GW170817.</p>
+    <p>Bellini & Sawicki 2014 — EFT-DE.</p>
+    <p>Dodelson 2003 — Modern Cosmology.</p>
+    <p>De Felice & Tsujikawa 2010 — f(R) gravity review.</p>
+    <p>Garriga & Mukhanov 1999 — k-essence.</p>
+    <p>Kodama & Sasaki 1984 — Perturbation theory.</p>
+    <p>Ma & Bertschinger 1995 — Cosmological perturbations.</p>
+    <p>Mukhanov 1988 — Quantum perturbations.</p>
+    <p>Mukhanov 2005 — Foundations of Cosmology.</p>
+    <p>Sakstein & Jain 2017 — GW constraints.</p>
+    <p>Sasaki 1986 — Gauge-invariant perturbations.</p>
+    <p>Weinberg 2008 — Cosmology.</p>
+  </div>
+</div>
+
 
 </div> <!-- end page -->
