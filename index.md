@@ -487,13 +487,6 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
   </span>
     <span>RESEARCHGATE</span>
   </a>
-
-<a href="https://www.lulu.com/shop/daniel-brown/quantum-kinetic-dark-energy/paperback/product-65jdmgn.html?q=dark+energy&page=1&pageSize=4" class="social-link" target="_blank">
-    <span class="social-icon">
-    <img src="lulu.png" alt="LULU LOGO" />
-  </span>
-    <span>LULU BOOKSTORE</span>
-  </a>
 </div>
 
 <hr>
@@ -502,13 +495,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
     QKDE Paper (PDF)
   </a>
 </div>
-<div class="center" style="margin-top: 18px;">
-  <a class="paper-button alt-button" 
-     href="https://www.lulu.com/shop/daniel-brown/quantum-kinetic-dark-energy/paperback/product-65jdmgn.html?q=&page=1&pageSize=4"
-     target="_blank">
-    Purchase Paperback
-  </a>
-</div>
+
 <h2>What This Work Proposes</h2>
 
 <div class="paper-box">
@@ -664,13 +651,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     QKDE Paper (PDF)
   </a>
 </div>
-<div class="center" style="margin-top: 18px;">
-  <a class="paper-button alt-button" 
-     href="https://www.lulu.com/shop/daniel-brown/quantum-kinetic-dark-energy/paperback/product-65jdmgn.html?q=&page=1&pageSize=4"
-     target="_blank">
-    Purchase Paperback
-  </a>
-</div>
+
 </div> <!-- end paper-box -->
 
 <hr>
