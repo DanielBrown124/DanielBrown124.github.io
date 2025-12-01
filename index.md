@@ -917,6 +917,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     </table>
 
   </div>
+  </details>
 <details>
   <summary><span class="summary-label">Derivations from the Paper</span></summary>
 
