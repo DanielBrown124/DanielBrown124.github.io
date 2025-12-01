@@ -919,7 +919,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
   </div>
   </details>
 <details>
-  <summary><span class="summary-label">Derivations from the Paper</span></summary>
+  <summary><span class="summary-label">Derivations</span></summary>
 
   <div class="details-body">
 
@@ -934,26 +934,33 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <!-- === 1. Closed Background System === -->
     <h3>1. Closed Background System</h3>
 
-    <p>The e-fold time is \( N = \ln a \), with primes denoting
-    \( \mathrm{d}/\mathrm{d}N = H^{-1} \mathrm{d}/\mathrm{d}t \).
-    The background variables are \( (H, \phi, s) \), where \( s \equiv \phi' \).
-    Using FRW symmetry and the scalar-sector conservation law, the system is:</p>
+    <p>
+      The e-fold time is \( N = \ln a \), with primes denoting
+      \( \mathrm{d}/\mathrm{d}N = H^{-1} \mathrm{d}/\mathrm{d}t \).
+      The background variables are \( (H, \phi, s) \), with \( s \equiv \phi' \).
+      Using FRW symmetry and scalar-sector conservation, the system is:
+    </p>
 
     \[
-    H' = -\tfrac{1}{2} (1 + w_{\rm eff})\,3H
+      E \equiv \frac{H'}{H}
     \]
 
     \[
-    \phi' = s
+      \phi' = s
     \]
 
     \[
-    s' = -(3 + E)\,s - \frac{1}{H^2 K} V_{,\phi}
-          - \frac{K'}{K}\,s
+      s' = - (3 + E)\,s \;-\; \frac{1}{H^{2} K}\,V_{,\phi}
+            \;-\; \frac{K'}{K}\,s
     \]
 
+    <p>
+      The evolution of \(H\) is tracked via \(E\), related to the effective 
+      equation of state by
+    </p>
+
     \[
-    E \equiv \frac{H'}{H}
+      E = -\frac{3}{2}\,(1 + w_{\rm eff}) .
     \]
 
     <p>
@@ -967,15 +974,17 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <p>For a spatially flat FRW universe:</p>
 
     \[
-    R = 6(2H^2 + \dot{H}) = 6H^2(2 + E)
+      R = 6(2H^2 + \dot{H}) = 6H^{2}\,(2 + E)
     \]
 
     \[
-    \frac{R'}{R} = 2E + \frac{E'}{2 + E}
+      \frac{R'}{R} = 2E \;+\; \frac{E'}{2 + E}
     \]
 
-    <p>This identity underlies the algebraic closure of \(K'/K\) in the
-    curvature-based model.</p>
+    <p>
+      This identity underlies the algebraic closure of \(K'/K\) in the
+      curvature-based model.
+    </p>
 
     <!-- === 3. Curvature-Induced K'/K === -->
     <h3>3. Curvature-Induced Kinetic Normalization</h3>
@@ -983,16 +992,18 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <p>For the effective operator \( R X \), the background kinetic normalization is</p>
 
     \[
-    K(N) = 1 + \frac{\alpha R}{M^2}
+      K(N) = 1 + \frac{\alpha\,R}{M^{2}}
     \]
 
-    <p>Using the Ricci identity above, the derivative is completely algebraic:</p>
+    <p>Using the Ricci identity above, the derivative is fully algebraic:</p>
 
     \[
-    \frac{K'}{K}
-       = \frac{\alpha R'}{M^2 + \alpha R}
-       = \frac{\alpha R}{M^2 + \alpha R}
-         \left[ 2E + \frac{E'}{2 + E} \right]
+      \frac{K'}{K}
+      = \frac{\alpha\,R'}{M^{2} + \alpha R}
+      = \frac{\alpha\,R}{M^{2} + \alpha R}
+        \left[
+          2E + \frac{E'}{2 + E}
+        \right]
     \]
 
     <p>
@@ -1004,21 +1015,22 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <h3>4. Scalar Sector: Energy, Pressure, Equation of State</h3>
 
     \[
-    \rho_\phi = KX + V
+      \rho_\phi = KX + V
     \]
 
     \[
-    p_\phi = KX - V
+      p_\phi = KX - V
     \]
 
     \[
-    w_\phi = \frac{KX - V}{KX + V}
+      w_\phi = \frac{KX - V}{KX + V}
     \]
 
     <p>In FRW:</p>
 
     \[
-    X = \tfrac12 \dot{\phi}^2 = \tfrac12 H^2 s^2
+      X = \tfrac12 \dot{\phi}^{2}
+        = \tfrac12 H^{2} s^{2}
     \]
 
     <!-- === 5. Perturbations and Sound Speed === -->
@@ -1030,35 +1042,35 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     </p>
 
     \[
-    c_s^2 = 1
+      c_s^{2} = 1
     \]
 
     \[
-    \Phi = \Psi
+      \Phi = \Psi
     \]
 
     \[
-    \mu = 1, \qquad \Sigma = 1, \qquad \eta = 0
+      \mu = 1, \qquad \Sigma = 1, \qquad \eta = 0
     \]
 
     <p>
       Thus the gravitational sector remains strictly Einsteinian: the Planck
       mass is constant, gravitational waves are luminal, and no braiding or
-      beyond-Horndeski structure arises.
+      beyond-Horndeski structure appears.
     </p>
 
     <!-- === 6. GR Growth Equation === -->
     <h3>6. GR Growth Equation</h3>
 
     \[
-    D'' + \left(2 + \frac{H'}{H}\right) D'
-         - \frac{3}{2}\Omega_m D = 0
+      D'' \;+\; \left(2 + \frac{H'}{H}\right) D'
+      \;-\; \frac{3}{2}\,\Omega_m\,D = 0
     \]
 
     <p>
-      Because \( \mu = \Sigma = 1 \), the growth equation has no modified-gravity
-      terms. All deviations from \( \Lambda \)CDM enter solely through the
-      background expansion \(H(N)\).
+      Because \( \mu = \Sigma = 1 \), the growth equation has no
+      modified-gravity terms. All deviations from \( \Lambda \)CDM enter solely
+      through the background expansion \(H(N)\).
     </p>
 
     <!-- === 7. Stability Conditions === -->
@@ -1067,19 +1079,19 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <p>Ghost-free condition:</p>
 
     \[
-    K(N) > 0
+      K(N) > 0
     \]
 
     <p>Gradient-stability:</p>
 
     \[
-    c_s^2 = 1 > 0
+      c_s^{2} = 1 > 0
     \]
 
     <p>Curvature-model admissibility:</p>
 
     \[
-    M^2 + \alpha R \neq 0
+      M^{2} + \alpha R \neq 0
     \]
 
     <p>
