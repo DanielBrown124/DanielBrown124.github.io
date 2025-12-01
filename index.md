@@ -498,7 +498,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
 
 <hr>
 <div class="center" style="margin-top: 35px;">
-  <a class="paper-button" href="QKDE_v3F.pdf">
+  <a class="paper-button" href="QKDE_v.3F.pdf">
     QKDE Paper (PDF)
   </a>
 </div>
