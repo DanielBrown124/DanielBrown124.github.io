@@ -918,7 +918,127 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
+<details>
+  <summary><span class="summary-label">Derivations from the Paper</span></summary>
 
+  <div class="details-body">
+
+    <p>
+      This section collects the principal analytic steps from the QKDE monograph:
+      background closure, curvature-based identities, perturbation structure,
+      and stability conditions. Expressions are formatted for clarity and match the
+      notation used throughout the PDF.
+    </p>
+
+    <!-- === 1. Background System === -->
+    <h3>1. Closed Background System</h3>
+
+    <p>E-fold time is defined by \( N = \ln a \), and primes denote 
+    \( \mathrm{d}/\mathrm{d}N \). Using FRW symmetry:</p>
+
+    <pre class="cite-text">
+\( H' = -\tfrac{1}{2} (3 + 3w_{\rm eff}) H \)
+
+\( \phi' = s \)
+
+\( s' = -(3+E)s - \frac{1}{K} V_{,\phi} - \frac{K'}{K}s \)
+
+\( E \equiv H'/H \)
+    </pre>
+
+    <p>The system closes once \(K'/K\) is supplied by either the curvature model or 
+    the running form.</p>
+
+    <!-- === 2. Ricci Scalar Identity === -->
+    <h3>2. Ricci Scalar and E–fold Identity</h3>
+
+    <p>In flat FRW:</p>
+
+    <pre class="cite-text">
+\( R = 6(2H^2 + \dot{H}) = 6 H^2 (2 + E) \)
+
+\( \frac{R'}{R} = 2E + \frac{E'}{2+E} \)
+    </pre>
+
+    <p>This identity is used extensively in the curvature-based form of \(K(N)\).</p>
+
+    <!-- === 3. Curvature-Induced K'(N)/K === -->
+    <h3>3. Curvature-Induced Kinetic Normalization</h3>
+
+    <p>For the model</p>
+
+    <pre class="cite-text">
+\( K = 1 + \frac{\alpha R}{M^2} \)
+    </pre>
+
+    <p>one obtains the algebraic identity</p>
+
+    <pre class="cite-text">
+\( \frac{K'}{K} = 
+    \frac{\alpha}{M^2 + \alpha R} R' 
+    = \frac{\alpha R}{M^2 + \alpha R}
+      \left[ 2E + \frac{E'}{2+E} \right] \)
+    </pre>
+
+    <p>This closes the background system without iteration, making numerical evolution
+    fully deterministic.</p>
+
+    <!-- === 4. Scalar Energy–Momentum Components === -->
+    <h3>4. Scalar Sector: Energy, Pressure, Equation of State</h3>
+
+    <pre class="cite-text">
+\( \rho_\phi = KX + V \)
+
+\( p_\phi = KX - V \)
+
+\( w_\phi = \frac{KX - V}{KX + V} \)
+
+FRW: \( X = \tfrac12 \dot{\phi}^2 = \tfrac12 H^2 s^2 \)
+    </pre>
+
+    <!-- === 5. Perturbation Structure === -->
+    <h3>5. Perturbations and Sound Speed</h3>
+
+    <p>Expanding to quadratic order in Newtonian gauge yields a canonical scalar
+    degree of freedom with</p>
+
+    <pre class="cite-text">
+\( c_s^2 = 1 \)
+
+\( \Phi = \Psi \)
+
+\( \mu = 1,\ \Sigma = 1,\ \eta = 0 \)
+    </pre>
+
+    <p>No braiding, modified gravity terms, or tensor-speed shifts appear.</p>
+
+    <!-- === 6. GR Growth Equation === -->
+    <h3>6. GR Growth Equation</h3>
+
+    <pre class="cite-text">
+\( D'' + \left(2 + \frac{H'}{H}\right) D'
+     - \frac{3}{2}\Omega_m D = 0 \)
+    </pre>
+
+    <p>The equation contains no modified-gravity terms; deviations arise solely through
+    the altered background \(H(N)\).</p>
+
+    <!-- === 7. Stability Conditions === -->
+    <h3>7. Stability and Admissibility</h3>
+
+    <pre class="cite-text">
+Ghost-free:   \( K(N) > 0 \)
+
+Gradient-stable:  \( c_s^2 = 1 > 0 \)
+
+Curvature model viability:
+\( M^2 + \alpha R \neq 0 \)
+    </pre>
+
+    <p>These conditions ensure the EFT remains predictive and avoids pathological limits.</p>
+
+  </div>
+</details>
 <details>
   <summary><span class="summary-label">References</span></summary>
   <div class="details-body">
