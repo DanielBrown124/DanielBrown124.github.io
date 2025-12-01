@@ -927,7 +927,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       This section summarizes the principal analytic identities derived in the
       QKDE monograph: the closed background system, curvature-based relations,
       kinetic-normalization identities, perturbation structure, growth equation,
-      and stability conditions.  All expressions here match the notation and
+      and stability conditions. All expressions match the notation and
       equations in the PDF without approximation or omission.
     </p>
 
@@ -939,125 +939,152 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     The background variables are \( (H, \phi, s) \), where \( s \equiv \phi' \).
     Using FRW symmetry and the scalar-sector conservation law, the system is:</p>
 
-<pre class="cite-text">
-\( H' = -\tfrac{1}{2} (1 + w_{\rm eff})\,3H \)
+    \[
+    H' = -\tfrac{1}{2} (1 + w_{\rm eff})\,3H
+    \]
 
-\( \phi' = s \)
+    \[
+    \phi' = s
+    \]
 
-\( s' = - (3 + E)\,s - \frac{1}{H^2 K}\,V_{,\phi}
-       - \frac{K'}{K}\,s \)
+    \[
+    s' = -(3 + E)\,s - \frac{1}{H^2 K} V_{,\phi}
+          - \frac{K'}{K}\,s
+    \]
 
-\( E \equiv \frac{H'}{H} \)
-</pre>
+    \[
+    E \equiv \frac{H'}{H}
+    \]
 
     <p>
-      The system becomes fully deterministic once \( K'/K \) is supplied by one
-      of the two realizations developed in the monograph: the curvature-induced
-      form or the running parametrization.
+      The system becomes fully deterministic once \( K'/K \) is supplied by either
+      the curvature-induced realization or the running parametrization.
     </p>
 
     <!-- === 2. Ricci Scalar Identity === -->
     <h3>2. Ricci Scalar and E-fold Identity</h3>
 
-    <p>For a spatially flat FRW universe,</p>
+    <p>For a spatially flat FRW universe:</p>
 
-<pre class="cite-text">
-\( R = 6(2H^2 + \dot{H}) = 6H^2 (2 + E) \)
+    \[
+    R = 6(2H^2 + \dot{H}) = 6H^2(2 + E)
+    \]
 
-\( \frac{R'}{R} = 2E + \frac{E'}{2 + E} \)
-</pre>
+    \[
+    \frac{R'}{R} = 2E + \frac{E'}{2 + E}
+    \]
 
-    <p>This identity underlies the algebraic closure of \(K'/K\) in the 
+    <p>This identity underlies the algebraic closure of \(K'/K\) in the
     curvature-based model.</p>
 
-    <!-- === 3. Curvature-Induced K'(N)/K === -->
+    <!-- === 3. Curvature-Induced K'/K === -->
     <h3>3. Curvature-Induced Kinetic Normalization</h3>
 
-    <p>For the effective action containing the operator \( R X \), the background 
-    kinetic normalization is</p>
+    <p>For the effective operator \( R X \), the background kinetic normalization is</p>
 
-<pre class="cite-text">
-\( K(N) = 1 + \frac{\alpha R}{M^2} \)
-</pre>
+    \[
+    K(N) = 1 + \frac{\alpha R}{M^2}
+    \]
 
-    <p>Using the Ricci identity above, the derivative is fully algebraic:</p>
+    <p>Using the Ricci identity above, the derivative is completely algebraic:</p>
 
-<pre class="cite-text">
-\( \frac{K'}{K}
-   = \frac{\alpha R'}{M^2 + \alpha R}
-   = \frac{\alpha R}{M^2 + \alpha R}
-     \left[\, 2E + \frac{E'}{2 + E} \,\right] \)
-</pre>
+    \[
+    \frac{K'}{K}
+       = \frac{\alpha R'}{M^2 + \alpha R}
+       = \frac{\alpha R}{M^2 + \alpha R}
+         \left[ 2E + \frac{E'}{2 + E} \right]
+    \]
 
-    <p>This closes the background system without iteration or numerical
-    differentiation, ensuring stability and exact reproducibility.</p>
+    <p>
+      This closes the background system without iteration or numerical
+      differentiation, ensuring stability and exact reproducibility.
+    </p>
 
     <!-- === 4. Scalar Energy–Momentum Components === -->
     <h3>4. Scalar Sector: Energy, Pressure, Equation of State</h3>
 
-<pre class="cite-text">
-\( \rho_\phi = KX + V \)
+    \[
+    \rho_\phi = KX + V
+    \]
 
-\( p_\phi = KX - V \)
+    \[
+    p_\phi = KX - V
+    \]
 
-\( w_\phi = \frac{KX - V}{KX + V} \)
+    \[
+    w_\phi = \frac{KX - V}{KX + V}
+    \]
 
-FRW: \( X = \tfrac12 \dot{\phi}^2
-         = \tfrac12 H^2 s^2 \)
-</pre>
+    <p>In FRW:</p>
 
-    <!-- === 5. Perturbation Structure === -->
+    \[
+    X = \tfrac12 \dot{\phi}^2 = \tfrac12 H^2 s^2
+    \]
+
+    <!-- === 5. Perturbations and Sound Speed === -->
     <h3>5. Linear Perturbations and Sound Speed</h3>
 
     <p>
-      Expanding the action to quadratic order in Newtonian gauge produces a
-      canonical scalar with unit sound speed and no modified-gravity operators.
+      Expanding the action to quadratic order in Newtonian gauge yields a
+      canonical scalar with unit sound speed and no modified-gravity operators:
     </p>
 
-<pre class="cite-text">
-\( c_s^2 = 1 \)
+    \[
+    c_s^2 = 1
+    \]
 
-\( \Phi = \Psi \)
+    \[
+    \Phi = \Psi
+    \]
 
-\( \mu = 1,\qquad \Sigma = 1,\qquad \eta = 0 \)
-</pre>
+    \[
+    \mu = 1, \qquad \Sigma = 1, \qquad \eta = 0
+    \]
 
     <p>
-      Thus QKDE leaves the gravitational sector strictly Einsteinian: the
-      Planck mass is constant, tensor speed remains luminal, and no braiding or
-      beyond-Horndeski structure appears.
+      Thus the gravitational sector remains strictly Einsteinian: the Planck
+      mass is constant, gravitational waves are luminal, and no braiding or
+      beyond-Horndeski structure arises.
     </p>
 
     <!-- === 6. GR Growth Equation === -->
     <h3>6. GR Growth Equation</h3>
 
-<pre class="cite-text">
-\( D'' + (2 + H'/H)\,D'
-     - \frac{3}{2}\Omega_m\,D = 0 \)
-</pre>
+    \[
+    D'' + \left(2 + \frac{H'}{H}\right) D'
+         - \frac{3}{2}\Omega_m D = 0
+    \]
 
     <p>
-      Because \( \mu = \Sigma = 1 \), the growth equation receives no
-      scale-dependent or modified-gravity corrections. All deviations from
-      \( \Lambda \)CDM arise solely through the background \(H(N)\).
+      Because \( \mu = \Sigma = 1 \), the growth equation has no modified-gravity
+      terms. All deviations from \( \Lambda \)CDM enter solely through the
+      background expansion \(H(N)\).
     </p>
 
     <!-- === 7. Stability Conditions === -->
     <h3>7. Stability and Admissibility</h3>
 
-<pre class="cite-text">
-Ghost-free:        \( K(N) > 0 \)
+    <p>Ghost-free condition:</p>
 
-Gradient-stable:   \( c_s^2 = 1 > 0 \)
+    \[
+    K(N) > 0
+    \]
 
-Curvature-model bound:
-\( M^2 + \alpha R \neq 0 \)
-</pre>
+    <p>Gradient-stability:</p>
+
+    \[
+    c_s^2 = 1 > 0
+    \]
+
+    <p>Curvature-model admissibility:</p>
+
+    \[
+    M^2 + \alpha R \neq 0
+    \]
 
     <p>
       These ensure positivity of the kinetic term, absence of gradient
-      instabilities, and avoidance of pathological coupling regimes in the
-      curvature-induced realization.
+      instabilities, and exclusion of pathological coupling regimes.
     </p>
 
   </div>
