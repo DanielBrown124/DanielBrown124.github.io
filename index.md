@@ -1408,8 +1408,8 @@ function updateCitation() {
   title = {Quantum–Kinetic Dark Energy (QKDE)},
   year = {2025},
   publisher = {Zenodo},
-  doi = {10.5281/zenodo.17757109},
-  url = {https://doi.org/10.5281/zenodo.17757109}
+  doi = {10.5281/zenodo.17774687},
+  url = {(https://doi.org/10.5281/zenodo.17774687)}
 }`,
     apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109`,
     mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17757109.`,
