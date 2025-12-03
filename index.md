@@ -548,7 +548,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
   </a>
 </div>
 
-<h2>What This Work Proposes</h2>
+<h2 id="what-this-work-proposes">What This Work Proposes</h2>
 
 <div class="paper-box">
 
@@ -708,7 +708,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
 <hr>
 
-<details>
+<details id="symbol-index">
   <summary><span class="summary-label">Symbol index</span></summary>
   <div class="details-body">
 
@@ -970,7 +970,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
   </details>
-<details>
+<details id="derivations">
   <summary><span class="summary-label">Derivations</span></summary>
   <div class="details-body">
 
@@ -1474,7 +1474,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
-<details>
+<details id="comparison-qkde">
   <summary><span class="summary-label">Comparing QKDE to existing models</span></summary>
   <div class="details-body">
 
@@ -1897,7 +1897,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
-<details>
+<details id="references-qkde">
   <summary><span class="summary-label">References</span></summary>
   <div class="details-body">
 
@@ -2157,7 +2157,7 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 <!-- BEGIN CITE BOX (must stay inside details-body) -->
 <!-- ===================== CITE THIS WORK ===================== -->
 
-<div class="cite-box enhanced-cite">
+<div class="cite-box enhanced-cite" id="cite-qkde">
   <div class="cite-header">
     <h3>Cite This Work</h3>
     <p class="cite-subtext">Choose a citation format and copy it directly for your paper, thesis, or project.</p>
