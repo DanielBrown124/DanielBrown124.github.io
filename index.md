@@ -544,6 +544,9 @@ details[open] .summary-label::before {
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
+  <a class="paper-button" href="QKDE_v.3F.pdf">
+    QKDE Paper (PDF)
+  </a>
   
   
 </nav>
