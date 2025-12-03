@@ -550,7 +550,188 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
     QKDE Paper (PDF)
   </a>
 </div>
+<details id="reviewer-guide">
+  <summary><span class="summary-label">Reviewer Quick-Guide</span></summary>
+  <div class="details-body">
 
+    <p>
+      This section is designed to assist journal referees, editors, and technically oriented
+      readers in quickly understanding the theoretical status, assumptions, and testability 
+      of the Quantum–Kinetic Dark Energy (QKDE) framework.  
+      It highlights what the model claims, what it does <em>not</em> claim, how it differs 
+      from nearby theories, and how all results can be reproduced.
+    </p>
+
+    <!-- ========================================================= -->
+    <!-- 1. What QKDE Actually Claims                              -->
+    <!-- ========================================================= -->
+    <h3>1. What QKDE Claims</h3>
+
+    <ul>
+      <li><strong>QKDE is a single-scalar, GR-preserving dark-energy framework</strong> with no 
+          modification to the Einstein–Hilbert metric sector.</li>
+
+      <li><strong>Cosmic acceleration arises entirely from a scalar sector</strong> of the form  
+          \(P(X,\phi,t) = K(t)X - V(\phi)\), where the <em>kinetic normalization</em> 
+          \(K(t) > 0\) drifts slowly in time.</li>
+
+      <li><strong>All EFT–DE gravitational functions vanish</strong> except  
+          \(\alpha_K = K\dot{\phi}^2/(H^2 M_{\rm pl}^2) > 0\):  
+          <br><code>α_B = α_M = α_T = α_H = 0</code>.</li>
+
+      <li><strong>Gravitational waves are luminal</strong> (\(c_T^2 = 1\)),  
+          the <strong>Planck mass is constant</strong>,  
+          and <strong>metric potentials satisfy</strong> \(\Phi = \Psi\).</li>
+
+      <li><strong>The linear growth equation is exactly GR</strong>: all deviations enter only 
+          through the background expansion history \(H(a)\).</li>
+
+      <li><strong>The model is falsifiable</strong>:  
+          \(\mu(a,k)=\Sigma(a,k)=1,\;\eta(a,k)=0\) on linear scales.  
+          Any statistically significant deviation excludes QKDE.</li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 2. What QKDE Does NOT Claim                               -->
+    <!-- ========================================================= -->
+    <h3>2. What QKDE Does <em>Not</em> Claim</h3>
+
+    <ul>
+      <li>It does <strong>not</strong> modify gravity, introduce an evolving Planck mass, or alter 
+          light deflection.</li>
+
+      <li>It does <strong>not</strong> introduce scale-dependent growth, screening mechanisms, 
+          sound speeds \(c_s^2 \neq 1\), or higher-derivative operators.</li>
+
+      <li>It does <strong>not</strong> attempt to solve the cosmological constant problem.</li>
+
+      <li>It does <strong>not</strong> rely on phenomenological templates;  
+          all equations come from the covariant action and the EFT mapping.</li>
+
+      <li>It does <strong>not</strong> introduce extra degrees of freedom beyond the single scalar.</li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 3. Why QKDE ≠ Quintessence                                -->
+    <!-- ========================================================= -->
+    <h3>3. Why QKDE Is Not Quintessence</h3>
+
+    <ul>
+      <li>Quintessence uses <strong>fixed canonical normalization</strong>:  
+          \(P(X,\phi)=X-V(\phi)\).</li>
+
+      <li>QKDE uses <strong>time-dependent kinetic normalization</strong>  
+          \(K(t)X\), motivated by curvature-suppressed operators and integrating 
+          out heavy fields in QFT in curved spacetime.</li>
+
+      <li>Quintessence variations affect \(V(\phi)\);  
+          QKDE variations occur in \(K(t)\).</li>
+
+      <li>Quintessence has <strong>no operator-level EFT derivation for a running kinetic term</strong>;  
+          QKDE explicitly builds this in from the UV-motivated operator \(R X\).</li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 4. Why QKDE ≠ k-essence                                   -->
+    <!-- ========================================================= -->
+    <h3>4. Why QKDE Is Not k-Essence</h3>
+
+    <ul>
+      <li>k-essence allows broad functional freedom: \(P(X,\phi)\).</li>
+
+      <li>QKDE is a <strong>highly constrained subset</strong>:
+          <br><code>P = K(t)X - V(φ)</code>  
+          with no higher powers of \(X\) and no noncanonical speeds.</li>
+
+      <li>Generic k-essence yields <strong>non-unit sound speeds</strong>;  
+          QKDE enforces \(c_s^2 = 1\) exactly.</li>
+
+      <li>k-essence can generate <strong>scale-dependent growth</strong>;  
+          QKDE predicts GR-like, scale-independent growth.</li>
+
+      <li>QKDE’s drift \(K(t)\) is <strong>time-only</strong>, unlike general 
+          k-essence dependence on both \(X\) and \(\phi\).</li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 5. Mathematical Structure                                 -->
+    <!-- ========================================================= -->
+    <h3>5. Mathematical Structure</h3>
+
+    <ul>
+      <li><strong>Variables:</strong> \( (H, \phi, s=\phi') \).</li>
+
+      <li>Closed background system (no iteration):  
+        \[
+          \phi' = s, \qquad
+          s' = -(3+E)s - (K'/K)s - \frac{V_{,\phi}}{H^2 K}, \qquad
+          E = \frac{H'}{H}.
+        \]
+      </li>
+
+      <li><strong>Curvature-based model:</strong>  
+        \[
+        K = 1 + \frac{\alpha R}{M^2}, \qquad
+        \frac{K'}{K} = 
+        \frac{\alpha R}{M^2 + \alpha R}
+        \left( 2E + \frac{E'}{2+E} \right).
+        \]
+      </li>
+
+      <li><strong>Running model:</strong>  
+        \[
+        K(N)=1+K_0 e^{-pN},\qquad
+        \frac{K'}{K} = \frac{-p K_0 e^{-pN}}{1 + K_0 e^{-pN}}.
+        \]
+      </li>
+
+      <li><strong>Perturbations:</strong>  
+        \[
+        \Phi=\Psi,\quad c_s^2=1,\quad \mu=1,\quad \Sigma=1,\quad \eta=0.
+        \]
+      </li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 6. Testability                                            -->
+    <!-- ========================================================= -->
+    <h3>6. Testable Predictions</h3>
+
+    <ul>
+      <li><strong>Null tests:</strong>  
+        \[
+        \mu(a,k)=1, \qquad \Sigma(a,k)=1, \qquad \eta(a,k)=0.
+        \]
+      </li>
+      <li><strong>No scale dependence</strong> in linear growth.</li>
+      <li><strong>No deviations in GW propagation</strong> (\(c_T^2=1\)).</li>
+      <li><strong>All departures from ΛCDM appear only in:</strong>  
+        <ul>
+          <li>expansion history \(H(a)\),</li>
+          <li>effective equation of state \(w_{\rm eff}(a)\),</li>
+          <li>growth factor \(D(a)\).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- ========================================================= -->
+    <!-- 7. Reproducibility                                        -->
+    <!-- ========================================================= -->
+    <h3>7. How to Reproduce All Results</h3>
+
+    <p>Everything needed to reproduce the paper’s results is provided:</p>
+
+    <ul>
+      <li>Full background system in closed algebraic form.</li>
+      <li>Consistent definitions of \(E, R, K'/K\), and all residual checks.</li>
+      <li>Fisher setup using exact <em>sensitivity equations</em> (not numerical derivatives).</li>
+      <li>Parameters and priors listed explicitly.</li>
+      <li>Figures and tables regenerated from the same pipeline.</li>
+      <li>Notebook + code provided in the GitHub repository.</li>
+    </ul>
+
+  </div>
+</details>
 <h2 id="what-this-work-proposes">What This Work Proposes</h2>
 
 <div class="paper-box">
