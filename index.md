@@ -115,6 +115,28 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   color: #ffffff;
   text-shadow: 0 0 6px rgba(102,252,241,0.9);
 }
+.nav-header .nav-button {
+  padding: 6px 14px;
+  margin-left: 10px;
+  background: linear-gradient(135deg, #66fcf1, #45c9c9);
+  color: #0a0f12;
+  font-weight: 600;
+  font-size: 0.83rem;
+  border-radius: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 6px rgba(102,252,241,0.35);
+  transition: all 0.25s ease;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.nav-header .nav-button:hover {
+  background: linear-gradient(135deg, #8afef4, #5edbd8);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(102,252,241,0.5);
+  color: #000;
+}
 .alt-button {
   background: #fff0b3;
   color: #0b0c10;
@@ -544,8 +566,8 @@ details[open] .summary-label::before {
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
-  <a class="paper-button" href="QKDE_v.3F.pdf">
-    QKDE Paper (PDF)
+  <a class="nav-button" href="QKDE_v.3F.pdf">
+    View PDF
   </a>
   
   
