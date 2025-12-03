@@ -10,6 +10,49 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
+  html {
+  scroll-behavior: smooth;
+}
+.nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 18px;
+  margin: -30px -30px 25px;
+  background: linear-gradient(
+    to right,
+    rgba(5, 10, 20, 0.94),
+    rgba(8, 15, 28, 0.94)
+  );
+  border-bottom: 1px solid rgba(102,252,241,0.18);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.nav-header a {
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #c8eaff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: 0.18s ease;
+}
+
+.nav-header a:hover {
+  border-color: rgba(102,252,241,0.6);
+  background: rgba(102,252,241,0.09);
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(102,252,241,0.9);
+}
 .alt-button {
   background: #fff0b3;
   color: #0b0c10;
@@ -431,7 +474,16 @@ details[open] .summary-label::before {
 <div class="star-layer"></div>
 
 <div class="page">
-
+<a id="top"></a>
+<nav class="nav-header">
+  <a href="#top">Overview</a>
+  <a href="#what-this-work-proposes">What this work proposes</a>
+  <a href="#symbol-index">Symbols</a>
+  <a href="#derivations">Derivations</a>
+  <a href="#comparison-qkde">Comparisons</a>
+  <a href="#cite-qkde">Cite</a>
+  <a href="#references-qkde">References</a>
+</nav>
 <h1>Quantum–Kinetic Dark Energy (QKDE)</h1>
 <p style="text-align:center; margin-top:-10px; font-style: italic;">
 An effective dark energy framework with the Einstein–Hilbert metric sector intact and a time-dependent scalar kinetic normalization
