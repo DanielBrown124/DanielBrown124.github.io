@@ -536,13 +536,15 @@ details[open] .summary-label::before {
 <div class="star-layer"></div>
 <a id="top"></a>
 <nav class="nav-header">
-  
-  <a href="#what-this-work-proposes">What this work proposes</a>
+  <a href="#reviewer-guide">Guide</a>
+  <a href="#what-this-work-proposes">This work</a>
   <a href="#symbol-index">Symbols</a>
   <a href="#derivations">Derivations</a>
+  <a href="#calculator">Calculator</a>
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
+  
   
 </nav>
 <div class="page">
