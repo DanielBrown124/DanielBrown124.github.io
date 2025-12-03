@@ -10,6 +10,9 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
+  [id] {
+  scroll-margin-top: 90px;
+}
   html {
   scroll-behavior: smooth;
 }
