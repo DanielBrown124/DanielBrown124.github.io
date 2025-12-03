@@ -472,8 +472,6 @@ details[open] .summary-label::before {
 <div class="star-layer"></div>
 <div class="star-layer"></div>
 <div class="star-layer"></div>
-
-<div class="page">
 <a id="top"></a>
 <nav class="nav-header">
   <a href="#top">Overview</a>
@@ -484,6 +482,7 @@ details[open] .summary-label::before {
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
 </nav>
+<div class="page">
 <h1>Quantum–Kinetic Dark Energy (QKDE)</h1>
 <p style="text-align:center; margin-top:-10px; font-style: italic;">
 An effective dark energy framework with the Einstein–Hilbert metric sector intact and a time-dependent scalar kinetic normalization
