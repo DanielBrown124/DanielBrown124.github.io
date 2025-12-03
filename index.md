@@ -1215,10 +1215,6 @@ Burgess. Quantum gravity in everyday life.
 Aubourg et al. BAO cosmological implications.
 </a></li>
 
-<li><a href="https://doi.org/10.1051/0004-6361/201833910" target="_blank">
-Planck Collaboration 2018 (duplicate entry).
-</a></li>
-
 <li><a href="https://doi.org/10.1017/CBO9781139644167" target="_blank">
 Weinberg. Quantum Theory of Fields II.
 </a></li>
