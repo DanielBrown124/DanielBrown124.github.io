@@ -474,13 +474,14 @@ details[open] .summary-label::before {
 <div class="star-layer"></div>
 <a id="top"></a>
 <nav class="nav-header">
-  <a href="#top">Overview</a>
+  
   <a href="#what-this-work-proposes">What this work proposes</a>
   <a href="#symbol-index">Symbols</a>
   <a href="#derivations">Derivations</a>
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
+  
 </nav>
 <div class="page">
 <h1>Quantum–Kinetic Dark Energy (QKDE)</h1>
