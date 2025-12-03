@@ -481,8 +481,8 @@ details[open] .summary-label::before {
   <a href="#symbol-index">Symbols</a>
   <a href="#derivations">Derivations</a>
   <a href="#comparison-qkde">Comparisons</a>
-  <a href="#cite-qkde">Cite</a>
   <a href="#references-qkde">References</a>
+  <a href="#cite-qkde">Cite</a>
 </nav>
 <h1>Quantum–Kinetic Dark Energy (QKDE)</h1>
 <p style="text-align:center; margin-top:-10px; font-style: italic;">
