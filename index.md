@@ -920,184 +920,505 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
   </details>
 <details>
   <summary><span class="summary-label">Derivations</span></summary>
-
   <div class="details-body">
 
     <p>
-      This section summarizes the principal analytic identities derived in the
-      QKDE monograph: the closed background system, curvature-based relations,
-      kinetic-normalization identities, perturbation structure, growth equation,
-      and stability conditions. All expressions match the notation and
-      equations in the PDF without approximation or omission.
+      This section collects <strong>all principal analytic derivations</strong> used in the
+      QKDE framework, organized into nested dropdowns for clarity. Everything matches
+      the equations and notation in the monograph: no heuristic shortcuts, no omitted
+      steps, and no approximations beyond those explicitly stated in the paper.
     </p>
 
-    <!-- === 1. Closed Background System === -->
-    <h3>1. Closed Background System</h3>
+    <!-- ===================================================== -->
+    <!-- 0. Covariant Action and Variational Foundations      -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">0. Covariant action → field equations</span></summary>
+      <div class="details-body">
 
-    <p>
-      The e-fold time is \( N = \ln a \), with primes denoting
-      \( \mathrm{d}/\mathrm{d}N = H^{-1} \mathrm{d}/\mathrm{d}t \).
-      The background variables are \( (H, \phi, s) \), with \( s \equiv \phi' \).
-      Using FRW symmetry and scalar-sector conservation, the system is:
-    </p>
+        <p><strong>Starting point:</strong></p>
 
-    \[
-      E \equiv \frac{H'}{H}
-    \]
+        \[
+        S = \int d^4x\,\sqrt{-g}\,\left[\frac12 M_{\rm pl}^2 R + K(t)X - V(\phi)\right],
+        \qquad
+        X = -\frac12 g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi .
+        \]
 
-    \[
-      \phi' = s
-    \]
+        <h4>(a) Energy–momentum tensor</h4>
 
-    \[
-      s' = - (3 + E)\,s \;-\; \frac{1}{H^{2} K}\,V_{,\phi}
-            \;-\; \frac{K'}{K}\,s
-    \]
+        Varying w.r.t. the metric:
 
-    <p>
-      The evolution of \(H\) is tracked via \(E\), related to the effective 
-      equation of state by
-    </p>
+        \[
+        T_{\mu\nu} = K\,\partial_\mu\phi\partial_\nu\phi 
+        - g_{\mu\nu}\left(KX - V\right).
+        \]
 
-    \[
-      E = -\frac{3}{2}\,(1 + w_{\rm eff}) .
-    \]
+        In FRW:
 
-    <p>
-      The system becomes fully deterministic once \( K'/K \) is supplied by either
-      the curvature-induced realization or the running parametrization.
-    </p>
+        \[
+        \rho_\phi = KX + V, \qquad p_\phi = KX - V.
+        \]
 
-    <!-- === 2. Ricci Scalar Identity === -->
-    <h3>2. Ricci Scalar and E-fold Identity</h3>
+        <h4>(b) Scalar equation of motion</h4>
 
-    <p>For a spatially flat FRW universe:</p>
+        Variation w.r.t. \(\phi\) gives:
 
-    \[
-      R = 6(2H^2 + \dot{H}) = 6H^{2}\,(2 + E)
-    \]
+        \[
+        \nabla_\mu(K \nabla^\mu \phi) + V_{,\phi} = 0 .
+        \]
 
-    \[
-      \frac{R'}{R} = 2E \;+\; \frac{E'}{2 + E}
-    \]
+        Because \(K = K(t)\):
 
-    <p>
-      This identity underlies the algebraic closure of \(K'/K\) in the
-      curvature-based model.
-    </p>
+        \[
+        \nabla_\mu(K \nabla^\mu\phi)
+        = K \Box\phi + K_{,\mu}\nabla^\mu\phi .
+        \]
 
-    <!-- === 3. Curvature-Induced K'/K === -->
-    <h3>3. Curvature-Induced Kinetic Normalization</h3>
+        In FRW:
 
-    <p>For the effective operator \( R X \), the background kinetic normalization is</p>
+        \[
+        K(\ddot\phi + 3H\dot\phi) + \dot{K}\,\dot\phi + V_{,\phi}=0 .
+        \]
 
-    \[
-      K(N) = 1 + \frac{\alpha\,R}{M^{2}}
-    \]
+        This is the starting point for the e-fold reformulation.
 
-    <p>Using the Ricci identity above, the derivative is fully algebraic:</p>
+        <h4>(c) Einstein equations</h4>
 
-    \[
-      \frac{K'}{K}
-      = \frac{\alpha\,R'}{M^{2} + \alpha R}
-      = \frac{\alpha\,R}{M^{2} + \alpha R}
+        Friedmann:
+
+        \[
+        3M_{\rm pl}^2 H^2 = \rho_m + \rho_r + \rho_\phi .
+        \]
+
+        Raychaudhuri:
+
+        \[
+        M_{\rm pl}^2 (2\dot H + 3H^2) = -p_m - p_r - p_\phi .
+        \]
+
+        Nothing in QKDE modifies these except the new \(\rho_\phi, p_\phi\).
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 1. E-fold background system                          -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">1. Closed background system (full derivation)</span></summary>
+      <div class="details-body">
+
+        <h4>(a) E-fold definitions</h4>
+
+        \[
+        N = \ln a, 
+        \qquad f' \equiv \frac{df}{dN} = \frac{1}{H}\frac{df}{dt}.
+        \]
+
+        \[
+        E \equiv \frac{H'}{H}.
+        \]
+
+        <h4>(b) Scalar velocity variable</h4>
+
+        \[
+        s \equiv \phi' = \frac{\dot\phi}{H}.
+        \]
+
+        Then:
+
+        \[
+        X = \frac12 \dot\phi^2 = \frac12 H^2 s^2.
+        \]
+
+        <h4>(c) Transforming the scalar EOM</h4>
+
+        Starting from:
+
+        \[
+        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi} = 0
+        \]
+
+        Convert derivatives:
+
+        \[
+        \ddot\phi = H^2 s' + H H's .
+        \]
+
+        Plug in:
+
+        \[
+        K\left(H^2 s' + H^2 E s + 3 H^2 s\right)
+        + (H K' ) H s 
+        + V_{,\phi} = 0.
+        \]
+
+        Divide by \(H^2 K\):
+
+        \[
+        s' + (3+E)s + \frac{K'}{K}s + \frac{1}{H^2 K} V_{,\phi} =0.
+        \]
+
+        So:
+
+        \[
+        s' = - (3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2 K}.
+        \]
+
+        <h4>(d) Full background system</h4>
+
+        \[
+        \phi' = s,
+        \]
+
+        \[
+        s' = -(3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2K},
+        \]
+
+        \[
+        E = \frac{H'}{H}.
+        \]
+
+        The system becomes deterministic once \(K'/K\) is known.
+
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 2. Ricci identities and curvature relations          -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">2. Ricci scalar & e-fold identities</span></summary>
+      <div class="details-body">
+        <h4>(a) Ricci scalar in FRW</h4>
+
+        \[
+        R = 6(2H^2 + \dot H).
+        \]
+
+        Write \(\dot H = H^2 E\):
+
+        \[
+        R = 6H^2(2 + E).
+        \]
+
+        <h4>(b) Derivative of \(R\)</h4>
+
+        \[
+        \frac{R'}{R} = 2E + \frac{E'}{2+E}.
+        \]
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 3. K(t) derivations: curvature-based and running      -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">3. Kinetic normalization derivations</span></summary>
+      <div class="details-body">
+
+        <!-- Curvature Model -->
+        <details>
+          <summary><span class="summary-label">3a. Curvature-induced \(K(N)\)</span></summary>
+          <div class="details-body">
+
+            <p>Start with:</p>
+
+            \[
+            K = 1 + \frac{\alpha R}{M^2}.
+            \]
+
+            Then:
+
+            \[
+            \frac{K'}{K} =
+            \frac{\alpha R'}{M^2 + \alpha R}.
+            \]
+
+            Using the Ricci identity:
+
+            \[
+            \frac{R'}{R} = 2E + \frac{E'}{2+E},
+            \]
+
+            gives:
+
+            \[
+            \frac{K'}{K}
+            = \frac{\alpha R}{M^2 + \alpha R}
+              \left(2E + \frac{E'}{2+E}\right).
+            \]
+
+            This closes the system exactly — no numerical differentiation needed.
+          </div>
+        </details>
+
+        <!-- Running Model -->
+        <details>
+          <summary><span class="summary-label">3b. Running form \(K(N)\)</span></summary>
+          <div class="details-body">
+
+            <p>Parametrization:</p>
+
+            \[
+            K(N) = 1 + K_0 e^{-pN}.
+            \]
+
+            Then:
+
+            \[
+            \frac{K'}{K} =
+            \frac{-p K_0 e^{-pN}}{1 + K_0 e^{-pN}}.
+            \]
+
+            Useful reparametrization:
+
+            \[
+            K(N) = 1 + K_p e^{-p(N-N_p)}.
+            \]
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 4. Energy-momentum tensor, rho, p, EOS               -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">4. Energy–momentum components & equation of state</span></summary>
+      <div class="details-body">
+        \[
+        \rho_\phi = KX + V,
+        \qquad
+        p_\phi = KX - V.
+        \]
+
+        In FRW:
+
+        \[
+        X = \frac12 H^2 s^2.
+        \]
+
+        Scalar equation-of-state:
+
+        \[
+        w_\phi = \frac{KX - V}{KX + V}.
+        \]
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 5. Klein-Gordon equation (full derivation)           -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">5. Full Klein–Gordon derivation in e-fold time</span></summary>
+      <div class="details-body">
+        From the FRW scalar EOM:
+
+        \[
+        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi}=0.
+        \]
+
+        Convert to e-fold variables step by step:
+
+        - \(\dot\phi = H s\)  
+        - \(\ddot\phi = H^2 s' + H^2 E s\)
+
+        Insert:
+
+        \[
+        K\left(H^2 s' + H^2 E s + 3H^2 s\right)
+        + HK' Hs + V_{,\phi} = 0.
+        \]
+
+        Divide by \(H^2 K\):
+
+        \[
+        s' = -(3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2K}.
+        \]
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 6. EFT-DE mapping                                    -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">6. EFT–DE mapping (exact)</span></summary>
+      <div class="details-body">
+
+        The unitary-gauge action:
+
+        \[
+        S = \int \! d^4x \sqrt{-g}\,
+        \big[\tfrac12 M_{\rm pl}^2 R + K(t)X - V(\phi)\big]
+        \]
+
+        corresponds to:
+
+        \[
+        \alpha_K = \frac{K \dot\phi^2}{H^2 M_{\rm pl}^2} > 0,
+        \]
+
+        with:
+
+        \[
+        \alpha_B = 0,\qquad
+        \alpha_M = 0,\qquad
+        \alpha_T = 0,\qquad
+        \alpha_H = 0.
+        \]
+
+        Thus QKDE lies in the GR-preserving corner of EFT–DE.
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 7. Perturbations: action, variables, sound speed     -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">7. Perturbation theory & sound speed derivation</span></summary>
+      <div class="details-body">
+
+        <h4>(a) Second-order action</h4>
+
+        In Newtonian gauge, expand:
+
+        \[
+        S^{(2)} = \int d^4x\, a^3
         \left[
-          2E + \frac{E'}{2 + E}
-        \right]
-    \]
+          K \dot\phi^2 (\dot{\delta\phi})^2
+          - K \frac{(\nabla\delta\phi)^2}{a^2}
+          + \ldots
+        \right].
+        \]
 
-    <p>
-      This closes the background system without iteration or numerical
-      differentiation, ensuring stability and exact reproducibility.
-    </p>
+        <h4>(b) Canonical variable</h4>
 
-    <!-- === 4. Scalar Energy–Momentum Components === -->
-    <h3>4. Scalar Sector: Energy, Pressure, Equation of State</h3>
+        Define:
 
-    \[
-      \rho_\phi = KX + V
-    \]
+        \[
+        v = a(\delta\phi + \dot\phi\,\Phi/H),
+        \qquad
+        z^2 = a^2 K\dot\phi^2/H^2.
+        \]
 
-    \[
-      p_\phi = KX - V
-    \]
+        Then the action becomes the Mukhanov–Sasaki form:
 
-    \[
-      w_\phi = \frac{KX - V}{KX + V}
-    \]
+        \[
+        S^{(2)} = \frac12 \int d\eta\, d^3k \left[v'^2 - c_s^2 k^2 v^2 + \frac{z''}{z} v^2\right].
+        \]
 
-    <p>In FRW:</p>
+        <h4>(c) Sound speed</h4>
 
-    \[
-      X = \tfrac12 \dot{\phi}^{2}
-        = \tfrac12 H^{2} s^{2}
-    \]
+        The coefficient of \((\nabla\delta\phi)^2\) is exactly \(K\); the kinetic
+        coefficient is also \(K\) → therefore:
 
-    <!-- === 5. Perturbations and Sound Speed === -->
-    <h3>5. Linear Perturbations and Sound Speed</h3>
+        \[
+        c_s^2 = 1.
+        \]
 
-    <p>
-      Expanding the action to quadratic order in Newtonian gauge yields a
-      canonical scalar with unit sound speed and no modified-gravity operators:
-    </p>
+        <h4>(d) Metric potentials</h4>
 
-    \[
-      c_s^{2} = 1
-    \]
+        The Einstein equations yield:
 
-    \[
-      \Phi = \Psi
-    \]
+        \[
+        \Phi = \Psi.
+        \]
 
-    \[
-      \mu = 1, \qquad \Sigma = 1, \qquad \eta = 0
-    \]
+        And:
 
-    <p>
-      Thus the gravitational sector remains strictly Einsteinian: the Planck
-      mass is constant, gravitational waves are luminal, and no braiding or
-      beyond-Horndeski structure appears.
-    </p>
+        \[
+        \mu = 1,\quad \Sigma=1,\quad \eta=0.
+        \]
 
-    <!-- === 6. GR Growth Equation === -->
-    <h3>6. GR Growth Equation</h3>
+        No modified gravity signatures appear.
 
-    \[
-      D'' \;+\; \left(2 + \frac{H'}{H}\right) D'
-      \;-\; \frac{3}{2}\,\Omega_m\,D = 0
-    \]
+      </div>
+    </details>
 
-    <p>
-      Because \( \mu = \Sigma = 1 \), the growth equation has no
-      modified-gravity terms. All deviations from \( \Lambda \)CDM enter solely
-      through the background expansion \(H(N)\).
-    </p>
+    <!-- ===================================================== -->
+    <!-- 8. Growth equation                                   -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">8. Growth of structure derivation</span></summary>
+      <div class="details-body">
 
-    <!-- === 7. Stability Conditions === -->
-    <h3>7. Stability and Admissibility</h3>
+        With \(\mu = 1\), linear matter perturbations satisfy:
 
-    <p>Ghost-free condition:</p>
+        \[
+        \ddot D + 2H \dot D - \frac{3}{2}H^2 \Omega_m D = 0.
+        \]
 
-    \[
-      K(N) > 0
-    \]
+        Convert to e-fold variables:
 
-    <p>Gradient-stability:</p>
+        \[
+        D' = \frac{\dot D}{H},\qquad
+        D'' = \frac{\ddot D}{H^2} - E D'.
+        \]
 
-    \[
-      c_s^{2} = 1 > 0
-    \]
+        Insert:
 
-    <p>Curvature-model admissibility:</p>
+        \[
+        D'' + (2 + E)D' - \frac{3}{2}\Omega_m D = 0.
+        \]
 
-    \[
-      M^{2} + \alpha R \neq 0
-    \]
+        All deviations from \(\Lambda\)CDM enter purely through \(H(N)\).
 
-    <p>
-      These ensure positivity of the kinetic term, absence of gradient
-      instabilities, and exclusion of pathological coupling regimes.
-    </p>
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 9. Stability & admissibility                         -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">9. Stability conditions</span></summary>
+      <div class="details-body">
+
+        <h4>(a) Ghost freedom</h4>
+
+        \[
+        K(N) > 0.
+        \]
+
+        <h4>(b) Gradient stability</h4>
+
+        \[
+        c_s^2 = 1 > 0.
+        \]
+
+        <h4>(c) Curvature model viability</h4>
+
+        \[
+        M^2 + \alpha R \neq 0.
+        \]
+
+        These conditions ensure consistent propagation and exclude pathological coupling regimes.
+      </div>
+    </details>
+
+    <!-- ===================================================== -->
+    <!-- 10. Numerical consistency checks                     -->
+    <!-- ===================================================== -->
+    <details>
+      <summary><span class="summary-label">10. Numerical identity checks (pipeline)</span></summary>
+      <div class="details-body">
+
+        <p>The monograph includes exact consistency residuals:</p>
+
+        <ul>
+          <li>\(C_F = 1 - \Omega_m - \Omega_r - \Omega_\phi\)</li>
+          <li>\(C_R = R/H^2 - 6(2+E)\)</li>
+          <li>\(C_{\phi}\) from KG equation</li>
+          <li>\(C_{\nabla\cdot T_\phi}\) for scalar conservation</li>
+          <li>\(C_{R/H^2}\) verifying the Ricci identity</li>
+        </ul>
+
+        <p>
+          These quantify reproducibility and ensure that all algebraic closures are satisfied
+          at machine precision throughout the integration.
+        </p>
+
+      </div>
+    </details>
 
   </div>
 </details>
