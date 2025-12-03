@@ -1319,10 +1319,6 @@ Tegmark, Taylor & Heavens. KL eigenmode analysis.
 Tegmark. Measuring cosmological parameters.
 </a></li>
 
-<li><a href="https://doi.org/10.1088/1475-7516/2009/10/004" target="_blank">
-Song & Percival (duplicate).
-</a></li>
-
 <li><a href="https://doi.org/10.1046/j.1365-8711.2003.06503.x" target="_blank">
 Smith et al. Nonlinear matter power spectra.
 </a></li>
