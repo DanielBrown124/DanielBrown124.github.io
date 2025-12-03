@@ -13,6 +13,65 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   [id] {
   scroll-margin-top: 90px;
 }
+  .calc-grid {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.calc-card {
+  flex: 1 1 260px;
+  background: rgba(15, 22, 32, 0.55);
+  border-radius: 14px;
+  border: 1px solid rgba(102,252,241,0.16);
+  padding: 18px 20px 20px;
+  box-shadow: 0 0 18px rgba(102,252,241,0.12);
+}
+
+.calc-note {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.calc-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  color: #c5f2ff;
+}
+
+.calc-input {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(120,160,190,0.7);
+  background: rgba(5, 10, 18, 0.7);
+  color: #e8e9ef;
+  font-size: 0.9rem;
+}
+
+.calc-input:focus {
+  outline: none;
+  border-color: rgba(102,252,241,0.8);
+  box-shadow: 0 0 8px rgba(102,252,241,0.6);
+}
+
+.calc-output {
+  margin-top: 12px;
+  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
+  font-size: 0.8rem;
+  background: rgba(0,0,0,0.45);
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(120,160,190,0.3);
+  max-height: 180px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
   html {
   scroll-behavior: smooth;
 }
@@ -1658,6 +1717,86 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
+<details id="calculator">
+  <summary><span class="summary-label">Interactive Calculator</span></summary>
+  <div class="details-body">
+
+    <p>
+      This section provides simple, browser-side calculators to give an intuitive feel 
+      for background cosmology and the running kinetic normalization in QKDE. 
+      These are <em>illustrative</em> tools – the full, high-precision pipeline 
+      is implemented in the Python notebooks in the repository.
+    </p>
+
+    <div class="calc-grid">
+
+      <!-- ================= ΛCDM BACKGROUND / DISTANCE CALCULATOR ================ -->
+      <div class="calc-card">
+        <h3>ΛCDM Background & Distances</h3>
+        <p class="calc-note">
+          Flat ΛCDM with standard Friedmann equation. This is a reference model 
+          to compare against QKDE runs.
+        </p>
+
+        <label class="calc-label">Redshift \(z\)</label>
+        <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5">
+
+        <label class="calc-label">\(H_0\) [km/s/Mpc]</label>
+        <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70">
+
+        <label class="calc-label">\(\Omega_{m0}\)</label>
+        <input id="lcdm-om" class="calc-input" type="number" step="0.01" value="0.3">
+
+        <label class="calc-label">\(\Omega_{r0}\)</label>
+        <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0">
+
+        <label class="calc-label">\(\Omega_{\Lambda 0}\)</label>
+        <input id="lcdm-ol" class="calc-input" type="number" step="0.01" value="0.7">
+
+        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeLCDM()">
+          Compute ΛCDM
+        </button>
+
+        <pre id="lcdm-output" class="calc-output"></pre>
+      </div>
+
+      <!-- ================= QKDE RUNNING-K VISUALIZER ================= -->
+      <div class="calc-card">
+        <h3>QKDE Running–\(K(t)\) Visualizer</h3>
+        <p class="calc-note">
+          Uses the running-kinetic form \(K(N) = 1 + K_0 e^{-pN}\) with 
+          \(N = \ln a = -\ln(1+z)\). This does <em>not</em> solve the full 
+          background ODEs; it just shows how the kinetic normalization drifts.
+        </p>
+
+        <label class="calc-label">Redshift \(z\)</label>
+        <input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5">
+
+        <label class="calc-label">\(K_0\)</label>
+        <input id="qkde-k0" class="calc-input" type="number" step="0.1" value="0.5">
+
+        <label class="calc-label">\(p\)</label>
+        <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0">
+
+        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeQKDE()">
+          Compute \(K(z)\) and \(K'/K\)
+        </button>
+
+        <pre id="qkde-output" class="calc-output"></pre>
+      </div>
+
+    </div> <!-- /.calc-grid -->
+
+    <p style="margin-top:20px; font-size:0.9rem; opacity:0.9;">
+      <strong>Note:</strong> the ΛCDM calculator uses the standard flat-universe Friedmann
+      equation with \(H(z)=H_0\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda 0}}\)
+      and numerical integration for distances. The QKDE block shows the exact 
+      running-\(K\) parameterization used in the paper; for full background and 
+      Fisher forecasts, see the Python code in the repository.
+    </p>
+
+  </div>
+</details>
 <details id="comparison-qkde">
   <summary><span class="summary-label">Comparing QKDE to existing models</span></summary>
   <div class="details-body">
@@ -2413,7 +2552,124 @@ function copyCitation() {
 
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
+<script>
+  // ================== ΛCDM CALCULATOR ==================
+  function E_of_z(z, Om, Or, Ol) {
+    return Math.sqrt(
+      Om * Math.pow(1 + z, 3) +
+      Or * Math.pow(1 + z, 4) +
+      Ol
+    );
+  }
 
+  function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
+    // c in km/s
+    const c = 299792.458;
+    const dz = zmax / steps;
+    let integral = 0.0;
+
+    // Simple Simpson-like integration (even number of steps recommended)
+    for (let i = 0; i <= steps; i++) {
+      const z = i * dz;
+      const weight = (i === 0 || i === steps) ? 1 : (i % 2 === 0 ? 2 : 4);
+      const Ez = E_of_z(z, Om, Or, Ol);
+      integral += weight * (1.0 / Ez);
+    }
+    integral *= dz / 3.0;
+
+    // χ(z) in Mpc
+    return (c / H0) * integral;
+  }
+
+  function computeLCDM() {
+    const z   = parseFloat(document.getElementById("lcdm-z").value);
+    const H0  = parseFloat(document.getElementById("lcdm-h0").value);
+    const Om  = parseFloat(document.getElementById("lcdm-om").value);
+    const Or  = parseFloat(document.getElementById("lcdm-or").value);
+    const Ol  = parseFloat(document.getElementById("lcdm-ol").value);
+    const out = document.getElementById("lcdm-output");
+
+    if (isNaN(z) || z < 0) {
+      out.textContent = "Please enter a non-negative redshift z.";
+      return;
+    }
+
+    const Ez = E_of_z(z, Om, Or, Ol);
+    const Hz = H0 * Ez;
+
+    // Comoving distance (simple Simpson integration)
+    const steps = 400;
+    const chi = integrate_chi(H0, Om, Or, Ol, z, steps); // Mpc
+
+    const DL = (1 + z) * chi; // luminosity distance in Mpc
+    const DA = chi / (1 + z); // angular-diameter distance in Mpc
+
+    // Distance modulus μ_SN
+    const muSN = 5 * Math.log10(DL) + 25;
+
+    const lines = [];
+    lines.push("Input:");
+    lines.push(`  z  = ${z.toFixed(3)}`);
+    lines.push(`  H0 = ${H0.toFixed(2)} km/s/Mpc`);
+    lines.push(`  Ωm0 = ${Om.toFixed(3)}, Ωr0 = ${Or.toExponential(2)}, ΩΛ0 = ${Ol.toFixed(3)}`);
+    lines.push("");
+    lines.push("Background quantities (flat ΛCDM):");
+    lines.push(`  H(z)  = ${Hz.toFixed(2)} km/s/Mpc`);
+    lines.push(`  E(z)  = H(z)/H0 = ${Ez.toFixed(4)}`);
+    lines.push("");
+    lines.push("Distances:");
+    lines.push(`  χ(z)  = ${chi.toFixed(2)} Mpc  (${(chi/1000).toFixed(3)} Gpc)`);
+    lines.push(`  D_L   = ${DL.toFixed(2)} Mpc  (${(DL/1000).toFixed(3)} Gpc)`);
+    lines.push(`  D_A   = ${DA.toFixed(2)} Mpc`);
+    lines.push(`  μ_SN  = ${muSN.toFixed(3)} mag`);
+
+    out.textContent = lines.join("\n");
+  }
+
+  // ================== QKDE RUNNING-K VISUALIZER ==================
+  function computeQKDE() {
+    const z  = parseFloat(document.getElementById("qkde-z").value);
+    const K0 = parseFloat(document.getElementById("qkde-k0").value);
+    const p  = parseFloat(document.getElementById("qkde-p").value);
+    const out = document.getElementById("qkde-output");
+
+    if (isNaN(z) || z < 0) {
+      out.textContent = "Please enter a non-negative redshift z.";
+      return;
+    }
+
+    // N = ln a = -ln(1+z)
+    const N = -Math.log(1 + z);
+
+    // K(N) = 1 + K0 e^{-pN}  = 1 + K0 (1+z)^p
+    const K = 1 + K0 * Math.exp(-p * N);  // exact form in terms of N
+
+    // K'/K = (dK/dN) / K, where dK/dN = -p K0 e^{-pN}
+    const dK_dN = -p * K0 * Math.exp(-p * N);
+    const Kprime_over_K = dK_dN / K;
+
+    const lines = [];
+    lines.push("Running–K model:  K(N) = 1 + K0 e^{-pN},  N = ln a = -ln(1+z)");
+    lines.push("");
+    lines.push("Input:");
+    lines.push(`  z   = ${z.toFixed(3)}`);
+    lines.push(`  K0  = ${K0}`);
+    lines.push(`  p   = ${p}`);
+    lines.push("");
+    lines.push("Derived:");
+    lines.push(`  N(z)           = ${N.toFixed(4)}`);
+    lines.push(`  a(z)           = e^N = ${(Math.exp(N)).toFixed(4)}`);
+    lines.push(`  K(z)           = ${K.toFixed(6)}`);
+    lines.push(`  K'(N)/K(N)     = ${Kprime_over_K.toFixed(6)}`);
+    lines.push("");
+    lines.push("Notes:");
+    lines.push("  • This block does NOT solve the full background system.");
+    lines.push("  • It shows how the kinetic normalization drifts with N or z.");
+    lines.push("  • For full QKDE backgrounds and forecasts, use the Python notebooks in the repo.");
+
+    out.textContent = lines.join("\n");
+  }
+</script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
 </footer>
