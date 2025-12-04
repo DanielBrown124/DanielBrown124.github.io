@@ -1971,7 +1971,6 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
-</details>
 <details id="comparison-qkde">
   <summary><span class="summary-label">Comparing QKDE to Existing Models</span></summary>
   <div class="details-body">
