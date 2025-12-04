@@ -13,64 +13,175 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   [id] {
   scroll-margin-top: 90px;
 }
-  .calc-grid {
-  margin-top: 18px;
+  /* ============================================================
+   CALCULATOR LAYOUT
+   ============================================================ */
+
+.calc-grid {
+  margin-top: 22px;
   display: flex;
   flex-wrap: wrap;
-  gap: 22px;
+  gap: 24px;
+  justify-content: center;
 }
 
+/* ============================================================
+   CALCULATOR CARD
+   ============================================================ */
+
 .calc-card {
-  flex: 1 1 260px;
-  background: rgba(15, 22, 32, 0.55);
-  border-radius: 14px;
-  border: 1px solid rgba(102,252,241,0.16);
-  padding: 18px 20px 20px;
-  box-shadow: 0 0 18px rgba(102,252,241,0.12);
+  flex: 1 1 300px;
+  background: linear-gradient(
+      145deg,
+      rgba(12, 18, 28, 0.70) 0%,
+      rgba(15, 22, 32, 0.55) 100%
+    );
+  padding: 22px 24px 24px;
+  border-radius: 16px;
+
+  border: 1px solid rgba(102, 252, 241, 0.14);
+  box-shadow:
+      0 0 22px rgba(102,252,241,0.10),
+      inset 0 0 18px rgba(102,252,241,0.06);
+
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow: hidden;
+
+  transition: transform 0.22s ease, box-shadow 0.22s ease,
+              border-color 0.22s ease;
+}
+
+/* Top glow stripe */
+.calc-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(102,252,241,0.75),
+    rgba(69,160,201,0.55),
+    rgba(102,252,241,0.75)
+  );
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.calc-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(102,252,241,0.26);
+  box-shadow:
+      0 0 26px rgba(102,252,241,0.22),
+      inset 0 0 22px rgba(102,252,241,0.10);
+}
+
+/* ============================================================
+   TEXT + LABELS
+   ============================================================ */
+
+.calc-card h3 {
+  margin: 0 0 6px;
+  color: #c9f6ff;
+  font-size: 1.12rem;
+  font-weight: 400;
 }
 
 .calc-note {
-  font-size: 0.85rem;
-  opacity: 0.85;
-  margin-top: 0;
-  margin-bottom: 10px;
+  font-size: 0.83rem;
+  opacity: 0.82;
+  margin-top: 2px;
+  margin-bottom: 12px;
+  color: #def6ff;
+  line-height: 1.45;
 }
 
 .calc-label {
   display: block;
-  font-size: 0.85rem;
-  margin-top: 8px;
-  margin-bottom: 2px;
-  color: #c5f2ff;
+  font-size: 0.82rem;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: #d6faff;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 4px rgba(140,220,255,0.3);
 }
+
+/* ============================================================
+   INPUT STYLING
+   ============================================================ */
 
 .calc-input {
   width: 100%;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(120,160,190,0.7);
-  background: rgba(5, 10, 18, 0.7);
-  color: #e8e9ef;
-  font-size: 0.9rem;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(120,160,190,0.6);
+
+  background: rgba(6, 10, 16, 0.85);
+  color: #f0f6ff;
+
+  font-size: 0.92rem;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease,
+              background 0.22s ease;
+}
+
+.calc-input::placeholder {
+  color: rgba(200,230,255,0.45);
+}
+
+.calc-input:hover {
+  border-color: rgba(102,252,241,0.45);
 }
 
 .calc-input:focus {
   outline: none;
-  border-color: rgba(102,252,241,0.8);
-  box-shadow: 0 0 8px rgba(102,252,241,0.6);
+  border-color: rgba(102,252,241,0.85);
+  background: rgba(8,14,22,0.95);
+  box-shadow: 0 0 12px rgba(102,252,241,0.55);
 }
 
+/* ============================================================
+   OUTPUT BOX
+   ============================================================ */
+
 .calc-output {
-  margin-top: 12px;
+  margin-top: 14px;
   font-family: "JetBrains Mono","Menlo","Consolas",monospace;
-  font-size: 0.8rem;
-  background: rgba(0,0,0,0.45);
-  border-radius: 8px;
-  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+
+  background: rgba(0, 0, 0, 0.52);
+  border-radius: 10px;
+
+  padding: 12px 14px;
   border: 1px solid rgba(120,160,190,0.3);
-  max-height: 180px;
+
+  max-height: 200px;
   overflow-y: auto;
   white-space: pre-wrap;
+  color: #e9faff;
+  opacity: 0.95;
+
+  transition: max-height 0.45s ease, box-shadow 0.25s ease;
+}
+
+/* Slight glow on hover */
+.calc-output:hover {
+  box-shadow: 0 0 14px rgba(102,252,241,0.25);
+}
+
+/* ============================================================
+   RESPONSIVENESS
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .calc-grid {
+    gap: 18px;
+  }
+  .calc-card {
+    padding: 20px;
+  }
 }
   html {
   scroll-behavior: smooth;
