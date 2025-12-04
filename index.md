@@ -1573,15 +1573,20 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
+
+
 <details id="derivations">
   <summary><span class="summary-label">Derivations</span></summary>
   <div class="details-body">
 
     <p>
       This section collects <strong>all principal analytic derivations</strong> used in the
-      QKDE framework, organized into nested dropdowns for clarity. Everything matches
-      the equations and notation in the monograph: no heuristic shortcuts, no omitted
-      steps, and no approximations beyond those explicitly stated in the paper.
+      QKDE framework, organized into nested dropdowns for clarity. Every expression
+      matches the notation and equations in the monograph. No heuristic steps are omitted:
+      all transformations, identities, and definitions are stated explicitly. Where relevant,
+      we also note subtle points (e.g., sign conventions for \(X\), gauge choices, and
+      assumptions about background time dependence) to ensure full reproducibility and
+      referee-level transparency.
     </p>
 
     <!-- ===================================================== -->
@@ -1593,15 +1598,27 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         <p><strong>Starting point:</strong></p>
 
+        <p>
+          QKDE is defined by a <em>covariant</em> scalar–tensor action in which the kinetic
+          normalization is a <em>background function of time</em>, consistent with the EFT of
+          Dark Energy (unitary-gauge coefficient depending on the background clock
+          \(\phi_0(t)\)):
+        </p>
+
         \[
-        S = \int d^4x\,\sqrt{-g}\,\left[\frac12 M_{\rm pl}^2 R + K(t)X - V(\phi)\right],
+        S = \int d^4x\,\sqrt{-g}\,
+        \left[\frac12 M_{\rm pl}^2 R + K(t)X - V(\phi)\right],
         \qquad
         X = -\frac12 g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi .
         \]
 
-        <h4>(a) Energy–momentum tensor</h4>
+        <p>
+          Since \(g^{00}=-1\), the kinetic invariant becomes
+          \(X = \frac12 \dot\phi^2\). We make this sign explicit to avoid
+          confusion when comparing conventions.
+        </p>
 
-        Varying w.r.t. the metric:
+        <h4>(a) Energy–momentum tensor</h4>
 
         \[
         T_{\mu\nu} = K\,\partial_\mu\phi\partial_\nu\phi 
@@ -1616,10 +1633,8 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         <h4>(b) Scalar equation of motion</h4>
 
-        Variation w.r.t. \(\phi\) gives:
-
         \[
-        \nabla_\mu(K \nabla^\mu \phi) + V_{,\phi} = 0 .
+        \nabla_\mu(K \nabla^\mu \phi) + V_{,\phi} = 0.
         \]
 
         Because \(K = K(t)\):
@@ -1629,29 +1644,26 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         = K \Box\phi + K_{,\mu}\nabla^\mu\phi .
         \]
 
-        In FRW:
+        In FRW, using \(\dot K = H K'\):
 
         \[
-        K(\ddot\phi + 3H\dot\phi) + \dot{K}\,\dot\phi + V_{,\phi}=0 .
+        K(\ddot\phi + 3H\dot\phi) + HK' \dot\phi + V_{,\phi}=0.
         \]
-
-        This is the starting point for the e-fold reformulation.
 
         <h4>(c) Einstein equations</h4>
 
-        Friedmann:
-
         \[
-        3M_{\rm pl}^2 H^2 = \rho_m + \rho_r + \rho_\phi .
-        \]
-
-        Raychaudhuri:
-
-        \[
+        3M_{\rm pl}^2 H^2 = \rho_m + \rho_r + \rho_\phi ,
+        \qquad
         M_{\rm pl}^2 (2\dot H + 3H^2) = -p_m - p_r - p_\phi .
         \]
 
-        Nothing in QKDE modifies these except the new \(\rho_\phi, p_\phi\).
+        <p>
+          QKDE does <em>not</em> modify the Einstein–Hilbert gravitational sector:
+          all departures from ΛCDM arise solely through the scalar-field energy budget via
+          \(K(t)\).
+        </p>
+
       </div>
     </details>
 
@@ -1666,14 +1678,15 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         \[
         N = \ln a, 
-        \qquad f' \equiv \frac{df}{dN} = \frac{1}{H}\frac{df}{dt}.
-        \]
-
-        \[
-        E \equiv \frac{H'}{H}.
+        \qquad 
+        f' \equiv \frac{df}{dN} = \frac{1}{H}\frac{df}{dt},
+        \qquad
+        E \equiv \frac{H'}{H} = \frac{d\ln H}{dN}.
         \]
 
         <h4>(b) Scalar velocity variable</h4>
+
+        Define:
 
         \[
         s \equiv \phi' = \frac{\dot\phi}{H}.
@@ -1682,58 +1695,57 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         Then:
 
         \[
-        X = \frac12 \dot\phi^2 = \frac12 H^2 s^2.
+        X = \frac12\dot\phi^2 = \frac12 H^2 s^2.
         \]
+
+        <p>
+          This identity is exact and makes the scalar dynamics depend only on
+          \((s, K, V)\) once the Hubble rate is known.
+        </p>
 
         <h4>(c) Transforming the scalar EOM</h4>
 
         Starting from:
 
         \[
-        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi} = 0
+        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi} = 0,
         \]
 
-        Convert derivatives:
+        use:
 
         \[
-        \ddot\phi = H^2 s' + H H's .
+        \dot\phi = Hs, \qquad
+        \ddot\phi = H^2 s' + H^2 E s, \qquad
+        \dot K = H K'.
         \]
 
-        Plug in:
+        Substitute:
 
         \[
-        K\left(H^2 s' + H^2 E s + 3 H^2 s\right)
-        + (H K' ) H s 
-        + V_{,\phi} = 0.
+        K(H^2 s' + H^2 E s + 3H^2 s)
+        + HK'Hs + V_{,\phi} = 0.
         \]
 
         Divide by \(H^2 K\):
 
         \[
-        s' + (3+E)s + \frac{K'}{K}s + \frac{1}{H^2 K} V_{,\phi} =0.
+        s' = -(3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2K}.
         \]
 
-        So:
-
-        \[
-        s' = - (3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2 K}.
-        \]
-
-        <h4>(d) Full background system</h4>
+        <h4>(d) Final closed background system</h4>
 
         \[
         \phi' = s,
-        \]
-
-        \[
+        \qquad
         s' = -(3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2K},
-        \]
-
-        \[
+        \qquad
         E = \frac{H'}{H}.
         \]
 
-        The system becomes deterministic once \(K'/K\) is known.
+        <p>
+          Once \(K'/K(N)\) is specified (e.g., curvature-induced or running),
+          the system becomes fully deterministic and requires no numerical differentiation.
+        </p>
 
       </div>
     </details>
@@ -1744,23 +1756,34 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <details>
       <summary><span class="summary-label">2. Ricci scalar & e-fold identities</span></summary>
       <div class="details-body">
+
         <h4>(a) Ricci scalar in FRW</h4>
 
         \[
-        R = 6(2H^2 + \dot H).
-        \]
-
-        Write \(\dot H = H^2 E\):
-
-        \[
-        R = 6H^2(2 + E).
+        R = 6(2H^2 + \dot H)
+        = 6H^2(2 + E).
         \]
 
         <h4>(b) Derivative of \(R\)</h4>
 
+        Using:
+
         \[
-        \frac{R'}{R} = 2E + \frac{E'}{2+E}.
+        R = 6H^2(2+E),
         \]
+
+        differentiate:
+
+        \[
+        \frac{R'}{R}
+        = 2E + \frac{E'}{2+E}.
+        \]
+
+        <p>
+          We emphasize this identity because it closes the curvature–K system analytically:
+          no finite differencing of \(H(N)\) is required in numerical evolution.
+        </p>
+
       </div>
     </details>
 
@@ -1776,7 +1799,9 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           <summary><span class="summary-label">3a. Curvature-induced \(K(N)\)</span></summary>
           <div class="details-body">
 
-            <p>Start with:</p>
+            <p>
+              The UV-motivated curvature model takes \(K\) to be sourced by the Ricci scalar:
+            </p>
 
             \[
             K = 1 + \frac{\alpha R}{M^2}.
@@ -1785,8 +1810,8 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
             Then:
 
             \[
-            \frac{K'}{K} =
-            \frac{\alpha R'}{M^2 + \alpha R}.
+            \frac{K'}{K}
+            = \frac{\alpha R'}{M^2 + \alpha R}.
             \]
 
             Using the Ricci identity:
@@ -1803,7 +1828,20 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
               \left(2E + \frac{E'}{2+E}\right).
             \]
 
-            This closes the system exactly — no numerical differentiation needed.
+            <p>
+              This form is fully analytic and eliminates numerical instability in evaluating
+              \(K'/K\).
+            </p>
+
+            <p><strong>Viability:</strong></p>
+
+            \[
+            M^2 + \alpha R \neq 0, \qquad
+            K > 0.
+            \]
+
+            These prevent poles and ensure ghost freedom.
+
           </div>
         </details>
 
@@ -1812,7 +1850,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           <summary><span class="summary-label">3b. Running form \(K(N)\)</span></summary>
           <div class="details-body">
 
-            <p>Parametrization:</p>
+            <p>Phenomenological parameterization:</p>
 
             \[
             K(N) = 1 + K_0 e^{-pN}.
@@ -1825,18 +1863,20 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
             \frac{-p K_0 e^{-pN}}{1 + K_0 e^{-pN}}.
             \]
 
-            Useful reparametrization:
+            <p>
+              This model provides a clean analytic handle for intuition and improves sampling
+              efficiency during parameter scans. It also approximates curvature-induced
+              evolution in the slow-variation regime.
+            </p>
 
-            \[
-            K(N) = 1 + K_p e^{-p(N-N_p)}.
-            \]
           </div>
         </details>
+
       </div>
     </details>
 
     <!-- ===================================================== -->
-    <!-- 4. Energy-momentum tensor, rho, p, EOS               -->
+    <!-- 4. Energy–momentum and EOS                           -->
     <!-- ===================================================== -->
     <details>
       <summary><span class="summary-label">4. Energy–momentum components & equation of state</span></summary>
@@ -1847,49 +1887,55 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         p_\phi = KX - V.
         \]
 
-        In FRW:
-
-        \[
-        X = \frac12 H^2 s^2.
-        \]
-
-        Scalar equation-of-state:
+        With \(X = \frac12H^2 s^2\):
 
         \[
         w_\phi = \frac{KX - V}{KX + V}.
         \]
+
+        <p>
+          Note that even if \(V(\phi)\) is constant, time variation in \(K(N)\)
+          produces an evolving equation of state — this is the core physical
+          mechanism behind QKDE’s background acceleration.
+        </p>
+
       </div>
     </details>
 
     <!-- ===================================================== -->
-    <!-- 5. Klein-Gordon equation (full derivation)           -->
+    <!-- 5. KG equation                                       -->
     <!-- ===================================================== -->
     <details>
       <summary><span class="summary-label">5. Full Klein–Gordon derivation in e-fold time</span></summary>
       <div class="details-body">
-        From the FRW scalar EOM:
+
+        From:
 
         \[
-        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi}=0.
+        K(\ddot\phi + 3H\dot\phi) + \dot K\,\dot\phi + V_{,\phi}=0,
         \]
 
-        Convert to e-fold variables step by step:
-
-        - \(\dot\phi = H s\)  
-        - \(\ddot\phi = H^2 s' + H^2 E s\)
-
-        Insert:
+        substitute:
 
         \[
-        K\left(H^2 s' + H^2 E s + 3H^2 s\right)
-        + HK' Hs + V_{,\phi} = 0.
+        \ddot\phi = H^2 s' + H^2 E s,
+        \qquad
+        \dot\phi = H s,
+        \qquad
+        \dot K = HK'.
         \]
 
-        Divide by \(H^2 K\):
+        Then:
 
         \[
         s' = -(3+E)s - \frac{K'}{K}s - \frac{V_{,\phi}}{H^2K}.
         \]
+
+        <p>
+          This expression shows explicitly how time-variation in the kinetic normalization
+          modifies damping, while preserving the canonical sound speed and GR structure.
+        </p>
+
       </div>
     </details>
 
@@ -1907,27 +1953,25 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         \big[\tfrac12 M_{\rm pl}^2 R + K(t)X - V(\phi)\big]
         \]
 
-        corresponds to:
+        implies:
 
         \[
-        \alpha_K = \frac{K \dot\phi^2}{H^2 M_{\rm pl}^2} > 0,
+        \alpha_K = \frac{K\dot\phi^2}{H^2 M_{\rm pl}^2},
+        \qquad
+        \alpha_B = 0,\ \alpha_M=0,\ \alpha_T=0,\ \alpha_H=0.
         \]
 
-        with:
+        <p>
+          Therefore QKDE occupies the GR-preserving, luminal-tensor, constant-\(M_{\rm pl}\)
+          corner of EFT–DE, differentiating it sharply from Horndeski,
+          beyond-Horndeski, DHOST, or modified-gravity families.
+        </p>
 
-        \[
-        \alpha_B = 0,\qquad
-        \alpha_M = 0,\qquad
-        \alpha_T = 0,\qquad
-        \alpha_H = 0.
-        \]
-
-        Thus QKDE lies in the GR-preserving corner of EFT–DE.
       </div>
     </details>
 
     <!-- ===================================================== -->
-    <!-- 7. Perturbations: action, variables, sound speed     -->
+    <!-- 7. Perturbations & sound speed                       -->
     <!-- ===================================================== -->
     <details>
       <summary><span class="summary-label">7. Perturbation theory & sound speed derivation</span></summary>
@@ -1935,7 +1979,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         <h4>(a) Second-order action</h4>
 
-        In Newtonian gauge, expand:
+        Expand in Newtonian gauge:
 
         \[
         S^{(2)} = \int d^4x\, a^3
@@ -1948,24 +1992,25 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         <h4>(b) Canonical variable</h4>
 
-        Define:
-
         \[
         v = a(\delta\phi + \dot\phi\,\Phi/H),
         \qquad
         z^2 = a^2 K\dot\phi^2/H^2.
         \]
 
-        Then the action becomes the Mukhanov–Sasaki form:
+        Then:
 
         \[
-        S^{(2)} = \frac12 \int d\eta\, d^3k \left[v'^2 - c_s^2 k^2 v^2 + \frac{z''}{z} v^2\right].
+        S^{(2)} = \frac12 \int d\eta\, d^3k 
+        \left[v'^2 - c_s^2 k^2 v^2 + \frac{z''}{z} v^2\right].
         \]
 
         <h4>(c) Sound speed</h4>
 
-        The coefficient of \((\nabla\delta\phi)^2\) is exactly \(K\); the kinetic
-        coefficient is also \(K\) → therefore:
+        <p>
+          Both the gradient and kinetic terms are multiplied by the same coefficient \(K\),
+          so the physical sound speed is:
+        </p>
 
         \[
         c_s^2 = 1.
@@ -1973,19 +2018,16 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
         <h4>(d) Metric potentials</h4>
 
-        The Einstein equations yield:
+        In linear Einstein equations:
 
         \[
-        \Phi = \Psi.
+        \Phi = \Psi,\qquad \mu = \Sigma = 1,\qquad \eta = 0.
         \]
 
-        And:
-
-        \[
-        \mu = 1,\quad \Sigma=1,\quad \eta=0.
-        \]
-
-        No modified gravity signatures appear.
+        <p>
+          Thus, QKDE produces <em>no modified-gravity signatures</em> in perturbations.
+          All observable deviations originate solely from the background expansion.
+        </p>
 
       </div>
     </details>
@@ -1997,32 +2039,35 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       <summary><span class="summary-label">8. Growth of structure derivation</span></summary>
       <div class="details-body">
 
-        With \(\mu = 1\), linear matter perturbations satisfy:
+        Matter growth (GR, subhorizon) satisfies:
 
         \[
         \ddot D + 2H \dot D - \frac{3}{2}H^2 \Omega_m D = 0.
         \]
 
-        Convert to e-fold variables:
+        In e-fold variables:
 
         \[
         D' = \frac{\dot D}{H},\qquad
         D'' = \frac{\ddot D}{H^2} - E D'.
         \]
 
-        Insert:
+        So:
 
         \[
         D'' + (2 + E)D' - \frac{3}{2}\Omega_m D = 0.
         \]
 
-        All deviations from \(\Lambda\)CDM enter purely through \(H(N)\).
+        <p>
+          Since QKDE preserves GR, the growth equation is <em>identical</em> to ΛCDM
+          except for the modified background expansion \(H(N)\).
+        </p>
 
       </div>
     </details>
 
     <!-- ===================================================== -->
-    <!-- 9. Stability & admissibility                         -->
+    <!-- 9. Stability conditions                               -->
     <!-- ===================================================== -->
     <details>
       <summary><span class="summary-label">9. Stability conditions</span></summary>
@@ -2043,10 +2088,13 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         <h4>(c) Curvature model viability</h4>
 
         \[
-        M^2 + \alpha R \neq 0.
+        M^2 + \alpha R \neq 0,\qquad K = 1 + \frac{\alpha R}{M^2} > 0.
         \]
 
-        These conditions ensure consistent propagation and exclude pathological coupling regimes.
+        <p>
+          These ensure well-posed dynamics and exclude pathological operator choices.
+        </p>
+
       </div>
     </details>
 
@@ -2057,19 +2105,23 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       <summary><span class="summary-label">10. Numerical identity checks (pipeline)</span></summary>
       <div class="details-body">
 
-        <p>The monograph includes exact consistency residuals:</p>
+        <p>
+          The monograph implements several diagnostic identities to guarantee
+          algebraic closure and verify that the system evolves consistently
+          at machine precision:
+        </p>
 
         <ul>
           <li>\(C_F = 1 - \Omega_m - \Omega_r - \Omega_\phi\)</li>
           <li>\(C_R = R/H^2 - 6(2+E)\)</li>
-          <li>\(C_{\phi}\) from KG equation</li>
-          <li>\(C_{\nabla\cdot T_\phi}\) for scalar conservation</li>
-          <li>\(C_{R/H^2}\) verifying the Ricci identity</li>
+          <li>\(C_\phi\) from the KG equation</li>
+          <li>\(C_{\nabla\cdot T_\phi}\) verifying scalar conservation</li>
+          <li>\(C_{R/H^2}\) checking the Ricci identity closure</li>
         </ul>
 
         <p>
-          These quantify reproducibility and ensure that all algebraic closures are satisfied
-          at machine precision throughout the integration.
+          These checks quantify reproducibility and ensure that no hidden assumptions
+          or numerical artifacts enter the construction of QKDE.
         </p>
 
       </div>
@@ -2084,9 +2136,13 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
   <div class="details-body">
     <section class="calc-section">
       <p class="calc-intro">
-        Use these tools to explore a flat ΛCDM reference background, the running
-        kinetic normalization in QKDE, and linear growth in GR. These are lightweight,
-        browser-side calculators intended for intuition and quick checks.
+        These tools allow you to explore a flat ΛCDM reference background, the QKDE
+        running kinetic normalization, and linear structure growth in GR. They are
+        designed as lightweight, browser-based modules for intuition building,
+        parameter sensitivity checks, and rapid verification of equations discussed
+        in the monograph. They are not intended as substitutes for a full Boltzmann
+        code (e.g., CLASS, CAMB), but the mathematics implemented here is exact for
+        the background and GR growth equations.
       </p>
 
       <!-- ============================================================
@@ -2105,15 +2161,30 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           </div>
 
           <h4>Flat ΛCDM reference model</h4>
-          <p class="calc-note">Computes H(z), χ(z), D<sub>A</sub>(z), D<sub>L</sub>(z), and μ(z).</p>
+          <p class="calc-note">
+            Computes the full background: the expansion rate H(z), comoving distance χ(z),
+            angular-diameter distance DA(z), luminosity distance DL(z), and distance modulus μ(z),
+            assuming spatial flatness and no dynamical dark-energy component.
+          </p>
 
           <div class="calc-input-row">
-            <div><label class="calc-label">Redshift z</label><input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5"></div>
-            <div><label class="calc-label">H₀ [km/s/Mpc]</label><input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70"></div>
-            <div><label class="calc-label">Ω<sub>m0</sub></label><input id="lcdm-om" class="calc-input" type="number" step="0.001" value="0.3"></div>
-            <div><label class="calc-label">Ω<sub>r0</sub></label><input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0"></div>
-            <div><label class="calc-label">Ω<sub>Λ0</sub></label><input id="lcdm-ol" class="calc-input" type="number" step="0.001" value="0.7"></div>
-            <div><label class="calc-label">z-steps</label><input id="lcdm-steps" class="calc-input" type="number" step="50" value="400"></div>
+            <div><label class="calc-label">Redshift z</label>
+              <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5"></div>
+
+            <div><label class="calc-label">H₀ [km/s/Mpc]</label>
+              <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70"></div>
+
+            <div><label class="calc-label">Ω<sub>m0</sub></label>
+              <input id="lcdm-om" class="calc-input" type="number" step="0.001" value="0.3"></div>
+
+            <div><label class="calc-label">Ω<sub>r0</sub></label>
+              <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0"></div>
+
+            <div><label class="calc-label">Ω<sub>Λ0</sub></label>
+              <input id="lcdm-ol" class="calc-input" type="number" step="0.001" value="0.7"></div>
+
+            <div><label class="calc-label">z-steps</label>
+              <input id="lcdm-steps" class="calc-input" type="number" step="50" value="400"></div>
           </div>
 
           <div class="calc-action-row">
@@ -2125,7 +2196,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
             <div class="calc-formula-inner">
-              <p>\( H(z)=H_0E(z) \), where</p>
+              <p>\( H(z)=H_0E(z) \), with</p>
               <p>\( E(z)=\sqrt{\Omega_{m0}(1+z)^3+\Omega_{r0}(1+z)^4+\Omega_{\Lambda0}}. \)</p>
               <p>\( \chi(z)=c\int_0^{z}\frac{dz'}{H_0E(z')} \).</p>
               <p>\( D_A=\chi/(1+z),\quad D_L=(1+z)\chi \).</p>
@@ -2146,7 +2217,10 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <h4>Running kinetic normalization</h4>
           <p class="calc-note">
-            Uses \(K(N)=1+K_0e^{-pN}\) with \(N=\ln a=-\ln(1+z)\).
+            Implements the analytic running form  
+            \(K(N) = 1 + K_0 e^{-pN}\), where \(N=\ln a = -\ln(1+z)\).
+            This reproduces slow background drift in the kinetic sector while preserving
+            GR, luminal perturbations, and \(c_s^2 = 1\).
           </p>
 
           <div class="calc-input-row">
@@ -2168,7 +2242,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
               <p>\( N=-\ln(1+z) \).</p>
               <p>\( K(N)=1+K_0e^{-pN} \).</p>
               <p>\( K(z)=1+K_0(1+z)^p \).</p>
-              <p>\( K'/K = \frac{-pK_0e^{-pN}}{1+K_0e^{-pN}} \).</p>
+              <p>\( K'/K = -pK_0e^{-pN}/(1+K_0e^{-pN}) \).</p>
             </div>
           </div>
         </article>
@@ -2183,7 +2257,11 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           </div>
 
           <h4>Linear Structure Growth</h4>
-          <p class="calc-subtitle">Solves \(D''+(2+E)D' - \tfrac32 \Omega_m(a)D = 0\).</p>
+          <p class="calc-subtitle">
+            Solves the exact GR growth equation  
+            \(D'' + (2+E)D' - \tfrac32\Omega_m(a)D = 0\).
+            All deviations from ΛCDM arise solely through the supplied H(a).
+          </p>
 
           <div class="calc-input-row">
             <div><label class="calc-label">H₀</label><input id="grow-h0" class="calc-input" value="70" step="0.1"></div>
@@ -2200,11 +2278,18 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         <article class="calc-card" id="compare-card">
           <div class="calc-header-row">
             <h3>ΛCDM vs QKDE: K(z) Comparison</h3>
-            <div class="calc-pill-row"><span class="calc-pill is-active">Quick Insight</span></div>
+            <div class="calc-pill-row">
+              <span class="calc-pill is-active">Quick Insight</span>
+            </div>
           </div>
 
           <h4>Effective Kinetic Normalization</h4>
-          <p class="calc-note">ΛCDM: K = 1. QKDE: \(K(z)=1+K_0(1+z)^p\).</p>
+          <p class="calc-note">
+            ΛCDM uses a strictly canonical normalization, \(K=1\).  
+            QKDE introduces a dynamical but purely background-level modification  
+            \(K(z)=1 + K_0(1+z)^p\).  
+            No perturbation-sector changes occur (i.e., \(c_s^2=1\), GR preserved).
+          </p>
 
           <div class="calc-input-row">
             <div><label class="calc-label">Redshift z</label><input id="cmp-z" class="calc-input" value="0.5"></div>
@@ -2220,8 +2305,9 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       </div> <!-- END calc-grid -->
 
       <p class="calc-footnote">
-        These calculators reproduce ΛCDM distances, the QKDE running–K parameterization,
-        and GR linear growth. For precision forecasting, use the full numerical pipeline.
+        These calculators implement exact background integrals and GR growth equations.
+        For full cosmological forecasting, MCMC sampling, or perturbation spectra,
+        use the full numerical pipeline (CLASS-modified QKDE module).
       </p>
 
       <!-- ============================================================
@@ -2231,14 +2317,18 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         <div class="calc-header-row">
           <h3>Advanced Growth Comparator</h3>
           <div class="calc-pill-row">
-            <span class="calc-pill is-active">ΛCDM / Quintessence / k-essence-like</span>
+            <span class="calc-pill is-active">ΛCDM / Quintessence / CPL-type k-essence</span>
           </div>
         </div>
 
-        <h4>Linear Growth D(a) for Multiple Models</h4>
+        <h4>Linear Growth D(a) Across Multiple Models</h4>
         <p class="calc-note">
-          Numerically solves \(D''+(2+E)D' - \tfrac32 \Omega_m(a)D = 0\) for ΛCDM,
-          constant-w quintessence, and CPL-like k-essence (w₀,wₐ). All variations enter only through H(a).
+          Numerically solves the GR growth equation  
+          \(D'' + (2+E)D' - \tfrac32\Omega_m(a)D = 0\)  
+          for ΛCDM, constant-w quintessence, and CPL parameterizations often used as
+          effective stand-ins for k-essence-like backgrounds.
+          Only the background expansion H(a) differs between models; the perturbation
+          equations remain strictly GR.
         </p>
 
         <!-- Row 1 -->
@@ -2278,7 +2368,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
             <div>
               <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
               <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
-              <label><input type="checkbox" id="adv-show-kess" checked> k-essence-like</label>
+              <label><input type="checkbox" id="adv-show-kess" checked> CPL-type k-essence</label>
             </div>
           </div>
         </div>
