@@ -2269,7 +2269,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
-</details>
+
 <details id="references-qkde">
   <summary><span class="summary-label">References</span></summary>
   <div class="details-body">
@@ -2602,6 +2602,7 @@ function copyCitation() {
 
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
+<script>
 // ===================== Helper functions =====================
 
 // Dimensionless expansion rate E(z) = H(z)/H0 for flat ΛCDM
@@ -2849,6 +2850,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+  </script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
 </footer>
