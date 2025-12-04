@@ -2007,7 +2007,11 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         intended for intuition and quick checks.
       </p>
 
+      <!-- ============================================================
+           ALL CALCULATORS NOW LIVE IN ONE calc-grid
+      ============================================================ -->
       <div class="calc-grid">
+
         <!-- ================= ΛCDM CARD ================= -->
         <article class="calc-card" id="lcdm-card">
           <div class="calc-header-row">
@@ -2024,9 +2028,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <h4>Flat ΛCDM reference model</h4>
           <p class="calc-note">
-            Computes the dimensionless Hubble factor, H(z), comoving distance χ(z),
-            angular-diameter distance D<sub>A</sub>(z), luminosity distance D<sub>L</sub>(z),
-            and distance modulus μ.
+            Computes H(z), χ(z), D<sub>A</sub>(z), D<sub>L</sub>(z), and μ(z).
           </p>
 
           <div class="calc-input-row">
@@ -2052,6 +2054,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
               <label class="calc-label">Ω<sub>Λ0</sub></label>
               <input id="lcdm-ol" class="calc-input" type="number" step="0.001" value="0.7">
             </div>
+
             <div>
               <label class="calc-label">z-steps (integration)</label>
               <input id="lcdm-steps" class="calc-input" type="number" step="50" value="400">
@@ -2071,25 +2074,11 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
             <div class="calc-formula-inner">
-              <p>
-                Flat ΛCDM with matter, radiation, and a cosmological constant:
-              </p>
-              <p>
-                \( H(z) = H_0\,E(z), \qquad
-                   E(z) = \sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda0}} \).
-              </p>
-              <p>
-                Comoving distance:
-                \( \chi(z) = c \int_0^{z} \frac{dz'}{H_0\,E(z')} \).
-              </p>
-              <p>
-                Angular-diameter and luminosity distances:
-                \( D_A(z) = \chi(z)/(1+z),\quad D_L(z) = (1+z)\,\chi(z) \).
-              </p>
-              <p>
-                Distance modulus:
-                \( \mu = 5 \log_{10}\!\big[ D_L / \text{Mpc} \big] + 25 \).
-              </p>
+              <p>Flat ΛCDM:</p>
+              <p>\( H(z)=H_0E(z),\; E(z)=\sqrt{\Omega_{m0}(1+z)^3+\Omega_{r0}(1+z)^4+\Omega_{\Lambda0}} \).</p>
+              <p>\( \chi(z)=c\int_0^{z}\frac{dz'}{H_0E(z')} \).</p>
+              <p>\( D_A=\chi/(1+z),\quad D_L=(1+z)\chi \).</p>
+              <p>\( \mu=5\log_{10}(D_L/\mathrm{Mpc})+25 \).</p>
             </div>
           </div>
         </article>
@@ -2110,9 +2099,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <h4>Running kinetic normalization</h4>
           <p class="calc-note">
-            Uses the parameterization \( K(N) = 1 + K_0 e^{-pN} \) with
-            \( N = \ln a = -\ln(1+z) \). This does not solve the full background
-            system; it isolates how the kinetic normalization drifts with redshift.
+            Uses \(K(N)=1+K_0e^{-pN}\) with \(N=\ln a=-\ln(1+z)\).
           </p>
 
           <div class="calc-input-row">
@@ -2130,7 +2117,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
               <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0">
             </div>
             <div>
-              <label class="calc-label">Reference K(z=0)</label>
+              <label class="calc-label">Reference K(0)</label>
               <input id="qkde-kref" class="calc-input" type="number" step="0.01" value="1.0">
             </div>
           </div>
@@ -2148,114 +2135,105 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
           <div id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
             <div class="calc-formula-inner">
-              <p>
-                Parametrized running in e-fold time:
-              </p>
-              <p>
-                \( N = \ln a = -\ln(1+z), \qquad K(N) = 1 + K_0 e^{-pN}. \)
-              </p>
-              <p>
-                At a given redshift z:
-                \( K(z) = 1 + K_0 (1+z)^p \).
-              </p>
-              <p>
-                Logarithmic derivative with respect to N:
-                \( K'(N)/K(N) = \frac{dK/dN}{K} = \frac{-p K_0 e^{-pN}}{1 + K_0 e^{-pN}}. \)
-              </p>
-              <p>
-                The quantity \(K'(N)/K(N)\) enters directly in the closed background
-                system and determines how quickly the kinetic normalization drifts
-                as the universe expands.
-              </p>
+              <p>\( N=-\ln(1+z),\; K(N)=1+K_0e^{-pN} \).</p>
+              <p>\( K(z)=1+K_0(1+z)^p \).</p>
+              <p>\( K'(N)/K = \frac{-pK_0e^{-pN}}{1+K_0e^{-pN}} \).</p>
             </div>
           </div>
         </article>
-      </div>
-<!-- ============= GR GROWTH CARD ============= -->
-<article class="calc-card" id="growth-card">
-  <div class="calc-header-row">
-    <h3>GR Growth Factor D(a)</h3>
-    <div class="calc-pill-row">
-      <span class="calc-pill is-active" style="cursor:default;">GR-only</span>
-    </div>
-  </div>
 
-  <h4>Linear Structure Growth</h4>
-  <p class="calc-subtitle">
-    Solves the GR growth equation: D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0.
-  </p>
+        <!-- ============= GR GROWTH CARD ============= -->
+        <article class="calc-card" id="growth-card">
+          <div class="calc-header-row">
+            <h3>GR Growth Factor D(a)</h3>
+            <div class="calc-pill-row">
+              <span class="calc-pill is-active" style="cursor:default;">GR-only</span>
+            </div>
+          </div>
 
-  <div class="calc-input-row">
-    <div>
-      <label class="calc-label">H₀</label>
-      <input id="grow-h0" class="calc-input" type="number" value="70" step="0.1">
-    </div>
-    <div>
-      <label class="calc-label">Ωₘ₀</label>
-      <input id="grow-om0" class="calc-input" type="number" value="0.3" step="0.01">
-    </div>
+          <h4>Linear Structure Growth</h4>
+          <p class="calc-subtitle">
+            Solves D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0.
+          </p>
 
-    <div>
-      <label class="calc-label">Ωᵣ₀</label>
-      <input id="grow-or0" class="calc-input" type="number" value="0.0" step="1e-5">
-    </div>
-    <div>
-      <label class="calc-label">ΩΛ₀</label>
-      <input id="grow-ol0" class="calc-input" type="number" value="0.7" step="0.01">
-    </div>
-  </div>
+          <div class="calc-input-row">
+            <div>
+              <label class="calc-label">H₀</label>
+              <input id="grow-h0" class="calc-input" type="number" value="70" step="0.1">
+            </div>
+            <div>
+              <label class="calc-label">Ωₘ₀</label>
+              <input id="grow-om0" class="calc-input" type="number" value="0.3" step="0.01">
+            </div>
 
-  <div class="calc-action-row">
-    <button type="button" class="calc-btn" id="grow-compute">Compute D(a)</button>
-  </div>
+            <div>
+              <label class="calc-label">Ωᵣ₀</label>
+              <input id="grow-or0" class="calc-input" type="number" value="0.0" step="1e-5">
+            </div>
+            <div>
+              <label class="calc-label">ΩΛ₀</label>
+              <input id="grow-ol0" class="calc-input" type="number" value="0.7" step="0.01">
+            </div>
+          </div>
 
-  <pre id="grow-output" class="calc-output-mini"></pre>
-</article>
-<!-- ============= COMPARISON CARD ============= -->
-<article class="calc-card" id="compare-card">
-  <div class="calc-header-row">
-    <h3>ΛCDM vs QKDE: K(z) Comparison</h3>
-    <div class="calc-pill-row">
-      <span class="calc-pill is-active" style="cursor:default;">Quick Insight</span>
-    </div>
-  </div>
+          <div class="calc-action-row">
+            <button type="button" class="calc-btn" id="grow-compute">
+              Compute D(a)
+            </button>
+          </div>
 
-  <h4>Effective Kinetic Normalization</h4>
-  <p class="calc-note">
-    ΛCDM has K = 1 always. QKDE drifts via K(z) = 1 + K₀ (1+z)ᵖ.
-  </p>
+          <pre id="grow-output" class="calc-output-mini"></pre>
+        </article>
 
-  <div class="calc-input-row">
-    <div>
-      <label class="calc-label">Redshift z</label>
-      <input id="cmp-z" class="calc-input" type="number" step="0.01" value="0.5">
-    </div>
-    <div>
-      <label class="calc-label">K₀</label>
-      <input id="cmp-k0" class="calc-input" type="number" step="0.05" value="0.5">
-    </div>
+        <!-- ============= COMPARISON CARD ============= -->
+        <article class="calc-card" id="compare-card">
+          <div class="calc-header-row">
+            <h3>ΛCDM vs QKDE: K(z) Comparison</h3>
+            <div class="calc-pill-row">
+              <span class="calc-pill is-active" style="cursor:default;">Quick Insight</span>
+            </div>
+          </div>
 
-    <div>
-      <label class="calc-label">p</label>
-      <input id="cmp-p" class="calc-input" type="number" step="0.1" value="1.0">
-    </div>
-    <div>
-      <label class="calc-label">Reference K(0)</label>
-      <input id="cmp-kref" class="calc-input" type="number" step="0.01" value="1.0">
-    </div>
-  </div>
+          <h4>Effective Kinetic Normalization</h4>
+          <p class="calc-note">
+            ΛCDM: K = 1. QKDE: K(z) = 1 + K₀(1+z)ᵖ.
+          </p>
 
-  <div class="calc-action-row">
-    <button type="button" class="calc-btn" id="cmp-compute">Compare</button>
-  </div>
+          <div class="calc-input-row">
+            <div>
+              <label class="calc-label">Redshift z</label>
+              <input id="cmp-z" class="calc-input" type="number" step="0.01" value="0.5">
+            </div>
+            <div>
+              <label class="calc-label">K₀</label>
+              <input id="cmp-k0" class="calc-input" type="number" step="0.05" value="0.5">
+            </div>
 
-  <pre id="cmp-output" class="calc-output-mini"></pre>
-</article>
+            <div>
+              <label class="calc-label">p</label>
+              <input id="cmp-p" class="calc-input" type="number" step="0.1" value="1.0">
+            </div>
+            <div>
+              <label class="calc-label">Reference K(0)</label>
+              <input id="cmp-kref" class="calc-input" type="number" step="0.01" value="1.0">
+            </div>
+          </div>
+
+          <div class="calc-action-row">
+            <button type="button" class="calc-btn" id="cmp-compute">Compare</button>
+          </div>
+
+          <pre id="cmp-output" class="calc-output-mini"></pre>
+        </article>
+
+      </div> <!-- END calc-grid -->
+
       <p class="calc-footnote">
         These calculators are designed for clarity and speed. They reproduce the
         basic background relations and the QKDE running–K parameterization, but
         do not replace a full numerical pipeline for precision forecasting.
       </p>
+
     </section>
   </div>
 </details>
