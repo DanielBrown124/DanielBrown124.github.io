@@ -425,7 +425,7 @@ body {
   text-align: center;
 }
 
-.cite-box {
+.-box {
   background: rgba(15, 22, 32, 0.55);
   border: 1px solid rgba(102, 252, 241, 0.12);
   border-radius: 12px;
@@ -434,18 +434,18 @@ body {
   padding: 20px 25px;
 }
 
-.cite-buttons {
+.-buttons {
   display: flex;
   gap: 14px;
   margin-top: 14px;
 }
 
-.cite-header h3 {
+.-header h3 {
   font-size: 1.45rem;
   margin-bottom: 4px;
 }
 
-.cite-label {
+.-label {
   color: #c5f2ff;
   display: block;
   font-family: "Merriweather", serif;
@@ -453,7 +453,7 @@ body {
   margin-bottom: 6px;
 }
 
-.cite-select {
+.-select {
   background: rgba(20, 30, 45, 0.7);
   border: 1px solid rgba(102,252,241,0.20);
   border-radius: 6px;
@@ -463,19 +463,19 @@ body {
   padding: 6px 10px;
 }
 
-.cite-select:hover {
+.-select:hover {
   border-color: rgba(102,252,241,0.40);
   cursor: pointer;
 }
 
-.cite-subtext {
+.-subtext {
   color: #c9e6f8;
   font-size: 0.9rem;
   margin-top: 0;
   opacity: 0.8;
 }
 
-.cite-text {
+.-text {
   background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(120,160,200,0.25);
   border-radius: 8px;
@@ -522,7 +522,7 @@ details[open] .summary-label::before {
   transform: rotate(90deg);
 }
 
-.enhanced-cite {
+.enhanced- {
   background: linear-gradient(
       to bottom right,
       rgba(15, 22, 32, 0.7),
@@ -536,7 +536,7 @@ details[open] .summary-label::before {
   position: relative;
 }
 
-.enhanced-cite::before {
+.enhanced-::before {
   background: linear-gradient(to right, #66fcf1, #45a0c9, #66fcf1);
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
@@ -851,7 +851,7 @@ html {
   <a href="#calculator">Calculator</a>
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
-  <a href="#cite-qkde">Cite</a>
+  <a href="#-qkde"></a>
   <a class="nav-button" href="QKDE_v.3F.pdf">
     View PDF
   </a>
@@ -2973,13 +2973,18 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 </ol>
 </div>
 </details>
-<!-- BEGIN CITE BOX (must stay inside details-body) -->
-<!-- ===================== CITE THIS WORK ===================== -->
 
+
+
+<!-- ============================================================
+     CITE THIS WORK — ENHANCED, ERROR-PROOF VERSION
+============================================================ -->
 <div class="cite-box enhanced-cite" id="cite-qkde">
   <div class="cite-header">
     <h3>Cite This Work</h3>
-    <p class="cite-subtext">Choose a citation format and copy it directly for your paper, thesis, or project.</p>
+    <p class="cite-subtext">
+      Choose a citation format and copy it directly for your paper, thesis, or research.
+    </p>
   </div>
 
   <label for="cite-select" class="cite-label">Citation style:</label>
@@ -2999,55 +3004,115 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
       Copy to Clipboard
     </button>
 
-   
+    <!-- Optional BibTeX download button (fully functional + safe) -->
+    <a id="download-bib"
+       class="paper-button cite-btn-alt"
+       download="qkde.bib">
+       Download BibTeX
+    </a>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-function updateCitation() {
-  const style = document.getElementById("cite-select").value;
-  const output = document.getElementById("cite-output");
-  const downloadBib = document.getElementById("download-bib");
 
-  const citations = {
-    bibtex: `@misc{brown2025qkde,
+<script>
+// ======================= CITATION LOGIC =======================
+
+// Citation database
+const QKDE_CITATIONS = {
+  bibtex: `@misc{brown2025qkde,
   author = {Daniel Brown},
   title = {Quantum–Kinetic Dark Energy (QKDE)},
   year = {2025},
   publisher = {Zenodo},
   doi = {10.5281/zenodo.17774687},
-  url = {(https://doi.org/10.5281/zenodo.17774687)}
+  url = {https://doi.org/10.5281/zenodo.17774687}
 }`,
-    apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687`,
-    mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17774687.`,
-    chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687.`,
-    ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17774687.`,
-    harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17774687.`
-  };
+  apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687`,
+  mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17774687.`,
+  chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687.`,
+  ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17774687.`,
+  harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17774687.`
+};
 
-  output.textContent = citations[style];
+// Update citation display + BibTeX file
+function updateCitation() {
+  const style = document.getElementById("cite-select").value;
+  const output = document.getElementById("cite-output");
+  const bibLink = document.getElementById("download-bib");
 
-  // Also update BibTeX downloadable file
-  const blob = new Blob([citations.bibtex], { type: 'text/plain' });
-  downloadBib.href = URL.createObjectURL(blob);
+  // Update citation text
+  output.textContent = QKDE_CITATIONS[style] || "";
+
+  // Update BibTeX file even if user is not on BibTeX
+  const blob = new Blob([QKDE_CITATIONS.bibtex], { type: "text/plain" });
+  bibLink.href = URL.createObjectURL(blob);
 }
 
+// Copy citation text
 function copyCitation() {
-  const citation = document.getElementById("cite-output").textContent;
+  const citation = document.getElementById("cite-output").textContent.trim();
   navigator.clipboard.writeText(citation);
-  
-  // Smooth, non-annoying copy notification
+
+  showToast("Citation copied!");
+}
+
+// Toast notification
+function showToast(message) {
   const toast = document.createElement("div");
   toast.className = "toast";
-  toast.textContent = "Citation copied!";
+  toast.textContent = message;
   document.body.appendChild(toast);
+
   setTimeout(() => toast.classList.add("show"), 10);
   setTimeout(() => toast.classList.remove("show"), 2000);
   setTimeout(() => toast.remove(), 2600);
 }
 
+// Initialize on load
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
+
+<!-- ===== Toast Styling ===== -->
+<style>
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: rgba(40, 180, 255, 0.18);
+  border: 1px solid rgba(102,252,241,0.45);
+  backdrop-filter: blur(6px);
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: #e8faff;
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s ease;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cite-btn-alt {
+  background: rgba(6,12,20,0.65);
+  border: 1px solid rgba(160,200,255,0.4);
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: #dff6ff;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease;
+}
+.cite-btn-alt:hover {
+  background: rgba(20,40,60,0.85);
+  border-color: rgba(102,252,241,0.55);
+}
+</style>
+
+
+
+
 <script>
   // ================== BASIC NUMERIC HELPERS ==================
 
