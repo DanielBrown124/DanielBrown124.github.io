@@ -13,174 +13,64 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   [id] {
   scroll-margin-top: 90px;
 }
-  /* ====== Calculator Layout ====== */
-
-.calc-grid {
+  .calc-grid {
   margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
 }
 
-/* Ensure cards stack nicely on small screens */
-@media (max-width: 780px) {
-  .calc-grid {
-    flex-direction: column;
-  }
-}
-
 .calc-card {
   flex: 1 1 260px;
-  background: rgba(15, 22, 32, 0.68);
+  background: rgba(15, 22, 32, 0.55);
   border-radius: 14px;
-  border: 1px solid rgba(102, 252, 241, 0.18);
+  border: 1px solid rgba(102,252,241,0.16);
   padding: 18px 20px 20px;
-  box-shadow: 0 0 18px rgba(102, 252, 241, 0.12);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 0 18px rgba(102,252,241,0.12);
 }
 
-.calc-card::before {
-  /* subtle top accent line */
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(to right, rgba(102,252,241,0.7), rgba(69,160,201,0.5), rgba(102,252,241,0.7));
-  opacity: 0.7;
-}
-
-.calc-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 24px rgba(102, 252, 241, 0.25);
-  border-color: rgba(102, 252, 241, 0.28);
-}
-
-/* Header row in each card */
-.calc-card-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-
-.calc-card-header h3 {
-  margin: 0;
-  font-size: 1.05rem;
-}
-
-.calc-tag {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(160, 220, 255, 0.45);
-  background: rgba(8, 18, 28, 0.9);
-  color: #aeeaff;
-  white-space: nowrap;
-}
-
-/* Small note under title */
 .calc-note {
-  font-size: 0.83rem;
+  font-size: 0.85rem;
   opacity: 0.85;
-  margin-top: 4px;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
-/* Labels / inputs */
 .calc-label {
   display: block;
-  font-size: 0.83rem;
+  font-size: 0.85rem;
   margin-top: 8px;
   margin-bottom: 2px;
   color: #c5f2ff;
-}
-
-.calc-input-row {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 8px 10px;
-}
-
-/* Fall back to single-column for small widths */
-@media (max-width: 500px) {
-  .calc-input-row {
-    grid-template-columns: 1fr;
-  }
 }
 
 .calc-input {
   width: 100%;
   padding: 6px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(120, 160, 190, 0.7);
-  background: rgba(5, 10, 18, 0.8);
+  border: 1px solid rgba(120,160,190,0.7);
+  background: rgba(5, 10, 18, 0.7);
   color: #e8e9ef;
   font-size: 0.9rem;
-  box-sizing: border-box;
-}
-
-.calc-input::placeholder {
-  color: rgba(200, 215, 235, 0.55);
-  font-size: 0.8rem;
 }
 
 .calc-input:focus {
   outline: none;
-  border-color: rgba(102, 252, 241, 0.95);
-  box-shadow: 0 0 8px rgba(102, 252, 241, 0.7);
+  border-color: rgba(102,252,241,0.8);
+  box-shadow: 0 0 8px rgba(102,252,241,0.6);
 }
 
-/* Output block */
 .calc-output {
   margin-top: 12px;
-  font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
   font-size: 0.8rem;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0,0,0,0.45);
   border-radius: 8px;
   padding: 10px 12px;
-  border: 1px solid rgba(120, 160, 190, 0.4);
-  max-height: 190px;
+  border: 1px solid rgba(120,160,190,0.3);
+  max-height: 180px;
   overflow-y: auto;
   white-space: pre-wrap;
-}
-
-/* Error / warning text inside output */
-.calc-output.error {
-  border-color: rgba(255, 120, 120, 0.7);
-  color: #ffd9d9;
-}
-
-/* Button refinement inside calculator */
-.calc-btn {
-  margin-top: 14px;
-  font-size: 0.9rem;
-  padding: 9px 18px;
-}
-
-.calc-btn + .calc-btn-secondary {
-  margin-left: 10px;
-}
-
-/* Little gray helper text under calculators */
-.calc-footnote {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-/* Tiny separation line inside cards (optional) */
-.calc-divider {
-  margin: 10px 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(120,160,200,0.7), transparent);
-  border: none;
 }
   html {
   scroll-behavior: smooth;
@@ -1861,406 +1751,497 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     <p>
       This section provides simple, browser-side calculators to give an intuitive feel 
       for background cosmology and the running kinetic normalization in QKDE. 
-      These are <em>illustrative</em> tools — the full, high-precision pipeline 
+      These are <em>illustrative</em> tools – the full, high-precision pipeline 
       is implemented in the Python notebooks in the repository.
     </p>
 
     <div class="calc-grid">
 
-      <!-- ============ ΛCDM BACKGROUND / DISTANCE CALCULATOR ============ -->
-      <section class="calc-card" aria-labelledby="lcdm-title">
-        <div class="calc-card-header">
-          <h3 id="lcdm-title">ΛCDM Background &amp; Distances</h3>
-          <span class="calc-tag">Reference model</span>
-        </div>
-
+      <!-- ================= ΛCDM BACKGROUND / DISTANCE CALCULATOR ================ -->
+      <div class="calc-card">
+        <h3>ΛCDM Background & Distances</h3>
         <p class="calc-note">
-          Flat ΛCDM with the standard Friedmann equation. Use this as a clean reference
-          when comparing to QKDE backgrounds from the full code.
+          Flat ΛCDM with standard Friedmann equation. This is a reference model 
+          to compare against QKDE runs.
         </p>
 
-        <div class="calc-input-row">
-          <div>
-            <label class="calc-label" for="lcdm-z">Redshift \(z\)</label>
-            <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5" min="0" />
-          </div>
+        <label class="calc-label">Redshift \(z\)</label>
+        <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5">
 
-          <div>
-            <label class="calc-label" for="lcdm-h0">\(H_0\) [km/s/Mpc]</label>
-            <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70" min="10" />
-          </div>
+        <label class="calc-label">\(H_0\) [km/s/Mpc]</label>
+        <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70">
 
-          <div>
-            <label class="calc-label" for="lcdm-om">\(\Omega_{m0}\)</label>
-            <input id="lcdm-om" class="calc-input" type="number" step="0.01" value="0.3" />
-          </div>
+        <label class="calc-label">\(\Omega_{m0}\)</label>
+        <input id="lcdm-om" class="calc-input" type="number" step="0.01" value="0.3">
 
-          <div>
-            <label class="calc-label" for="lcdm-or">\(\Omega_{r0}\)</label>
-            <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0" />
-          </div>
+        <label class="calc-label">\(\Omega_{r0}\)</label>
+        <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0">
 
-          <div>
-            <label class="calc-label" for="lcdm-ol">\(\Omega_{\Lambda 0}\)</label>
-            <input id="lcdm-ol" class="calc-input" type="number" step="0.01" value="0.7" />
-          </div>
+        <label class="calc-label">\(\Omega_{\Lambda 0}\)</label>
+        <input id="lcdm-ol" class="calc-input" type="number" step="0.01" value="0.7">
 
-          <div>
-            <label class="calc-label" for="lcdm-steps">Integration steps</label>
-            <input id="lcdm-steps" class="calc-input" type="number" step="2" value="400" min="50" />
-          </div>
-        </div>
-
-        <button id="lcdm-button" class="paper-button alt-button calc-btn" type="button">
+        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeLCDM()">
           Compute ΛCDM
         </button>
 
-        <pre id="lcdm-output" class="calc-output" aria-live="polite"></pre>
-      </section>
+        <pre id="lcdm-output" class="calc-output"></pre>
+      </div>
 
-      <!-- ================= QKDE RUNNING–K VISUALIZER ================= -->
-      <section class="calc-card" aria-labelledby="qkde-title">
-        <div class="calc-card-header">
-          <h3 id="qkde-title">QKDE Running–\(K(t)\) Visualizer</h3>
-          <span class="calc-tag">QKDE baseline</span>
-        </div>
-
+      <!-- ================= QKDE RUNNING-K VISUALIZER ================= -->
+      <div class="calc-card">
+        <h3>QKDE Running–\(K(t)\) Visualizer</h3>
         <p class="calc-note">
           Uses the running-kinetic form \(K(N) = 1 + K_0 e^{-pN}\) with 
           \(N = \ln a = -\ln(1+z)\). This does <em>not</em> solve the full 
-          background ODEs; it only shows how the kinetic normalization drifts.
+          background ODEs; it just shows how the kinetic normalization drifts.
         </p>
 
-        <div class="calc-input-row">
-          <div>
-            <label class="calc-label" for="qkde-z">Redshift \(z\)</label>
-            <input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5" min="0" />
-          </div>
+        <label class="calc-label">Redshift \(z\)</label>
+        <input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5">
 
-          <div>
-            <label class="calc-label" for="qkde-k0">\(K_0\)</label>
-            <input id="qkde-k0" class="calc-input" type="number" step="0.1" value="0.5" />
-          </div>
+        <label class="calc-label">\(K_0\)</label>
+        <input id="qkde-k0" class="calc-input" type="number" step="0.1" value="0.5">
 
-          <div>
-            <label class="calc-label" for="qkde-p">\(p\)</label>
-            <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0" />
-          </div>
-        </div>
+        <label class="calc-label">\(p\)</label>
+        <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0">
 
-        <button id="qkde-button" class="paper-button alt-button calc-btn" type="button">
+        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeQKDE()">
           Compute \(K(z)\) and \(K'/K\)
         </button>
 
-        <pre id="qkde-output" class="calc-output" aria-live="polite"></pre>
-      </section>
+        <pre id="qkde-output" class="calc-output"></pre>
+      </div>
 
     </div> <!-- /.calc-grid -->
 
-    <p class="calc-footnote">
+    <p style="margin-top:20px; font-size:0.9rem; opacity:0.9;">
       <strong>Note:</strong> the ΛCDM calculator uses the standard flat-universe Friedmann
-      equation with 
-      \(H(z)=H_0\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda 0}}\),
-      Simpson integration for distances, and the textbook expression for the
-      effective total equation of state 
-      \(w_{\rm eff}(z)\) from the matter–radiation–Λ mixture.
-      The QKDE block shows the exact running-\(K\) parameterization used in the paper;
-      for full backgrounds, consistency checks, and Fisher forecasts, see the Python
-      code in the repository.
+      equation with \(H(z)=H_0\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda 0}}\)
+      and numerical integration for distances. The QKDE block shows the exact 
+      running-\(K\) parameterization used in the paper; for full background and 
+      Fisher forecasts, see the Python code in the repository.
     </p>
 
   </div>
-</details>
 </details>
 <details id="comparison-qkde">
   <summary><span class="summary-label">Comparing QKDE to existing models</span></summary>
   <div class="details-body">
 
     <p>
-      This section places <strong>Quantum–Kinetic Dark Energy (QKDE)</strong> within the modern
-      dark-energy / modified-gravity landscape. Content is organized into nested dropdowns
-      for clarity: an overview, a comparison matrix, and detailed entries for major
-      frameworks. The goal is to make the theoretical distinctions precise and eliminate
-      common misconceptions (e.g. that QKDE is “just quintessence” or “just k-essence”).
+      This section places <strong>Quantum–Kinetic Dark Energy (QKDE)</strong> in the broader
+      dark-energy / modified-gravity theory space. To keep things readable, the content is
+      organized into nested dropdowns: a quick overview, a comparison matrix, then more
+      detailed entries for each major class of models.
     </p>
 
-    <!-- ====================== OVERVIEW ====================== -->
+    <!-- ================== OVERVIEW ================== -->
     <details>
       <summary><span class="summary-label">Overview & quick summary</span></summary>
       <div class="details-body">
-        <p>QKDE is characterized by:</p>
+        <p>
+          At a high level, QKDE is:
+        </p>
         <ul>
-          <li><strong>Pure GR metric sector</strong>: no modified gravity, luminal tensors, constant Planck mass.</li>
-          <li><strong>Single scalar field</strong> with <em>canonical perturbations</em> and \(c_s^2 = 1\).</li>
-          <li><strong>Time-dependent kinetic normalization</strong> \(K(t)\) multiplying a canonical \(X\) term.</li>
-          <li><strong>EFT–DE signature</strong>: \(\alpha_K > 0\); all other \(\alpha_i = 0\).</li>
-          <li><strong>All observables flow through \(H(a)\)</strong> and the induced linear growth.</li>
+          <li>A single-scalar, GR-preserving dark-energy framework.</li>
+          <li>Defined by a time-dependent kinetic normalization \(K(t)\) multiplying a canonical kinetic term.</li>
+          <li>Exactly canonical in perturbations: \(c_s^2 = 1\), no gravitational slip, luminal GWs.</li>
+          <li>Characterized in EFT–DE by: \(\alpha_K > 0\), \(\alpha_B = \alpha_M = \alpha_T = \alpha_H = 0\).</li>
+          <li>Distinct from quintessence and k-essence in its structure and motivation.</li>
         </ul>
         <p>
-          QKDE is therefore not a modified-gravity model, not a generic k-essence model, 
-          and not reducible to quintessence via field redefinition.
+          All observable deviations from \(\Lambda\)CDM arise through the expansion history \(H(a)\)
+          and the induced linear growth \(D(a)\), not through modified gravity or extra forces.
         </p>
       </div>
     </details>
 
-    <!-- ====================== MATRIX ====================== -->
+    <!-- =============== QUICK COMPARISON MATRIX =============== -->
     <details>
       <summary><span class="summary-label">Quick comparison matrix</span></summary>
       <div class="details-body">
-
-        <p>A compact comparison of structural features:</p>
+        <p>
+          A compact, at-a-glance comparison between QKDE and several standard frameworks.
+          Here “GR-preserving” means the Einstein–Hilbert sector is unmodified and
+          \(\mu = 1\), \(\Sigma = 1\), \(\eta = 0\), \(c_T^2 = 1\) at linear level.
+        </p>
 
         <table class="symbol-table">
           <thead>
             <tr>
               <th>Model</th>
-              <th>GR metric?</th>
-              <th>Degrees of freedom</th>
+              <th>GR preserved?</th>
+              <th>Scalar?</th>
               <th>EFT–DE pattern</th>
               <th>Sound speed</th>
-              <th>Main DE mechanism</th>
+              <th>Gravity sector</th>
+              <th>Primary driver</th>
             </tr>
           </thead>
           <tbody>
-
             <tr>
               <td>\(\Lambda\)CDM</td>
               <td>Yes</td>
               <td>No new scalar</td>
               <td>All \(\alpha_i = 0\)</td>
               <td>–</td>
-              <td>Constant vacuum energy</td>
+              <td>Pure Einstein</td>
+              <td>Constant \(\Lambda\)</td>
             </tr>
-
             <tr>
               <td>Quintessence</td>
               <td>Yes</td>
-              <td>1 canonical scalar</td>
+              <td>Single canonical</td>
               <td>\(\alpha_K \neq 0\), others 0</td>
               <td>\(c_s^2 = 1\)</td>
+              <td>Einstein</td>
               <td>Potential \(V(\phi)\)</td>
             </tr>
-
             <tr>
               <td>k-essence</td>
-              <td>Usually</td>
-              <td>1 noncanonical scalar</td>
+              <td>Often yes</td>
+              <td>Single, noncanonical</td>
               <td>Model-dependent</td>
-              <td>Often \(c_s^2 \neq 1\)</td>
+              <td>Generic \(c_s^2 \neq 1\)</td>
+              <td>Einstein</td>
               <td>General \(P(X,\phi)\)</td>
             </tr>
-
             <tr>
-              <td>Horndeski / DHOST</td>
+              <td>Horndeski / BH</td>
               <td>No (MG)</td>
               <td>Scalar–tensor</td>
               <td>Multiple \(\alpha_i\) active</td>
               <td>Model-dependent</td>
               <td>Modified gravity</td>
+              <td>Curvature–scalar couplings</td>
             </tr>
-
             <tr>
-              <td>f(R) / MG</td>
-              <td>No</td>
-              <td>Effective scalaron</td>
-              <td>\(\alpha_M,\alpha_B,\alpha_T\) etc.</td>
+              <td>f(R), MG</td>
+              <td>No (MG)</td>
+              <td>Effective scalar</td>
+              <td>\(\alpha_M,\alpha_T,\alpha_B\) etc.</td>
               <td>Model-dependent</td>
-              <td>Altered gravitational action</td>
+              <td>Modified gravity</td>
+              <td>Altered \(f(R)\), etc.</td>
             </tr>
-
             <tr>
-              <td>Interacting / unified dark fluids</td>
+              <td>Interacting / Unified DE</td>
+              <td>Often yes</td>
+              <td>Single or multiple</td>
               <td>Model-dependent</td>
-              <td>1–2 effective fields</td>
               <td>Model-dependent</td>
-              <td>Model-dependent</td>
-              <td>Dark-sector coupling</td>
+              <td>Einstein or MG</td>
+              <td>Dark-sector couplings</td>
             </tr>
-
             <tr>
               <td><strong>QKDE</strong></td>
               <td><strong>Yes</strong></td>
-              <td><strong>1 canonical scalar</strong></td>
-              <td><strong>\(\alpha_K > 0\), others 0</strong></td>
+              <td><strong>Single canonical</strong></td>
+              <td><strong>\(\alpha_K>0\); all others 0</strong></td>
               <td><strong>\(c_s^2 = 1\)</strong></td>
+              <td><strong>Pure Einstein</strong></td>
               <td><strong>Time-dependent \(K(t)\)</strong></td>
             </tr>
-
           </tbody>
         </table>
 
         <p style="margin-top: 12px;">
-          QKDE sits between \(\Lambda\)CDM and quintessence but is orthogonal to k-essence
-          and modified gravity in functional form and phenomenology.
+          QKDE is therefore more flexible than \(\Lambda\)CDM, more structured than
+          generic k-essence, and deliberately orthogonal to modified gravity.
         </p>
-
       </div>
     </details>
 
-    <!-- ====================== MODELS ====================== -->
+    <!-- ================== INDIVIDUAL MODELS ================== -->
 
-    <!-- ΛCDM -->
     <details>
-      <summary><span class="summary-label">\(\Lambda\)CDM</span></summary>
+      <summary><span class="summary-label">\(\Lambda\)CDM (cosmological constant)</span></summary>
       <div class="details-body">
+        <p><strong>Definition:</strong></p>
+        <p>
+          \(\Lambda\)CDM describes dark energy as a constant vacuum energy with
+          \(w = -1\), no extra fields, and pure Einstein gravity.
+        </p>
 
-        <p><strong>Definition:</strong> Constant vacuum energy, no new fields, exact GR.</p>
-
-        <p><strong>Key differences from QKDE:</strong></p>
+        <p><strong>Similarities to QKDE:</strong></p>
         <ul>
-          <li>\(\Lambda\)CDM has no scalar; QKDE has one.</li>
-          <li>\(\Lambda\)CDM has fixed \(w = -1\); QKDE produces dynamical \(w_{\rm eff}(a)\).</li>
-          <li>QKDE introduces \(\alpha_K\neq 0\); \(\Lambda\)CDM has all \(\alpha_i = 0\).</li>
+          <li>Einstein–Hilbert sector is untouched in both frameworks.</li>
+          <li>Both predict \(c_T^2 = 1\) and a constant Planck mass.</li>
+          <li>Both give \(\mu = \Sigma = 1\), \(\eta = 0\) at linear level.</li>
         </ul>
 
-        <p><strong>Relationship:</strong>  
-        QKDE contains \(\Lambda\)CDM as the special case \(K(t) \to \text{const}\).
-        </p>
+        <p><strong>Differences:</strong></p>
+        <ul>
+          <li>\(\Lambda\)CDM has no scalar; QKDE has one with a running kinetic normalization \(K(t)\).</li>
+          <li>\(\Lambda\)CDM fixes the expansion history; QKDE allows controlled deviations via \(K(t)\).</li>
+          <li>QKDE activates \(\alpha_K\) while all EFT functions vanish in \(\Lambda\)CDM.</li>
+        </ul>
 
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          \(\Lambda\)CDM is recovered as a limit of QKDE when \(K(t) \to \mathrm{const}\)
+          and the potential behaves effectively as a cosmological constant.
+        </p>
       </div>
     </details>
 
-    <!-- Quintessence -->
     <details>
       <summary><span class="summary-label">Quintessence</span></summary>
       <div class="details-body">
+        <p><strong>Definition:</strong></p>
+        <p>
+          Quintessence is a canonical scalar field with
+          \(P(X,\phi) = X - V(\phi)\), driving acceleration through the rolling
+          potential \(V(\phi)\).
+        </p>
 
-        <p><strong>Definition:</strong> Canonical scalar with fixed kinetic normalization and a potential.</p>
-
-        <p><strong>Distinctive differences from QKDE:</strong></p>
+        <p><strong>Similarities to QKDE:</strong></p>
         <ul>
-          <li>Quintessence uses \(P = X - V(\phi)\); QKDE uses \(P = K(t)X - V(\phi)\).</li>
-          <li>In QKDE, \(K(t)\) is a physical background function and cannot be removed by field redefinition.</li>
-          <li>Quintessence dynamics are potential-driven; QKDE shifts dynamics into a kinetic drift.</li>
-          <li>Heavy-field or curvature-suppressed origins for \(K(t)\) have no quintessence analogue.</li>
+          <li>Single canonical scalar with \(c_s^2 = 1\).</li>
+          <li>GR-preserving: \(\alpha_B = \alpha_M = \alpha_T = \alpha_H = 0\).</li>
+          <li>No modified gravity or screening mechanisms required.</li>
         </ul>
 
-        <!-- NESTED: WHY IT IS NOT QUINTESSENCE -->
-        <details>
-          <summary><span class="summary-label">Why QKDE is <em>not</em> quintessence</span></summary>
-          <div class="details-body">
-            <ul>
-              <li>A time-dependent \(K(t)\) produces effects that cannot be absorbed into a redefined scalar field without breaking GR or changing the EFT mapping.</li>
-              <li>Quintessence has no operator-level mechanism for kinetic drift; QKDE does (e.g. \(R X\) suppression).</li>
-              <li>The expansion freedom in QKDE comes from \(K(t)\), not from altering \(V(\phi)\).</li>
-            </ul>
-            <p><strong>Bottom line:</strong>  
-            QKDE ≠ quintessence; they occupy different directions in theory space.
-            </p>
-          </div>
-        </details>
+        <p><strong>Differences:</strong></p>
+        <ul>
+          <li>Quintessence has fixed kinetic normalization \(K = 1\); QKDE promotes it to \(K(t)\).</li>
+          <li>
+            Quintessence dynamics are potential-driven; QKDE shifts part of the dynamics
+            into the time dependence of the kinetic prefactor.
+          </li>
+          <li>
+            QKDE’s \(K(t)\) is motivated by curvature-suppressed operators (e.g. \(R X / M^2\))
+            and heavy-field integration in curved spacetime.
+          </li>
+        </ul>
 
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          QKDE is not just “quintessence with a different normalization”; its running
+          kinetic term encodes distinct EFT structure and QFT-in-curved-space motivation.
+        </p>
       </div>
     </details>
 
-    <!-- k-essence -->
     <details>
       <summary><span class="summary-label">k-essence</span></summary>
       <div class="details-body">
+        <p><strong>Definition:</strong></p>
+        <p>
+          k-essence generalizes the scalar Lagrangian to an arbitrary noncanonical
+          form \(P(X,\phi)\), often with nontrivial sound speeds and clustering dark energy.
+        </p>
 
-        <p><strong>Definition:</strong> Scalar with general nonlinear kinetic structure \(P(X,\phi)\).</p>
-
-        <p><strong>Distinctive differences from QKDE:</strong></p>
+        <p><strong>Similarities to QKDE:</strong></p>
         <ul>
-          <li>k-essence allows arbitrary functional dependence; QKDE is linear in \(X\).</li>
-          <li>k-essence generically allows \(c_s^2\neq 1\); QKDE enforces \(c_s^2=1\).</li>
-          <li>k-essence often induces clustering or scale dependence; QKDE does not.</li>
-          <li>QKDE’s \(K(t)\) depends on time only, not on \(X\) or \(\phi\).</li>
+          <li>Both modify the scalar kinetic sector rather than the Einstein–Hilbert term.</li>
+          <li>Both can be expressed in EFT–DE language.</li>
         </ul>
 
-        <!-- NESTED -->
-        <details>
-          <summary><span class="summary-label">Why QKDE is <em>not</em> k-essence</span></summary>
-          <div class="details-body">
-            <ul>
-              <li>QKDE forbids nonlinear kinetic terms; it is <em>not</em> a truncation of k-essence because the structure \(K(t)X\) is physically motivated and fixed.</li>
-              <li>k-essence’s hallmark — variable sound speed — is absent in QKDE by construction.</li>
-              <li>k-essence lacks the EFT and QFT-in-curved-space motivation behind \(K(t)\).</li>
-            </ul>
-            <p><strong>Bottom line:</strong>  
-              QKDE is too constrained to be classified as generic k-essence.
-          </div>
-        </details>
+        <p><strong>Differences:</strong></p>
+        <ul>
+          <li>k-essence allows arbitrary nonlinear \(P(X,\phi)\); QKDE restricts to \(P = K(t)X - V(\phi)\).</li>
+          <li>
+            k-essence generically has \(c_s^2 \neq 1\) and can change clustering; QKDE enforces
+            \(c_s^2 = 1\) and GR-like growth.
+          </li>
+          <li>
+            QKDE’s \(K(t)\) depends on time only and is tied to curvature-induced operators,
+            not arbitrary functions of \(X\) and \(\phi\).
+          </li>
+        </ul>
 
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          QKDE occupies a narrow, highly constrained corner of k-essence parameter space:
+          canonical perturbations, no extra kinetic structure, and a time-only kinetic normalization.
+        </p>
       </div>
     </details>
 
-    <!-- Horndeski / DHOST -->
     <details>
       <summary><span class="summary-label">Horndeski & beyond-Horndeski (DHOST)</span></summary>
       <div class="details-body">
+        <p><strong>Definition:</strong></p>
+        <p>
+          Horndeski and DHOST theories are general scalar–tensor frameworks with
+          higher-derivative structure and modified gravity, typically activating
+          several EFT–DE functions.
+        </p>
 
-        <p><strong>Definition:</strong> Most general scalar–tensor theories with second-order equations or their extensions.</p>
-
-        <p><strong>Key differences from QKDE:</strong></p>
+        <p><strong>Similarities:</strong></p>
         <ul>
-          <li>These models activate \(\alpha_B,\alpha_T,\alpha_M,\alpha_H\); QKDE sets all of them to zero.</li>
-          <li>GW170817 constraints strongly disfavor many of these theories; QKDE is automatically compatible.</li>
-          <li>Horndeski implies modified gravity; QKDE preserves GR exactly.</li>
+          <li>All can be described using EFT–DE parameters.</li>
+          <li>All can drive late-time acceleration.</li>
         </ul>
 
-      </div>
-    </details>
-
-    <!-- Modified Gravity -->
-    <details>
-      <summary><span class="summary-label">Modified gravity (f(R), scalar–tensor, etc.)</span></summary>
-      <div class="details-body">
-
-        <p><strong>Key differences from QKDE:</strong></p>
+        <p><strong>Differences from QKDE:</strong></p>
         <ul>
-          <li>MG alters the Einstein–Hilbert action; QKDE does not.</li>
-          <li>MG generally yields \(\mu(a,k)\neq 1\) and \(\eta\neq 0\); QKDE predicts exact GR values.</li>
-          <li>MG often requires screening (chameleon, Vainshtein); QKDE requires none.</li>
+          <li>
+            Horndeski/DHOST usually activate \(\alpha_B, \alpha_M, \alpha_T, \alpha_H\);
+            QKDE sets all of these to zero.
+          </li>
+          <li>Many of these models predict modified GW speeds or Planck-mass running; QKDE does not.</li>
+          <li>Horndeski often generates gravitational slip (\(\eta \neq 0\)); QKDE enforces \(\Phi = \Psi\).</li>
         </ul>
 
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          QKDE is deliberately conservative compared to Horndeski-type modified gravity:
+          it keeps the gravitational sector exactly Einsteinian and encodes new physics only in \(K(t)\).
+        </p>
       </div>
     </details>
 
-    <!-- Tracker models -->
     <details>
-      <summary><span class="summary-label">Tracker models & scaling solutions</span></summary>
+      <summary><span class="summary-label">Modified gravity & f(R) models</span></summary>
       <div class="details-body">
-        <p><strong>Definition:</strong> Potentials designed so that \(w_\phi\) tracks background fluids.</p>
-        <p><strong>Difference:</strong> QKDE’s dynamics are not set by potential slope but by drift in \(K(t)\); tracking behavior is neither required nor implied.</p>
+        <p><strong>Definition:</strong></p>
+        <p>
+          Modified-gravity theories (including \(f(R)\)) change the gravitational action
+          itself, leading to effective scale- and time-dependent Newton constants and
+          often requiring screening mechanisms.
+        </p>
+
+        <p><strong>Differences from QKDE:</strong></p>
+        <ul>
+          <li>MG alters the Einstein–Hilbert sector; QKDE does not.</li>
+          <li>MG generally predicts \(\mu(a,k) \neq 1\) and \(\Sigma(a,k) \neq 1\); QKDE predicts \(\mu = \Sigma = 1\).</li>
+          <li>MG often produces scale-dependent growth and gravitational slip; QKDE does not.</li>
+        </ul>
+
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          QKDE is not a modified-gravity theory. Any robust detection of \(\mu \neq 1\),
+          \(\Sigma \neq 1\), or scale-dependent linear growth would exclude the QKDE baseline.
+        </p>
       </div>
     </details>
 
-    <!-- Unified/Interacting -->
     <details>
-      <summary><span class="summary-label">Unified / interacting dark sector</span></summary>
+      <summary><span class="summary-label">Interacting & unified dark sector models</span></summary>
       <div class="details-body">
-        <p>These alter conservation equations; QKDE does not.</p>
-        <p>QKDE keeps matter, radiation, and the scalar separately conserved except for the \(K'(t)\) term.</p>
+        <p><strong>Definition:</strong></p>
+        <p>
+          These frameworks introduce explicit energy–momentum exchange between dark energy
+          and dark matter, or unify the two into a single effective fluid or field.
+        </p>
+
+        <p><strong>Differences from QKDE:</strong></p>
+        <ul>
+          <li>
+            QKDE does not require dark-sector interactions in its baseline; matter and radiation
+            follow standard conservation.
+          </li>
+          <li>
+            Unified dark fluids often attempt to reproduce both CDM and DE from one component;
+            QKDE keeps them as distinct sectors.
+          </li>
+          <li>QKDE’s novelty is the time-dependent kinetic normalization, not a coupling term.</li>
+        </ul>
+
+        <p><strong>Conclusion:</strong></p>
+        <p>
+          Interacting/unified models change the bookkeeping of the dark sector; QKDE instead
+          focuses on a minimal, GR-preserving dynamical mechanism in the DE sector alone.
+        </p>
       </div>
     </details>
 
-    <!-- FINAL POSITION -->
+    <!-- ===== SPECIAL: NOT JUST K-ESSENCE / QUINTESSENCE ===== -->
+
+    <details>
+      <summary><span class="summary-label">Why QKDE is <em>not</em> just k-essence</span></summary>
+      <div class="details-body">
+        <p><strong>Common claim:</strong> “QKDE is just a special case of k-essence.”</p>
+
+        <p><strong>Key distinctions:</strong></p>
+        <ul>
+          <li>
+            k-essence allows arbitrary nonlinear \(P(X,\phi)\); QKDE enforces
+            <em>linearity in \(X\)</em>: \(P = K(t)X - V(\phi)\).
+          </li>
+          <li>
+            Generic k-essence models alter the sound speed and clustering; QKDE fixes
+            \(c_s^2 = 1\) and forbids modified clustering at linear level.
+          </li>
+          <li>
+            k-essence is usually specified phenomenologically; QKDE’s \(K(t)\) is
+            motivated by curvature-suppressed operators and integrating out heavy fields
+            in curved spacetime.
+          </li>
+        </ul>
+
+        <p><strong>Bottom line:</strong></p>
+        <p>
+          QKDE lives inside the k-essence <em>umbrella</em> only in a broad taxonomic sense.
+          In practice it is a tightly constrained kinetic model with canonical perturbations
+          and no modified gravity, not a generic k-essence theory.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="summary-label">Why QKDE is <em>not</em> quintessence</span></summary>
+      <div class="details-body">
+        <p><strong>Common claim:</strong> “QKDE is just quintessence with a field redefinition.”</p>
+
+        <p><strong>Why this fails:</strong></p>
+        <ul>
+          <li>
+            A time-dependent kinetic normalization \(K(t)\) cannot be removed by a simple
+            scalar field rescaling without affecting the metric or breaking the EFT–DE structure.
+          </li>
+          <li>
+            Quintessence has \(K = 1\); QKDE’s \(K(t)\) is a physical background function,
+            entering both the background and perturbation mapping.
+          </li>
+          <li>
+            QKDE accommodates curvature-motivated heavy-field origins for \(K(t)\);
+            these do not map to any simple quintessence potential.
+          </li>
+        </ul>
+
+        <p><strong>Bottom line:</strong></p>
+        <p>
+          Quintessence is a purely potential-driven canonical model. QKDE is a
+          <em>kinetic-normalization–driven</em> framework with distinct EFT and UV motivations.
+        </p>
+      </div>
+    </details>
+
+    <!-- =============== THEORY-SPACE POSITION & NULL TESTS =============== -->
+
     <details>
       <summary><span class="summary-label">Theory-space position & null tests</span></summary>
       <div class="details-body">
-
-        <p><strong>QKDE occupies a unique, small region of theory space:</strong></p>
+        <p>
+          In EFT-of-DE coordinates, QKDE sits at:
+        </p>
         <ul>
-          <li>Single canonical scalar; no new forces.</li>
-          <li>Exactly Einsteinian metric sector.</li>
-          <li>Only \(\alpha_K\) active; others vanish identically.</li>
-          <li>Canonical perturbations, luminal tensors.</li>
-        </ul>
-
-        <p><strong>Sharp null predictions:</strong></p>
-        <ul>
-          <li>\(\mu(a,k) = 1\)</li>
-          <li>\(\Sigma(a,k) = 1\)</li>
-          <li>\(\eta(a,k) = 0\)</li>
-          <li>\(c_T^2 = 1\)</li>
+          <li>Single scalar degree of freedom.</li>
+          <li>\(P(X,\phi,t) = K(t)X - V(\phi)\).</li>
+          <li>\(\alpha_K > 0\) (time-dependent), \(\alpha_B = \alpha_M = \alpha_T = \alpha_H = 0\).</li>
+          <li>Canonical scalar perturbations with \(c_s^2 = 1\).</li>
+          <li>GR metric sector: \(\Phi = \Psi\), \(c_T^2 = 1\).</li>
         </ul>
 
         <p>
-          Any deviation rules out QKDE. Few dark-energy models are <em>this falsifiable</em>
-          while remaining GR-consistent.
+          This yields sharp, falsifiable null tests. On linear/quasi-static scales, QKDE predicts:
         </p>
 
+        <ul>
+          <li>\(\mu(a,k) = 1\) (effective Newton constant).</li>
+          <li>\(\Sigma(a,k) = 1\) (effective lensing strength).</li>
+          <li>\(\eta(a,k) = 0\) (no gravitational slip).</li>
+          <li>\(c_T^2 = 1\) (luminal gravitational waves).</li>
+        </ul>
+
+        <p>
+          Any statistically significant detection of \(\mu \neq 1\), \(\Sigma \neq 1\),
+          \(\eta \neq 0\), or \(c_T^2 \neq 1\) rules out the QKDE baseline and points
+          to genuinely modified gravity or more exotic dark-energy physics.
+        </p>
       </div>
     </details>
 
@@ -2598,253 +2579,124 @@ function copyCitation() {
 
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
-// ===================== Helper functions =====================
+<script>
+  // ================== ΛCDM CALCULATOR ==================
+  function E_of_z(z, Om, Or, Ol) {
+    return Math.sqrt(
+      Om * Math.pow(1 + z, 3) +
+      Or * Math.pow(1 + z, 4) +
+      Ol
+    );
+  }
 
-// Dimensionless expansion rate E(z) = H(z)/H0 for flat ΛCDM
-function E_of_z(z, Om, Or, Ol) {
-  return Math.sqrt(
-    Om * Math.pow(1 + z, 3) +
-    Or * Math.pow(1 + z, 4) +
-    Ol
-  );
-}
+  function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
+    // c in km/s
+    const c = 299792.458;
+    const dz = zmax / steps;
+    let integral = 0.0;
 
-// Simple Simpson integration for comoving distance χ(z)
-// H0 in km/s/Mpc, returns χ in Mpc
-function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
-  const c = 299792.458; // km/s
-  const nSteps = Math.max(50, Math.floor(steps)); // enforce at least 50
-  const N = (nSteps % 2 === 0) ? nSteps : nSteps + 1; // Simpson requires even
+    // Simple Simpson-like integration (even number of steps recommended)
+    for (let i = 0; i <= steps; i++) {
+      const z = i * dz;
+      const weight = (i === 0 || i === steps) ? 1 : (i % 2 === 0 ? 2 : 4);
+      const Ez = E_of_z(z, Om, Or, Ol);
+      integral += weight * (1.0 / Ez);
+    }
+    integral *= dz / 3.0;
 
-  const dz = zmax / N;
-  let integral = 0.0;
+    // χ(z) in Mpc
+    return (c / H0) * integral;
+  }
 
-  for (let i = 0; i <= N; i++) {
-    const z = i * dz;
-    const weight = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
+  function computeLCDM() {
+    const z   = parseFloat(document.getElementById("lcdm-z").value);
+    const H0  = parseFloat(document.getElementById("lcdm-h0").value);
+    const Om  = parseFloat(document.getElementById("lcdm-om").value);
+    const Or  = parseFloat(document.getElementById("lcdm-or").value);
+    const Ol  = parseFloat(document.getElementById("lcdm-ol").value);
+    const out = document.getElementById("lcdm-output");
+
+    if (isNaN(z) || z < 0) {
+      out.textContent = "Please enter a non-negative redshift z.";
+      return;
+    }
+
     const Ez = E_of_z(z, Om, Or, Ol);
-    integral += weight * (1.0 / Ez);
+    const Hz = H0 * Ez;
+
+    // Comoving distance (simple Simpson integration)
+    const steps = 400;
+    const chi = integrate_chi(H0, Om, Or, Ol, z, steps); // Mpc
+
+    const DL = (1 + z) * chi; // luminosity distance in Mpc
+    const DA = chi / (1 + z); // angular-diameter distance in Mpc
+
+    // Distance modulus μ_SN
+    const muSN = 5 * Math.log10(DL) + 25;
+
+    const lines = [];
+    lines.push("Input:");
+    lines.push(`  z  = ${z.toFixed(3)}`);
+    lines.push(`  H0 = ${H0.toFixed(2)} km/s/Mpc`);
+    lines.push(`  Ωm0 = ${Om.toFixed(3)}, Ωr0 = ${Or.toExponential(2)}, ΩΛ0 = ${Ol.toFixed(3)}`);
+    lines.push("");
+    lines.push("Background quantities (flat ΛCDM):");
+    lines.push(`  H(z)  = ${Hz.toFixed(2)} km/s/Mpc`);
+    lines.push(`  E(z)  = H(z)/H0 = ${Ez.toFixed(4)}`);
+    lines.push("");
+    lines.push("Distances:");
+    lines.push(`  χ(z)  = ${chi.toFixed(2)} Mpc  (${(chi/1000).toFixed(3)} Gpc)`);
+    lines.push(`  D_L   = ${DL.toFixed(2)} Mpc  (${(DL/1000).toFixed(3)} Gpc)`);
+    lines.push(`  D_A   = ${DA.toFixed(2)} Mpc`);
+    lines.push(`  μ_SN  = ${muSN.toFixed(3)} mag`);
+
+    out.textContent = lines.join("\n");
   }
 
-  integral *= dz / 3.0;
+  // ================== QKDE RUNNING-K VISUALIZER ==================
+  function computeQKDE() {
+    const z  = parseFloat(document.getElementById("qkde-z").value);
+    const K0 = parseFloat(document.getElementById("qkde-k0").value);
+    const p  = parseFloat(document.getElementById("qkde-p").value);
+    const out = document.getElementById("qkde-output");
 
-  return (c / H0) * integral;
-}
+    if (isNaN(z) || z < 0) {
+      out.textContent = "Please enter a non-negative redshift z.";
+      return;
+    }
 
-// Effective total equation of state w_eff(z) for matter + radiation + Λ
-// w_eff = p_tot / rho_tot
-function w_eff_LCDM(z, Om, Or, Ol) {
-  const zp = 1 + z;
-  const rho_m = Om * Math.pow(zp, 3);
-  const rho_r = Or * Math.pow(zp, 4);
-  const rho_L = Ol; // (1 + z)^0
+    // N = ln a = -ln(1+z)
+    const N = -Math.log(1 + z);
 
-  const rho_tot = rho_m + rho_r + rho_L;
-  if (rho_tot <= 0) return NaN;
+    // K(N) = 1 + K0 e^{-pN}  = 1 + K0 (1+z)^p
+    const K = 1 + K0 * Math.exp(-p * N);  // exact form in terms of N
 
-  const p_m = 0.0;
-  const p_r = (1.0 / 3.0) * rho_r;
-  const p_L = -rho_L;
+    // K'/K = (dK/dN) / K, where dK/dN = -p K0 e^{-pN}
+    const dK_dN = -p * K0 * Math.exp(-p * N);
+    const Kprime_over_K = dK_dN / K;
 
-  return (p_m + p_r + p_L) / rho_tot;
-}
+    const lines = [];
+    lines.push("Running–K model:  K(N) = 1 + K0 e^{-pN},  N = ln a = -ln(1+z)");
+    lines.push("");
+    lines.push("Input:");
+    lines.push(`  z   = ${z.toFixed(3)}`);
+    lines.push(`  K0  = ${K0}`);
+    lines.push(`  p   = ${p}`);
+    lines.push("");
+    lines.push("Derived:");
+    lines.push(`  N(z)           = ${N.toFixed(4)}`);
+    lines.push(`  a(z)           = e^N = ${(Math.exp(N)).toFixed(4)}`);
+    lines.push(`  K(z)           = ${K.toFixed(6)}`);
+    lines.push(`  K'(N)/K(N)     = ${Kprime_over_K.toFixed(6)}`);
+    lines.push("");
+    lines.push("Notes:");
+    lines.push("  • This block does NOT solve the full background system.");
+    lines.push("  • It shows how the kinetic normalization drifts with N or z.");
+    lines.push("  • For full QKDE backgrounds and forecasts, use the Python notebooks in the repo.");
 
-// Simple formatter
-function fmt(x, digits) {
-  if (!isFinite(x)) return "NaN";
-  return x.toFixed(digits);
-}
-
-// ===================== ΛCDM calculator =====================
-
-function computeLCDM() {
-  const zInput   = document.getElementById("lcdm-z");
-  const H0Input  = document.getElementById("lcdm-h0");
-  const OmInput  = document.getElementById("lcdm-om");
-  const OrInput  = document.getElementById("lcdm-or");
-  const OlInput  = document.getElementById("lcdm-ol");
-  const stepsInp = document.getElementById("lcdm-steps");
-  const out      = document.getElementById("lcdm-output");
-
-  out.classList.remove("error");
-
-  const z   = parseFloat(zInput.value);
-  const H0  = parseFloat(H0Input.value);
-  const Om  = parseFloat(OmInput.value);
-  const Or  = parseFloat(OrInput.value);
-  const Ol  = parseFloat(OlInput.value);
-  const Nst = parseFloat(stepsInp.value);
-
-  if (!isFinite(z) || z < 0) {
-    out.textContent = "Please enter a non-negative redshift z.";
-    out.classList.add("error");
-    return;
+    out.textContent = lines.join("\n");
   }
-  if (!isFinite(H0) || H0 <= 0) {
-    out.textContent = "Please enter a positive H0 in km/s/Mpc.";
-    out.classList.add("error");
-    return;
-  }
-
-  const sumOmega = Om + Or + Ol;
-  const Ez = E_of_z(z, Om, Or, Ol);
-  if (!isFinite(Ez) || Ez <= 0) {
-    out.textContent = "Invalid density combination: H(z)^2 ≤ 0. Please check Ω values.";
-    out.classList.add("error");
-    return;
-  }
-
-  const Hz = H0 * Ez;
-
-  // Comoving distance χ(z) in Mpc via Simpson
-  const steps = isFinite(Nst) ? Nst : 400;
-  const chi   = integrate_chi(H0, Om, Or, Ol, z, steps);
-
-  const DL = (1 + z) * chi; // luminosity distance in Mpc
-  const DA = chi / (1 + z); // angular-diameter distance in Mpc
-
-  // Distance modulus μ_SN
-  const muSN = 5 * Math.log10(DL) + 25;
-
-  // Effective total equation of state and deceleration parameter
-  const weff = w_eff_LCDM(z, Om, Or, Ol);
-  const q    = 0.5 * (1 + 3 * weff); // q = (1 + 3 w_eff) / 2
-
-  const lines = [];
-  lines.push("Input:");
-  lines.push(`  z         = ${fmt(z, 3)}`);
-  lines.push(`  H0        = ${fmt(H0, 2)} km/s/Mpc`);
-  lines.push(`  Ωm0       = ${fmt(Om, 3)}`);
-  lines.push(`  Ωr0       = ${Or.toExponential(2)}`);
-  lines.push(`  ΩΛ0       = ${fmt(Ol, 3)}`);
-  lines.push(`  Ωtot(z=0) = ${fmt(sumOmega, 3)}  (flat ΛCDM ⇒ Ωtot ≈ 1)`);
-  lines.push("");
-
-  lines.push("Background quantities (flat ΛCDM):");
-  lines.push(`  H(z)      = ${fmt(Hz, 2)} km/s/Mpc`);
-  lines.push(`  E(z)      = H(z)/H0 = ${fmt(Ez, 4)}`);
-  if (isFinite(weff)) {
-    lines.push(`  w_eff(z)  = ${fmt(weff, 4)}`);
-    lines.push(`  q(z)      = ${fmt(q, 4)}  (q < 0 ⇒ accelerated expansion)`);
-  } else {
-    lines.push("  w_eff(z)  = NaN (check density parameters)");
-  }
-  lines.push("");
-
-  lines.push("Distances:");
-  lines.push(`  χ(z)      = ${fmt(chi, 2)} Mpc  (${fmt(chi / 1000.0, 3)} Gpc)`);
-  lines.push(`  D_L(z)    = ${fmt(DL, 2)} Mpc  (${fmt(DL / 1000.0, 3)} Gpc)`);
-  lines.push(`  D_A(z)    = ${fmt(DA, 2)} Mpc`);
-  lines.push(`  μ_SN(z)   = ${fmt(muSN, 3)} mag`);
-  lines.push("");
-  lines.push("Notes:");
-  lines.push("  • Distances computed with Simpson integration in redshift.");
-  lines.push("  • w_eff(z) comes from the standard matter–radiation–Λ mixture.");
-  lines.push("  • For QKDE, the same observables are derived from the full ODE pipeline.");
-
-  out.textContent = lines.join("\n");
-}
-
-// ===================== QKDE running-K visualizer =====================
-
-function computeQKDE() {
-  const zInput  = document.getElementById("qkde-z");
-  const K0Input = document.getElementById("qkde-k0");
-  const pInput  = document.getElementById("qkde-p");
-  const out     = document.getElementById("qkde-output");
-
-  out.classList.remove("error");
-
-  const z  = parseFloat(zInput.value);
-  const K0 = parseFloat(K0Input.value);
-  const p  = parseFloat(pInput.value);
-
-  if (!isFinite(z) || z < 0) {
-    out.textContent = "Please enter a non-negative redshift z.";
-    out.classList.add("error");
-    return;
-  }
-
-  if (!isFinite(K0) || !isFinite(p)) {
-    out.textContent = "Please enter finite values for K0 and p.";
-    out.classList.add("error");
-    return;
-  }
-
-  // N = ln a = -ln(1+z)
-  const N  = -Math.log(1 + z);
-  const a  = Math.exp(N);
-
-  // K(N) = 1 + K0 e^{-pN}
-  const expTerm = Math.exp(-p * N);
-  const K       = 1 + K0 * expTerm;
-
-  // dK/dN = -p K0 e^{-pN}
-  const dK_dN = -p * K0 * expTerm;
-  const Kprime_over_K = dK_dN / K;
-
-  // Alternative expression K(z) = 1 + K0 (1+z)^p
-  const K_via_z = 1 + K0 * Math.pow(1 + z, p);
-
-  const lines = [];
-  lines.push("Running–K model:");
-  lines.push("  K(N) = 1 + K0 e^{-pN},   N = ln a = -ln(1+z)");
-  lines.push("");
-  lines.push("Input:");
-  lines.push(`  z       = ${fmt(z, 3)}`);
-  lines.push(`  K0      = ${K0}`);
-  lines.push(`  p       = ${p}`);
-  lines.push("");
-  lines.push("Derived background variables:");
-  lines.push(`  N(z)    = ln a = ${fmt(N, 4)}`);
-  lines.push(`  a(z)    = e^N  = ${fmt(a, 4)}`);
-  lines.push("");
-  lines.push("Kinetic normalization:");
-  lines.push(`  K(N)          = ${fmt(K, 6)}`);
-  lines.push(`  K'(N)/K(N)    = ${fmt(Kprime_over_K, 6)}`);
-  lines.push(`  K(z) via (1+z)^p  = ${fmt(K_via_z, 6)}  (check: should match K(N))`);
-  lines.push("");
-  lines.push("Notes:");
-  lines.push("  • This block does NOT solve the full QKDE background system.");
-  lines.push("  • It illustrates how the kinetic normalization drifts with N or z.");
-  lines.push("  • In the full framework, K(N) enters the closed ODE system for H(N), φ(N), s(N).");
-
-  out.textContent = lines.join("\n");
-}
-
-// ===================== Wire up UI once DOM is ready =====================
-
-document.addEventListener("DOMContentLoaded", function () {
-  const lcdmButton = document.getElementById("lcdm-button");
-  const qkdeButton = document.getElementById("qkde-button");
-
-  if (lcdmButton) {
-    lcdmButton.addEventListener("click", computeLCDM);
-
-    // Allow pressing Enter in any ΛCDM input to recompute quickly
-    ["lcdm-z", "lcdm-h0", "lcdm-om", "lcdm-or", "lcdm-ol", "lcdm-steps"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener("keyup", (e) => {
-          if (e.key === "Enter") computeLCDM();
-        });
-      }
-    });
-  }
-
-  if (qkdeButton) {
-    qkdeButton.addEventListener("click", computeQKDE);
-
-    ["qkde-z", "qkde-k0", "qkde-p"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener("keyup", (e) => {
-          if (e.key === "Enter") computeQKDE();
-        });
-      }
-    });
-  }
-});
+</script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
 </footer>
