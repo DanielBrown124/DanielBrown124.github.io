@@ -8,70 +8,24 @@ title: Quantum–Kinetic Dark Energy (QKDE)
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
-/* ============================================================
-   TOAST STYLES (FINAL VERSION)
-============================================================ */
-.toast {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background: rgba(40, 180, 255, 0.18);
-  border: 1px solid rgba(102,252,241,0.45);
-  backdrop-filter: blur(6px);
-  padding: 10px 18px;
-  border-radius: 8px;
-  color: #e8faff;
-  font-size: 0.85rem;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .3s ease, transform .3s ease;
-  z-index: 9999;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================================
-   DOWNLOAD BUTTON (Cite Work)
-============================================================ */
-.cite-btn-alt {
-  background: rgba(6,12,20,0.65);
-  border: 1px solid rgba(160,200,255,0.4);
-  padding: 8px 14px;
-  border-radius: 999px;
-  color: #dff6ff;
-  font-size: 0.82rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .2s ease, border-color .2s ease;
-}
-.cite-btn-alt:hover {
-  background: rgba(20,40,60,0.85);
-  border-color: rgba(102,252,241,0.55);
-}
-
-/* ============================================================
-   OPTIONAL ALT BUTTONS
-============================================================ */
 .alt-button {
   background: #fff0b3;
   color: #0b0c10;
 }
+
 .alt-button:hover {
   background: #ffe680;
   box-shadow: 0 0 14px rgba(255, 230, 128, 0.8);
 }
+
 .alt-cite-btn {
   background: #c8f5ff;
 }
+
 .alt-cite-btn:hover {
   background: #aee8f7;
 }
 
-/* ============================================================
-   AUTHOR BOX
-============================================================ */
 .author-box {
   align-items: center;
   background: rgba(15, 22, 32, 0.55);
@@ -82,18 +36,16 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   gap: 25px;
   padding: 25px;
 }
+
 .author-photo {
   border: 2px solid rgba(102,252,241,0.22);
   border-radius: 8px;
   box-shadow: 0 0 12px rgba(102,252,241,0.26);
   height: 130px;
-  width: 130px;
   object-fit: cover;
+  width: 130px;
 }
 
-/* ============================================================
-   GLOBAL PAGE SETTINGS
-============================================================ */
 body {
   background: url("cosmos.jpeg") no-repeat center center fixed;
   background-size: cover;
@@ -102,34 +54,538 @@ body {
   line-height: 1.75;
   margin: 0;
   overflow-x: hidden;
+  padding: 0;
+}
+
+/* ============================================================
+   ACTION BUTTONS
+============================================================ */
+.calc-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.calc-btn {
+  background: linear-gradient(135deg, #d2f2ff, #bfe6f7);
+  border: 1px solid rgba(200,240,255,0.8);
+  border-radius: 999px;
+  color: #031016;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  transition: transform 0.16s ease,
+              box-shadow 0.16s ease,
+              background 0.16s ease;
+}
+
+.calc-btn:hover {
+  background: linear-gradient(135deg, #e6f6ff, #d7f0ff);
+  box-shadow: 0 0 12px rgba(210,240,255,0.75);
+  transform: translateY(-1px);
+}
+
+.calc-btn.secondary {
+  background: transparent;
+  border-color: rgba(140,200,255,0.7);
+  color: #c8f3ff;
+}
+
+.calc-btn.secondary:hover {
+  background: rgba(10,20,32,0.9);
+  box-shadow: 0 0 10px rgba(102,252,241,0.45);
+}
+
+/* ============================================================
+   CALC CARDS (standard size)
+============================================================ */
+.calc-card {
+  flex: 1 1 260px;
+  max-width: 380px;
+  background: radial-gradient(circle at 0% 0%, rgba(102,252,241,0.12) 0, transparent 55%),
+              radial-gradient(circle at 120% 120%, rgba(102,252,241,0.10) 0, transparent 55%),
+              rgba(12, 18, 28, 0.82);
+  padding: 18px 20px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(102,252,241,0.14);
+  box-shadow:
+    0 0 22px rgba(102,252,241,0.12),
+    inset 0 0 18px rgba(102,252,241,0.06);
+  backdrop-filter: blur(7px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease,
+              box-shadow 0.22s ease,
+              border-color 0.22s ease;
+}
+
+.calc-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(102,252,241,0.85),
+    rgba(69,160,201,0.55),
+    rgba(102,252,241,0.85)
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.calc-card:hover {
+  border-color: rgba(102,252,241,0.26);
+  box-shadow:
+    0 0 26px rgba(102,252,241,0.24),
+    inset 0 0 22px rgba(102,252,241,0.10);
+  transform: translateY(-3px);
+}
+
+.calc-card h4 {
+  margin: 4px 0 4px;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: #c9f6ff;
+}
+
+/* ============================================================
+   FULL-WIDTH CALCULATOR CARD (Advanced Comparator)
+============================================================ */
+.calc-card-wide {
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 100%;
+  padding: 26px 28px 30px;
+  margin-top: 28px;
+  background: radial-gradient(circle at 0% 50%, rgba(102,252,241,0.12) 0, transparent 70%),
+              radial-gradient(circle at 100% 50%, rgba(102,252,241,0.10) 0, transparent 70%),
+              rgba(12,18,28,0.82);
+  border-radius: 18px;
+  border: 1px solid rgba(102,252,241,0.18);
+  box-shadow:
+    0 0 28px rgba(102,252,241,0.15),
+    inset 0 0 20px rgba(102,252,241,0.05);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.calc-card-wide:hover {
+  border-color: rgba(102,252,241,0.28);
+  box-shadow:
+    0 0 32px rgba(102,252,241,0.28),
+    inset 0 0 24px rgba(102,252,241,0.12);
+  transform: translateY(-3px);
+}
+
+/* Make formulas, canvas, and outputs look clean inside wide card */
+.calc-card-wide canvas {
+  margin-top: 20px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.25);
+  padding: 6px;
+}
+
+/* ============================================================
+   FORMULA BOX
+============================================================ */
+.calc-formula-box {
+  margin-top: 12px;
+  padding: 0 12px;
+  border-radius: 9px;
+  background: rgba(5, 10, 18, 0.9);
+  border: 1px solid rgba(120,160,190,0.5);
+  font-size: 0.86rem;
+  color: #e0f4ff;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease,
+              padding-top 0.3s ease,
+              padding-bottom 0.3s ease;
+}
+
+.calc-formula-box.is-open {
+  max-height: 260px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.calc-formula-inner {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.calc-formula-inner p {
+  margin: 4px 0;
+}
+
+/* ============================================================
+   FOOTNOTE
+============================================================ */
+.calc-footnote {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 18px;
+}
+
+/* ============================================================
+   GRID LAYOUT
+============================================================ */
+.calc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* ============================================================
+   HEADERS & LABELS
+============================================================ */
+.calc-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 14px;
+  margin-bottom: 6px;
+}
+
+.calc-header-row h3 {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #d6f7ff;
+}
+
+.calc-intro {
+  font-size: 0.93rem;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+.calc-label {
+  display: block;
+  margin-top: 9px;
+  margin-bottom: 3px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: #d6faff;
+  letter-spacing: 0.04em;
+}
+
+.calc-note {
+  margin-top: 2px;
+  margin-bottom: 10px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  color: #e3f6ff;
+}
+
+/* ============================================================
+   INPUTS
+============================================================ */
+.calc-input-row {
+  display: grid;
+  gap: 8px 10px;
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+@media (max-width: 600px) {
+  .calc-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calc-input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(120,160,190,0.7);
+  background: rgba(5, 10, 18, 0.9);
+  color: #f0f7ff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: border-color 0.22s ease,
+              box-shadow 0.22s ease,
+              background 0.22s ease;
+}
+
+.calc-input:hover {
+  border-color: rgba(102,252,241,0.45);
+}
+
+.calc-input:focus {
+  border-color: rgba(102,252,241,0.9);
+  background: rgba(8,14,22,0.98);
+  box-shadow: 0 0 12px rgba(102,252,241,0.65);
+  outline: none;
+}
+
+.calc-input::placeholder {
+  color: rgba(200,225,250,0.4);
+}
+
+/* ============================================================
+   OUTPUT BOXES
+============================================================ */
+.calc-output {
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(120,160,190,0.36);
+  color: #e9faff;
+  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
+  font-size: 0.8rem;
+  opacity: 0.96;
+  white-space: pre-wrap;
+  max-height: 210px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  line-height: 1.45;
+}
+
+.calc-output-mini {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(120,160,190,0.35);
+  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
+  font-size: 0.78rem;
+  max-height: 150px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.calc-output.error {
+  background: rgba(60,5,10,0.75);
+  border-color: rgba(255,140,140,0.75);
+  color: #ffe6e6;
+}
+
+/* ============================================================
+   PILLS / PRESET BUTTONS
+============================================================ */
+.calc-pill {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(6, 12, 20, 0.95);
+  border: 1px solid rgba(160,220,255,0.5);
+  color: #c8efff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease,
+              color 0.18s ease,
+              box-shadow 0.18s ease;
+}
+
+.calc-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.calc-pill:hover {
+  background: rgba(65,190,220,0.2);
+  box-shadow: 0 0 8px rgba(102,252,241,0.35);
+}
+
+.calc-pill.is-active {
+  background: linear-gradient(135deg, #66fcf1, #45b9d9);
+  border-color: rgba(200,240,255,0.9);
+  box-shadow: 0 0 10px rgba(102,252,241,0.7);
+  color: #031016;
+}
+
+/* ============================================================
+   SUBTITLE
+============================================================ */
+.calc-subtitle {
+  font-size: 0.78rem;
+  color: #bfe9ff;
+  opacity: 0.9;
+  letter-spacing: 0.03em;
+  margin: -2px 0 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.cite-box {
+  background: rgba(15, 22, 32, 0.55);
+  border: 1px solid rgba(102, 252, 241, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(102,252,241,0.12);
+  margin-top: 40px;
+  padding: 20px 25px;
+}
+
+.cite-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.cite-header h3 {
+  font-size: 1.45rem;
+  margin-bottom: 4px;
+}
+
+.cite-label {
+  color: #c5f2ff;
+  display: block;
+  font-family: "Merriweather", serif;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.cite-select {
+  background: rgba(20, 30, 45, 0.7);
+  border: 1px solid rgba(102,252,241,0.20);
+  border-radius: 6px;
+  color: #e8e9ef;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+}
+
+.cite-select:hover {
+  border-color: rgba(102,252,241,0.40);
+  cursor: pointer;
+}
+
+.cite-subtext {
+  color: #c9e6f8;
+  font-size: 0.9rem;
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.cite-text {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(120,160,200,0.25);
+  border-radius: 8px;
+  color: #e8e9ef;
+  font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+  font-size: 0.88rem;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 14px 16px;
+  transition: max-height 0.3s ease;
+}
+
+.details-body {
+  font-size: 0.95rem;
+  margin-top: 14px;
+}
+
+details {
+  background: rgba(15, 22, 32, 0.45);
+  border: 1px solid rgba(102,252,241,0.14);
+  border-radius: 12px;
+  margin-top: 30px;
+  padding: 16px 20px;
+}
+
+details + details {
+  margin-top: 22px;
+}
+
+details summary {
+  color: #c5f2ff;
+  cursor: pointer;
+  font-family: "Merriweather", serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .summary-label::before {
+  transform: rotate(90deg);
+}
+
+.enhanced-cite {
+  background: linear-gradient(
+      to bottom right,
+      rgba(15, 22, 32, 0.7),
+      rgba(12, 18, 28, 0.55)
+    );
+  border: 1px solid rgba(102,252,241,0.18);
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(102,252,241,0.15);
+  margin-top: 55px;
+  padding: 28px 28px 32px;
+  position: relative;
+}
+
+.enhanced-cite::before {
+  background: linear-gradient(to right, #66fcf1, #45a0c9, #66fcf1);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  content: "";
+  height: 3px;
+  left: 0;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+h1, h2, h3 {
+  color: #9be7ff;
+  font-family: "Merriweather", serif;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.4rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 40px;
+}
+
+h3 {
+  color: #b9ecff;
+  margin-bottom: 12px;
 }
 
 html {
   scroll-behavior: smooth;
 }
+
 [id] {
   scroll-margin-top: 90px;
 }
 
-/* ============================================================
-   PAGE CONTAINER
-============================================================ */
-.page {
-  background: rgba(10,13,20,0.72);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(102,252,241,0.12);
-  border-radius: 18px;
-  box-shadow: 0 0 35px rgba(102,252,241,0.18);
-  margin: 90px auto;
-  max-width: 900px;
-  padding: 50px;
-}
-
-/* ============================================================
-   NAVIGATION HEADER
-============================================================ */
 .nav-header {
-  background: linear-gradient(to right, rgba(5,10,20,0.94), rgba(8,15,28,0.94));
+  background: linear-gradient(
+    to right,
+    rgba(5, 10, 20, 0.94),
+    rgba(8, 15, 28, 0.94)
+  );
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(102,252,241,0.18);
   border-top-left-radius: 14px;
@@ -157,6 +613,7 @@ html {
   text-transform: uppercase;
   transition: 0.18s ease;
 }
+
 .nav-header a:hover {
   background: rgba(102,252,241,0.09);
   border-color: rgba(102,252,241,0.6);
@@ -164,281 +621,88 @@ html {
   text-shadow: 0 0 6px rgba(102,252,241,0.9);
 }
 
-.nav-button {
+.nav-header .nav-button {
   background: linear-gradient(135deg, #66fcf1, #45c9c9);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 14px;
   box-shadow: 0 0 6px rgba(102,252,241,0.35);
   color: #0a0f12;
+  display: inline-block;
   font-size: 0.83rem;
   font-weight: 600;
+  margin-left: 10px;
   padding: 6px 14px;
   text-decoration: none;
+  text-transform: none;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
-.nav-button:hover {
+
+.nav-header .nav-button:hover {
   background: linear-gradient(135deg, #8afef4, #5edbd8);
   box-shadow: 0 0 10px rgba(102,252,241,0.5);
   color: #000;
   transform: translateY(-1px);
 }
 
-/* ============================================================
-   DETAILS DROPDOWNS
-============================================================ */
-details {
-  background: rgba(15,22,32,0.45);
-  border: 1px solid rgba(102,252,241,0.14);
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin-top: 30px;
-}
-details + details {
-  margin-top: 22px;
-}
-details summary {
-  color: #c5f2ff;
-  cursor: pointer;
-  font-family: "Merriweather", serif;
-  font-size: 1.1rem;
-  font-weight: 300;
-  list-style: none;
-}
-details summary::-webkit-details-marker { display: none; }
-
-.summary-label {
-  padding-left: 18px;
-  position: relative;
-}
-.summary-label::before {
-  content: "▸";
-  font-size: 0.9rem;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transition: transform 0.15s ease;
-}
-details[open] .summary-label::before {
-  transform: rotate(90deg);
-}
-
-.details-body {
-  font-size: 0.95rem;
-  margin-top: 14px;
-}
-
-/* ============================================================
-   GRID FOR CALCULATOR CARDS
-============================================================ */
-.calc-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  justify-content: center;
-  margin-top: 14px;
-}
-
-/* ============================================================
-   CALCULATOR CARDS
-============================================================ */
-.calc-card {
-  flex: 1 1 260px;
-  max-width: 380px;
-  background: radial-gradient(circle at 0% 0%, rgba(102,252,241,0.12), transparent 55%),
-              radial-gradient(circle at 120% 120%, rgba(102,252,241,0.10), transparent 55%),
-              rgba(12,18,28,0.82);
-  padding: 18px 20px 20px;
-  border: 1px solid rgba(102,252,241,0.14);
-  border-radius: 16px;
-  backdrop-filter: blur(7px);
-  box-shadow: 0 0 22px rgba(102,252,241,0.12), inset 0 0 18px rgba(102,252,241,0.06);
-  position: relative;
-  transition: 0.22s ease;
-}
-.calc-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  height: 3px; width: 100%;
-  background: linear-gradient(to right,#66fcf1,#45a0c9,#66fcf1);
-  opacity: 0.9;
-}
-.calc-card:hover {
-  border-color: rgba(102,252,241,0.26);
-  box-shadow: 0 0 26px rgba(102,252,241,0.24), inset 0 0 22px rgba(102,252,241,0.10);
-  transform: translateY(-3px);
-}
-.calc-card h4 {
-  margin: 4px 0 4px;
-  font-size: 1.08rem;
-  color: #c9f6ff;
-}
-
-/* ============================================================
-   FULL-WIDTH CALC CARD (Advanced Comparator)
-============================================================ */
-.calc-card-wide {
-  width: 100%;
-  padding: 26px 28px 30px;
-  margin-top: 28px;
-  background: radial-gradient(circle at 0% 50%,rgba(102,252,241,0.12),transparent 70%),
-              radial-gradient(circle at 100% 50%,rgba(102,252,241,0.10),transparent 70%),
-              rgba(12,18,28,0.82);
-  border: 1px solid rgba(102,252,241,0.18);
+.page {
+  background: rgba(10, 13, 20, 0.72);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(102,252,241,0.12);
   border-radius: 18px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 28px rgba(102,252,241,0.15), inset 0 0 20px rgba(102,252,241,0.05);
-}
-.calc-card-wide:hover {
-  border-color: rgba(102,252,241,0.28);
-  box-shadow: 0 0 32px rgba(102,252,241,0.28), inset 0 0 24px rgba(102,252,241,0.12);
-}
-.calc-card-wide canvas {
-  margin-top: 20px;
-  background: rgba(0,0,0,0.25);
-  padding: 6px;
-  border-radius: 8px;
+  box-shadow: 0 0 35px rgba(102,252,241,0.18);
+  margin: 90px auto;
+  max-width: 900px;
+  padding: 50px;
 }
 
-/* ============================================================
-   INPUTS, LABELS, NOTES
-============================================================ */
-.calc-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-}
-
-.calc-label {
-  display: block;
-  margin-top: 9px;
-  margin-bottom: 3px;
-  font-size: 0.82rem;
-  color: #d6faff;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.calc-input-row {
-  display: grid;
-  gap: 8px 10px;
-  grid-template-columns: 1.15fr 0.85fr;
-}
-@media (max-width: 600px) {
-  .calc-input-row { grid-template-columns: 1fr; }
-}
-
-.calc-input {
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: 7px;
-  border: 1px solid rgba(120,160,190,0.7);
-  background: rgba(5, 10, 18, 0.9);
-  color: #f0f7ff;
-  font-size: 0.9rem;
-  transition: 0.22s;
-}
-.calc-input:hover {
-  border-color: rgba(102,252,241,0.45);
-}
-.calc-input:focus {
-  border-color: rgba(102,252,241,0.9);
-  background: rgba(8,14,22,0.98);
-  box-shadow: 0 0 12px rgba(102,252,241,0.65);
-  outline: none;
-}
-
-/* ============================================================
-   OUTPUT BOXES
-============================================================ */
-.calc-output,
-.calc-output-mini {
-  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
-  background: rgba(0,0,0,0.55);
-  border-radius: 10px;
-  color: #e9faff;
-  white-space: pre-wrap;
-  overflow-y: auto;
-}
-
-.calc-output {
-  margin-top: 14px;
-  padding: 11px 13px;
-  border: 1px solid rgba(120,160,190,0.36);
-  max-height: 210px;
-}
-.calc-output-mini {
-  margin-top: 10px;
-  padding: 9px 11px;
-  border-radius: 8px;
-  max-height: 150px;
-  border: 1px solid rgba(120,160,190,0.35);
-}
-.calc-output.error {
-  background: rgba(60,5,10,0.75);
-  border-color: rgba(255,140,140,0.75);
-  color: #ffe6e6;
-}
-
-/* ============================================================
-   PILLS (PRESET BUTTONS)
-============================================================ */
-.calc-pill {
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  background: rgba(6,12,20,0.95);
-  border: 1px solid rgba(160,220,255,0.5);
-  color: #c8efff;
-  cursor: pointer;
-  transition: 0.18s ease;
-}
-.calc-pill:hover {
-  background: rgba(65,190,220,0.2);
-  box-shadow: 0 0 8px rgba(102,252,241,0.35);
-}
-.calc-pill.is-active {
-  background: linear-gradient(135deg,#66fcf1,#45b9d9);
-  box-shadow: 0 0 10px rgba(102,252,241,0.7);
-  border-color: rgba(200,240,255,0.9);
-  color: #031016;
-}
-
-/* ============================================================
-   CITATION BOX (corrected)
-============================================================ */
-.cite-box {
-  background: rgba(15,22,32,0.55);
+.paper-box {
+  background: rgba(15, 22, 32, 0.45);
   border: 1px solid rgba(102,252,241,0.10);
   border-radius: 14px;
-  padding: 20px 25px;
   box-shadow: 0 0 20px rgba(102,252,241,0.12);
+  padding: 30px;
 }
 
-.cite-text {
-  background: rgba(0,0,0,0.45);
-  border: 1px solid rgba(120,160,200,0.25);
-  border-radius: 8px;
-  color: #e8e9ef;
-  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
-  font-size: 0.88rem;
-  max-height: 220px;
-  padding: 14px 16px;
-  overflow-y: auto;
+.paper-button {
+  background: #d2f2ff;
+  border-radius: 7px;
+  color: #0b0c10;
+  display: inline-block;
+  font-size: 1.05rem;
+  padding: 12px 28px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
-.cite-buttons {
-  display: flex;
-  gap: 14px;
-  margin-top: 14px;
+.paper-button:hover {
+  background: #bfe6f7;
+  box-shadow: 0 0 16px rgba(174,234,255,0.8);
 }
 
-/* ============================================================
-   FOOTER
-============================================================ */
+.ref-list {
+  color: #ffffff;
+  font-size: 0.92rem;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.ref-list a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.ref-list a:hover {
+  color: #9bd8ff;
+  text-shadow: 0 0 6px rgba(140,200,255,0.8);
+}
+
+.ref-list li {
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
 .site-footer {
   border-top: 1px solid rgba(102,252,241,0.10);
   color: #a8c3d9;
@@ -449,20 +713,128 @@ details[open] .summary-label::before {
   text-align: center;
 }
 
-/* ============================================================
-   RESPONSIVENESS
-============================================================ */
+.social-box {
+  background: rgba(15, 22, 32, 0.45);
+  border: 1px solid rgba(102,252,241,0.10);
+  border-radius: 12px;
+  margin-top: 25px;
+  padding: 18px 25px;
+}
+
+.social-icon {
+  flex-shrink: 0;
+  height: 20px;
+  width: 20px;
+}
+
+.social-icon img {
+  height: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+  width: 22px;
+}
+
+.social-icon svg {
+  fill: #aeeaff;
+  height: 100%;
+  width: 100%;
+}
+
+.social-link {
+  align-items: center;
+  color: #aeeaff;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.social-link:hover {
+  color: #66fcf1;
+  text-shadow: 0 0 8px rgba(102,252,241,0.8);
+}
+
+.summary-label {
+  padding-left: 18px;
+  position: relative;
+}
+
+.summary-label::before {
+  content: "▸";
+  font-size: 0.9rem;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 0.15s ease;
+}
+
+.symbol-table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.symbol-table td,
+.symbol-table th {
+  border: 1px solid rgba(120,160,190,0.6);
+  padding: 6px 8px;
+  vertical-align: top;
+}
+
+.symbol-table th {
+  background: rgba(40,60,85,0.7);
+  font-weight: 400;
+}
+
+.symbol-table tr:nth-child(even) td {
+  background: rgba(15, 22, 32, 0.65);
+}
+
+.toast {
+  background: rgba(20, 160, 200, 0.9);
+  border-radius: 8px;
+  bottom: 28px;
+  color: white;
+  font-size: 0.9rem;
+  opacity: 0;
+  padding: 12px 18px;
+  position: fixed;
+  right: 28px;
+  transform: translateY(20px);
+  transition: all 0.35s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE FIXES */
+/* Slightly shrink narrow screens so 2 cards still fit */
 @media (max-width: 980px) {
   .calc-card {
     flex: 1 1 calc(50% - 20px);
     max-width: 350px;
   }
 }
+
+/* Mobile: one card per row */
 @media (max-width: 600px) {
   .calc-card {
     flex: 1 1 100%;
     max-width: 100%;
   }
+}adding: 18px 18px 20px;
+  }
+ .calc-grid {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
 }
 </style>
 
@@ -479,7 +851,7 @@ details[open] .summary-label::before {
   <a href="#calculator">Calculator</a>
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
-  <a href="#-qkde"></a>
+  <a href="#cite-qkde">Cite</a>
   <a class="nav-button" href="QKDE_v.3F.pdf">
     View PDF
   </a>
@@ -2601,21 +2973,16 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
 </ol>
 </div>
 </details>
+<!-- BEGIN CITE BOX (must stay inside details-body) -->
+<!-- ===================== CITE THIS WORK ===================== -->
 
-
-
-<!-- ============================================================
-     CITE THIS WORK — FULLY FUNCTIONAL WITH BibTeX DOWNLOAD
-============================================================ -->
 <div class="cite-box enhanced-cite" id="cite-qkde">
   <div class="cite-header">
     <h3>Cite This Work</h3>
-    <p class="cite-subtext">
-      Select a citation style and copy or download it for use in papers, theses, or research.
-    </p>
+    <p class="cite-subtext">Choose a citation format and copy it directly for your paper, thesis, or project.</p>
   </div>
 
-  <label for="cite-select" class="cite-label">Citation Style:</label>
+  <label for="cite-select" class="cite-label">Citation style:</label>
   <select id="cite-select" class="cite-select" onchange="updateCitation()">
     <option value="bibtex">BibTeX</option>
     <option value="apa">APA (7th Edition)</option>
@@ -2628,78 +2995,59 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
   <pre id="cite-output" class="cite-text"></pre>
 
   <div class="cite-buttons">
-    <button onclick="copyCitation()" class="paper-button cite-btn">Copy to Clipboard</button>
+    <button onclick="copyCitation()" class="paper-button cite-btn">
+      Copy to Clipboard
+    </button>
 
-    <!-- BibTeX download button (now fully functional) -->
-    <a id="download-bib"
-       class="paper-button cite-btn-alt"
-       download="qkde.bib">
-       Download BibTeX
-    </a>
+   
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// ========================== CITATION DATABASE ==========================
+function updateCitation() {
+  const style = document.getElementById("cite-select").value;
+  const output = document.getElementById("cite-output");
+  const downloadBib = document.getElementById("download-bib");
 
-const QKDE_CITATIONS = {
-  bibtex: `@misc{brown2025qkde,
+  const citations = {
+    bibtex: `@misc{brown2025qkde,
   author = {Daniel Brown},
   title = {Quantum–Kinetic Dark Energy (QKDE)},
   year = {2025},
   publisher = {Zenodo},
   doi = {10.5281/zenodo.17774687},
-  url = {https://doi.org/10.5281/zenodo.17774687}
+  url = {(https://doi.org/10.5281/zenodo.17774687)}
 }`,
-  apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687`,
-  mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17774687.`,
-  chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687.`,
-  ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17774687.`,
-  harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17774687.`
-};
+    apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687`,
+    mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17774687.`,
+    chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687.`,
+    ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17774687.`,
+    harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17774687.`
+  };
 
-// ========================== UPDATE CITATION BOX ==========================
-function updateCitation() {
-  const style = document.getElementById("cite-select").value;
-  const output = document.getElementById("cite-output");
-  output.textContent = QKDE_CITATIONS[style];
+  output.textContent = citations[style];
 
-  // ALWAYS generate the BibTeX download file (regardless of selected style)
-  const bibLink = document.getElementById("download-bib");
-  const bibBlob = new Blob([QKDE_CITATIONS.bibtex], { type: "text/plain" });
-  const bibURL = URL.createObjectURL(bibBlob);
-  bibLink.href = bibURL;
+  // Also update BibTeX downloadable file
+  const blob = new Blob([citations.bibtex], { type: 'text/plain' });
+  downloadBib.href = URL.createObjectURL(blob);
 }
 
-// ========================== COPY TO CLIPBOARD ==========================
 function copyCitation() {
-  const citation = document.getElementById("cite-output").textContent.trim();
+  const citation = document.getElementById("cite-output").textContent;
   navigator.clipboard.writeText(citation);
-  showToast("Citation copied!");
-}
-
-// ========================== TOAST NOTIFICATION ==========================
-function showToast(message) {
+  
+  // Smooth, non-annoying copy notification
   const toast = document.createElement("div");
   toast.className = "toast";
-  toast.textContent = message;
+  toast.textContent = "Citation copied!";
   document.body.appendChild(toast);
-
-  requestAnimationFrame(() => toast.classList.add("show"));
+  setTimeout(() => toast.classList.add("show"), 10);
   setTimeout(() => toast.classList.remove("show"), 2000);
   setTimeout(() => toast.remove(), 2600);
 }
 
-// Initialize on page load
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
-
-
-
-
-
-
-
 <script>
   // ================== BASIC NUMERIC HELPERS ==================
 
