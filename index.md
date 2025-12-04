@@ -402,16 +402,6 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   padding-top: 20px;
   border-top: 1px solid rgba(102,252,241,0.10);
 }
-/* Global resets */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  color: #e8e9ef;
-  line-height: 1.75;
-  background: #000;
-  overflow-x: hidden;
-}
 
 /* Starfield background (static image) */
 body {
@@ -1440,7 +1430,6 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       <div class="details-body">
 
         <h4>(a) E-fold definitions</h4>
-
         \[
         N = \ln a, 
         \qquad f' \equiv \frac{df}{dN} = \frac{1}{H}\frac{df}{dt}.
@@ -2279,6 +2268,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
     </details>
 
   </div>
+</details>
 </details>
 <details id="references-qkde">
   <summary><span class="summary-label">References</span></summary>
