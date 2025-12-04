@@ -1749,77 +1749,177 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
   <div class="details-body">
 
     <p>
-      This section provides simple, browser-side calculators to give an intuitive feel 
-      for background cosmology and the running kinetic normalization in QKDE. 
-      These are <em>illustrative</em> tools – the full, high-precision pipeline 
-      is implemented in the Python notebooks in the repository.
+      This section provides lightweight, browser-side calculators for two purposes:
+    </p>
+
+    <ul>
+      <li><strong>(i)</strong> to build intuition for distances and expansion in flat ΛCDM,</li>
+      <li><strong>(ii)</strong> to illustrate how the QKDE kinetic normalization
+        \(K(t)\) evolves with redshift.</li>
+    </ul>
+
+    <p>
+      These are <em>didactic</em> tools — compact, self-contained, and designed to help
+      readers visualize the behavior discussed in the monograph.  
+      They intentionally avoid any heavy numerical infrastructure.
+    </p>
+
+    <hr class="calc-divider" />
+
+    <h3 style="margin-top:25px; color:#b9ecff;">1. ΛCDM Background & Distance Explorer</h3>
+
+    <p class="calc-note">
+      Computes the Hubble rate \(H(z)\), comoving distance \(\chi(z)\), luminosity
+      distance \(D_L(z)\), angular-diameter distance \(D_A(z)\), and the distance
+      modulus \( \mu(z) \).  
+      All formulas use a spatially flat Friedmann–Lemaître universe.
     </p>
 
     <div class="calc-grid">
-
-      <!-- ================= ΛCDM BACKGROUND / DISTANCE CALCULATOR ================ -->
       <div class="calc-card">
-        <h3>ΛCDM Background & Distances</h3>
-        <p class="calc-note">
-          Flat ΛCDM with standard Friedmann equation. This is a reference model 
-          to compare against QKDE runs.
-        </p>
+        <div class="calc-card-header">
+          <h3>ΛCDM Calculator</h3>
+          <span class="calc-tag">Reference Model</span>
+        </div>
 
-        <label class="calc-label">Redshift \(z\)</label>
+        <label class="calc-label" title="Observed redshift of source">
+          Redshift \(z\)
+        </label>
         <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5">
 
-        <label class="calc-label">\(H_0\) [km/s/Mpc]</label>
+        <label class="calc-label" title="Present-day Hubble rate in km/s/Mpc">
+          \(H_0\) [km/s/Mpc]
+        </label>
         <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70">
 
-        <label class="calc-label">\(\Omega_{m0}\)</label>
+        <label class="calc-label">
+          \(\Omega_{m0}\)
+        </label>
         <input id="lcdm-om" class="calc-input" type="number" step="0.01" value="0.3">
 
-        <label class="calc-label">\(\Omega_{r0}\)</label>
+        <label class="calc-label">
+          \(\Omega_{r0}\)
+        </label>
         <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0">
 
-        <label class="calc-label">\(\Omega_{\Lambda 0}\)</label>
+        <label class="calc-label">
+          \(\Omega_{\Lambda 0}\)
+        </label>
         <input id="lcdm-ol" class="calc-input" type="number" step="0.01" value="0.7">
 
-        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeLCDM()">
-          Compute ΛCDM
+        <button class="paper-button alt-button calc-btn" onclick="computeLCDM()">
+          Compute ΛCDM Quantities
         </button>
 
         <pre id="lcdm-output" class="calc-output"></pre>
+
+        <details style="margin-top:12px;">
+          <summary><span class="summary-label">Show ΛCDM formula summary</span></summary>
+          <div class="details-body">
+            <p>The computation uses:</p>
+            <ul>
+              <li>Hubble rate:
+                \[
+                  H(z)=H_0\sqrt{
+                    \Omega_{m0}(1+z)^3 +
+                    \Omega_{r0}(1+z)^4 +
+                    \Omega_{\Lambda0}
+                  }.
+                \]
+              </li>
+              <li>Comoving distance:
+                \[
+                  \chi(z)=\int_0^z \frac{c\,dz'}{H(z')}.
+                \]
+              </li>
+              <li>\(D_L=(1+z)\chi\),  
+                  \(D_A=\chi/(1+z)\),  
+                  \( \mu = 5\log_{10}(D_L / \text{Mpc}) + 25\).</li>
+            </ul>
+          </div>
+        </details>
       </div>
 
-      <!-- ================= QKDE RUNNING-K VISUALIZER ================= -->
+      <!-- ================= QKDE K(N) VISUALIZER ================ -->
       <div class="calc-card">
-        <h3>QKDE Running–\(K(t)\) Visualizer</h3>
+        <div class="calc-card-header">
+          <h3>QKDE Running–\(K(t)\) Explorer</h3>
+          <span class="calc-tag">Model Insight</span>
+        </div>
+
         <p class="calc-note">
-          Uses the running-kinetic form \(K(N) = 1 + K_0 e^{-pN}\) with 
-          \(N = \ln a = -\ln(1+z)\). This does <em>not</em> solve the full 
-          background ODEs; it just shows how the kinetic normalization drifts.
+          Shows how the QKDE kinetic normalization evolves with redshift using the
+          analytic running form  
+          \(K(N)=1+K_0 e^{-pN}\), where \(N=\ln a = -\ln(1+z)\).
         </p>
 
-        <label class="calc-label">Redshift \(z\)</label>
+        <label class="calc-label">
+          Redshift \(z\)
+        </label>
         <input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5">
 
-        <label class="calc-label">\(K_0\)</label>
+        <label class="calc-label" title="Amplitude of the kinetic drift">
+          \(K_0\)
+        </label>
         <input id="qkde-k0" class="calc-input" type="number" step="0.1" value="0.5">
 
-        <label class="calc-label">\(p\)</label>
+        <label class="calc-label" title="Controls the redshift dependence of K(t)">
+          \(p\)
+        </label>
         <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0">
 
-        <button class="paper-button alt-button" style="margin-top:14px;" onclick="computeQKDE()">
-          Compute \(K(z)\) and \(K'/K\)
+        <button class="paper-button alt-button calc-btn" onclick="computeQKDE()">
+          Compute \(K(z)\) & \(K'/K\)
         </button>
 
         <pre id="qkde-output" class="calc-output"></pre>
+
+        <details style="margin-top:12px;">
+          <summary><span class="summary-label">Show K(t) formula summary</span></summary>
+          <div class="details-body">
+            <p>Running form used throughout the monograph:</p>
+            <ul>
+              <li>
+                Redshift-to–e-fold mapping:
+                \[
+                  N = \ln a = -\ln(1+z).
+                \]
+              </li>
+              <li>
+                Kinetic normalization:
+                \[
+                  K(N) = 1 + K_0 e^{-pN}.
+                \]
+              </li>
+              <li>
+                Logarithmic slope:
+                \[
+                  \frac{K'}{K}
+                    = \frac{-pK_0 e^{-pN}}{1+K_0 e^{-pN}}.
+                \]
+              </li>
+            </ul>
+          </div>
+        </details>
       </div>
 
     </div> <!-- /.calc-grid -->
 
-    <p style="margin-top:20px; font-size:0.9rem; opacity:0.9;">
-      <strong>Note:</strong> the ΛCDM calculator uses the standard flat-universe Friedmann
-      equation with \(H(z)=H_0\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda 0}}\)
-      and numerical integration for distances. The QKDE block shows the exact 
-      running-\(K\) parameterization used in the paper; for full background and 
-      Fisher forecasts, see the Python code in the repository.
+    <hr class="calc-divider" />
+
+    <p style="margin-top:20px; font-size:0.9rem; opacity:0.92;">
+      <strong>Interpretation:</strong>  
+      The ΛCDM block provides a baseline cosmic expansion and distance scale.  
+      The QKDE block shows how a drifting kinetic normalization can reshape the
+      background history without altering the Einstein–Hilbert sector or introducing
+      modified gravity signatures.
+    </p>
+
+    <p style="font-size:0.9rem; margin-top:12px; opacity:0.9;">
+      These calculators are intentionally compact.  
+      They give intuition — not forecasts.  
+      All quantitative predictions and replicable figures in the monograph use the
+      fully consistent background system, perturbations, and sensitivity equations.
     </p>
 
   </div>
@@ -2410,122 +2510,197 @@ function copyCitation() {
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
 <script>
-  // ================== ΛCDM CALCULATOR ==================
-  function E_of_z(z, Om, Or, Ol) {
-    return Math.sqrt(
-      Om * Math.pow(1 + z, 3) +
-      Or * Math.pow(1 + z, 4) +
-      Ol
-    );
+/* ============================================================
+   LOW-LEVEL HELPERS
+   ============================================================ */
+
+// Format numbers cleanly
+function fmt(x, dec = 3) {
+  if (!isFinite(x)) return "NaN";
+  if (Math.abs(x) >= 1e4 || Math.abs(x) < 1e-3)
+    return x.toExponential(dec);
+  return x.toFixed(dec);
+}
+
+// Tiny sparkline generator (ASCII)
+function sparkline(values) {
+  const bars = "▁▂▃▄▅▆▇█";
+  const min = Math.min(...values), max = Math.max(...values);
+  return values.map(v => {
+    const idx = Math.floor((bars.length - 1) * (v - min) / (max - min || 1));
+    return bars[idx];
+  }).join("");
+}
+
+// Print with animated reveal
+function revealOutput(el, text) {
+  el.style.maxHeight = "0px";
+  el.textContent = text;
+  requestAnimationFrame(() => {
+    el.style.transition = "max-height 0.45s ease";
+    el.style.maxHeight = "400px";
+  });
+}
+
+
+/* ============================================================
+   ΛCDM PHYSICS FUNCTIONS
+   ============================================================ */
+
+// Hubble ratio E(z) = H(z)/H0
+function E_of_z(z, Om, Or, Ol) {
+  const term = Om * (1 + z) ** 3 +
+               Or * (1 + z) ** 4 +
+               Ol;
+  return Math.sqrt(term);
+}
+
+// Simpson integration for comoving distance
+function integrate_chi(H0, Om, Or, Ol, zmax, steps = 400) {
+  const c = 299792.458; // speed of light km/s
+  const dz = zmax / steps;
+  let sum = 0;
+
+  for (let i = 0; i <= steps; i++) {
+    const z   = i * dz;
+    const Ez  = E_of_z(z, Om, Or, Ol);
+    const w   = (i === 0 || i === steps) ? 1 : (i % 2 === 0 ? 2 : 4);
+    sum += w * (1 / Ez);
   }
 
-  function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
-    // c in km/s
-    const c = 299792.458;
-    const dz = zmax / steps;
-    let integral = 0.0;
+  sum *= dz / 3;
+  return (c / H0) * sum; // in Mpc
+}
 
-    // Simple Simpson-like integration (even number of steps recommended)
-    for (let i = 0; i <= steps; i++) {
-      const z = i * dz;
-      const weight = (i === 0 || i === steps) ? 1 : (i % 2 === 0 ? 2 : 4);
-      const Ez = E_of_z(z, Om, Or, Ol);
-      integral += weight * (1.0 / Ez);
-    }
-    integral *= dz / 3.0;
 
-    // χ(z) in Mpc
-    return (c / H0) * integral;
-  }
+/* ============================================================
+   LCDM CALCULATOR
+   ============================================================ */
+function computeLCDM() {
+  const z  = parseFloat(document.getElementById("lcdm-z").value);
+  const H0 = parseFloat(document.getElementById("lcdm-h0").value);
+  const Om = parseFloat(document.getElementById("lcdm-om").value);
+  const Or = parseFloat(document.getElementById("lcdm-or").value);
+  const Ol = parseFloat(document.getElementById("lcdm-ol").value);
+  const out = document.getElementById("lcdm-output");
 
-  function computeLCDM() {
-    const z   = parseFloat(document.getElementById("lcdm-z").value);
-    const H0  = parseFloat(document.getElementById("lcdm-h0").value);
-    const Om  = parseFloat(document.getElementById("lcdm-om").value);
-    const Or  = parseFloat(document.getElementById("lcdm-or").value);
-    const Ol  = parseFloat(document.getElementById("lcdm-ol").value);
-    const out = document.getElementById("lcdm-output");
+  // --- VALIDATION ---
+  if (!isFinite(z) || z < 0) return out.textContent = "⚠️ Enter a valid non-negative redshift z.";
+  if (!isFinite(H0) || H0 <= 0) return out.textContent = "⚠️ H0 must be positive.";
+  if (!isFinite(Om) || !isFinite(Or) || !isFinite(Ol))
+    return out.textContent = "⚠️ Enter numerical Ω-values.";
 
-    if (isNaN(z) || z < 0) {
-      out.textContent = "Please enter a non-negative redshift z.";
-      return;
-    }
+  const Omegatot = Om + Or + Ol;
 
-    const Ez = E_of_z(z, Om, Or, Ol);
-    const Hz = H0 * Ez;
+  let warnings = "";
+  if (Math.abs(Omegatot - 1) > 0.05)
+    warnings += `⚠️ Ω_tot = ${fmt(Omegatot)} (not ≈ 1 for flat ΛCDM)\n`;
 
-    // Comoving distance (simple Simpson integration)
-    const steps = 400;
-    const chi = integrate_chi(H0, Om, Or, Ol, z, steps); // Mpc
+  // --- CALCULATE ---
+  const Ez = E_of_z(z, Om, Or, Ol);
+  const Hz = H0 * Ez;
 
-    const DL = (1 + z) * chi; // luminosity distance in Mpc
-    const DA = chi / (1 + z); // angular-diameter distance in Mpc
+  const chi = integrate_chi(H0, Om, Or, Ol, z);
+  const DL  = (1 + z) * chi;
+  const DA  = chi / (1 + z);
+  const mu  = 5 * Math.log10(DL) + 25;
 
-    // Distance modulus μ_SN
-    const muSN = 5 * Math.log10(DL) + 25;
+  // Sparkline of E(z) sampled from 0→z
+  const sampling = Array.from({length: 20}, (_,i)=>E_of_z(z*(i/19), Om,Or,Ol));
+  const spark = sparkline(sampling);
 
-    const lines = [];
-    lines.push("Input:");
-    lines.push(`  z  = ${z.toFixed(3)}`);
-    lines.push(`  H0 = ${H0.toFixed(2)} km/s/Mpc`);
-    lines.push(`  Ωm0 = ${Om.toFixed(3)}, Ωr0 = ${Or.toExponential(2)}, ΩΛ0 = ${Ol.toFixed(3)}`);
-    lines.push("");
-    lines.push("Background quantities (flat ΛCDM):");
-    lines.push(`  H(z)  = ${Hz.toFixed(2)} km/s/Mpc`);
-    lines.push(`  E(z)  = H(z)/H0 = ${Ez.toFixed(4)}`);
-    lines.push("");
-    lines.push("Distances:");
-    lines.push(`  χ(z)  = ${chi.toFixed(2)} Mpc  (${(chi/1000).toFixed(3)} Gpc)`);
-    lines.push(`  D_L   = ${DL.toFixed(2)} Mpc  (${(DL/1000).toFixed(3)} Gpc)`);
-    lines.push(`  D_A   = ${DA.toFixed(2)} Mpc`);
-    lines.push(`  μ_SN  = ${muSN.toFixed(3)} mag`);
+  // --- OUTPUT ---
+  const lines = [];
 
-    out.textContent = lines.join("\n");
-  }
+  lines.push("ΛCDM Background Quantities");
+  lines.push("───────────────────────────");
+  if (warnings) lines.push(warnings);
 
-  // ================== QKDE RUNNING-K VISUALIZER ==================
-  function computeQKDE() {
-    const z  = parseFloat(document.getElementById("qkde-z").value);
-    const K0 = parseFloat(document.getElementById("qkde-k0").value);
-    const p  = parseFloat(document.getElementById("qkde-p").value);
-    const out = document.getElementById("qkde-output");
+  lines.push("INPUT PARAMETERS");
+  lines.push(`  z        = ${fmt(z)}`);
+  lines.push(`  H0       = ${fmt(H0)} km/s/Mpc`);
+  lines.push(`  Ω_m0     = ${fmt(Om)}`);
+  lines.push(`  Ω_r0     = ${fmt(Or)}`);
+  lines.push(`  Ω_Λ0     = ${fmt(Ol)}`);
+  lines.push(`  Ω_tot    = ${fmt(Omegatot)}`);
+  lines.push("");
 
-    if (isNaN(z) || z < 0) {
-      out.textContent = "Please enter a non-negative redshift z.";
-      return;
-    }
+  lines.push("BACKGROUND");
+  lines.push(`  H(z)     = ${fmt(Hz,4)} km/s/Mpc`);
+  lines.push(`  E(z)     = ${fmt(Ez,4)}`);
+  lines.push(`  E(z) trend 0→z:   ${spark}`);
+  lines.push("");
 
-    // N = ln a = -ln(1+z)
-    const N = -Math.log(1 + z);
+  lines.push("DISTANCES (flat FRW)");
+  lines.push(`  χ(z)     = ${fmt(chi,4)} Mpc`);
+  lines.push(`  D_L      = ${fmt(DL,4)} Mpc`);
+  lines.push(`  D_A      = ${fmt(DA,4)} Mpc`);
+  lines.push(`  μ_SN     = ${fmt(mu,4)} mag`);
 
-    // K(N) = 1 + K0 e^{-pN}  = 1 + K0 (1+z)^p
-    const K = 1 + K0 * Math.exp(-p * N);  // exact form in terms of N
+  revealOutput(out, lines.join("\n"));
+}
 
-    // K'/K = (dK/dN) / K, where dK/dN = -p K0 e^{-pN}
-    const dK_dN = -p * K0 * Math.exp(-p * N);
-    const Kprime_over_K = dK_dN / K;
 
-    const lines = [];
-    lines.push("Running–K model:  K(N) = 1 + K0 e^{-pN},  N = ln a = -ln(1+z)");
-    lines.push("");
-    lines.push("Input:");
-    lines.push(`  z   = ${z.toFixed(3)}`);
-    lines.push(`  K0  = ${K0}`);
-    lines.push(`  p   = ${p}`);
-    lines.push("");
-    lines.push("Derived:");
-    lines.push(`  N(z)           = ${N.toFixed(4)}`);
-    lines.push(`  a(z)           = e^N = ${(Math.exp(N)).toFixed(4)}`);
-    lines.push(`  K(z)           = ${K.toFixed(6)}`);
-    lines.push(`  K'(N)/K(N)     = ${Kprime_over_K.toFixed(6)}`);
-    lines.push("");
-    lines.push("Notes:");
-    lines.push("  • This block does NOT solve the full background system.");
-    lines.push("  • It shows how the kinetic normalization drifts with N or z.");
-    lines.push("  • For full QKDE backgrounds and forecasts, use the Python notebooks in the repo.");
+/* ============================================================
+   QKDE RUNNING-K VISUALIZER
+   ============================================================ */
+function computeQKDE() {
+  const z  = parseFloat(document.getElementById("qkde-z").value);
+  const K0 = parseFloat(document.getElementById("qkde-k0").value);
+  const p  = parseFloat(document.getElementById("qkde-p").value);
+  const out = document.getElementById("qkde-output");
 
-    out.textContent = lines.join("\n");
-  }
+  if (!isFinite(z) || z < 0)
+    return out.textContent = "⚠️ Enter a valid non-negative redshift.";
+
+  if (!isFinite(K0) || !isFinite(p))
+    return out.textContent = "⚠️ K0 and p must be finite numbers.";
+
+  // N = ln a = -ln(1+z)
+  const N = -Math.log(1 + z);
+  const a = Math.exp(N);
+
+  // K(N) = 1 + K0 e^{-pN}
+  const expTerm = Math.exp(-p * N);
+  const K = 1 + K0 * expTerm;
+  const Kprime_over_K = (-p * K0 * expTerm) / K;
+
+  // Weak sparkline of K drift at nearby redshifts
+  const Kvals = Array.from({length: 20}, (_,i)=>{
+    const zz = z * (i/19);
+    const NN = -Math.log(1 + zz);
+    return 1 + K0 * Math.exp(-p * NN);
+  });
+  const trend = sparkline(Kvals);
+
+  const lines = [];
+
+  lines.push("QKDE Running–K Explorer");
+  lines.push("────────────────────────");
+  lines.push("INPUT");
+  lines.push(`  z        = ${fmt(z)}`);
+  lines.push(`  K0       = ${fmt(K0)}`);
+  lines.push(`  p        = ${fmt(p)}`);
+  lines.push("");
+
+  lines.push("DERIVED BACKGROUND VARIABLES");
+  lines.push(`  N(z)     = ${fmt(N,5)}   (e-fold time)`);
+  lines.push(`  a(z)     = ${fmt(a,5)}   (scale factor)`);
+  lines.push("");
+
+  lines.push("KINETIC NORMALIZATION");
+  lines.push(`  K(z)         = ${fmt(K,6)}`);
+  lines.push(`  K'/K         = ${fmt(Kprime_over_K,6)}`);
+  lines.push(`  Drift trend 0→z:   ${trend}`);
+  lines.push("");
+
+  lines.push("NOTES");
+  lines.push("  • Illustrates the analytic running K model used in QKDE.");
+  lines.push("  • Does not solve the full background system.");
+  lines.push("  • Shows how a drifting kinetic normalization alters expansion history.");
+
+  revealOutput(out, lines.join("\n"));
+}
 </script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
