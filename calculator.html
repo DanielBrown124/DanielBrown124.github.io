@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <title>QKDE Cosmology Tools – Interactive Calculator Suite</title>
@@ -14,9 +14,10 @@
 <!-- ================= CHART.JS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- ============================================================
-     GLOBAL STYLES WITH DARK/LIGHT MODE
-============================================================ -->
+
+
+  
+
 <style>
 :root {
   --bg-body: #020713;
@@ -543,6 +544,12 @@ select.calc-input {
 </style>
 </head>
 
+
+
+
+
+
+  
 <body id="top">
 
 <!-- ================= HEADER WITH NAV + THEME TOGGLE ================= -->
@@ -551,7 +558,8 @@ select.calc-input {
     <a href="index.html">← Back to Home</a>
     <a href="#top">Top</a>
   </div>
-  <button id="theme-toggle" class="theme-toggle" type="button">Dark mode</button>
+  <!-- Label shows the mode you can switch TO -->
+  <button id="theme-toggle" class="theme-toggle" type="button">Light mode</button>
 </header>
 
 <div class="page">
@@ -663,10 +671,22 @@ select.calc-input {
         </p>
 
         <div class="calc-input-row">
-          <div><label class="calc-label">Redshift z</label><input id="qkde-z" class="calc-input" value="0.5" type="number" step="0.01"></div>
-          <div><label class="calc-label">K₀</label><input id="qkde-k0" class="calc-input" value="0.5" type="number" step="0.05"></div>
-          <div><label class="calc-label">p</label><input id="qkde-p" class="calc-input" value="1.0" type="number" step="0.1"></div>
-          <div><label class="calc-label">Reference K(0)</label><input id="qkde-kref" class="calc-input" value="1.0" type="number" step="0.01"></div>
+          <div>
+            <label class="calc-label">Redshift z</label>
+            <input id="qkde-z" class="calc-input" value="0.5" type="number" step="0.01">
+          </div>
+          <div>
+            <label class="calc-label">K₀</label>
+            <input id="qkde-k0" class="calc-input" value="0.5" type="number" step="0.05">
+          </div>
+          <div>
+            <label class="calc-label">p</label>
+            <input id="qkde-p" class="calc-input" value="1.0" type="number" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label">Reference K(0)</label>
+            <input id="qkde-kref" class="calc-input" value="1.0" type="number" step="0.01">
+          </div>
         </div>
 
         <div class="calc-action-row">
@@ -710,10 +730,22 @@ select.calc-input {
         </p>
 
         <div class="calc-input-row">
-          <div><label class="calc-label">Ωₘ₀ (growth)</label><input id="grow-om0" class="calc-input" value="0.3" type="number" step="0.001"></div>
-          <div><label class="calc-label">Ωᵣ₀ (growth)</label><input id="grow-or0" class="calc-input" value="0" type="number" step="1e-5"></div>
-          <div><label class="calc-label">ΩΛ₀ (growth)</label><input id="grow-ol0" class="calc-input" value="0.7" type="number" step="0.001"></div>
-          <div><label class="calc-label">Use z from ΛCDM card</label><input class="calc-input" value="linked" disabled></div>
+          <div>
+            <label class="calc-label">Ωₘ₀ (growth)</label>
+            <input id="grow-om0" class="calc-input" value="0.3" type="number" step="0.001">
+          </div>
+          <div>
+            <label class="calc-label">Ωᵣ₀ (growth)</label>
+            <input id="grow-or0" class="calc-input" value="0" type="number" step="1e-5">
+          </div>
+          <div>
+            <label class="calc-label">ΩΛ₀ (growth)</label>
+            <input id="grow-ol0" class="calc-input" value="0.7" type="number" step="0.001">
+          </div>
+          <div>
+            <label class="calc-label">Use z from ΛCDM card</label>
+            <input class="calc-input" value="linked" disabled>
+          </div>
         </div>
 
         <div class="calc-action-row">
@@ -757,10 +789,22 @@ select.calc-input {
         </p>
 
         <div class="calc-input-row">
-          <div><label class="calc-label">Redshift z</label><input id="cmp-z" class="calc-input" value="0.5" type="number" step="0.01"></div>
-          <div><label class="calc-label">K₀</label><input id="cmp-k0" class="calc-input" value="0.5" type="number" step="0.05"></div>
-          <div><label class="calc-label">p</label><input id="cmp-p" class="calc-input" value="1.0" type="number" step="0.1"></div>
-          <div><label class="calc-label">Reference K(0)</label><input id="cmp-kref" class="calc-input" value="1.0" type="number" step="0.01"></div>
+          <div>
+            <label class="calc-label">Redshift z</label>
+            <input id="cmp-z" class="calc-input" value="0.5" type="number" step="0.01">
+          </div>
+          <div>
+            <label class="calc-label">K₀</label>
+            <input id="cmp-k0" class="calc-input" value="0.5" type="number" step="0.05">
+          </div>
+          <div>
+            <label class="calc-label">p</label>
+            <input id="cmp-p" class="calc-input" value="1.0" type="number" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label">Reference K(0)</label>
+            <input id="cmp-kref" class="calc-input" value="1.0" type="number" step="0.01">
+          </div>
         </div>
 
         <div class="calc-action-row">
@@ -777,34 +821,56 @@ select.calc-input {
   ============================================================ -->
   <section class="calc-panel" id="panel-advanced">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL</div>
+      <div class="calc-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE</div>
       <button class="panel-toggle-btn" data-panel="panel-advanced" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
       <article class="calc-card-wide" id="advanced-growth-card">
-        <h3>Growth Comparator (ΛCDM vs Quintessence vs CPL-type k-essence)</h3>
+        <h3>Growth Comparator (ΛCDM / Quintessence / CPL / QKDE)</h3>
         <p class="calc-note">
-          Solves the GR growth equation for three background families:
-          ΛCDM, constant-w quintessence, and CPL \(w(a)=w_0+w_a(1-a)\).
-          Only \(H(a)\) differs; gravity and perturbations remain GR.
+          Solves the GR growth equation for three standard background families
+          (ΛCDM, constant-w quintessence, CPL \(w(a)=w_0+w_a(1-a)\)) and an
+          effective QKDE background where \(H_{\rm QKDE}(a)=H_{\Lambda{\rm CDM}}(a)\sqrt{K(a)}\).
         </p>
 
         <div class="calc-input-row">
-          <div><label class="calc-label">Ωₘ₀</label><input id="adv-om0" class="calc-input" value="0.3" type="number" step="0.001"></div>
-          <div><label class="calc-label">Ωᵣ₀</label><input id="adv-or0" class="calc-input" value="0" type="number" step="1e-5"></div>
-          <div><label class="calc-label">z<sub>max</sub></label><input id="adv-zmax" class="calc-input" value="3" type="number" step="0.1"></div>
-          <div><label class="calc-label">Samples</label><input id="adv-samples" class="calc-input" value="120" type="number" min="40" step="10"></div>
+          <div>
+            <label class="calc-label">Ωₘ₀</label>
+            <input id="adv-om0" class="calc-input" value="0.3" type="number" step="0.001">
+          </div>
+          <div>
+            <label class="calc-label">Ωᵣ₀</label>
+            <input id="adv-or0" class="calc-input" value="0" type="number" step="1e-5">
+          </div>
+          <div>
+            <label class="calc-label">z<sub>max</sub></label>
+            <input id="adv-zmax" class="calc-input" value="3" type="number" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label">Samples</label>
+            <input id="adv-samples" class="calc-input" value="120" type="number" min="40" step="10">
+          </div>
         </div>
 
         <div class="calc-input-row">
-          <div><label class="calc-label">w<sub>Q</sub> (quintessence)</label><input id="adv-wq" class="calc-input" value="-0.9" type="number" step="0.05"></div>
-          <div><label class="calc-label">w₀ (CPL)</label><input id="adv-w0" class="calc-input" value="-0.9" type="number" step="0.05"></div>
-          <div><label class="calc-label">wₐ (CPL)</label><input id="adv-wa" class="calc-input" value="0.2" type="number" step="0.05"></div>
+          <div>
+            <label class="calc-label">w<sub>Q</sub> (quintessence)</label>
+            <input id="adv-wq" class="calc-input" value="-0.9" type="number" step="0.05">
+          </div>
+          <div>
+            <label class="calc-label">w₀ (CPL)</label>
+            <input id="adv-w0" class="calc-input" value="-0.9" type="number" step="0.05">
+          </div>
+          <div>
+            <label class="calc-label">wₐ (CPL)</label>
+            <input id="adv-wa" class="calc-input" value="0.2" type="number" step="0.05">
+          </div>
           <div>
             <label class="calc-label">Models</label>
             <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
             <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
-            <label><input type="checkbox" id="adv-show-kess" checked> CPL-type k-essence</label>
+            <label><input type="checkbox" id="adv-show-kess" checked> CPL-type k-essence</label><br>
+            <label><input type="checkbox" id="adv-show-qkde" checked> QKDE (H×√K)</label>
           </div>
         </div>
 
@@ -823,6 +889,14 @@ select.calc-input {
               <option value="Da_over_a">D(a)/a</option>
             </select>
           </div>
+          <div>
+            <label class="calc-label">K₀ (QKDE)</label>
+            <input id="adv-k0q" class="calc-input" value="0.5" type="number" step="0.05">
+          </div>
+          <div>
+            <label class="calc-label">p (QKDE)</label>
+            <input id="adv-pq" class="calc-input" value="1.0" type="number" step="0.1">
+          </div>
         </div>
 
         <div class="calc-action-row">
@@ -833,10 +907,11 @@ select.calc-input {
         <pre id="adv-growth-info" class="calc-output-mini"></pre>
 
         <p class="calc-footnote">
-          To compare QKDE to these families, interpret QKDE’s running \(K(t)\) as an effective modification
-          of the background \(H(a)\) while keeping GR growth. The plots here show how standard effective
-          parameterizations change \(D(a)\); QKDE’s background in the monograph can be mapped onto
-          one of these tracks for quick visual comparison.
+          In this comparator, QKDE is treated as an effective background with
+          \(H_{\rm QKDE}(a) = H_{\Lambda{\rm CDM}}(a)\sqrt{K(a)}\), where
+          \(K(a)=1+K_0 e^{-p\ln a}\). Growth still follows the GR equation.
+          This lets you directly see how a running kinetic normalization
+          distorts \(D(a)\) relative to ΛCDM, quintessence, and CPL tracks.
         </p>
       </article>
     </div>
@@ -844,554 +919,389 @@ select.calc-input {
 
 </div> <!-- /page -->
 
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
+
+
+
+  
+<!-- ================= JS (put Section 3 here) ================= -->
 <script>
-/* ------------------------------------------------------------
-   Basic helpers
------------------------------------------------------------- */
-function byId(id) {
-  return document.getElementById(id);
-}
+/* ============================================================
+   BASIC DOM HELPERS
+============================================================ */
+function byId(id) { return document.getElementById(id); }
 
-function setOutput(el, lines, isError = false) {
+function setOutput(el, text, isError = false) {
   if (!el) return;
-  el.textContent = Array.isArray(lines) ? lines.join("\\n") : String(lines);
-  el.classList.toggle("error", !!isError);
+  el.textContent = text;
+  el.classList.toggle("error", isError);
 }
 
-function attachFormulaToggle(buttonId, boxId, showLabel, hideLabel) {
-  const btn = byId(buttonId);
+/* Toggle formula box */
+function attachFormulaToggle(btnId, boxId) {
+  const btn = byId(btnId);
   const box = byId(boxId);
   if (!btn || !box) return;
-  const showText = showLabel || "Show";
-  const hideText = hideLabel || "Hide";
-  btn.textContent = showText;
 
   btn.addEventListener("click", () => {
     const open = box.classList.toggle("is-open");
     box.setAttribute("aria-hidden", open ? "false" : "true");
-    btn.textContent = open ? hideText : showText;
-    if (window.MathJax && window.MathJax.typeset) {
-      try { MathJax.typeset([box]); } catch {}
-    }
+    btn.textContent = open ? "Hide formulas" : "Show formulas";
+    if (window.MathJax && MathJax.typeset) MathJax.typeset([box]);
   });
 }
 
-/* ------------------------------------------------------------
-   Cosmology helpers
------------------------------------------------------------- */
-function E_of_z(z, Om, Or, Ol) {
-  return Math.sqrt(Om*Math.pow(1+z,3) + Or*Math.pow(1+z,4) + Ol);
-}
-
-function E_of_a(a, Om, Or, Ol) {
-  return Math.sqrt(Om*Math.pow(a,-3) + Or*Math.pow(a,-4) + Ol);
-}
-
-function Omega_m_of_a(a, Om, Or, Ol) {
-  const E = E_of_a(a, Om, Or, Ol);
-  return (Om*Math.pow(a,-3)) / (E*E);
-}
-
-// Simpson integration for comoving distance
-function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
-  const c = 299792.458; // km/s
-  const N = Math.max(50, Math.floor(steps));
-  const dz = zmax / N;
-  let sum = 0;
-  for (let i = 0; i <= N; i++) {
-    const z = i * dz;
-    const w = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
-    sum += w / E_of_z(z, Om, Or, Ol);
-  }
-  const integral = (dz / 3) * sum;
-  return (c / H0) * integral;
-}
-
-/* ------------------------------------------------------------
-   GR growth in ΛCDM at a single z (normalized to D(0)=1)
------------------------------------------------------------- */
-function solveGrowthFactor_LCDM(z, Om0, Or0, Ol0) {
-  if (!(z >= 0)) throw new Error("z must be ≥ 0");
-  const a_target = 1 / (1 + z);
-  if (!(a_target > 0 && a_target <= 1)) {
-    throw new Error("Target scale factor out of range.");
-  }
-
-  const N_start = Math.log(1e-3); // a ~ 1e-3
-  const N_end = Math.log(a_target);
-  const steps = 1500;
-  const dN = (N_end - N_start) / steps;
-
-  let N = N_start;
-  // Growing mode initial conditions: D ∝ a deep in matter era
-  let a = Math.exp(N);
-  let D = a;
-  let F = D; // D' = D for pure matter
-
-  function derivs(Nloc, Dloc, Floc) {
-    const aLoc = Math.exp(Nloc);
-    const E = E_of_a(aLoc, Om0, Or0, Ol0);
-    const E2 = E*E;
-    // d ln E / dN = (1/E) dE/dN
-    const dlnE_dN = (-3*Om0*Math.pow(aLoc,-3) - 4*Or0*Math.pow(aLoc,-4)) / (2*E2);
-    const OmN = Omega_m_of_a(aLoc, Om0, Or0, Ol0);
-    const Dp = Floc;
-    const Fp = -(2 + dlnE_dN)*Floc + 1.5*OmN*Dloc;
-    return {Dp, Fp};
-  }
-
-  // Integrate to a_target
-  for (let i = 0; i < steps; i++) {
-    const {Dp:k1D, Fp:k1F} = derivs(N, D, F);
-    const {Dp:k2D, Fp:k2F} = derivs(N + 0.5*dN,
-                                    D + 0.5*dN*k1D,
-                                    F + 0.5*dN*k1F);
-    const {Dp:k3D, Fp:k3F} = derivs(N + 0.5*dN,
-                                    D + 0.5*dN*k2D,
-                                    F + 0.5*dN*k2F);
-    const {Dp:k4D, Fp:k4F} = derivs(N + dN,
-                                    D + dN*k3D,
-                                    F + dN*k3F);
-
-    D += (dN/6)*(k1D + 2*k2D + 2*k3D + k4D);
-    F += (dN/6)*(k1F + 2*k2F + 2*k3F + k4F);
-    N += dN;
-  }
-  const D_target = D;
-  const F_target = F;
-
-  // Integrate separately to a=1 to get D(0) for normalization
-  const steps2 = 1500;
-  const dN2 = (0 - N_start) / steps2;
-  let N2 = N_start;
-  let a2 = Math.exp(N2);
-  let D2 = a2;
-  let F2 = D2;
-
-  for (let i = 0; i < steps2; i++) {
-    const {Dp:k1D, Fp:k1F} = derivs(N2, D2, F2);
-    const {Dp:k2D, Fp:k2F} = derivs(N2 + 0.5*dN2,
-                                    D2 + 0.5*dN2*k1D,
-                                    F2 + 0.5*dN2*k1F);
-    const {Dp:k3D, Fp:k3F} = derivs(N2 + 0.5*dN2,
-                                    D2 + 0.5*dN2*k2D,
-                                    F2 + 0.5*dN2*k2F);
-    const {Dp:k4D, Fp:k4F} = derivs(N2 + dN2,
-                                    D2 + dN2*k3D,
-                                    F2 + dN2*k3F);
-    D2 += (dN2/6)*(k1D + 2*k2D + 2*k3D + k4D);
-    F2 += (dN2/6)*(k1F + 2*k2F + 2*k3F + k4F);
-    N2 += dN2;
-  }
-
-  const D_today = D2;
-  const D_norm = D_target / D_today;
-  const f = F_target / D_target; // f = d ln D / d ln a
-
-  return { D_norm, f };
-}
-
-/* ------------------------------------------------------------
-   QKDE K(N)
------------------------------------------------------------- */
-function K_of_z(z, K0, p) {
-  const N = -Math.log(1 + z);
-  return 1 + K0 * Math.exp(-p * N);
-}
-
-/* ------------------------------------------------------------
-   Advanced growth comparator helpers
------------------------------------------------------------- */
-function E_LCDM(a, p) {
-  const om0 = p.om0;
-  const or0 = p.or0;
-  const ode0 = 1 - om0 - or0;
-  return Math.sqrt(om0/Math.pow(a,3) + or0/Math.pow(a,4) + ode0);
-}
-
-function dlnH_LCDM(a, p) {
-  const E = E_LCDM(a, p);
-  const E2 = E*E;
-  const om = p.om0/Math.pow(a,3) / E2;
-  const or = p.or0/Math.pow(a,4) / E2;
-  // Λ has w = -1 → no contribution to H'/H
-  return -1.5*om - 2*or;
-}
-
-function E_wCDM(a, p) {
-  const om0 = p.om0, or0 = p.or0, wq = p.wq;
-  const ode0 = 1 - om0 - or0;
-  return Math.sqrt(
-    om0/Math.pow(a,3) +
-    or0/Math.pow(a,4)
-        + ode0 * Math.pow(a, -3*(1 + wq))
-  );
-}
-
-function dlnH_wCDM(a, p) {
-  const om0 = p.om0, or0 = p.or0, wq = p.wq;
-  const E = E_wCDM(a, p);
-  const E2 = E * E;
-
-  const om = (om0 / Math.pow(a,3)) / E2;
-  const or = (or0 / Math.pow(a,4)) / E2;
-  const ode = 1 - om - or;
-
-  return -1.5*om - 2*or - 1.5*(1 + wq)*ode;
-}
-
-/* ------------------------------------------------------------
-   CPL w(a) = w0 + wa(1 - a)
------------------------------------------------------------- */
-function E_CPL(a, p) {
-  const om0 = p.om0, or0 = p.or0, w0 = p.w0, wa = p.wa;
-  const ode0 = 1 - om0 - or0;
-
-  const w_a = w0 + wa * (1 - a);
-  const exponent = -3 * (1 + w0 + wa);
-  const deFactor = Math.pow(a, exponent) * Math.exp(-3*wa*(1 - a));
-
-  return Math.sqrt(
-    om0/Math.pow(a,3) +
-    or0/Math.pow(a,4) +
-    ode0 * deFactor
-  );
-}
-
-function dlnH_CPL(a, p) {
-  const E = E_CPL(a, p);
-  const E2 = E * E;
-
-  const om = (p.om0 / Math.pow(a,3)) / E2;
-  const or = (p.or0 / Math.pow(a,4)) / E2;
-  const ode = 1 - om - or;
-
-  const w_a = p.w0 + p.wa * (1 - a);
-
-  return -1.5*om - 2*or - 1.5*(1 + w_a)*ode;
-}
-
-/* ------------------------------------------------------------
-   Universal GR Growth Solver used for all background families
------------------------------------------------------------- */
-function integrateGrowth(modelE, modeldlnH, params) {
-  const { om0, or0, wq, w0, wa, zmax, samples } = params;
-
-  const a_min = 1 / (1 + zmax);
-  const N_min = Math.log(a_min);
-  const N_max = 0;
-
-  const dN = (N_max - N_min) / (samples - 1);
-
-  let N = N_min;
-  let a = Math.exp(N);
-
-  // Deep matter-like initial conditions
-  let D = a;
-  let F = D;
-
-  const aArr = [];
-  const zArr = [];
-  const DArr = [];
-
-  function derivs(N, D, F) {
-    const a = Math.exp(N);
-    const E = modelE(a, params);
-    const dlnH = modeldlnH(a, params);
-
-    const Om_a = (params.om0 / Math.pow(a,3)) / (E * E);
-
-    const Dp = F;
-    const Fp = -(2 + dlnH)*F + 1.5*Om_a*D;
-
-    return { Dp, Fp };
-  }
-
-  for (let i = 0; i < samples; i++) {
-    a = Math.exp(N);
-    aArr.push(a);
-    zArr.push(1/a - 1);
-    DArr.push(D);
-
-    const { Dp:k1D, Fp:k1F } = derivs(N, D, F);
-    const { Dp:k2D, Fp:k2F } = derivs(N + 0.5*dN, D + 0.5*dN*k1D, F + 0.5*dN*k1F);
-    const { Dp:k3D, Fp:k3F } = derivs(N + 0.5*dN, D + 0.5*dN*k2D, F + 0.5*dN*k2F);
-    const { Dp:k4D, Fp:k4F } = derivs(N + dN, D + dN*k3D, F + dN*k3F);
-
-    D += (dN/6)*(k1D + 2*k2D + 2*k3D + k4D);
-    F += (dN/6)*(k1F + 2*k2F + 2*k3F + k4F);
-
-    N += dN;
-  }
-
-  // Normalize so D(a=1)=1
-  const D_today = DArr[DArr.length - 1];
-  const Dnorm = DArr.map(x => x / D_today);
-  const D_over_a = Dnorm.map((x, i) => x / aArr[i]);
-
-  return { a: aArr, z: zArr, Dnorm, D_over_a };
-}
-
-/* ------------------------------------------------------------
-   Build advanced comparison plot (stable, correct)
------------------------------------------------------------- */
-let advChart = null;
-
-function buildAdvancedGrowthPlot() {
-  const params = {
-    om0: parseFloat(byId("adv-om0").value),
-    or0: parseFloat(byId("adv-or0").value),
-    zmax: parseFloat(byId("adv-zmax").value),
-    samples: parseInt(byId("adv-samples").value),
-
-    wq: parseFloat(byId("adv-wq").value),
-    w0: parseFloat(byId("adv-w0").value),
-    wa: parseFloat(byId("adv-wa").value),
-  };
-
-  const showLCDM = byId("adv-show-lcdm").checked;
-  const showQuint = byId("adv-show-quint").checked;
-  const showKess  = byId("adv-show-kess").checked;
-
-  const xMode = byId("adv-xaxis").value;
-  const norm  = byId("adv-norm").value;
-
-  const lcdm  = integrateGrowth(E_LCDM, dlnH_LCDM, params);
-  const quint = integrateGrowth(E_wCDM, dlnH_wCDM, params);
-  const kess  = integrateGrowth(E_CPL , dlnH_CPL , params);
-
-  const labels = xMode === "a" ? lcdm.a : lcdm.z;
-  const pick = r => (norm === "Da" ? r.Dnorm : r.D_over_a);
-
-  const datasets = [];
-  if (showLCDM) datasets.push({
-    label: "ΛCDM",
-    data: pick(lcdm),
-    borderWidth: 2
-  });
-  if (showQuint) datasets.push({
-    label: `w = ${params.wq}`,
-    data: pick(quint),
-    borderWidth: 2,
-    borderDash: [6,4]
-  });
-  if (showKess) datasets.push({
-    label: `CPL w0=${params.w0}, wa=${params.wa}`,
-    data: pick(kess),
-    borderWidth: 2,
-    borderDash: [3,3]
-  });
-
-  const ctx = byId("adv-growth-canvas").getContext("2d");
-  if (advChart) advChart.destroy();
-
-  advChart = new Chart(ctx, {
-    type: "line",
-    data: { labels, datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { title: { display: true, text: xMode === "a" ? "Scale factor a" : "Redshift z" }},
-        y: { title: { display: true, text: norm === "Da" ? "D(a)" : "D(a)/a" }}
-      }
-    }
-  });
-
-  const mid = Math.floor(labels.length/2);
-  byId("adv-growth-info").textContent =
-    `Midpoint comparison:\n` +
-    `ΛCDM: ${lcdm.Dnorm[mid].toFixed(3)}\n` +
-    `Quint: ${quint.Dnorm[mid].toFixed(3)}\n` +
-    `CPL  : ${kess.Dnorm[mid].toFixed(3)}`;
-}
-
-/* ------------------------------------------------------------
-   Panel collapse UI
------------------------------------------------------------- */
+/* Panel collapsible */
 document.querySelectorAll(".panel-toggle-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const panel = byId(btn.dataset.panel);
+    const panel = document.getElementById(btn.dataset.panel);
     panel.classList.toggle("collapsed");
     btn.textContent = panel.classList.contains("collapsed") ? "Show" : "Hide";
   });
 });
 
-/* ------------------------------------------------------------
-   Theme toggle
------------------------------------------------------------- */
-byId("theme-toggle").addEventListener("click", () => {
+/* ============================================================
+   THEME TOGGLE
+============================================================ */
+const themeToggle = byId("theme-toggle");
+themeToggle.addEventListener("click", () => {
   const root = document.documentElement;
-  const current = root.getAttribute("data-theme");
+  const current = root.getAttribute("data-theme") || "dark";
+  const next = current === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  themeToggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
+});
 
-  if (current === "light") {
-    root.setAttribute("data-theme", "dark");
-    byId("theme-toggle").textContent = "Light mode";
-  } else {
-    root.setAttribute("data-theme", "light");
-    byId("theme-toggle").textContent = "Dark mode";
+/* ============================================================
+   CORE COSMOLOGY FUNCTIONS
+============================================================ */
+function E_z(z, Om, Or, Ol) {
+  return Math.sqrt(Om*(1+z)**3 + Or*(1+z)**4 + Ol);
+}
+
+function E_a(a, Om, Or, Ol) {
+  return Math.sqrt(Om/a**3 + Or/a**4 + Ol);
+}
+
+function Omega_m(a, Om, Or, Ol) {
+  const E = E_a(a, Om, Or, Ol);
+  return (Om/a**3) / (E*E);
+}
+
+/* Simpson integral for comoving distance */
+function integrateChi(H0, Om, Or, Ol, zmax, steps=400) {
+  const c = 299792.458;
+  const N = Math.max(50, steps);
+  const dz = zmax/N;
+
+  let sum = 0;
+  for (let i = 0; i <= N; i++) {
+    const z = i * dz;
+    const w = (i === 0 || i === N ? 1 : (i % 2 === 0 ? 2 : 4));
+    sum += w / E_z(z, Om, Or, Ol);
+  }
+
+  return (c/H0) * (dz/3) * sum;
+}
+
+/* ============================================================
+   GR GROWTH SOLVER
+============================================================ */
+function solveGrowth(z, Om0, Or0, Ol0) {
+  const a_target = 1/(1+z);
+  const N_start = Math.log(1e-3);
+  const N_end   = Math.log(a_target);
+  const steps = 1200;
+  const dN = (N_end - N_start) / steps;
+
+  let D = Math.exp(N_start);
+  let F = D;
+  let N = N_start;
+
+  function derivs(Nv, Dv, Fv) {
+    const a = Math.exp(Nv);
+    const E = E_a(a, Om0, Or0, Ol0);
+    const E2 = E*E;
+    const dlnH = (-3*Om0/a**3 - 4*Or0/a**4) / (2*E2);
+    return {
+      Dp: Fv,
+      Fp: -(2 + dlnH)*Fv + 1.5*Omega_m(a, Om0, Or0, Ol0)*Dv
+    };
+  }
+
+  function rkStep(Nv, Dv, Fv, h) {
+    const k1 = derivs(Nv, Dv, Fv);
+    const k2 = derivs(Nv + h/2, Dv + h*k1.Dp/2, Fv + h*k1.Fp/2);
+    const k3 = derivs(Nv + h/2, Dv + h*k2.Dp/2, Fv + h*k2.Fp/2);
+    const k4 = derivs(Nv + h,   Dv + h*k3.Dp,   Fv + h*k3.Fp);
+    return {
+      D: Dv + h*(k1.Dp + 2*k2.Dp + 2*k3.Dp + k4.Dp)/6,
+      F: Fv + h*(k1.Fp + 2*k2.Fp + 2*k3.Fp + k4.Fp)/6
+    };
+  }
+
+  for (let i=0;i<steps;i++) {
+    const step = rkStep(N, D, F, dN);
+    D = step.D;
+    F = step.F;
+    N += dN;
+  }
+  const D_target = D;
+  const f = F/D;
+
+  /* Normalize by computing D(0) */
+  let D2 = Math.exp(N_start);
+  let F2 = D2;
+  let N2 = N_start;
+  const steps2 = 1200, dN2 = -N_start/steps2;
+
+  for (let i=0;i<steps2;i++) {
+    const st = rkStep(N2, D2, F2, dN2);
+    D2 = st.D; F2 = st.F;
+    N2 += dN2;
+  }
+
+  return { Dnorm: D_target / D2, f };
+}
+
+/* ============================================================
+   QKDE K(a)
+============================================================ */
+function K_a(a, K0, p) {
+  const N = Math.log(a);
+  return 1 + K0 * Math.exp(-p*N);
+}
+
+/* ============================================================
+   CALCULATOR 1: ΛCDM BACKGROUND
+============================================================ */
+byId("lcdm-compute").addEventListener("click", () => {
+  try {
+    const z = parseFloat(byId("lcdm-z").value);
+    const H0 = parseFloat(byId("lcdm-h0").value);
+    const Om = parseFloat(byId("lcdm-om").value);
+    const Or = parseFloat(byId("lcdm-or").value);
+    const Ol = parseFloat(byId("lcdm-ol").value);
+    const steps = parseInt(byId("lcdm-steps").value);
+
+    const E = E_z(z, Om, Or, Ol);
+    const H = H0 * E;
+    const chi = integrateChi(H0, Om, Or, Ol, z, steps);
+    const DA = chi/(1+z);
+    const DL = chi*(1+z);
+    const mu = 5*Math.log10(DL) + 25;
+
+    setOutput(byId("lcdm-output"),
+`H(z) = ${H.toFixed(4)} km/s/Mpc
+χ(z) = ${chi.toFixed(4)} Mpc
+D_A  = ${DA.toFixed(4)} Mpc
+D_L  = ${DL.toFixed(4)} Mpc
+μ     = ${mu.toFixed(4)}`);
+  } catch (err) {
+    setOutput(byId("lcdm-output"), err.message, true);
+  }
+});
+attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
+
+/* ============================================================
+   CALCULATOR 2: QKDE K(z)
+============================================================ */
+byId("qkde-compute").addEventListener("click", () => {
+  const z = parseFloat(byId("qkde-z").value);
+  const K0 = parseFloat(byId("qkde-k0").value);
+  const p  = parseFloat(byId("qkde-p").value);
+
+  const a = 1/(1+z);
+  const K = K_a(a, K0, p);
+
+  setOutput(byId("qkde-output"),
+`Scale factor a = ${a.toFixed(4)}
+K(a) = ${K.toFixed(6)}
+K(0) = ${1+K0}`);
+});
+attachFormulaToggle("qkde-formula-toggle", "qkde-formulas");
+
+/* ============================================================
+   CALCULATOR 3: GR GROWTH AT ONE z
+============================================================ */
+byId("grow-compute").addEventListener("click", () => {
+  const z = parseFloat(byId("lcdm-z").value);
+  const Om = parseFloat(byId("grow-om0").value);
+  const Or = parseFloat(byId("grow-or0").value);
+  const Ol = parseFloat(byId("grow-ol0").value);
+
+  const g = solveGrowth(z, Om, Or, Ol);
+
+  setOutput(byId("grow-output"),
+`D(z) (normalized) = ${g.Dnorm.toFixed(6)}
+f(z) = ${g.f.toFixed(6)}`);
+});
+attachFormulaToggle("grow-formula-toggle", "grow-formulas");
+
+/* ============================================================
+   CALCULATOR 4: ΛCDM vs QKDE SNAPSHOT
+============================================================ */
+byId("cmp-compute").addEventListener("click", () => {
+  try {
+    const z = parseFloat(byId("cmp-z").value);
+    const Om = parseFloat(byId("lcdm-om").value);
+    const Or = parseFloat(byId("lcdm-or").value);
+    const Ol = parseFloat(byId("lcdm-ol").value);
+    const H0 = parseFloat(byId("lcdm-h0").value);
+    const K0 = parseFloat(byId("cmp-k0").value);
+    const p  = parseFloat(byId("cmp-p").value);
+
+    const a = 1/(1+z);
+
+    const H_LCDM = H0 * E_z(z, Om, Or, Ol);
+    const H_QKDE = H_LCDM * Math.sqrt(K_a(a, K0, p));
+
+    const g_LCDM = solveGrowth(z, Om, Or, Ol);
+
+    setOutput(byId("cmp-output"),
+`H_LCDM(z) = ${H_LCDM.toFixed(4)}
+H_QKDE(z) = ${H_QKDE.toFixed(4)}
+
+K(a) = ${K_a(a, K0, p).toFixed(6)}
+
+D_LCDM(z) = ${g_LCDM.Dnorm.toFixed(6)}
+f_LCDM(z) = ${g_LCDM.f.toFixed(6)}`);
+  } catch(err) {
+    setOutput(byId("cmp-output"), err.message, true);
   }
 });
 
-/* ------------------------------------------------------------
-   Attach ALL calculator functionality
------------------------------------------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
+/* ============================================================
+   ADVANCED FULL-WIDTH GROWTH COMPARATOR
+============================================================ */
+let growthChart = null;
 
-  /* --- LCDM --- */
-  function attachLCDMPresets() {
-    const buttons = document.querySelectorAll("[data-preset]");
-    buttons.forEach(b => {
-      b.addEventListener("click", () => {
-        buttons.forEach(x => x.classList.remove("is-active"));
-        b.classList.add("is-active");
+function solveGrowthGeneric(aArray, E_func, Om0, Or0, Ol0) {
+  const N_start = Math.log(1e-3);
+  const steps = 1500;
+  let D = Math.exp(N_start);
+  let F = D;
+  let N = N_start;
 
-        if (b.dataset.preset === "planck") {
-          byId("lcdm-h0").value = 67.4;
-          byId("lcdm-om").value = 0.315;
-          byId("lcdm-or").value = 5e-5;
-          byId("lcdm-ol").value = (1 - 0.315 - 5e-5).toFixed(6);
-        } else {
-          byId("lcdm-h0").value = 73;
-          byId("lcdm-om").value = 0.3;
-          byId("lcdm-or").value = 0;
-          byId("lcdm-ol").value = 0.7;
-        }
-      });
-    });
+  function derivs(Nv, Dv, Fv) {
+    const a = Math.exp(Nv);
+    const E = E_func(a);
+    const dlnH = (Math.log(E_func(a+1e-6)) - Math.log(E)) / 1e-6; // numerical derivative
+    const OmA = (Om0/a**3) / (E*E);
+    return { Dp: Fv, Fp: -(2 + dlnH)*Fv + 1.5*OmA*Dv };
   }
 
-  attachLCDMPresets();
+  function rk(Nv, Dv, Fv, h) {
+    const k1 = derivs(Nv, Dv, Fv);
+    const k2 = derivs(Nv + h/2, Dv + h*k1.Dp/2, Fv + h*k1.Fp/2);
+    const k3 = derivs(Nv + h/2, Dv + h*k2.Dp/2, Fv + h*k2.Fp/2);
+    const k4 = derivs(Nv + h,   Dv + h*k3.Dp,   Fv + h*k3.Fp);
+    return {
+      D: Dv + h*(k1.Dp + 2*k2.Dp + 2*k3.Dp + k4.Dp)/6,
+      F: Fv + h*(k1.Fp + 2*k2.Fp + 2*k3.Fp + k4.Fp)/6
+    };
+  }
 
-  byId("lcdm-compute").addEventListener("click", () => {
-    try {
-      const z = parseFloat(byId("lcdm-z").value);
-      const H0 = parseFloat(byId("lcdm-h0").value);
-      const Om = parseFloat(byId("lcdm-om").value);
-      const Or = parseFloat(byId("lcdm-or").value);
-      const Ol = parseFloat(byId("lcdm-ol").value);
-      const steps = parseInt(byId("lcdm-steps").value);
+  const results = [];
 
-      if (Math.abs(Om + Or + Ol - 1) > 0.05)
-        return setOutput(byId("lcdm-output"), "Flatness violated (Ω_tot ≠ 1).", true);
+  for (let a of aArray) {
+    const N_end = Math.log(a);
+    const dN = (N_end - N)/steps;
 
-      const Ez = E_of_z(z, Om, Or, Ol);
-      const Hz = H0 * Ez;
-      const chi = integrate_chi(H0, Om, Or, Ol, z, steps);
-      const DL = (1+z)*chi;
-      const DA = chi/(1+z);
-      const mu = 5*Math.log10(DL) + 25;
+    for (let i=0;i<steps;i++) {
+      const step = rk(N, D, F, dN);
+      D = step.D;
+      F = step.F;
+      N += dN;
+    }
+    results.push(D);
+  }
 
-      setOutput(byId("lcdm-output"), [
-        `z = ${z}`,
-        `H(z) = ${Hz.toFixed(3)} km/s/Mpc`,
-        `χ = ${chi.toFixed(3)} Mpc`,
-        `D_L = ${DL.toFixed(3)} Mpc`,
-        `D_A = ${DA.toFixed(3)} Mpc`,
-        `μ = ${mu.toFixed(3)} mag`
-      ]);
+  const D_today = results[results.length-1];
+  return results.map(x => x/D_today);
+}
 
-    } catch (e) {
-      setOutput(byId("lcdm-output"), e.message, true);
+byId("adv-growth-compute").addEventListener("click", () => {
+  const Om0 = parseFloat(byId("adv-om0").value);
+  const Or0 = parseFloat(byId("adv-or0").value);
+  const zmax = parseFloat(byId("adv-zmax").value);
+  const Npts = parseInt(byId("adv-samples").value);
+
+  const wQ = parseFloat(byId("adv-wq").value);
+  const w0 = parseFloat(byId("adv-w0").value);
+  const wa = parseFloat(byId("adv-wa").value);
+  const K0 = parseFloat(byId("adv-k0q").value);
+  const p  = parseFloat(byId("adv-pq").value);
+
+  const showLCDM = byId("adv-show-lcdm").checked;
+  const showQ    = byId("adv-show-quint").checked;
+  const showCPL  = byId("adv-show-kess").checked;
+  const showQKDE = byId("adv-show-qkde").checked;
+
+  const aArray = Array.from({length:Npts}, (_,i)=> 1 - i*(1-1/(1+zmax))/(Npts-1));
+
+  /* E(a) definitions */
+  const E_LCDM = a => Math.sqrt(Om0/a**3 + Or0/a**4 + (1-Om0-Or0));
+  const E_Quint = a => Math.sqrt(Om0/a**3 + Or0/a**4 + (1-Om0-Or0)*a**(-3*(1+wQ)));
+  const E_CPL = a => {
+    const ode = (1-Om0-Or0) * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1-a));
+    return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
+  };
+  const E_QKDE = a => E_LCDM(a) * Math.sqrt(K_a(a, K0, p));
+
+  const datasets = [];
+
+  if (showLCDM) datasets.push({
+    label: "ΛCDM",
+    data: solveGrowthGeneric(aArray, E_LCDM, Om0, Or0, 1-Om0-Or0),
+    borderColor: "#66fcf1", tension:0.1
+  });
+
+  if (showQ) datasets.push({
+    label: "Quintessence (w)",
+    data: solveGrowthGeneric(aArray, E_Quint, Om0, Or0, 1-Om0-Or0),
+    borderColor: "#ffb347", tension:0.1
+  });
+
+  if (showCPL) datasets.push({
+    label: "CPL",
+    data: solveGrowthGeneric(aArray, E_CPL, Om0, Or0, 1-Om0-Or0),
+    borderColor: "#c07cff", tension:0.1
+  });
+
+  if (showQKDE) datasets.push({
+    label: "QKDE (H×√K)",
+    data: solveGrowthGeneric(aArray, E_QKDE, Om0, Or0, 1-Om0-Or0),
+    borderColor: "#45d9a4", tension:0.1
+  });
+
+  const ctx = byId("adv-growth-canvas").getContext("2d");
+  if (growthChart) growthChart.destroy();
+
+  growthChart = new Chart(ctx, {
+    type: "line",
+    data: { labels: aArray, datasets },
+    options: {
+      responsive: true,
+      scales: {
+        x: { title: { display:true, text:"Scale factor a" }},
+        y: { title: { display:true, text:"D(a) normalized" }}
+      },
+      plugins: { legend:{ labels:{ color:"white" }} }
     }
   });
 
-  attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
-
-  /* --- QKDE --- */
-  function attachQKDEPresets() {
-    const buttons = document.querySelectorAll("[data-qkde-preset]");
-    buttons.forEach(b => {
-      b.addEventListener("click", () => {
-        buttons.forEach(x => x.classList.remove("is-active"));
-        b.classList.add("is-active");
-
-        if (b.dataset.qkdePreset === "mild") {
-          byId("qkde-k0").value = 0.3;
-          byId("qkde-p").value = 0.8;
-        } else {
-          byId("qkde-k0").value = 1.0;
-          byId("qkde-p").value = 1.5;
-        }
-      });
-    });
-  }
-
-  attachQKDEPresets();
-
-  byId("qkde-compute").addEventListener("click", () => {
-    const z = parseFloat(byId("qkde-z").value);
-    const K0 = parseFloat(byId("qkde-k0").value);
-    const p   = parseFloat(byId("qkde-p").value);
-    const Kref= parseFloat(byId("qkde-kref").value);
-
-    const N = -Math.log(1+z);
-    const a = Math.exp(N);
-    const K = 1 + K0 * Math.exp(-p*N);
-    const Kp_over_K = (-p*K0*Math.exp(-p*N)) / K;
-
-    setOutput(byId("qkde-output"), [
-      `N(z) = ${N.toFixed(4)}`,
-      `a(z) = ${a.toFixed(4)}`,
-      `K(z) = ${K.toFixed(6)}`,
-      `K'/K = ${Kp_over_K.toFixed(6)}`,
-      `K/K_ref = ${(K/Kref).toFixed(6)}`
-    ]);
-  });
-
-  attachFormulaToggle("qkde-formula-toggle", "qkde-formulas");
-
-  /* --- GR Growth --- */
-  attachFormulaToggle("grow-formula-toggle", "grow-formulas");
-
-  byId("grow-compute").addEventListener("click", () => {
-    try {
-      const z = parseFloat(byId("lcdm-z").value);
-      const Om = parseFloat(byId("grow-om0").value);
-      const Or = parseFloat(byId("grow-or0").value);
-      const Ol = parseFloat(byId("grow-ol0").value);
-
-      const { D_norm, f } = solveGrowthFactor_LCDM(z, Om, Or, Ol);
-
-      setOutput(byId("grow-output"), [
-        `D(z)/D(0) = ${D_norm.toFixed(5)}`,
-        `f = ${f.toFixed(5)}`
-      ]);
-
-    } catch (e) {
-      setOutput(byId("grow-output"), e.message, true);
-    }
-  });
-
-  /* --- ΛCDM vs QKDE snapshot --- */
-  byId("cmp-compute").addEventListener("click", () => {
-    const z    = parseFloat(byId("cmp-z").value);
-    const K0   = parseFloat(byId("cmp-k0").value);
-    const p    = parseFloat(byId("cmp-p").value);
-    const Kref = parseFloat(byId("cmp-kref").value);
-
-    const N = -Math.log(1+z);
-    const a = Math.exp(N);
-    const K = K_of_z(z, K0, p);
-    const Kp_over_K = (-p*K0*Math.exp(-p*N))/K;
-
-    setOutput(byId("cmp-output"), [
-      `a(z) = ${a.toFixed(4)}`,
-      `K(z) = ${K.toFixed(6)}`,
-      `K'/K = ${Kp_over_K.toFixed(6)}`,
-      `K/K_ref = ${(K/Kref).toFixed(6)}`
-    ]);
-  });
-
-  /* --- Advanced growth comparator --- */
-  byId("adv-growth-compute").addEventListener("click", buildAdvancedGrowthPlot);
-
-}); // end DOMContentLoaded
-
+  setOutput(byId("adv-growth-info"),
+`Models plotted:
+${showLCDM ? "• ΛCDM\n" : ""}
+${showQ ? "• Quintessence\n" : ""}
+${showCPL ? "• CPL\n" : ""}
+${showQKDE ? "• QKDE (H×√K)\n" : ""}`);
+});
 </script>
 
+
+
+
+  
 </body>
 </html>
