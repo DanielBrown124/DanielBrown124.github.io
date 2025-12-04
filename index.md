@@ -57,6 +57,9 @@ body {
   padding: 0;
 }
 
+/* ============================================================
+   ACTION BUTTONS
+============================================================ */
 .calc-action-row {
   display: flex;
   flex-wrap: wrap;
@@ -75,7 +78,9 @@ body {
   letter-spacing: 0.04em;
   padding: 8px 16px;
   text-transform: uppercase;
-  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+  transition: transform 0.16s ease,
+              box-shadow 0.16s ease,
+              background 0.16s ease;
 }
 
 .calc-btn:hover {
@@ -95,6 +100,9 @@ body {
   box-shadow: 0 0 10px rgba(102,252,241,0.45);
 }
 
+/* ============================================================
+   CALC CARDS (standard size)
+============================================================ */
 .calc-card {
   flex: 1 1 260px;
   max-width: 380px;
@@ -110,56 +118,102 @@ body {
   backdrop-filter: blur(7px);
   position: relative;
   overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.22s ease,
+              box-shadow 0.22s ease,
+              border-color 0.22s ease;
 }
 
 .calc-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
   background: linear-gradient(
     to right,
     rgba(102,252,241,0.85),
     rgba(69,160,201,0.55),
     rgba(102,252,241,0.85)
   );
-  content: "";
-  height: 3px;
-  left: 0;
   opacity: 0.9;
   pointer-events: none;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
 
 .calc-card:hover {
   border-color: rgba(102,252,241,0.26);
-  box-shadow: 0 0 26px rgba(102,252,241,0.24), inset 0 0 22px rgba(102,252,241,0.10);
+  box-shadow:
+    0 0 26px rgba(102,252,241,0.24),
+    inset 0 0 22px rgba(102,252,241,0.10);
   transform: translateY(-3px);
 }
 
 .calc-card h4 {
-  color: #c9f6ff;
+  margin: 4px 0 4px;
   font-size: 1.08rem;
   font-weight: 400;
-  margin: 4px 0 4px;
+  color: #c9f6ff;
 }
 
+/* ============================================================
+   FULL-WIDTH CALCULATOR CARD (Advanced Comparator)
+============================================================ */
+.calc-card-wide {
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 100%;
+  padding: 26px 28px 30px;
+  margin-top: 28px;
+  background: radial-gradient(circle at 0% 50%, rgba(102,252,241,0.12) 0, transparent 70%),
+              radial-gradient(circle at 100% 50%, rgba(102,252,241,0.10) 0, transparent 70%),
+              rgba(12,18,28,0.82);
+  border-radius: 18px;
+  border: 1px solid rgba(102,252,241,0.18);
+  box-shadow:
+    0 0 28px rgba(102,252,241,0.15),
+    inset 0 0 20px rgba(102,252,241,0.05);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.calc-card-wide:hover {
+  border-color: rgba(102,252,241,0.28);
+  box-shadow:
+    0 0 32px rgba(102,252,241,0.28),
+    inset 0 0 24px rgba(102,252,241,0.12);
+  transform: translateY(-3px);
+}
+
+/* Make formulas, canvas, and outputs look clean inside wide card */
+.calc-card-wide canvas {
+  margin-top: 20px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.25);
+  padding: 6px;
+}
+
+/* ============================================================
+   FORMULA BOX
+============================================================ */
 .calc-formula-box {
+  margin-top: 12px;
+  padding: 0 12px;
+  border-radius: 9px;
   background: rgba(5, 10, 18, 0.9);
   border: 1px solid rgba(120,160,190,0.5);
-  border-radius: 9px;
-  color: #e0f4ff;
   font-size: 0.86rem;
-  margin-top: 12px;
+  color: #e0f4ff;
   max-height: 0;
   overflow: hidden;
-  padding: 0 12px;
-  transition: max-height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
+  transition: max-height 0.3s ease,
+              padding-top 0.3s ease,
+              padding-bottom 0.3s ease;
 }
 
 .calc-formula-box.is-open {
   max-height: 260px;
-  padding-bottom: 10px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .calc-formula-inner {
@@ -171,12 +225,18 @@ body {
   margin: 4px 0;
 }
 
+/* ============================================================
+   FOOTNOTE
+============================================================ */
 .calc-footnote {
   font-size: 0.9rem;
-  margin-top: 18px;
   opacity: 0.9;
+  margin-top: 18px;
 }
 
+/* ============================================================
+   GRID LAYOUT
+============================================================ */
 .calc-grid {
   display: flex;
   flex-wrap: wrap;
@@ -185,33 +245,78 @@ body {
   margin-top: 14px;
 }
 
+/* ============================================================
+   HEADERS & LABELS
+============================================================ */
 .calc-header-row {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 14px;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px 14px;
   margin-bottom: 6px;
 }
 
 .calc-header-row h3 {
-  color: #d6f7ff;
-  font-size: 1rem;
-  letter-spacing: 0.03em;
   margin: 0;
+  font-size: 1rem;
   text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #d6f7ff;
+}
+
+.calc-intro {
+  font-size: 0.93rem;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+.calc-label {
+  display: block;
+  margin-top: 9px;
+  margin-bottom: 3px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: #d6faff;
+  letter-spacing: 0.04em;
+}
+
+.calc-note {
+  margin-top: 2px;
+  margin-bottom: 10px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  color: #e3f6ff;
+}
+
+/* ============================================================
+   INPUTS
+============================================================ */
+.calc-input-row {
+  display: grid;
+  gap: 8px 10px;
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+@media (max-width: 600px) {
+  .calc-input-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .calc-input {
-  background: rgba(5, 10, 18, 0.9);
-  border: 1px solid rgba(120,160,190,0.7);
+  width: 100%;
+  padding: 7px 10px;
   border-radius: 7px;
-  box-sizing: border-box;
+  border: 1px solid rgba(120,160,190,0.7);
+  background: rgba(5, 10, 18, 0.9);
   color: #f0f7ff;
   font-size: 0.9rem;
-  padding: 7px 10px;
-  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.22s ease,
+              box-shadow 0.22s ease,
+              background 0.22s ease;
 }
 
 .calc-input:hover {
@@ -219,8 +324,8 @@ body {
 }
 
 .calc-input:focus {
-  background: rgba(8, 14, 22, 0.98);
   border-color: rgba(102,252,241,0.9);
+  background: rgba(8,14,22,0.98);
   box-shadow: 0 0 12px rgba(102,252,241,0.65);
   outline: none;
 }
@@ -229,86 +334,62 @@ body {
   color: rgba(200,225,250,0.4);
 }
 
-.calc-input-row {
-  display: grid;
-  gap: 8px 10px;
-  grid-template-columns: 1.15fr 0.85fr;
-}
-
-.calc-intro {
-  font-size: 0.93rem;
-  margin-bottom: 16px;
-  opacity: 0.9;
-}
-
-.calc-label {
-  color: #d6faff;
-  display: block;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 3px;
-  margin-top: 9px;
-  text-transform: uppercase;
-}
-
-.calc-note {
-  color: #e3f6ff;
-  font-size: 0.83rem;
-  line-height: 1.5;
-  margin-bottom: 10px;
-  margin-top: 2px;
-  opacity: 0.85;
-}
-
+/* ============================================================
+   OUTPUT BOXES
+============================================================ */
 .calc-output {
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 10px;
   background: rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(120,160,190,0.36);
-  border-radius: 10px;
   color: #e9faff;
   font-family: "JetBrains Mono","Menlo","Consolas",monospace;
   font-size: 0.8rem;
-  line-height: 1.45;
-  margin-top: 14px;
-  max-height: 210px;
   opacity: 0.96;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 11px 13px;
-  transition: box-shadow 0.22s ease;
   white-space: pre-wrap;
+  max-height: 210px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  line-height: 1.45;
 }
 
 .calc-output-mini {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 8px;
   background: rgba(0,0,0,0.45);
   border: 1px solid rgba(120,160,190,0.35);
-  border-radius: 8px;
   font-family: "JetBrains Mono","Menlo","Consolas",monospace;
   font-size: 0.78rem;
-  margin-top: 10px;
   max-height: 150px;
   overflow-y: auto;
-  padding: 9px 11px;
   white-space: pre-wrap;
 }
 
 .calc-output.error {
-  background: rgba(60, 5, 10, 0.75);
+  background: rgba(60,5,10,0.75);
   border-color: rgba(255,140,140,0.75);
   color: #ffe6e6;
 }
 
+/* ============================================================
+   PILLS / PRESET BUTTONS
+============================================================ */
 .calc-pill {
-  background: rgba(6, 12, 20, 0.95);
-  border: 1px solid rgba(160, 220, 255, 0.5);
+  padding: 3px 9px;
   border-radius: 999px;
-  color: #c8efff;
-  cursor: pointer;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  padding: 3px 9px;
   text-transform: uppercase;
-  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  background: rgba(6, 12, 20, 0.95);
+  border: 1px solid rgba(160,220,255,0.5);
+  color: #c8efff;
+  cursor: pointer;
   white-space: nowrap;
+  transition: background 0.18s ease,
+              color 0.18s ease,
+              box-shadow 0.18s ease;
 }
 
 .calc-pill-row {
@@ -318,7 +399,7 @@ body {
 }
 
 .calc-pill:hover {
-  background: rgba(65, 190, 220, 0.2);
+  background: rgba(65,190,220,0.2);
   box-shadow: 0 0 8px rgba(102,252,241,0.35);
 }
 
@@ -329,16 +410,15 @@ body {
   color: #031016;
 }
 
-.calc-section {
-  margin-top: 8px;
-}
-
+/* ============================================================
+   SUBTITLE
+============================================================ */
 .calc-subtitle {
-  color: #bfe9ff;
   font-size: 0.78rem;
+  color: #bfe9ff;
+  opacity: 0.9;
   letter-spacing: 0.03em;
   margin: -2px 0 10px;
-  opacity: 0.9;
 }
 
 .center {
@@ -1997,18 +2077,20 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 
   </div>
 </details>
+
+
 <details id="calculator">
   <summary><span class="summary-label">Interactive Calculator</span></summary>
   <div class="details-body">
     <section class="calc-section">
       <p class="calc-intro">
-        Use these tools to explore a flat ΛCDM reference background and the running
-        kinetic normalization in QKDE. They are lightweight, browser-side calculators
-        intended for intuition and quick checks.
+        Use these tools to explore a flat ΛCDM reference background, the running
+        kinetic normalization in QKDE, and linear growth in GR. These are lightweight,
+        browser-side calculators intended for intuition and quick checks.
       </p>
 
       <!-- ============================================================
-           ALL CALCULATORS NOW LIVE IN ONE calc-grid
+           MAIN 2×2 GRID: ΛCDM • QKDE • GR Growth • K Comparison
       ============================================================ -->
       <div class="calc-grid">
 
@@ -2017,65 +2099,34 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           <div class="calc-header-row">
             <h3>ΛCDM Background & Distances</h3>
             <div class="calc-pill-row" aria-label="ΛCDM presets">
-              <button type="button" class="calc-pill is-active" data-preset="planck">
-                Planck-like
-              </button>
-              <button type="button" class="calc-pill" data-preset="local">
-                Local H₀
-              </button>
+              <button type="button" class="calc-pill is-active" data-preset="planck">Planck-like</button>
+              <button type="button" class="calc-pill" data-preset="local">Local H₀</button>
             </div>
           </div>
 
           <h4>Flat ΛCDM reference model</h4>
-          <p class="calc-note">
-            Computes H(z), χ(z), D<sub>A</sub>(z), D<sub>L</sub>(z), and μ(z).
-          </p>
+          <p class="calc-note">Computes H(z), χ(z), D<sub>A</sub>(z), D<sub>L</sub>(z), and μ(z).</p>
 
           <div class="calc-input-row">
-            <div>
-              <label class="calc-label">Redshift z</label>
-              <input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5">
-            </div>
-            <div>
-              <label class="calc-label">H₀ [km/s/Mpc]</label>
-              <input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70">
-            </div>
-
-            <div>
-              <label class="calc-label">Ω<sub>m0</sub></label>
-              <input id="lcdm-om" class="calc-input" type="number" step="0.001" value="0.3">
-            </div>
-            <div>
-              <label class="calc-label">Ω<sub>r0</sub></label>
-              <input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0">
-            </div>
-
-            <div>
-              <label class="calc-label">Ω<sub>Λ0</sub></label>
-              <input id="lcdm-ol" class="calc-input" type="number" step="0.001" value="0.7">
-            </div>
-
-            <div>
-              <label class="calc-label">z-steps (integration)</label>
-              <input id="lcdm-steps" class="calc-input" type="number" step="50" value="400">
-            </div>
+            <div><label class="calc-label">Redshift z</label><input id="lcdm-z" class="calc-input" type="number" step="0.01" value="0.5"></div>
+            <div><label class="calc-label">H₀ [km/s/Mpc]</label><input id="lcdm-h0" class="calc-input" type="number" step="0.1" value="70"></div>
+            <div><label class="calc-label">Ω<sub>m0</sub></label><input id="lcdm-om" class="calc-input" type="number" step="0.001" value="0.3"></div>
+            <div><label class="calc-label">Ω<sub>r0</sub></label><input id="lcdm-or" class="calc-input" type="number" step="1e-5" value="0.0"></div>
+            <div><label class="calc-label">Ω<sub>Λ0</sub></label><input id="lcdm-ol" class="calc-input" type="number" step="0.001" value="0.7"></div>
+            <div><label class="calc-label">z-steps</label><input id="lcdm-steps" class="calc-input" type="number" step="50" value="400"></div>
           </div>
 
           <div class="calc-action-row">
-            <button type="button" class="calc-btn" id="lcdm-compute">
-              Compute ΛCDM
-            </button>
-            <button type="button" class="calc-btn secondary" id="lcdm-formula-toggle">
-              Show formulas
-            </button>
+            <button type="button" class="calc-btn" id="lcdm-compute">Compute ΛCDM</button>
+            <button type="button" class="calc-btn secondary" id="lcdm-formula-toggle">Show formulas</button>
           </div>
 
-          <pre id="lcdm-output" class="calc-output" aria-live="polite"></pre>
+          <pre id="lcdm-output" class="calc-output"></pre>
 
           <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
             <div class="calc-formula-inner">
-              <p>Flat ΛCDM:</p>
-              <p>\( H(z)=H_0E(z),\; E(z)=\sqrt{\Omega_{m0}(1+z)^3+\Omega_{r0}(1+z)^4+\Omega_{\Lambda0}} \).</p>
+              <p>\( H(z)=H_0E(z) \), where</p>
+              <p>\( E(z)=\sqrt{\Omega_{m0}(1+z)^3+\Omega_{r0}(1+z)^4+\Omega_{\Lambda0}}. \)</p>
               <p>\( \chi(z)=c\int_0^{z}\frac{dz'}{H_0E(z')} \).</p>
               <p>\( D_A=\chi/(1+z),\quad D_L=(1+z)\chi \).</p>
               <p>\( \mu=5\log_{10}(D_L/\mathrm{Mpc})+25 \).</p>
@@ -2087,13 +2138,9 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         <article class="calc-card" id="qkde-card">
           <div class="calc-header-row">
             <h3>QKDE Running–K Visualizer</h3>
-            <div class="calc-pill-row" aria-label="QKDE presets">
-              <button type="button" class="calc-pill is-active" data-qkde-preset="mild">
-                Mild drift
-              </button>
-              <button type="button" class="calc-pill" data-qkde-preset="strong">
-                Strong drift
-              </button>
+            <div class="calc-pill-row">
+              <button type="button" class="calc-pill is-active" data-qkde-preset="mild">Mild drift</button>
+              <button type="button" class="calc-pill" data-qkde-preset="strong">Strong drift</button>
             </div>
           </div>
 
@@ -2103,41 +2150,25 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           </p>
 
           <div class="calc-input-row">
-            <div>
-              <label class="calc-label">Redshift z</label>
-              <input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5">
-            </div>
-            <div>
-              <label class="calc-label">K₀</label>
-              <input id="qkde-k0" class="calc-input" type="number" step="0.05" value="0.5">
-            </div>
-
-            <div>
-              <label class="calc-label">p</label>
-              <input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0">
-            </div>
-            <div>
-              <label class="calc-label">Reference K(0)</label>
-              <input id="qkde-kref" class="calc-input" type="number" step="0.01" value="1.0">
-            </div>
+            <div><label class="calc-label">Redshift z</label><input id="qkde-z" class="calc-input" type="number" step="0.01" value="0.5"></div>
+            <div><label class="calc-label">K₀</label><input id="qkde-k0" class="calc-input" type="number" step="0.05" value="0.5"></div>
+            <div><label class="calc-label">p</label><input id="qkde-p" class="calc-input" type="number" step="0.1" value="1.0"></div>
+            <div><label class="calc-label">Reference K(0)</label><input id="qkde-kref" class="calc-input" type="number" step="0.01" value="1.0"></div>
           </div>
 
           <div class="calc-action-row">
-            <button type="button" class="calc-btn" id="qkde-compute">
-              Compute K(z)
-            </button>
-            <button type="button" class="calc-btn secondary" id="qkde-formula-toggle">
-              Show definitions
-            </button>
+            <button class="calc-btn" id="qkde-compute">Compute K(z)</button>
+            <button class="calc-btn secondary" id="qkde-formula-toggle">Show definitions</button>
           </div>
 
-          <pre id="qkde-output" class="calc-output" aria-live="polite"></pre>
+          <pre id="qkde-output" class="calc-output"></pre>
 
           <div id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
             <div class="calc-formula-inner">
-              <p>\( N=-\ln(1+z),\; K(N)=1+K_0e^{-pN} \).</p>
+              <p>\( N=-\ln(1+z) \).</p>
+              <p>\( K(N)=1+K_0e^{-pN} \).</p>
               <p>\( K(z)=1+K_0(1+z)^p \).</p>
-              <p>\( K'(N)/K = \frac{-pK_0e^{-pN}}{1+K_0e^{-pN}} \).</p>
+              <p>\( K'/K = \frac{-pK_0e^{-pN}}{1+K_0e^{-pN}} \).</p>
             </div>
           </div>
         </article>
@@ -2147,189 +2178,124 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           <div class="calc-header-row">
             <h3>GR Growth Factor D(a)</h3>
             <div class="calc-pill-row">
-              <span class="calc-pill is-active" style="cursor:default;">GR-only</span>
+              <span class="calc-pill is-active" style="cursor:default;">GR only</span>
             </div>
           </div>
 
           <h4>Linear Structure Growth</h4>
-          <p class="calc-subtitle">
-            Solves D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0.
-          </p>
+          <p class="calc-subtitle">Solves \(D''+(2+E)D' - \tfrac32 \Omega_m(a)D = 0\).</p>
 
           <div class="calc-input-row">
-            <div>
-              <label class="calc-label">H₀</label>
-              <input id="grow-h0" class="calc-input" type="number" value="70" step="0.1">
-            </div>
-            <div>
-              <label class="calc-label">Ωₘ₀</label>
-              <input id="grow-om0" class="calc-input" type="number" value="0.3" step="0.01">
-            </div>
-
-            <div>
-              <label class="calc-label">Ωᵣ₀</label>
-              <input id="grow-or0" class="calc-input" type="number" value="0.0" step="1e-5">
-            </div>
-            <div>
-              <label class="calc-label">ΩΛ₀</label>
-              <input id="grow-ol0" class="calc-input" type="number" value="0.7" step="0.01">
-            </div>
+            <div><label class="calc-label">H₀</label><input id="grow-h0" class="calc-input" value="70" step="0.1"></div>
+            <div><label class="calc-label">Ωₘ₀</label><input id="grow-om0" class="calc-input" value="0.3"></div>
+            <div><label class="calc-label">Ωᵣ₀</label><input id="grow-or0" class="calc-input" value="0.0"></div>
+            <div><label class="calc-label">ΩΛ₀</label><input id="grow-ol0" class="calc-input" value="0.7"></div>
           </div>
 
-          <div class="calc-action-row">
-            <button type="button" class="calc-btn" id="grow-compute">
-              Compute D(a)
-            </button>
-          </div>
-
+          <button class="calc-btn" id="grow-compute">Compute D(a)</button>
           <pre id="grow-output" class="calc-output-mini"></pre>
         </article>
 
-        <!-- ============= COMPARISON CARD ============= -->
+        <!-- ============= K COMPARISON CARD ============= -->
         <article class="calc-card" id="compare-card">
           <div class="calc-header-row">
             <h3>ΛCDM vs QKDE: K(z) Comparison</h3>
-            <div class="calc-pill-row">
-              <span class="calc-pill is-active" style="cursor:default;">Quick Insight</span>
-            </div>
+            <div class="calc-pill-row"><span class="calc-pill is-active">Quick Insight</span></div>
           </div>
 
           <h4>Effective Kinetic Normalization</h4>
-          <p class="calc-note">
-            ΛCDM: K = 1. QKDE: K(z) = 1 + K₀(1+z)ᵖ.
-          </p>
+          <p class="calc-note">ΛCDM: K = 1. QKDE: \(K(z)=1+K_0(1+z)^p\).</p>
 
           <div class="calc-input-row">
-            <div>
-              <label class="calc-label">Redshift z</label>
-              <input id="cmp-z" class="calc-input" type="number" step="0.01" value="0.5">
-            </div>
-            <div>
-              <label class="calc-label">K₀</label>
-              <input id="cmp-k0" class="calc-input" type="number" step="0.05" value="0.5">
-            </div>
-
-            <div>
-              <label class="calc-label">p</label>
-              <input id="cmp-p" class="calc-input" type="number" step="0.1" value="1.0">
-            </div>
-            <div>
-              <label class="calc-label">Reference K(0)</label>
-              <input id="cmp-kref" class="calc-input" type="number" step="0.01" value="1.0">
-            </div>
+            <div><label class="calc-label">Redshift z</label><input id="cmp-z" class="calc-input" value="0.5"></div>
+            <div><label class="calc-label">K₀</label><input id="cmp-k0" class="calc-input" value="0.5"></div>
+            <div><label class="calc-label">p</label><input id="cmp-p" class="calc-input" value="1.0"></div>
+            <div><label class="calc-label">Reference K(0)</label><input id="cmp-kref" class="calc-input" value="1.0"></div>
           </div>
 
-          <div class="calc-action-row">
-            <button type="button" class="calc-btn" id="cmp-compute">Compare</button>
-          </div>
-
+          <button class="calc-btn" id="cmp-compute">Compare</button>
           <pre id="cmp-output" class="calc-output-mini"></pre>
         </article>
 
       </div> <!-- END calc-grid -->
 
       <p class="calc-footnote">
-        These calculators are designed for clarity and speed. They reproduce the
-        basic background relations and the QKDE running–K parameterization, but
-        do not replace a full numerical pipeline for precision forecasting.
+        These calculators reproduce ΛCDM distances, the QKDE running–K parameterization,
+        and GR linear growth. For precision forecasting, use the full numerical pipeline.
       </p>
 
-<!-- ============= ADVANCED GROWTH COMPARATOR ============= -->
-<article class="calc-card" id="advanced-growth-card">
-  <div class="calc-header-row">
-    <h3>Advanced Growth Comparator</h3>
-    <div class="calc-pill-row">
-      <span class="calc-pill is-active" style="cursor:default;">ΛCDM / Quintessence / k-essence-like</span>
-    </div>
-  </div>
+      <!-- ============================================================
+           ADVANCED FULL-WIDTH COMPARATOR
+      ============================================================ -->
+      <article class="calc-card calc-card-wide" id="advanced-growth-card">
+        <div class="calc-header-row">
+          <h3>Advanced Growth Comparator</h3>
+          <div class="calc-pill-row">
+            <span class="calc-pill is-active">ΛCDM / Quintessence / k-essence-like</span>
+          </div>
+        </div>
 
-  <h4>Linear Growth D(a) from the GR Equation</h4>
-  <p class="calc-note">
-    Numerically solves the GR growth equation in e-fold time
-    \(N = \ln a\): D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0, with
-    model-dependent H(a) entering via E ≡ H'/H.
-  </p>
+        <h4>Linear Growth D(a) for Multiple Models</h4>
+        <p class="calc-note">
+          Numerically solves \(D''+(2+E)D' - \tfrac32 \Omega_m(a)D = 0\) for ΛCDM,
+          constant-w quintessence, and CPL-like k-essence (w₀,wₐ). All variations enter only through H(a).
+        </p>
 
-  <!-- Cosmology + domain -->
-  <div class="calc-input-row">
-    <div>
-      <label class="calc-label">H₀ [km/s/Mpc]</label>
-      <input id="adv-h0" class="calc-input" type="number" value="70" step="0.1">
-    </div>
-    <div>
-      <label class="calc-label">Ωₘ₀</label>
-      <input id="adv-om0" class="calc-input" type="number" value="0.3" step="0.01">
-    </div>
-    <div>
-      <label class="calc-label">Ωᵣ₀</label>
-      <input id="adv-or0" class="calc-input" type="number" value="0.0" step="1e-5">
-    </div>
-    <div>
-      <label class="calc-label">z<sub>max</sub></label>
-      <input id="adv-zmax" class="calc-input" type="number" value="3" step="0.1">
-    </div>
-  </div>
+        <!-- Row 1 -->
+        <div class="calc-input-row">
+          <div><label class="calc-label">H₀</label><input id="adv-h0" class="calc-input" value="70"></div>
+          <div><label class="calc-label">Ωₘ₀</label><input id="adv-om0" class="calc-input" value="0.3"></div>
+          <div><label class="calc-label">Ωᵣ₀</label><input id="adv-or0" class="calc-input" value="0.0"></div>
+          <div><label class="calc-label">zₘₐₓ</label><input id="adv-zmax" class="calc-input" value="3"></div>
+        </div>
 
-  <!-- Dark energy model params -->
-  <div class="calc-input-row">
-    <div>
-      <label class="calc-label">w<sub>Q</sub> (quintessence)</label>
-      <input id="adv-wq" class="calc-input" type="number" value="-0.9" step="0.01">
-    </div>
-    <div>
-      <label class="calc-label">w₀ (k-essence-like)</label>
-      <input id="adv-w0" class="calc-input" type="number" value="-0.9" step="0.01">
-    </div>
-    <div>
-      <label class="calc-label">wₐ (k-essence-like)</label>
-      <input id="adv-wa" class="calc-input" type="number" value="0.2" step="0.01">
-    </div>
-    <div>
-      <label class="calc-label">Samples in a</label>
-      <input id="adv-samples" class="calc-input" type="number" value="120" step="10">
-    </div>
-  </div>
+        <!-- Row 2 -->
+        <div class="calc-input-row">
+          <div><label class="calc-label">w<sub>Q</sub></label><input id="adv-wq" class="calc-input" value="-0.9"></div>
+          <div><label class="calc-label">w₀</label><input id="adv-w0" class="calc-input" value="-0.9"></div>
+          <div><label class="calc-label">wₐ</label><input id="adv-wa" class="calc-input" value="0.2"></div>
+          <div><label class="calc-label">Samples</label><input id="adv-samples" class="calc-input" value="120"></div>
+        </div>
 
-  <!-- Plot options -->
-  <div class="calc-input-row">
-    <div>
-      <label class="calc-label">x-axis</label>
-      <select id="adv-xaxis" class="calc-input">
-        <option value="a">Scale factor a</option>
-        <option value="z">Redshift z</option>
-      </select>
-    </div>
-    <div>
-      <label class="calc-label">Normalize</label>
-      <select id="adv-norm" class="calc-input">
-        <option value="Da">D(a) with D(1)=1</option>
-        <option value="Da_over_a">D(a)/a</option>
-      </select>
-    </div>
-    <div>
-      <label class="calc-label">Show models</label>
-      <div>
-        <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
-        <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
-        <label><input type="checkbox" id="adv-show-kess" checked> k-essence-like</label>
-      </div>
-    </div>
-  </div>
+        <!-- Row 3 -->
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label">x-axis</label>
+            <select id="adv-xaxis" class="calc-input">
+              <option value="a">Scale factor a</option>
+              <option value="z">Redshift z</option>
+            </select>
+          </div>
+          <div>
+            <label class="calc-label">Normalize</label>
+            <select id="adv-norm" class="calc-input">
+              <option value="Da">D(a) with D(1)=1</option>
+              <option value="Da_over_a">D(a)/a</option>
+            </select>
+          </div>
+          <div>
+            <label class="calc-label">Models</label>
+            <div>
+              <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
+              <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
+              <label><input type="checkbox" id="adv-show-kess" checked> k-essence-like</label>
+            </div>
+          </div>
+        </div>
 
-  <div class="calc-action-row">
-    <button type="button" class="calc-btn" id="adv-growth-compute">
-      Compute &amp; Plot Growth
-    </button>
-  </div>
+        <div class="calc-action-row">
+          <button class="calc-btn" id="adv-growth-compute">Compute &amp; Plot Growth</button>
+        </div>
 
-  <canvas id="adv-growth-canvas" style="width: 100%; max-height: 420px;"></canvas>
-
-  <pre id="adv-growth-info" class="calc-output-mini"></pre>
-</article>
+        <canvas id="adv-growth-canvas" style="width: 100%; max-height: 420px;"></canvas>
+        <pre id="adv-growth-info" class="calc-output-mini"></pre>
+      </article>
 
     </section>
   </div>
 </details>
+
+
 <details id="comparison-qkde">
   <summary><span class="summary-label">Comparing QKDE to Existing Models</span></summary>
   <div class="details-body">
@@ -3616,317 +3582,215 @@ document.addEventListener("DOMContentLoaded", updateCitation);
   });
 </script>
 <script>
-// =================== Utility: cosmology E(a) for different models ===================
 
-// ΛCDM: E(a) = H/H0
+// ===============================================================
+//  COSMOLOGY BACKGROUND FUNCTIONS: E(a) AND (H'/H) EXACT
+// ===============================================================
+
+// ΛCDM
 function E_LCDM(a, p) {
   const om0 = p.om0;
   const or0 = p.or0;
-  const ol0 = 1.0 - om0 - or0;
-  const a2 = a * a;
-  const a3 = a2 * a;
-  const a4 = a3 * a;
-  const e2 = om0 / a3 + or0 / a4 + ol0;
-  return Math.sqrt(Math.max(e2, 1e-20));
+  const ol0 = 1 - om0 - or0;
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ol0 );
 }
 
-// Constant-w quintessence
+// Exact H'/H for ΛCDM
+function dlnH_LCDM(a, p) {
+  const E = E_LCDM(a, p);
+  const E2 = E*E;
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
+  const ode = 1 - om - or;
+  return -1.5*om - 2*or;  // DE has w=-1 → contributes 0
+}
+
+// ===============================================================
+// Constant-w (quintessence-like)
+// ===============================================================
 function E_wCDM(a, p) {
-  const om0 = p.om0;
-  const or0 = p.or0;
-  const wq  = p.wq;
-  const ode0 = 1.0 - om0 - or0;
-  const a2 = a * a;
-  const a3 = a2 * a;
-  const a4 = a3 * a;
-  const deFactor = Math.pow(a, -3 * (1 + wq));
-  const e2 = om0 / a3 + or0 / a4 + ode0 * deFactor;
-  return Math.sqrt(Math.max(e2, 1e-20));
+  const om0 = p.om0, or0=p.or0, w=p.wq;
+  const ode0 = 1 - om0 - or0;
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ode0*(a**(-3*(1+w))) );
 }
 
-// CPL-like "k-essence-type" model: w(a) = w0 + wa(1-a)
+// Exact H'/H for constant w
+function dlnH_wCDM(a, p) {
+  const E = E_wCDM(a, p);
+  const E2 = E*E;
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
+  const ode = 1 - om - or;
+  return -1.5*om - 2*or - 1.5*(1+p.wq)*ode;
+}
+
+// ===============================================================
+// CPL: w(a) = w0 + wa(1-a)
+// ===============================================================
 function E_CPL(a, p) {
-  const om0 = p.om0;
-  const or0 = p.or0;
-  const w0  = p.w0;
-  const wa  = p.wa;
-  const ode0 = 1.0 - om0 - or0;
-  const a2 = a * a;
-  const a3 = a2 * a;
-  const a4 = a3 * a;
+  const om0 = p.om0, or0=p.or0, w0=p.w0, wa=p.wa;
+  const ode0 = 1 - om0 - or0;
 
-  // ρ_de(a)/ρ_de0 = a^{-3(1+w0+wa)} * exp[-3 wa (1-a)]
-  const dePower  = -3 * (1 + w0 + wa);
-  const deFactor = Math.pow(a, dePower) * Math.exp(-3 * wa * (1 - a));
+  const w_a = w0 + wa*(1 - a);
+  const exponent = -3*(1+w0+wa);
+  const deFactor =
+      Math.pow(a, exponent) *
+      Math.exp(-3*wa*(1-a));  // exact CPL factor
 
-  const e2 = om0 / a3 + or0 / a4 + ode0 * deFactor;
-  return Math.sqrt(Math.max(e2, 1e-20));
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ode0*deFactor );
 }
 
-// =================== GR growth integrator in N = ln a ===================
+// Exact H'/H for CPL
+function dlnH_CPL(a, p) {
+  const E = E_CPL(a, p);
+  const E2 = E*E;
 
-// Integrate D(N) from N_min to 0 with RK4.
-// modelE is a function E(a, params). Returns {a[], z[], D_norm[], D_over_a[]}.
-function integrateGrowth(modelE, params) {
-  const om0 = params.om0;
-  const or0 = params.or0;
-  const zmax = params.zmax;
-  const nSamples = params.samples;
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
+  const ode = 1 - om - or;
 
-  // Domain: from a_min = 1/(1+zmax) to a=1
-  const a_min = 1.0 / (1.0 + zmax);
+  const w_a = p.w0 + p.wa*(1 - a);
+  return -1.5*om - 2*or - 1.5*(1 + w_a)*ode;
+}
+
+
+// ===============================================================
+// GROWTH ODE SOLVER (RK4) IN N = ln(a)
+// ===============================================================
+
+function integrateGrowth(modelE, dlnH_func, params) {
+  const { om0, or0, zmax, samples } = params;
+
+  const a_min = 1/(1+zmax);
   const N_min = Math.log(a_min);
-  const N_max = 0.0;
+  const N_max = 0;
+  const dN = (N_max - N_min)/(samples-1);
 
-  const dN = (N_max - N_min) / (nSamples - 1);
+  const aArr = [];
+  const zArr = [];
+  const DArr = [];
 
-  // Arrays
-  const aArr = new Array(nSamples);
-  const zArr = new Array(nSamples);
-  const DArr = new Array(nSamples);
-
-  // Initial conditions in deep matter: D ~ a, so D = e^N, D' = D
   let N = N_min;
   let a = Math.exp(N);
-  let D = a;       // D(N_min)
-  let Dp = D;      // D'(N_min)
 
-  // Helper to compute derivatives
+  // Initial D ~ a in deep matter
+  let D = a;
+  let Dp = D;
+
   function derivs(Nloc, Dloc, Dploc) {
     const aLoc = Math.exp(Nloc);
+
     const E = modelE(aLoc, params);
-    const E2 = E * E;
+    const EprimeOverE = dlnH_func(aLoc, params);
 
-    // Ω_m(a) = Ω_m0 a^{-3} / E^2
-    const a3 = aLoc * aLoc * aLoc;
-    const Om_a = om0 / (a3 * E2);
+    const Om_a = (om0/(aLoc**3)) / (E*E);
 
-    const dD_dN  = Dploc;
-    const dDp_dN = -(2 + (E ? (aLoc / E) * (modelE(aLoc * 1.0001, params) - E) / (aLoc * 0.0001) : 0)) * Dploc
-                   + 1.5 * Om_a * Dloc;
+    const dD = Dploc;
+    const dDp = -(2 + EprimeOverE)*Dploc + 1.5*Om_a*Dloc;
 
-    // The numerical derivative of E is a tiny hack; for smoother control one could
-    // compute E'/E analytically. For our purposes here it's accurate enough and stable.
-    return [dD_dN, dDp_dN];
+    return [dD, dDp];
   }
 
-  // More stable analytic E'/E (H'/H) replacing the finite difference above:
-  function Eprime_over_E(Nloc, modelEfn, par) {
-    const aLoc = Math.exp(Nloc);
-    const h = 1e-3;
-    const aPlus  = aLoc * Math.exp(h);
-    const aMinus = aLoc * Math.exp(-h);
-    const Eplus  = modelEfn(aPlus, par);
-    const Eminus = modelEfn(aMinus, par);
-    const dlnE_dN = (Math.log(Eplus) - Math.log(Eminus)) / (2 * h);
-    return dlnE_dN;
-  }
-
-  // Override derivs to use E'/E from above
-  function derivsStable(Nloc, Dloc, Dploc) {
-    const aLoc = Math.exp(Nloc);
-    const E = modelE(aLoc, params);
-    const E2 = E * E;
-
-    const a3 = aLoc * aLoc * aLoc;
-    const Om_a = om0 / (a3 * E2);
-
-    const EprimeOverE = Eprime_over_E(Nloc, modelE, params);
-    const dD_dN  = Dploc;
-    const dDp_dN = -(2 + EprimeOverE) * Dploc + 1.5 * Om_a * Dloc;
-    return [dD_dN, dDp_dN];
-  }
-
-  // RK4 integration
-  for (let i = 0; i < nSamples; i++) {
-    N = N_min + i * dN;
+  for (let i=0; i<samples; i++){
+    N = N_min + i*dN;
     a = Math.exp(N);
-    aArr[i] = a;
-    zArr[i] = 1.0 / a - 1.0;
-    DArr[i] = D;
 
-    if (i < nSamples - 1) {
-      const [k1_D, k1_Dp] = derivsStable(N, D, Dp);
+    aArr.push(a);
+    zArr.push(1/a - 1);
+    DArr.push(D);
 
-      const N2 = N + 0.5 * dN;
-      const D2 = D + 0.5 * dN * k1_D;
-      const Dp2 = Dp + 0.5 * dN * k1_Dp;
-      const [k2_D, k2_Dp] = derivsStable(N2, D2, Dp2);
+    if (i < samples-1){
+      const [k1D,k1Dp] = derivs(N, D, Dp);
+      const [k2D,k2Dp] = derivs(N+0.5*dN, D+0.5*dN*k1D, Dp+0.5*dN*k1Dp);
+      const [k3D,k3Dp] = derivs(N+0.5*dN, D+0.5*dN*k2D, Dp+0.5*dN*k2Dp);
+      const [k4D,k4Dp] = derivs(N+dN,     D+dN*k3D,     Dp+dN*k3Dp);
 
-      const D3 = D + 0.5 * dN * k2_D;
-      const Dp3 = Dp + 0.5 * dN * k2_Dp;
-      const [k3_D, k3_Dp] = derivsStable(N2, D3, Dp3);
-
-      const N4 = N + dN;
-      const D4 = D + dN * k3_D;
-      const Dp4 = Dp + dN * k3_Dp;
-      const [k4_D, k4_Dp] = derivsStable(N4, D4, Dp4);
-
-      D  += (dN / 6) * (k1_D  + 2 * k2_D  + 2 * k3_D  + k4_D);
-      Dp += (dN / 6) * (k1_Dp + 2 * k2_Dp + 2 * k3_Dp + k4_Dp);
+      D  += dN*(k1D  + 2*k2D  + 2*k3D  + k4D )/6;
+      Dp += dN*(k1Dp + 2*k2Dp + 2*k3Dp + k4Dp)/6;
     }
   }
 
-  // Normalize so that D(a=1) = 1
-  const D_today = DArr[DArr.length - 1];
-  const Dnorm = DArr.map(val => val / D_today);
-  const D_over_a = Dnorm.map((val, i) => val / aArr[i]);
+  // Normalize D(a=1)=1
+  const D_today = DArr[DArr.length-1];
+  const Dnorm = DArr.map(v => v/D_today);
+  const D_over_a = Dnorm.map((v,i) => v/aArr[i]);
 
-  return {
-    a: aArr,
-    z: zArr,
-    Dnorm: Dnorm,
-    D_over_a: D_over_a
-  };
+  return { a:aArr, z:zArr, Dnorm, D_over_a };
 }
 
-// =================== Chart.js wiring ===================
+
+// ===============================================================
+// ADVANCED GROWTH COMPARATOR PLOTTING
+// ===============================================================
 
 let advGrowthChart = null;
 
-function buildAdvancedGrowthPlot() {
-  const om0 = parseFloat(document.getElementById('adv-om0').value) || 0.3;
-  const or0 = parseFloat(document.getElementById('adv-or0').value) || 0.0;
-  const zmax = Math.max(parseFloat(document.getElementById('adv-zmax').value) || 3.0, 0.1);
-  const wq  = parseFloat(document.getElementById('adv-wq').value) || -0.9;
-  const w0  = parseFloat(document.getElementById('adv-w0').value) || -0.9;
-  const wa  = parseFloat(document.getElementById('adv-wa').value) || 0.2;
-  const samples = Math.max(parseInt(document.getElementById('adv-samples').value, 10), 30);
+function buildAdvancedGrowthPlot(){
+  const om0 = parseFloat(document.getElementById("adv-om0").value);
+  const or0 = parseFloat(document.getElementById("adv-or0").value);
+  const zmax = parseFloat(document.getElementById("adv-zmax").value);
+  const wq   = parseFloat(document.getElementById("adv-wq").value);
+  const w0   = parseFloat(document.getElementById("adv-w0").value);
+  const wa   = parseFloat(document.getElementById("adv-wa").value);
+  const samples = parseInt(document.getElementById("adv-samples").value);
 
-  const xAxis = document.getElementById('adv-xaxis').value;  // "a" or "z"
-  const normMode = document.getElementById('adv-norm').value; // "Da" or "Da_over_a"
+  const xMode  = document.getElementById("adv-xaxis").value;
+  const normMode = document.getElementById("adv-norm").value;
 
-  const showLCDM  = document.getElementById('adv-show-lcdm').checked;
-  const showQuint = document.getElementById('adv-show-quint').checked;
-  const showKess  = document.getElementById('adv-show-kess').checked;
+  const showLCDM  = document.getElementById("adv-show-lcdm").checked;
+  const showQuint = document.getElementById("adv-show-quint").checked;
+  const showKess  = document.getElementById("adv-show-kess").checked;
 
   const baseParams = { om0, or0, zmax, samples };
 
-  // Integrate each model
-  const lcdmRes  = integrateGrowth(E_LCDM, Object.assign({}, baseParams));
-  const wcdmRes  = integrateGrowth(E_wCDM, Object.assign({}, baseParams, { wq }));
-  const cplRes   = integrateGrowth(E_CPL,  Object.assign({}, baseParams, { w0, wa }));
+  const lcdm = integrateGrowth(E_LCDM, dlnH_LCDM, baseParams);
+  const quint = integrateGrowth(E_wCDM, dlnH_wCDM, Object.assign({}, baseParams, {wq}));
+  const kess  = integrateGrowth(E_CPL,  dlnH_CPL,  Object.assign({}, baseParams, {w0, wa}));
 
-  // x-axis
-  let labels;
-  if (xAxis === 'a') {
-    labels = lcdmRes.a;
-  } else {
-    labels = lcdmRes.z;
-  }
-
-  // y-values
-  const pickY = (res) => (normMode === 'Da' ? res.Dnorm : res.D_over_a);
+  const labels = xMode === "a" ? lcdm.a : lcdm.z;
+  const pick = (res) => (normMode==="Da" ? res.Dnorm : res.D_over_a);
 
   const datasets = [];
+  if (showLCDM)
+    datasets.push({ label:"ΛCDM", data:pick(lcdm), borderWidth:2, tension:0.15 });
+  if (showQuint)
+    datasets.push({ label:`Quintessence w=${wq}`, data:pick(quint),
+                    borderWidth:2, borderDash:[6,4], tension:0.15 });
+  if (showKess)
+    datasets.push({ label:`k-essence-like w0=${w0}, wa=${wa}`,
+                    data:pick(kess), borderWidth:2, borderDash:[2,3], tension:0.15 });
 
-  if (showLCDM) {
-    datasets.push({
-      label: 'ΛCDM',
-      data: pickY(lcdmRes),
-      borderWidth: 2,
-      pointRadius: 0,
-      tension: 0.15
-    });
-  }
-
-  if (showQuint) {
-    datasets.push({
-      label: `Quintessence (w = ${wq.toFixed(2)})`,
-      data: pickY(wcdmRes),
-      borderWidth: 2,
-      pointRadius: 0,
-      borderDash: [6, 4],
-      tension: 0.15
-    });
-  }
-
-  if (showKess) {
-    datasets.push({
-      label: `k-essence-like (w₀=${w0.toFixed(2)}, wₐ=${wa.toFixed(2)})`,
-      data: pickY(cplRes),
-      borderWidth: 2,
-      pointRadius: 0,
-      borderDash: [2, 3],
-      tension: 0.15
-    });
-  }
-
-  const ctx = document.getElementById('adv-growth-canvas').getContext('2d');
-
-  const xLabel = xAxis === 'a' ? 'Scale factor a' : 'Redshift z';
-  const yLabel = normMode === 'Da' ? 'D(a) (normalized to D(1)=1)' : 'D(a)/a';
-
-  if (advGrowthChart) {
-    advGrowthChart.destroy();
-  }
+  const ctx = document.getElementById("adv-growth-canvas").getContext("2d");
+  if (advGrowthChart) advGrowthChart.destroy();
 
   advGrowthChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: datasets
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        mode: 'index',
-        intersect: false
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top'
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const val = context.parsed.y;
-              return `${context.dataset.label}: ${val.toFixed(4)}`;
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: xLabel
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: yLabel
-          }
-        }
+    type:"line",
+    data:{ labels, datasets },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      scales:{
+        x:{ title:{ display:true, text:xMode==="a" ? "Scale factor a" : "Redshift z" } },
+        y:{ title:{ display:true, text:normMode==="Da" ? "D(a)" : "D(a)/a" } }
       }
     }
   });
 
-  // Quick info readout
-  const infoEl = document.getElementById('adv-growth-info');
-  const Dlcdm_a05 = lcdmRes.Dnorm[Math.floor(lcdmRes.Dnorm.length / 2)];
-  const Dwcdm_a05 = wcdmRes.Dnorm[Math.floor(wcdmRes.Dnorm.length / 2)];
-  const Dcpl_a05  = cplRes.Dnorm[Math.floor(cplRes.Dnorm.length / 2)];
-
-  infoEl.textContent =
-    `Models integrated from z_max = ${zmax.toFixed(2)} to 0.\n` +
-    `D(a=1) is normalized to 1 in all cases.\n` +
-    `At mid-history (roughly a ≈ ${(lcdmRes.a[Math.floor(lcdmRes.a.length/2)]).toFixed(2)}):\n` +
-    `  ΛCDM:        D ≈ ${Dlcdm_a05.toFixed(3)}\n` +
-    `  Quintessence: D ≈ ${Dwcdm_a05.toFixed(3)}\n` +
-    `  k-essence-like: D ≈ ${Dcpl_a05.toFixed(3)}`;
+  const info = document.getElementById("adv-growth-info");
+  const mid = Math.floor(lcdm.Dnorm.length/2);
+  info.textContent =
+    `Comparison computed from z_max=${zmax}.\n\n` +
+    `At a≈${lcdm.a[mid].toFixed(2)}:\n` +
+    `  ΛCDM: D≈${lcdm.Dnorm[mid].toFixed(3)}\n` +
+    `  Quintessence: D≈${quint.Dnorm[mid].toFixed(3)}\n` +
+    `  k-essence-like: D≈${kess.Dnorm[mid].toFixed(3)}\n`;
 }
 
-// Hook up the button
-document.addEventListener('DOMContentLoaded', function() {
-  const btn = document.getElementById('adv-growth-compute');
-  if (btn) {
-    btn.addEventListener('click', buildAdvancedGrowthPlot);
-  }
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.getElementById("adv-growth-compute")
+    .addEventListener("click", buildAdvancedGrowthPlot);
 });
+
 </script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
