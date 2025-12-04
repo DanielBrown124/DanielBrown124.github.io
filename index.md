@@ -2234,6 +2234,99 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         do not replace a full numerical pipeline for precision forecasting.
       </p>
 
+<!-- ============= ADVANCED GROWTH COMPARATOR ============= -->
+<article class="calc-card" id="advanced-growth-card">
+  <div class="calc-header-row">
+    <h3>Advanced Growth Comparator</h3>
+    <div class="calc-pill-row">
+      <span class="calc-pill is-active" style="cursor:default;">ΛCDM / Quintessence / k-essence-like</span>
+    </div>
+  </div>
+
+  <h4>Linear Growth D(a) from the GR Equation</h4>
+  <p class="calc-note">
+    Numerically solves the GR growth equation in e-fold time
+    \(N = \ln a\): D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0, with
+    model-dependent H(a) entering via E ≡ H'/H.
+  </p>
+
+  <!-- Cosmology + domain -->
+  <div class="calc-input-row">
+    <div>
+      <label class="calc-label">H₀ [km/s/Mpc]</label>
+      <input id="adv-h0" class="calc-input" type="number" value="70" step="0.1">
+    </div>
+    <div>
+      <label class="calc-label">Ωₘ₀</label>
+      <input id="adv-om0" class="calc-input" type="number" value="0.3" step="0.01">
+    </div>
+    <div>
+      <label class="calc-label">Ωᵣ₀</label>
+      <input id="adv-or0" class="calc-input" type="number" value="0.0" step="1e-5">
+    </div>
+    <div>
+      <label class="calc-label">z<sub>max</sub></label>
+      <input id="adv-zmax" class="calc-input" type="number" value="3" step="0.1">
+    </div>
+  </div>
+
+  <!-- Dark energy model params -->
+  <div class="calc-input-row">
+    <div>
+      <label class="calc-label">w<sub>Q</sub> (quintessence)</label>
+      <input id="adv-wq" class="calc-input" type="number" value="-0.9" step="0.01">
+    </div>
+    <div>
+      <label class="calc-label">w₀ (k-essence-like)</label>
+      <input id="adv-w0" class="calc-input" type="number" value="-0.9" step="0.01">
+    </div>
+    <div>
+      <label class="calc-label">wₐ (k-essence-like)</label>
+      <input id="adv-wa" class="calc-input" type="number" value="0.2" step="0.01">
+    </div>
+    <div>
+      <label class="calc-label">Samples in a</label>
+      <input id="adv-samples" class="calc-input" type="number" value="120" step="10">
+    </div>
+  </div>
+
+  <!-- Plot options -->
+  <div class="calc-input-row">
+    <div>
+      <label class="calc-label">x-axis</label>
+      <select id="adv-xaxis" class="calc-input">
+        <option value="a">Scale factor a</option>
+        <option value="z">Redshift z</option>
+      </select>
+    </div>
+    <div>
+      <label class="calc-label">Normalize</label>
+      <select id="adv-norm" class="calc-input">
+        <option value="Da">D(a) with D(1)=1</option>
+        <option value="Da_over_a">D(a)/a</option>
+      </select>
+    </div>
+    <div>
+      <label class="calc-label">Show models</label>
+      <div>
+        <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
+        <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
+        <label><input type="checkbox" id="adv-show-kess" checked> k-essence-like</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-action-row">
+    <button type="button" class="calc-btn" id="adv-growth-compute">
+      Compute &amp; Plot Growth
+    </button>
+  </div>
+
+  <canvas id="adv-growth-canvas" style="width: 100%; max-height: 420px;"></canvas>
+
+  <pre id="adv-growth-info" class="calc-output-mini"></pre>
+</article>
+
     </section>
   </div>
 </details>
@@ -2943,7 +3036,7 @@ Amendola & Tsujikawa. Dark Energy: Theory & Observations.
    
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 function updateCitation() {
   const style = document.getElementById("cite-select").value;
@@ -3521,6 +3614,319 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     attachGrowthCompute();
     attachComparisonCompute();
   });
+</script>
+<script>
+// =================== Utility: cosmology E(a) for different models ===================
+
+// ΛCDM: E(a) = H/H0
+function E_LCDM(a, p) {
+  const om0 = p.om0;
+  const or0 = p.or0;
+  const ol0 = 1.0 - om0 - or0;
+  const a2 = a * a;
+  const a3 = a2 * a;
+  const a4 = a3 * a;
+  const e2 = om0 / a3 + or0 / a4 + ol0;
+  return Math.sqrt(Math.max(e2, 1e-20));
+}
+
+// Constant-w quintessence
+function E_wCDM(a, p) {
+  const om0 = p.om0;
+  const or0 = p.or0;
+  const wq  = p.wq;
+  const ode0 = 1.0 - om0 - or0;
+  const a2 = a * a;
+  const a3 = a2 * a;
+  const a4 = a3 * a;
+  const deFactor = Math.pow(a, -3 * (1 + wq));
+  const e2 = om0 / a3 + or0 / a4 + ode0 * deFactor;
+  return Math.sqrt(Math.max(e2, 1e-20));
+}
+
+// CPL-like "k-essence-type" model: w(a) = w0 + wa(1-a)
+function E_CPL(a, p) {
+  const om0 = p.om0;
+  const or0 = p.or0;
+  const w0  = p.w0;
+  const wa  = p.wa;
+  const ode0 = 1.0 - om0 - or0;
+  const a2 = a * a;
+  const a3 = a2 * a;
+  const a4 = a3 * a;
+
+  // ρ_de(a)/ρ_de0 = a^{-3(1+w0+wa)} * exp[-3 wa (1-a)]
+  const dePower  = -3 * (1 + w0 + wa);
+  const deFactor = Math.pow(a, dePower) * Math.exp(-3 * wa * (1 - a));
+
+  const e2 = om0 / a3 + or0 / a4 + ode0 * deFactor;
+  return Math.sqrt(Math.max(e2, 1e-20));
+}
+
+// =================== GR growth integrator in N = ln a ===================
+
+// Integrate D(N) from N_min to 0 with RK4.
+// modelE is a function E(a, params). Returns {a[], z[], D_norm[], D_over_a[]}.
+function integrateGrowth(modelE, params) {
+  const om0 = params.om0;
+  const or0 = params.or0;
+  const zmax = params.zmax;
+  const nSamples = params.samples;
+
+  // Domain: from a_min = 1/(1+zmax) to a=1
+  const a_min = 1.0 / (1.0 + zmax);
+  const N_min = Math.log(a_min);
+  const N_max = 0.0;
+
+  const dN = (N_max - N_min) / (nSamples - 1);
+
+  // Arrays
+  const aArr = new Array(nSamples);
+  const zArr = new Array(nSamples);
+  const DArr = new Array(nSamples);
+
+  // Initial conditions in deep matter: D ~ a, so D = e^N, D' = D
+  let N = N_min;
+  let a = Math.exp(N);
+  let D = a;       // D(N_min)
+  let Dp = D;      // D'(N_min)
+
+  // Helper to compute derivatives
+  function derivs(Nloc, Dloc, Dploc) {
+    const aLoc = Math.exp(Nloc);
+    const E = modelE(aLoc, params);
+    const E2 = E * E;
+
+    // Ω_m(a) = Ω_m0 a^{-3} / E^2
+    const a3 = aLoc * aLoc * aLoc;
+    const Om_a = om0 / (a3 * E2);
+
+    const dD_dN  = Dploc;
+    const dDp_dN = -(2 + (E ? (aLoc / E) * (modelE(aLoc * 1.0001, params) - E) / (aLoc * 0.0001) : 0)) * Dploc
+                   + 1.5 * Om_a * Dloc;
+
+    // The numerical derivative of E is a tiny hack; for smoother control one could
+    // compute E'/E analytically. For our purposes here it's accurate enough and stable.
+    return [dD_dN, dDp_dN];
+  }
+
+  // More stable analytic E'/E (H'/H) replacing the finite difference above:
+  function Eprime_over_E(Nloc, modelEfn, par) {
+    const aLoc = Math.exp(Nloc);
+    const h = 1e-3;
+    const aPlus  = aLoc * Math.exp(h);
+    const aMinus = aLoc * Math.exp(-h);
+    const Eplus  = modelEfn(aPlus, par);
+    const Eminus = modelEfn(aMinus, par);
+    const dlnE_dN = (Math.log(Eplus) - Math.log(Eminus)) / (2 * h);
+    return dlnE_dN;
+  }
+
+  // Override derivs to use E'/E from above
+  function derivsStable(Nloc, Dloc, Dploc) {
+    const aLoc = Math.exp(Nloc);
+    const E = modelE(aLoc, params);
+    const E2 = E * E;
+
+    const a3 = aLoc * aLoc * aLoc;
+    const Om_a = om0 / (a3 * E2);
+
+    const EprimeOverE = Eprime_over_E(Nloc, modelE, params);
+    const dD_dN  = Dploc;
+    const dDp_dN = -(2 + EprimeOverE) * Dploc + 1.5 * Om_a * Dloc;
+    return [dD_dN, dDp_dN];
+  }
+
+  // RK4 integration
+  for (let i = 0; i < nSamples; i++) {
+    N = N_min + i * dN;
+    a = Math.exp(N);
+    aArr[i] = a;
+    zArr[i] = 1.0 / a - 1.0;
+    DArr[i] = D;
+
+    if (i < nSamples - 1) {
+      const [k1_D, k1_Dp] = derivsStable(N, D, Dp);
+
+      const N2 = N + 0.5 * dN;
+      const D2 = D + 0.5 * dN * k1_D;
+      const Dp2 = Dp + 0.5 * dN * k1_Dp;
+      const [k2_D, k2_Dp] = derivsStable(N2, D2, Dp2);
+
+      const D3 = D + 0.5 * dN * k2_D;
+      const Dp3 = Dp + 0.5 * dN * k2_Dp;
+      const [k3_D, k3_Dp] = derivsStable(N2, D3, Dp3);
+
+      const N4 = N + dN;
+      const D4 = D + dN * k3_D;
+      const Dp4 = Dp + dN * k3_Dp;
+      const [k4_D, k4_Dp] = derivsStable(N4, D4, Dp4);
+
+      D  += (dN / 6) * (k1_D  + 2 * k2_D  + 2 * k3_D  + k4_D);
+      Dp += (dN / 6) * (k1_Dp + 2 * k2_Dp + 2 * k3_Dp + k4_Dp);
+    }
+  }
+
+  // Normalize so that D(a=1) = 1
+  const D_today = DArr[DArr.length - 1];
+  const Dnorm = DArr.map(val => val / D_today);
+  const D_over_a = Dnorm.map((val, i) => val / aArr[i]);
+
+  return {
+    a: aArr,
+    z: zArr,
+    Dnorm: Dnorm,
+    D_over_a: D_over_a
+  };
+}
+
+// =================== Chart.js wiring ===================
+
+let advGrowthChart = null;
+
+function buildAdvancedGrowthPlot() {
+  const om0 = parseFloat(document.getElementById('adv-om0').value) || 0.3;
+  const or0 = parseFloat(document.getElementById('adv-or0').value) || 0.0;
+  const zmax = Math.max(parseFloat(document.getElementById('adv-zmax').value) || 3.0, 0.1);
+  const wq  = parseFloat(document.getElementById('adv-wq').value) || -0.9;
+  const w0  = parseFloat(document.getElementById('adv-w0').value) || -0.9;
+  const wa  = parseFloat(document.getElementById('adv-wa').value) || 0.2;
+  const samples = Math.max(parseInt(document.getElementById('adv-samples').value, 10), 30);
+
+  const xAxis = document.getElementById('adv-xaxis').value;  // "a" or "z"
+  const normMode = document.getElementById('adv-norm').value; // "Da" or "Da_over_a"
+
+  const showLCDM  = document.getElementById('adv-show-lcdm').checked;
+  const showQuint = document.getElementById('adv-show-quint').checked;
+  const showKess  = document.getElementById('adv-show-kess').checked;
+
+  const baseParams = { om0, or0, zmax, samples };
+
+  // Integrate each model
+  const lcdmRes  = integrateGrowth(E_LCDM, Object.assign({}, baseParams));
+  const wcdmRes  = integrateGrowth(E_wCDM, Object.assign({}, baseParams, { wq }));
+  const cplRes   = integrateGrowth(E_CPL,  Object.assign({}, baseParams, { w0, wa }));
+
+  // x-axis
+  let labels;
+  if (xAxis === 'a') {
+    labels = lcdmRes.a;
+  } else {
+    labels = lcdmRes.z;
+  }
+
+  // y-values
+  const pickY = (res) => (normMode === 'Da' ? res.Dnorm : res.D_over_a);
+
+  const datasets = [];
+
+  if (showLCDM) {
+    datasets.push({
+      label: 'ΛCDM',
+      data: pickY(lcdmRes),
+      borderWidth: 2,
+      pointRadius: 0,
+      tension: 0.15
+    });
+  }
+
+  if (showQuint) {
+    datasets.push({
+      label: `Quintessence (w = ${wq.toFixed(2)})`,
+      data: pickY(wcdmRes),
+      borderWidth: 2,
+      pointRadius: 0,
+      borderDash: [6, 4],
+      tension: 0.15
+    });
+  }
+
+  if (showKess) {
+    datasets.push({
+      label: `k-essence-like (w₀=${w0.toFixed(2)}, wₐ=${wa.toFixed(2)})`,
+      data: pickY(cplRes),
+      borderWidth: 2,
+      pointRadius: 0,
+      borderDash: [2, 3],
+      tension: 0.15
+    });
+  }
+
+  const ctx = document.getElementById('adv-growth-canvas').getContext('2d');
+
+  const xLabel = xAxis === 'a' ? 'Scale factor a' : 'Redshift z';
+  const yLabel = normMode === 'Da' ? 'D(a) (normalized to D(1)=1)' : 'D(a)/a';
+
+  if (advGrowthChart) {
+    advGrowthChart.destroy();
+  }
+
+  advGrowthChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const val = context.parsed.y;
+              return `${context.dataset.label}: ${val.toFixed(4)}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: xLabel
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: yLabel
+          }
+        }
+      }
+    }
+  });
+
+  // Quick info readout
+  const infoEl = document.getElementById('adv-growth-info');
+  const Dlcdm_a05 = lcdmRes.Dnorm[Math.floor(lcdmRes.Dnorm.length / 2)];
+  const Dwcdm_a05 = wcdmRes.Dnorm[Math.floor(wcdmRes.Dnorm.length / 2)];
+  const Dcpl_a05  = cplRes.Dnorm[Math.floor(cplRes.Dnorm.length / 2)];
+
+  infoEl.textContent =
+    `Models integrated from z_max = ${zmax.toFixed(2)} to 0.\n` +
+    `D(a=1) is normalized to 1 in all cases.\n` +
+    `At mid-history (roughly a ≈ ${(lcdmRes.a[Math.floor(lcdmRes.a.length/2)]).toFixed(2)}):\n` +
+    `  ΛCDM:        D ≈ ${Dlcdm_a05.toFixed(3)}\n` +
+    `  Quintessence: D ≈ ${Dwcdm_a05.toFixed(3)}\n` +
+    `  k-essence-like: D ≈ ${Dcpl_a05.toFixed(3)}`;
+}
+
+// Hook up the button
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('adv-growth-compute');
+  if (btn) {
+    btn.addEventListener('click', buildAdvancedGrowthPlot);
+  }
+});
 </script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
