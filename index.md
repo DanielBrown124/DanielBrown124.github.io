@@ -2315,7 +2315,7 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
       ============================================================ -->
       <article class="calc-card calc-card-wide" id="advanced-growth-card">
         <div class="calc-header-row">
-          <h3>Advanced Growth Comparator</h3>
+          <h3>Growth Comparator</h3>
           <div class="calc-pill-row">
             <span class="calc-pill is-active">ΛCDM / Quintessence / CPL-type k-essence</span>
           </div>
