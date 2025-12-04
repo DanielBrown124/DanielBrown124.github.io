@@ -319,7 +319,33 @@ title: Quantum–Kinetic Dark Energy (QKDE)
   font-size: 0.9rem;
   opacity: 0.9;
 }
+/* Growth calculator extra styling */
+.calc-subtitle {
+  font-size: 0.78rem;
+  opacity: 0.9;
+  margin: -2px 0 10px;
+  color: #bfe9ff;
+  letter-spacing: 0.03em;
+}
 
+.calc-output-mini {
+  margin-top: 10px;
+  font-family: "JetBrains Mono","Menlo","Consolas",monospace;
+  font-size: 0.78rem;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(120,160,190,0.35);
+  padding: 9px 11px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.compare-note {
+  font-size: 0.82rem;
+  margin-top: 6px;
+  opacity: 0.9;
+}
 /* ===========================
    RESPONSIVENESS
    =========================== */
@@ -2178,7 +2204,86 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           </div>
         </article>
       </div>
+<!-- ============= GR GROWTH CARD ============= -->
+<article class="calc-card" id="growth-card">
+  <div class="calc-header-row">
+    <h3>GR Growth Factor D(a)</h3>
+    <div class="calc-pill-row">
+      <span class="calc-pill is-active" style="cursor:default;">GR-only</span>
+    </div>
+  </div>
 
+  <h4>Linear Structure Growth</h4>
+  <p class="calc-subtitle">
+    Solves the GR growth equation: D'' + (2+E)D' − 3Ωₘ(a)D/2 = 0.
+  </p>
+
+  <div class="calc-input-row">
+    <div>
+      <label class="calc-label">H₀</label>
+      <input id="grow-h0" class="calc-input" type="number" value="70" step="0.1">
+    </div>
+    <div>
+      <label class="calc-label">Ωₘ₀</label>
+      <input id="grow-om0" class="calc-input" type="number" value="0.3" step="0.01">
+    </div>
+
+    <div>
+      <label class="calc-label">Ωᵣ₀</label>
+      <input id="grow-or0" class="calc-input" type="number" value="0.0" step="1e-5">
+    </div>
+    <div>
+      <label class="calc-label">ΩΛ₀</label>
+      <input id="grow-ol0" class="calc-input" type="number" value="0.7" step="0.01">
+    </div>
+  </div>
+
+  <div class="calc-action-row">
+    <button type="button" class="calc-btn" id="grow-compute">Compute D(a)</button>
+  </div>
+
+  <pre id="grow-output" class="calc-output-mini"></pre>
+</article>
+<!-- ============= COMPARISON CARD ============= -->
+<article class="calc-card" id="compare-card">
+  <div class="calc-header-row">
+    <h3>ΛCDM vs QKDE: K(z) Comparison</h3>
+    <div class="calc-pill-row">
+      <span class="calc-pill is-active" style="cursor:default;">Quick Insight</span>
+    </div>
+  </div>
+
+  <h4>Effective Kinetic Normalization</h4>
+  <p class="calc-note">
+    ΛCDM has K = 1 always. QKDE drifts via K(z) = 1 + K₀ (1+z)ᵖ.
+  </p>
+
+  <div class="calc-input-row">
+    <div>
+      <label class="calc-label">Redshift z</label>
+      <input id="cmp-z" class="calc-input" type="number" step="0.01" value="0.5">
+    </div>
+    <div>
+      <label class="calc-label">K₀</label>
+      <input id="cmp-k0" class="calc-input" type="number" step="0.05" value="0.5">
+    </div>
+
+    <div>
+      <label class="calc-label">p</label>
+      <input id="cmp-p" class="calc-input" type="number" step="0.1" value="1.0">
+    </div>
+    <div>
+      <label class="calc-label">Reference K(0)</label>
+      <input id="cmp-kref" class="calc-input" type="number" step="0.01" value="1.0">
+    </div>
+  </div>
+
+  <div class="calc-action-row">
+    <button type="button" class="calc-btn" id="cmp-compute">Compare</button>
+  </div>
+
+  <pre id="cmp-output" class="calc-output-mini"></pre>
+</article>
       <p class="calc-footnote">
         These calculators are designed for clarity and speed. They reproduce the
         basic background relations and the QKDE running–K parameterization, but
@@ -2773,7 +2878,7 @@ function copyCitation() {
 document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
 <script>
-  // =============== BASIC NUMERIC HELPERS ===============
+  // ================== BASIC NUMERIC HELPERS ==================
 
   function E_of_z(z, Om, Or, Ol) {
     return Math.sqrt(
@@ -2781,6 +2886,21 @@ document.addEventListener("DOMContentLoaded", updateCitation);
       Or * Math.pow(1 + z, 4) +
       Ol
     );
+  }
+
+  function E_of_a(a, Om, Or, Ol) {
+    // E(a) = H(a)/H0
+    return Math.sqrt(
+      Om * Math.pow(a, -3) +
+      Or * Math.pow(a, -4) +
+      Ol
+    );
+  }
+
+  function Omega_m_of_a(a, Om, Or, Ol) {
+    const num = Om * Math.pow(a, -3);
+    const den = Math.pow(E_of_a(a, Om, Or, Ol), 2);
+    return num / den;
   }
 
   function integrate_chi(H0, Om, Or, Ol, zmax, steps) {
@@ -2802,30 +2922,43 @@ document.addEventListener("DOMContentLoaded", updateCitation);
   function setOutput(element, lines, isError = false) {
     if (!element) return;
     element.textContent = lines.join("\n");
-    element.classList.toggle("error", isError);
+    element.classList.toggle("error", !!isError);
   }
 
-  // =============== FORMULA BOX TOGGLE ===============
+  // ================== FORMULA BOX TOGGLE ==================
 
   function attachFormulaToggle(buttonId, boxId) {
     const btn = document.getElementById(buttonId);
     const box = document.getElementById(boxId);
     if (!btn || !box) return;
 
+    const originalLabel = btn.textContent.trim();
+
     btn.addEventListener("click", () => {
       const isOpen = box.classList.toggle("is-open");
       box.setAttribute("aria-hidden", isOpen ? "false" : "true");
-      btn.textContent = isOpen ? "Hide formulas" : "Show formulas";
+
       if (buttonId === "qkde-formula-toggle") {
         btn.textContent = isOpen ? "Hide definitions" : "Show definitions";
+      } else if (buttonId === "lcdm-formula-toggle") {
+        btn.textContent = isOpen ? "Hide formulas" : "Show formulas";
+      } else if (buttonId === "grow-formula-toggle") {
+        btn.textContent = isOpen ? "Hide growth equation" : "Show growth equation";
+      } else {
+        btn.textContent = isOpen ? "Hide" : originalLabel || "Show";
       }
+
       if (window.MathJax && window.MathJax.typeset) {
-        MathJax.typeset([box]);
+        try {
+          window.MathJax.typeset([box]);
+        } catch (e) {
+          console.warn("MathJax typeset failed:", e);
+        }
       }
     });
   }
 
-  // =============== ΛCDM PRESETS ===============
+  // ================== ΛCDM PRESETS ==================
 
   function attachLCDMPresets() {
     const card = document.getElementById("lcdm-card");
@@ -2848,26 +2981,26 @@ document.addEventListener("DOMContentLoaded", updateCitation);
           if (h0El) h0El.value = 67.4;
           if (omEl) omEl.value = 0.315;
           if (orEl) orEl.value = 5e-5;
-          if (olEl) olEl.value = 1.0 - parseFloat(omEl.value) - parseFloat(orEl.value);
+          if (olEl) olEl.value = (1.0 - parseFloat(omEl.value) - parseFloat(orEl.value)).toFixed(6);
         } else if (preset === "local") {
           if (h0El) h0El.value = 73.0;
-          if (omEl) omEl.value = 0.30;
+          if (omEl) omEl.value = 0.300;
           if (orEl) orEl.value = 0.0;
-          if (olEl) olEl.value = 0.70;
+          if (olEl) olEl.value = 0.700;
         }
       });
     });
   }
 
-  // =============== QKDE PRESETS ===============
+  // ================== QKDE PRESETS ==================
 
   function attachQKDEPresets() {
     const card = document.getElementById("qkde-card");
     if (!card) return;
 
-    const zEl   = document.getElementById("qkde-z");
-    const k0El  = document.getElementById("qkde-k0");
-    const pEl   = document.getElementById("qkde-p");
+    const zEl    = document.getElementById("qkde-z");
+    const k0El   = document.getElementById("qkde-k0");
+    const pEl    = document.getElementById("qkde-p");
     const krefEl = document.getElementById("qkde-kref");
 
     const pillButtons = card.querySelectorAll(".calc-pill");
@@ -2879,12 +3012,12 @@ document.addEventListener("DOMContentLoaded", updateCitation);
         const preset = btn.getAttribute("data-qkde-preset");
 
         if (preset === "mild") {
-          if (k0El)  k0El.value  = 0.3;
-          if (pEl)   pEl.value   = 0.8;
+          if (k0El)   k0El.value   = 0.3;
+          if (pEl)    pEl.value    = 0.8;
           if (krefEl) krefEl.value = 1.0;
         } else if (preset === "strong") {
-          if (k0El)  k0El.value  = 1.0;
-          if (pEl)   pEl.value   = 1.5;
+          if (k0El)   k0El.value   = 1.0;
+          if (pEl)    pEl.value    = 1.5;
           if (krefEl) krefEl.value = 1.0;
         }
         if (zEl && parseFloat(zEl.value) < 0) zEl.value = 0.0;
@@ -2892,7 +3025,7 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     });
   }
 
-  // =============== ΛCDM COMPUTE ===============
+  // ================== ΛCDM COMPUTE ==================
 
   function attachLCDMCompute() {
     const btn = document.getElementById("lcdm-compute");
@@ -2900,11 +3033,11 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     if (!btn || !out) return;
 
     btn.addEventListener("click", () => {
-      const z   = parseFloat(document.getElementById("lcdm-z").value);
-      const H0  = parseFloat(document.getElementById("lcdm-h0").value);
-      const Om  = parseFloat(document.getElementById("lcdm-om").value);
-      const Or  = parseFloat(document.getElementById("lcdm-or").value);
-      const Ol  = parseFloat(document.getElementById("lcdm-ol").value);
+      const z     = parseFloat(document.getElementById("lcdm-z").value);
+      const H0    = parseFloat(document.getElementById("lcdm-h0").value);
+      const Om    = parseFloat(document.getElementById("lcdm-om").value);
+      const Or    = parseFloat(document.getElementById("lcdm-or").value);
+      const Ol    = parseFloat(document.getElementById("lcdm-ol").value);
       const steps = parseInt(document.getElementById("lcdm-steps").value, 10);
 
       const errors = [];
@@ -2924,28 +3057,28 @@ document.addEventListener("DOMContentLoaded", updateCitation);
       const Hz = H0 * Ez;
 
       const chi = integrate_chi(H0, Om, Or, Ol, z, steps);
-      const DL = (1 + z) * chi;
-      const DA = chi / (1 + z);
+      const DL  = (1 + z) * chi;
+      const DA  = chi / (1 + z);
       const muSN = 5 * Math.log10(DL) + 25;
 
       const lines = [];
       lines.push("Input parameters:");
-      lines.push(`  z    = ${z.toFixed(3)}`);
-      lines.push(`  H₀   = ${H0.toFixed(2)} km/s/Mpc`);
-      lines.push(`  Ωm0  = ${Om.toFixed(4)}`);
-      lines.push(`  Ωr0  = ${Or.toExponential(2)}`);
-      lines.push(`  ΩΛ0  = ${Ol.toFixed(4)}`);
-      lines.push(`  steps = ${steps}`);
+      lines.push(`  z       = ${z.toFixed(3)}`);
+      lines.push(`  H₀      = ${H0.toFixed(2)} km/s/Mpc`);
+      lines.push(`  Ωm0     = ${Om.toFixed(4)}`);
+      lines.push(`  Ωr0     = ${Or.toExponential(2)}`);
+      lines.push(`  ΩΛ0     = ${Ol.toFixed(4)}`);
+      lines.push(`  steps   = ${steps}`);
       lines.push("");
       lines.push("Background (flat ΛCDM):");
-      lines.push(`  E(z)     = H(z)/H₀ = ${Ez.toFixed(5)}`);
-      lines.push(`  H(z)     = ${Hz.toFixed(2)} km/s/Mpc`);
+      lines.push(`  E(z)    = H(z)/H₀ = ${Ez.toFixed(5)}`);
+      lines.push(`  H(z)    = ${Hz.toFixed(2)} km/s/Mpc`);
       lines.push("");
       lines.push("Distances:");
-      lines.push(`  χ(z)     = ${chi.toFixed(2)} Mpc  (${(chi/1000).toFixed(3)} Gpc)`);
-      lines.push(`  D_A(z)   = ${DA.toFixed(2)} Mpc`);
-      lines.push(`  D_L(z)   = ${DL.toFixed(2)} Mpc  (${(DL/1000).toFixed(3)} Gpc)`);
-      lines.push(`  μ (SN)   = ${muSN.toFixed(3)} mag`);
+      lines.push(`  χ(z)    = ${chi.toFixed(2)} Mpc  (${(chi / 1000).toFixed(3)} Gpc)`);
+      lines.push(`  D_A(z)  = ${DA.toFixed(2)} Mpc`);
+      lines.push(`  D_L(z)  = ${DL.toFixed(2)} Mpc  (${(DL / 1000).toFixed(3)} Gpc)`);
+      lines.push(`  μ (SN)  = ${muSN.toFixed(3)} mag`);
       lines.push("");
       lines.push("Notes:");
       lines.push("  • Distances assume a spatially flat geometry.");
@@ -2956,7 +3089,7 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     });
   }
 
-  // =============== QKDE COMPUTE ===============
+  // ================== QKDE COMPUTE (RUNNING K) ==================
 
   function attachQKDECompute() {
     const btn = document.getElementById("qkde-compute");
@@ -2964,9 +3097,9 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     if (!btn || !out) return;
 
     btn.addEventListener("click", () => {
-      const z   = parseFloat(document.getElementById("qkde-z").value);
-      const K0  = parseFloat(document.getElementById("qkde-k0").value);
-      const p   = parseFloat(document.getElementById("qkde-p").value);
+      const z    = parseFloat(document.getElementById("qkde-z").value);
+      const K0   = parseFloat(document.getElementById("qkde-k0").value);
+      const p    = parseFloat(document.getElementById("qkde-p").value);
       const Kref = parseFloat(document.getElementById("qkde-kref").value);
 
       const errors = [];
@@ -2983,7 +3116,7 @@ document.addEventListener("DOMContentLoaded", updateCitation);
       const N = -Math.log(1 + z);
       const a = Math.exp(N);
 
-      const K = 1 + K0 * Math.exp(-p * N); // in N
+      const K = 1 + K0 * Math.exp(-p * N);
       const dK_dN = -p * K0 * Math.exp(-p * N);
       const Kprime_over_K = dK_dN / K;
 
@@ -2993,13 +3126,13 @@ document.addEventListener("DOMContentLoaded", updateCitation);
 
       const lines = [];
       lines.push("Running-K parameterization:");
-      lines.push("  K(N) = 1 + K₀ e^{-pN},   N = ln a = -ln(1+z)");
+      lines.push("  K(N) = 1 + K₀ e^{-pN},    N = ln a = -ln(1+z)");
       lines.push("");
       lines.push("Input:");
       lines.push(`  z       = ${z.toFixed(3)}`);
       lines.push(`  K₀      = ${K0}`);
       lines.push(`  p       = ${p}`);
-      lines.push(`  K_ref   = ${Kref}  (reference normalization, e.g. today)`);
+      lines.push(`  K_ref   = ${Kref}   (reference normalization, e.g. today)`);
       lines.push("");
       lines.push("Derived background quantities:");
       lines.push(`  N(z)    = ${N.toFixed(5)}`);
@@ -3024,17 +3157,257 @@ document.addEventListener("DOMContentLoaded", updateCitation);
     });
   }
 
-  // =============== INIT ===============
+  // ================== GROWTH FACTOR (GR, ΛCDM) ==================
+
+  function solveGrowthFactor_LCDM(z, Om0, Or0, Ol0) {
+    // Solve D(N) with RK4 in GR: D'' + (2 + E) D' - (3/2) Ω_m(N) D = 0
+    // N = ln a, a = e^N. Integrate from deep matter era to given redshift.
+    const a_target = 1.0 / (1.0 + z);
+    if (!(a_target > 0 && a_target <= 1)) {
+      throw new Error("Target scale factor out of range.");
+    }
+
+    const N_start = Math.log(1e-3); // a ~ 1e-3
+    const N_end   = Math.log(a_target);
+    const steps   = 1500;           // good compromise for speed/accuracy
+    const dN = (N_end - N_start) / steps;
+
+    // Initial conditions deep in matter era: D ∝ a ⇒ D = a, D' = D
+    let N = N_start;
+    let a = Math.exp(N);
+    let D = a;     // growing mode
+    let F = D;     // D' = dD/dN = D in pure matter era
+
+    function E_of_N(N) {
+      const a = Math.exp(N);
+      return E_of_a(a, Om0, Or0, Ol0);
+    }
+
+    function Omega_m_of_N(N) {
+      const a = Math.exp(N);
+      return Omega_m_of_a(a, Om0, Or0, Ol0);
+    }
+
+    function derivs(N, D, F) {
+      const E = E_of_N(N);
+      const OmN = Omega_m_of_N(N);
+      const Dprime = F;
+      const Fprime = -(2 + (E_of_N(N + 1e-6) - E) / 1e-6) * F + 1.5 * OmN * D; 
+      // NOTE: derivative of E approximated; but we can simplify:
+      // Actually GR growth equation in N form: D'' + (2 + H'/H) D' - 1.5 Ω_m D = 0
+      // where H'/H = d ln H / dN = (d ln E / dN) because H ∝ E.
+      return { Dprime, Fprime };
+    }
+
+    // We'll implement a cleaner derivs using E and its log-derivative:
+    function derivs_clean(N, D, F) {
+      const a = Math.exp(N);
+      const E = E_of_a(a, Om0, Or0, Ol0);
+      const dlnE_dN = ( ( -3 * Om0 * Math.pow(a, -3) - 4 * Or0 * Math.pow(a, -4) ) /
+                        (2 * E * E) ); // derivative of ln E wrt N
+      const Eterm = dlnE_dN; // H'/H = d ln H/dN = d ln E/dN
+      const OmN = Omega_m_of_a(a, Om0, Or0, Ol0);
+      const Dprime = F;
+      const Fprime = -(2 + Eterm) * F + 1.5 * OmN * D;
+      return { Dprime, Fprime };
+    }
+
+    for (let i = 0; i < steps; i++) {
+      const { Dprime: k1D, Fprime: k1F } = derivs_clean(N, D, F);
+      const { Dprime: k2D, Fprime: k2F } = derivs_clean(N + 0.5 * dN, D + 0.5 * dN * k1D, F + 0.5 * dN * k1F);
+      const { Dprime: k3D, Fprime: k3F } = derivs_clean(N + 0.5 * dN, D + 0.5 * dN * k2D, F + 0.5 * dN * k2F);
+      const { Dprime: k4D, Fprime: k4F } = derivs_clean(N + dN,     D + dN * k3D,     F + dN * k3F);
+
+      D += (dN / 6.0) * (k1D + 2 * k2D + 2 * k3D + k4D);
+      F += (dN / 6.0) * (k1F + 2 * k2F + 2 * k3F + k4F);
+      N += dN;
+    }
+
+    const D_target = D;
+
+    // Now compute D_today by integrating to N = 0, to normalize D(z)/D(0)
+    let N2 = N_start;
+    let a2 = Math.exp(N2);
+    let D2 = a2;
+    let F2 = D2;
+    const steps2 = 1500;
+    const dN2 = (0 - N_start) / steps2;
+
+    for (let i = 0; i < steps2; i++) {
+      const { Dprime: k1D, Fprime: k1F } = derivs_clean(N2, D2, F2);
+      const { Dprime: k2D, Fprime: k2F } = derivs_clean(N2 + 0.5 * dN2, D2 + 0.5 * dN2 * k1D, F2 + 0.5 * dN2 * k1F);
+      const { Dprime: k3D, Fprime: k3F } = derivs_clean(N2 + 0.5 * dN2, D2 + 0.5 * dN2 * k2D, F2 + 0.5 * dN2 * k2F);
+      const { Dprime: k4D, Fprime: k4F } = derivs_clean(N2 + dN2,     D2 + dN2 * k3D,     F2 + dN2 * k3F);
+
+      D2 += (dN2 / 6.0) * (k1D + 2 * k2D + 2 * k3D + k4D);
+      F2 += (dN2 / 6.0) * (k1F + 2 * k2F + 2 * k3F + k4F);
+      N2 += dN2;
+    }
+
+    const D_today = D2;
+    const D_norm = D_target / D_today;
+    const f = (function () {
+      // approximate f = d ln D / d ln a ≈ F / D at target
+      return F / D;
+    })();
+
+    return { D_norm, f };
+  }
+
+  function attachGrowthCompute() {
+    const btn = document.getElementById("grow-compute");
+    const out = document.getElementById("grow-output");
+    if (!btn || !out) return;
+
+    btn.addEventListener("click", () => {
+      const z   = parseFloat(document.getElementById("lcdm-z").value);
+      const H0  = parseFloat(document.getElementById("grow-h0").value);
+      const Om  = parseFloat(document.getElementById("grow-om0").value);
+      const Or  = parseFloat(document.getElementById("grow-or0").value);
+      const Ol  = parseFloat(document.getElementById("grow-ol0").value);
+
+      const errors = [];
+      if (isNaN(z) || z < 0) errors.push("• Redshift z (from ΛCDM card) must be ≥ 0.");
+      if (!(H0 > 0)) errors.push("• H₀ must be positive.");
+      if (Math.abs(Om + Or + Ol - 1.0) > 0.05) {
+        errors.push("• For GR growth in a flat model, Ωm0 + Ωr0 + ΩΛ0 ≈ 1.");
+      }
+
+      if (errors.length > 0) {
+        setOutput(out, ["Input error(s):", ""].concat(errors), true);
+        return;
+      }
+
+      try {
+        const { D_norm, f } = solveGrowthFactor_LCDM(z, Om, Or, Ol);
+        const lines = [];
+        lines.push("GR linear growth (ΛCDM, single mode):");
+        lines.push("");
+        lines.push(`  z                 = ${z.toFixed(3)}`);
+        lines.push(`  D(z)/D(0)         = ${D_norm.toFixed(5)}`);
+        lines.push(`  f(z) = d ln D / d ln a = ${f.toFixed(5)}`);
+        lines.push("");
+        lines.push("Notes:");
+        lines.push("  • Growth is normalized to D(0) = 1 today.");
+        lines.push("  • Equation solved: D'' + (2 + H'/H) D' - 3/2 Ω_m(a) D = 0 in N = ln a.");
+        lines.push("  • This is a GR prediction; QKDE preserves the same growth equation.");
+        setOutput(out, lines, false);
+      } catch (e) {
+        setOutput(out, ["Error during integration:", "", "• " + e.message], true);
+      }
+    });
+  }
+
+  // ================== ΛCDM vs QKDE COMPARISON ==================
+
+  function attachComparisonCompute() {
+    const btn = document.getElementById("cmp-compute");
+    const out = document.getElementById("cmp-output");
+    if (!btn || !out) return;
+
+    btn.addEventListener("click", () => {
+      const z   = parseFloat(document.getElementById("cmp-z").value);
+
+      // Read ΛCDM parameters from LCDM card
+      const H0  = parseFloat(document.getElementById("lcdm-h0").value);
+      const Om  = parseFloat(document.getElementById("lcdm-om").value);
+      const Or  = parseFloat(document.getElementById("lcdm-or").value);
+      const Ol  = parseFloat(document.getElementById("lcdm-ol").value);
+
+      // Read QKDE parameters from QKDE card
+      const K0   = parseFloat(document.getElementById("cmp-k0").value);
+      const p    = parseFloat(document.getElementById("cmp-p").value);
+      const Kref = parseFloat(document.getElementById("cmp-kref").value);
+
+      const errors = [];
+      if (!(z >= 0)) errors.push("• Comparison redshift z must be ≥ 0.");
+      if (!(H0 > 0)) errors.push("• H₀ from ΛCDM card must be positive.");
+      if (Math.abs(Om + Or + Ol - 1.0) > 0.05) {
+        errors.push("• For a flat ΛCDM baseline, Ωm0 + Ωr0 + ΩΛ0 ≈ 1.");
+      }
+      if (isNaN(K0)) errors.push("• K₀ must be a number.");
+      if (isNaN(p)) errors.push("• p must be a number.");
+      if (isNaN(Kref) || Kref <= 0) errors.push("• K_ref must be positive.");
+
+      if (errors.length > 0) {
+        setOutput(out, ["Input error(s):", ""].concat(errors), true);
+        return;
+      }
+
+      // ΛCDM H(z) and distances
+      const Ez = E_of_z(z, Om, Or, Ol);
+      const Hz = H0 * Ez;
+      const chi = integrate_chi(H0, Om, Or, Ol, z, 400);
+      const DL  = (1 + z) * chi;
+
+      // QKDE K(z)
+      const N = -Math.log(1 + z);
+      const a = Math.exp(N);
+      const K = 1 + K0 * Math.exp(-p * N);
+      const dK_dN = -p * K0 * Math.exp(-p * N);
+      const Kprime_over_K = dK_dN / K;
+      const K_ratio = K / Kref;
+
+      // Growth (GR, ΛCDM)
+      let growthText = "";
+      try {
+        const { D_norm, f } = solveGrowthFactor_LCDM(z, Om, Or, Ol);
+        growthText = [
+          `  D(z)/D(0)  ≈ ${D_norm.toFixed(5)}`,
+          `  f(z)       ≈ ${f.toFixed(5)}`
+        ].join("\n");
+      } catch (e) {
+        growthText = "  (Growth integration failed: " + e.message + ")";
+      }
+
+      const lines = [];
+      lines.push("ΛCDM vs QKDE at a single redshift:");
+      lines.push("");
+      lines.push("Baseline ΛCDM (background):");
+      lines.push(`  z          = ${z.toFixed(3)}`);
+      lines.push(`  H(z)       = ${Hz.toFixed(2)} km/s/Mpc`);
+      lines.push(`  E(z)       = H(z)/H₀ = ${Ez.toFixed(5)}`);
+      lines.push(`  D_L(z)     = ${DL.toFixed(2)} Mpc  (${(DL / 1000).toFixed(3)} Gpc)`);
+      lines.push("");
+      lines.push("QKDE running kinetic normalization:");
+      lines.push(`  K(N)       = 1 + K₀ e^{-pN},  N = ln a = -ln(1+z)`);
+      lines.push(`  N(z)       = ${N.toFixed(5)}`);
+      lines.push(`  a(z)       = ${a.toFixed(5)}`);
+      lines.push(`  K(z)       = ${K.toFixed(6)}`);
+      lines.push(`  K'(N)/K(N) = ${Kprime_over_K.toFixed(6)}`);
+      lines.push(`  K(z)/K_ref = ${K_ratio.toFixed(6)}`);
+      lines.push("");
+      lines.push("Growth (GR, same gravity sector for QKDE and ΛCDM):");
+      lines.push(growthText);
+      lines.push("");
+      lines.push("Interpretation:");
+      lines.push("  • ΛCDM fixes H(z) and distances once (H₀, Ωm0, Ωr0, ΩΛ0) are chosen.");
+      lines.push("  • QKDE keeps the same GR growth equation and metric sector,");
+      lines.push("    but allows the kinetic normalization K(t) to drift in time.");
+      lines.push("  • Any deviation in observables comes from how K(t) reshapes the");
+      lines.push("    background expansion H(a) while preserving GR structure.");
+
+      setOutput(out, lines, false);
+    });
+  }
+
+  // ================== INIT ==================
 
   document.addEventListener("DOMContentLoaded", () => {
+    // Formula toggles
     attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
     attachFormulaToggle("qkde-formula-toggle", "qkde-formulas");
+    attachFormulaToggle("grow-formula-toggle", "grow-formulas");
 
+    // Presets
     attachLCDMPresets();
     attachQKDEPresets();
 
+    // Core calculators
     attachLCDMCompute();
     attachQKDECompute();
+    attachGrowthCompute();
+    attachComparisonCompute();
   });
 </script>
 <footer class="site-footer">
