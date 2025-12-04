@@ -3672,129 +3672,83 @@ document.addEventListener("DOMContentLoaded", updateCitation);
   });
 </script>
 <script>
-// ===============================================================
-//  COSMOLOGY BACKGROUND: ΛCDM, wCDM, CPL, QKDE (running-K)
-// ===============================================================
 
 // ===============================================================
-// ΛCDM
+//  COSMOLOGY BACKGROUND FUNCTIONS: E(a) AND (H'/H) EXACT
 // ===============================================================
+
+// ΛCDM
 function E_LCDM(a, p) {
   const om0 = p.om0;
   const or0 = p.or0;
   const ol0 = 1 - om0 - or0;
-  return Math.sqrt( om0/(a*a*a) + or0/(a*a*a*a) + ol0 );
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ol0 );
 }
 
+// Exact H'/H for ΛCDM
 function dlnH_LCDM(a, p) {
   const E = E_LCDM(a, p);
   const E2 = E*E;
-
-  const om = (p.om0/(a*a*a)) / E2;
-  const or = (p.or0/(a*a*a*a)) / E2;
-
-  return -1.5*om - 2*or; // Λ has w = -1 → no derivative contribution
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
+  const ode = 1 - om - or;
+  return -1.5*om - 2*or;  // DE has w=-1 → contributes 0
 }
 
 // ===============================================================
-// Constant-w (Quintessence-like)
+// Constant-w (quintessence-like)
 // ===============================================================
 function E_wCDM(a, p) {
-  const om0 = p.om0, or0 = p.or0, w = p.wq;
+  const om0 = p.om0, or0=p.or0, w=p.wq;
   const ode0 = 1 - om0 - or0;
-  return Math.sqrt(
-    om0/(a**3) + or0/(a**4) + ode0 * (a**(-3*(1+w)))
-  );
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ode0*(a**(-3*(1+w))) );
 }
 
+// Exact H'/H for constant w
 function dlnH_wCDM(a, p) {
   const E = E_wCDM(a, p);
   const E2 = E*E;
-  const om = (p.om0/(a**3))/E2;
-  const or = (p.or0/(a**4))/E2;
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
   const ode = 1 - om - or;
   return -1.5*om - 2*or - 1.5*(1+p.wq)*ode;
 }
 
 // ===============================================================
-// CPL (k-essence-like background approximation)
-//    w(a) = w0 + wa(1-a)
+// CPL: w(a) = w0 + wa(1-a)
 // ===============================================================
 function E_CPL(a, p) {
   const om0 = p.om0, or0=p.or0, w0=p.w0, wa=p.wa;
   const ode0 = 1 - om0 - or0;
 
   const w_a = w0 + wa*(1 - a);
-  const exponent = -3*(1 + w0 + wa);
+  const exponent = -3*(1+w0+wa);
   const deFactor =
-    Math.pow(a, exponent) * Math.exp(-3*wa*(1-a));
+      Math.pow(a, exponent) *
+      Math.exp(-3*wa*(1-a));  // exact CPL factor
 
-  return Math.sqrt(
-    om0/(a**3) + or0/(a**4) + ode0*deFactor
-  );
+  return Math.sqrt( om0/(a**3) + or0/(a**4) + ode0*deFactor );
 }
 
+// Exact H'/H for CPL
 function dlnH_CPL(a, p) {
-  const E = E_CPL(a, p), E2 = E*E;
-  const om = (p.om0/(a**3))/E2;
-  const or = (p.or0/(a**4))/E2;
+  const E = E_CPL(a, p);
+  const E2 = E*E;
+
+  const om = p.om0/(a**3)/E2;
+  const or = p.or0/(a**4)/E2;
   const ode = 1 - om - or;
 
   const w_a = p.w0 + p.wa*(1 - a);
-  return -1.5*om - 2*or - 1.5*(1+w_a)*ode;
+  return -1.5*om - 2*or - 1.5*(1 + w_a)*ode;
 }
 
-// ===============================================================
-// QKDE: Effective background using running-K
-//     K(a) = 1 + K0 * a^p
-// ---------------------------------------------------------------
-// NOTE: This is NOT the full QKDE ODE system, but the most
-// physically consistent approximate background without solving
-// φ(N) explicitly.
-// ===============================================================
-function K_QKDE(a, p) {
-  const K0 = p.K0;
-  const exp = p.pK;
-  return 1 + K0 * Math.pow(a, exp);
-}
-
-function E_QKDE(a, p) {
-  const om0 = p.om0;
-  const or0 = p.or0;
-
-  const K = K_QKDE(a, p);
-  const K_today = K_QKDE(1.0, p);
-
-  const rho_phi = (1 - om0 - or0) * (K / K_today);
-
-  return Math.sqrt(
-    om0/(a**3) + or0/(a**4) + rho_phi
-  );
-}
-
-function dlnH_QKDE(a, p) {
-  const E = E_QKDE(a, p);
-  const E2 = E*E;
-
-  const om = (p.om0/(a**3))/E2;
-  const or = (p.or0/(a**4))/E2;
-
-  // Effective DE fraction
-  const K = K_QKDE(a, p);
-  const K_today = K_QKDE(1, p);
-  const ode = (1 - om - or) * (K / K_today);
-
-  // Effective w ≈ -1 + (d ln K)/(3 d ln a)
-  const dlnK_dlnA = (p.pK * K0 * a**p.pK) / K;
-  const w_eff = -1 + dlnK_dlnA / 3;
-
-  return -1.5*om - 2*or - 1.5*(1+w_eff)*ode;
-}
 
 // ===============================================================
-// GROWTH ODE SOLVER (RK4)
+// GROWTH ODE SOLVER (RK4) IN N = ln(a)
 // ===============================================================
-function integrateGrowth(Efunc, LNH, params) {
+
+function integrateGrowth(modelE, dlnH_func, params) {
   const { om0, or0, zmax, samples } = params;
 
   const a_min = 1/(1+zmax);
@@ -3802,19 +3756,28 @@ function integrateGrowth(Efunc, LNH, params) {
   const N_max = 0;
   const dN = (N_max - N_min)/(samples-1);
 
-  const aArr=[], zArr=[], DArr=[];
-  let N = N_min, a = Math.exp(N);
+  const aArr = [];
+  const zArr = [];
+  const DArr = [];
 
-  let D = a, Dp = D;  // initial growing mode
+  let N = N_min;
+  let a = Math.exp(N);
 
-  function derivs(Nv, Dv, Dpv) {
-    const aLoc = Math.exp(Nv);
-    const E = Efunc(aLoc, params);
-    const dlnH = LNH(aLoc, params);
-    const Om_a = (om0/(aLoc**3))/(E*E);
+  // Initial D ~ a in deep matter
+  let D = a;
+  let Dp = D;
 
-    const dD = Dpv;
-    const dDp = -(2+dlnH)*Dpv + 1.5*Om_a*Dv;
+  function derivs(Nloc, Dloc, Dploc) {
+    const aLoc = Math.exp(Nloc);
+
+    const E = modelE(aLoc, params);
+    const EprimeOverE = dlnH_func(aLoc, params);
+
+    const Om_a = (om0/(aLoc**3)) / (E*E);
+
+    const dD = Dploc;
+    const dDp = -(2 + EprimeOverE)*Dploc + 1.5*Om_a*Dloc;
+
     return [dD, dDp];
   }
 
@@ -3832,11 +3795,12 @@ function integrateGrowth(Efunc, LNH, params) {
       const [k3D,k3Dp] = derivs(N+0.5*dN, D+0.5*dN*k2D, Dp+0.5*dN*k2Dp);
       const [k4D,k4Dp] = derivs(N+dN,     D+dN*k3D,     Dp+dN*k3Dp);
 
-      D  += dN*(k1D + 2*k2D + 2*k3D + k4D)/6;
-      Dp += dN*(k1Dp+2*k2Dp+2*k3Dp+k4Dp)/6;
+      D  += dN*(k1D  + 2*k2D  + 2*k3D  + k4D )/6;
+      Dp += dN*(k1Dp + 2*k2Dp + 2*k3Dp + k4Dp)/6;
     }
   }
 
+  // Normalize D(a=1)=1
   const D_today = DArr[DArr.length-1];
   const Dnorm = DArr.map(v => v/D_today);
   const D_over_a = Dnorm.map((v,i) => v/aArr[i]);
@@ -3844,78 +3808,79 @@ function integrateGrowth(Efunc, LNH, params) {
   return { a:aArr, z:zArr, Dnorm, D_over_a };
 }
 
+
 // ===============================================================
-// PLOTTING
+// ADVANCED GROWTH COMPARATOR PLOTTING
 // ===============================================================
+
 let advGrowthChart = null;
 
 function buildAdvancedGrowthPlot(){
-  const om0  = parseFloat(document.getElementById("adv-om0").value);
-  const or0  = parseFloat(document.getElementById("adv-or0").value);
+  const om0 = parseFloat(document.getElementById("adv-om0").value);
+  const or0 = parseFloat(document.getElementById("adv-or0").value);
   const zmax = parseFloat(document.getElementById("adv-zmax").value);
-
   const wq   = parseFloat(document.getElementById("adv-wq").value);
   const w0   = parseFloat(document.getElementById("adv-w0").value);
   const wa   = parseFloat(document.getElementById("adv-wa").value);
-
-  const K0   = parseFloat(document.getElementById("qkde-k0").value);
-  const pK   = parseFloat(document.getElementById("qkde-p").value);
-
   const samples = parseInt(document.getElementById("adv-samples").value);
 
-  const xMode = document.getElementById("adv-xaxis").value;
+  const xMode  = document.getElementById("adv-xaxis").value;
   const normMode = document.getElementById("adv-norm").value;
 
-  const showLCDM = document.getElementById("adv-show-lcdm").checked;
+  const showLCDM  = document.getElementById("adv-show-lcdm").checked;
   const showQuint = document.getElementById("adv-show-quint").checked;
-  const showKess = document.getElementById("adv-show-kess").checked;
-  const showQKDE = true; // always show QKDE now
+  const showKess  = document.getElementById("adv-show-kess").checked;
 
-  const base = { om0, or0, zmax, samples, wq, w0, wa, K0, pK };
+  const baseParams = { om0, or0, zmax, samples };
 
-  const lcdm = integrateGrowth(E_LCDM, dlnH_LCDM, base);
-  const quint = integrateGrowth(E_wCDM, dlnH_wCDM, base);
-  const kess  = integrateGrowth(E_CPL,  dlnH_CPL,  base);
-  const qkde  = integrateGrowth(E_QKDE, dlnH_QKDE, base);
+  const lcdm = integrateGrowth(E_LCDM, dlnH_LCDM, baseParams);
+  const quint = integrateGrowth(E_wCDM, dlnH_wCDM, Object.assign({}, baseParams, {wq}));
+  const kess  = integrateGrowth(E_CPL,  dlnH_CPL,  Object.assign({}, baseParams, {w0, wa}));
 
-  const labels = xMode==="a" ? lcdm.a : lcdm.z;
-  const pick = (res)=> (normMode==="Da" ? res.Dnorm : res.D_over_a);
+  const labels = xMode === "a" ? lcdm.a : lcdm.z;
+  const pick = (res) => (normMode==="Da" ? res.Dnorm : res.D_over_a);
 
-  const ds = [];
-  if(showLCDM) ds.push({label:"ΛCDM", data:pick(lcdm), borderWidth:2});
-  if(showQuint) ds.push({label:`Quint. w=${wq}`, data:pick(quint), borderDash:[6,4], borderWidth:2});
-  if(showKess) ds.push({label:`CPL (w0=${w0}, wa=${wa})`, data:pick(kess), borderDash:[3,3], borderWidth:2});
-  ds.push({label:`QKDE (K0=${K0}, p=${pK})`, data:pick(qkde), borderWidth:3});
+  const datasets = [];
+  if (showLCDM)
+    datasets.push({ label:"ΛCDM", data:pick(lcdm), borderWidth:2, tension:0.15 });
+  if (showQuint)
+    datasets.push({ label:`Quintessence w=${wq}`, data:pick(quint),
+                    borderWidth:2, borderDash:[6,4], tension:0.15 });
+  if (showKess)
+    datasets.push({ label:`k-essence-like w0=${w0}, wa=${wa}`,
+                    data:pick(kess), borderWidth:2, borderDash:[2,3], tension:0.15 });
 
   const ctx = document.getElementById("adv-growth-canvas").getContext("2d");
-  if(advGrowthChart) advGrowthChart.destroy();
+  if (advGrowthChart) advGrowthChart.destroy();
 
   advGrowthChart = new Chart(ctx, {
     type:"line",
-    data:{ labels, datasets:ds },
+    data:{ labels, datasets },
     options:{
       responsive:true,
       maintainAspectRatio:false,
       scales:{
-        x:{title:{display:true, text:xMode==="a" ? "Scale factor a":"Redshift z"}},
-        y:{title:{display:true, text:normMode==="Da" ? "D(a)" : "D(a)/a"}}
+        x:{ title:{ display:true, text:xMode==="a" ? "Scale factor a" : "Redshift z" } },
+        y:{ title:{ display:true, text:normMode==="Da" ? "D(a)" : "D(a)/a" } }
       }
     }
   });
 
-  const mid = Math.floor(samples/2);
-  document.getElementById("adv-growth-info").textContent =
-    `Midpoint comparison (a ≈ ${lcdm.a[mid].toFixed(3)}):\n\n` +
-    `ΛCDM:     D ≈ ${lcdm.Dnorm[mid].toFixed(4)}\n` +
-    `Quintessence: D ≈ ${quint.Dnorm[mid].toFixed(4)}\n` +
-    `CPL:      D ≈ ${kess.Dnorm[mid].toFixed(4)}\n` +
-    `QKDE:     D ≈ ${qkde.Dnorm[mid].toFixed(4)}\n`;
+  const info = document.getElementById("adv-growth-info");
+  const mid = Math.floor(lcdm.Dnorm.length/2);
+  info.textContent =
+    `Comparison computed from z_max=${zmax}.\n\n` +
+    `At a≈${lcdm.a[mid].toFixed(2)}:\n` +
+    `  ΛCDM: D≈${lcdm.Dnorm[mid].toFixed(3)}\n` +
+    `  Quintessence: D≈${quint.Dnorm[mid].toFixed(3)}\n` +
+    `  k-essence-like: D≈${kess.Dnorm[mid].toFixed(3)}\n`;
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
   document.getElementById("adv-growth-compute")
     .addEventListener("click", buildAdvancedGrowthPlot);
 });
+
 </script>
 <footer class="site-footer">
   © 2025 Daniel Brown — Quantum–Kinetic Dark Energy (QKDE)
