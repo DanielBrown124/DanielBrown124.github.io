@@ -96,18 +96,20 @@ body {
 }
 
 .calc-card {
+  flex: 1 1 260px;
+  max-width: 380px;
   background: radial-gradient(circle at 0% 0%, rgba(102,252,241,0.12) 0, transparent 55%),
               radial-gradient(circle at 120% 120%, rgba(102,252,241,0.10) 0, transparent 55%),
               rgba(12, 18, 28, 0.82);
-  backdrop-filter: blur(7px);
-  border: 1px solid rgba(102,252,241,0.14);
+  padding: 18px 20px 20px;
   border-radius: 16px;
-  box-shadow: 0 0 22px rgba(102,252,241,0.12), inset 0 0 18px rgba(102,252,241,0.06);
-  flex: 1 1 320px;
-  max-width: 430px;
-  overflow: hidden;
-  padding: 20px 22px 22px;
+  border: 1px solid rgba(102,252,241,0.14);
+  box-shadow:
+    0 0 22px rgba(102,252,241,0.12),
+    inset 0 0 18px rgba(102,252,241,0.06);
+  backdrop-filter: blur(7px);
   position: relative;
+  overflow: hidden;
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
@@ -730,19 +732,29 @@ html {
 }
 
 /* RESPONSIVE FIXES */
-@media (max-width: 540px) {
-  .calc-input-row {
-    grid-template-columns: 1fr;
+/* Slightly shrink narrow screens so 2 cards still fit */
+@media (max-width: 980px) {
+  .calc-card {
+    flex: 1 1 calc(50% - 20px);
+    max-width: 350px;
   }
 }
 
-@media (max-width: 780px) {
+/* Mobile: one card per row */
+@media (max-width: 600px) {
   .calc-card {
-    padding: 18px 18px 20px;
+    flex: 1 1 100%;
+    max-width: 100%;
   }
-  .calc-grid {
-    gap: 18px;
+}adding: 18px 18px 20px;
   }
+ .calc-grid {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
 }
 </style>
 
