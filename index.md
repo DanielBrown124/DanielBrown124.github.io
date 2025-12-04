@@ -1973,294 +1973,291 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 </details>
 </details>
 <details id="comparison-qkde">
-  <summary><span class="summary-label">Comparing QKDE to existing models</span></summary>
+  <summary><span class="summary-label">Comparing QKDE to Existing Models</span></summary>
   <div class="details-body">
 
     <p>
-      This section places <strong>Quantum–Kinetic Dark Energy (QKDE)</strong> within the modern
-      dark-energy / modified-gravity landscape. Content is organized into nested dropdowns
-      for clarity: an overview, a comparison matrix, and detailed entries for major
-      frameworks. The goal is to make the theoretical distinctions precise and eliminate
-      common misconceptions (e.g. that QKDE is “just quintessence” or “just k-essence”).
+      This section places <strong>Quantum–Kinetic Dark Energy (QKDE)</strong> within the full
+      dark-energy and modified-gravity theory landscape. To keep the structure readable,
+      the content is organized into nested dropdowns: an overview, a comparison matrix,
+      a theory-space flowchart, detailed model comparisons, and a “non-equivalence” section
+      that formalizes why QKDE is not quintessence or k-essence.
     </p>
 
-    <!-- ====================== OVERVIEW ====================== -->
+    <!-- ============================================================
+         1. OVERVIEW
+    ============================================================ -->
     <details>
-      <summary><span class="summary-label">Overview & quick summary</span></summary>
+      <summary><span class="summary-label">Overview & Theory-Space Position</span></summary>
       <div class="details-body">
-        <p>QKDE is characterized by:</p>
+        <p>
+          QKDE is defined by
+        </p>
+        <p style="text-align:center;">
+          \( P(X,\phi,t) = K(t)\,X - V(\phi), \qquad K(t) > 0,\quad
+          X = -\tfrac12 g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi. \)
+        </p>
+        <p>
+          with an <em>unmodified Einstein–Hilbert sector</em>. In EFT–DE coordinates:
+        </p>
         <ul>
-          <li><strong>Pure GR metric sector</strong>: no modified gravity, luminal tensors, constant Planck mass.</li>
-          <li><strong>Single scalar field</strong> with <em>canonical perturbations</em> and \(c_s^2 = 1\).</li>
-          <li><strong>Time-dependent kinetic normalization</strong> \(K(t)\) multiplying a canonical \(X\) term.</li>
-          <li><strong>EFT–DE signature</strong>: \(\alpha_K > 0\); all other \(\alpha_i = 0\).</li>
-          <li><strong>All observables flow through \(H(a)\)</strong> and the induced linear growth.</li>
+          <li>Single scalar degree of freedom.</li>
+          <li>\(\alpha_K > 0\) (time-dependent kinetic normalization).</li>
+          <li>\(\alpha_B = \alpha_M = \alpha_T = \alpha_H = 0\).</li>
+          <li>Canonical perturbations: \(c_s^2 = 1\).</li>
+          <li>Metric potentials equal: \(\Phi = \Psi\).</li>
+          <li>Luminal gravitational waves: \(c_T^2 = 1\).</li>
         </ul>
         <p>
-          QKDE is therefore not a modified-gravity model, not a generic k-essence model, 
-          and not reducible to quintessence via field redefinition.
+          All observational signatures arise solely through the background expansion
+          \(H(a)\) and the induced growth \(D(a)\). QKDE has <em>no modified gravity</em>.
         </p>
       </div>
     </details>
 
-    <!-- ====================== MATRIX ====================== -->
+    <!-- ============================================================
+         2. THEORY-SPACE FLOWCHART
+    ============================================================ -->
     <details>
-      <summary><span class="summary-label">Quick comparison matrix</span></summary>
+      <summary><span class="summary-label">Flowchart: Where QKDE Sits in Theory Space</span></summary>
       <div class="details-body">
 
-        <p>A compact comparison of structural features:</p>
+        <p>
+          The following logic diagram visually shows how the theory space bifurcates.
+        </p>
+
+<pre style="background:rgba(0,0,0,0.5); padding:16px; border-radius:10px; overflow-x:auto; font-size:0.9rem; line-height:1.5;">
+                     🔽 START: Cosmological Late-Time Acceleration
+                     |
+     ┌─────────────────────────────────────────────────────────────┐
+     |               Does gravity deviate from GR?                 |
+     └─────────────────────────────────────────────────────────────┘
+                     | Yes                                   | No
+                     |                                        |
+          ┌──────────────────┐                      ┌───────────────────────┐
+          | Modified Gravity |                      |   Scalar DE in GR    |
+          └──────────────────┘                      └───────────────────────┘
+          |                                             |
+   ┌───────────────┐                           ┌────────────────────────────┐
+   | f(R), DHOST,   |                           | Is kinetic term canonical? |
+   | Horndeski, etc.|                           └────────────────────────────┘
+   └───────────────┘                                | Yes             | No
+                                                     |                |
+                                      ┌────────────────────┐   ┌─────────────────────┐
+                                      |  Quintessence      |   |     k-essence       |
+                                      └────────────────────┘   └─────────────────────┘
+                                      |                              |
+                 ┌──────────────────────────────────────────────────────────────┐
+                 |  Does the kinetic normalization vary only with time,         |
+                 |  preserving c_s² = 1 and all EFT-MG functions = 0?           |
+                 └──────────────────────────────────────────────────────────────┘
+                                      | Yes
+                                      |
+                             ┌────────────────────┐
+                             |       QKDE          |
+                             |  (unique position)  |
+                             └────────────────────┘
+</pre>
+
+        <p>
+          This flowchart makes explicit that QKDE is not reachable from modified gravity,
+          not equivalent to k-essence, and not reducible to quintessence through any
+          field redefinition that keeps the metric sector Einsteinian.
+        </p>
+      </div>
+    </details>
+
+    <!-- ============================================================
+         3. COMPARISON MATRIX
+    ============================================================ -->
+    <details>
+      <summary><span class="summary-label">Quick Comparison Matrix</span></summary>
+      <div class="details-body">
+        <p>A condensed view of the main structural differences:</p>
 
         <table class="symbol-table">
           <thead>
             <tr>
               <th>Model</th>
-              <th>GR metric?</th>
-              <th>Degrees of freedom</th>
-              <th>EFT–DE pattern</th>
-              <th>Sound speed</th>
-              <th>Main DE mechanism</th>
+              <th>Gravity Sector</th>
+              <th>Kinetic Structure</th>
+              <th>EFT–DE Pattern</th>
+              <th>Perturbations</th>
+              <th>Driver of Dynamics</th>
             </tr>
           </thead>
           <tbody>
-
             <tr>
               <td>\(\Lambda\)CDM</td>
-              <td>Yes</td>
-              <td>No new scalar</td>
-              <td>All \(\alpha_i = 0\)</td>
-              <td>–</td>
-              <td>Constant vacuum energy</td>
+              <td>Pure GR</td>
+              <td>None</td>
+              <td>All \(\alpha_i=0\)</td>
+              <td>GR</td>
+              <td>Constant \(\Lambda\)</td>
             </tr>
-
             <tr>
               <td>Quintessence</td>
-              <td>Yes</td>
-              <td>1 canonical scalar</td>
-              <td>\(\alpha_K \neq 0\), others 0</td>
-              <td>\(c_s^2 = 1\)</td>
+              <td>GR</td>
+              <td>Canonical</td>
+              <td>\(\alpha_K\neq0,\) others 0</td>
+              <td>\(c_s^2=1\)</td>
               <td>Potential \(V(\phi)\)</td>
             </tr>
-
             <tr>
               <td>k-essence</td>
-              <td>Usually</td>
-              <td>1 noncanonical scalar</td>
-              <td>Model-dependent</td>
-              <td>Often \(c_s^2 \neq 1\)</td>
+              <td>GR</td>
               <td>General \(P(X,\phi)\)</td>
-            </tr>
-
-            <tr>
-              <td>Horndeski / DHOST</td>
-              <td>No (MG)</td>
-              <td>Scalar–tensor</td>
-              <td>Multiple \(\alpha_i\) active</td>
               <td>Model-dependent</td>
+              <td>Usually \(c_s^2\neq1\)</td>
+              <td>Nonlinear kinetic term</td>
+            </tr>
+            <tr>
+              <td>Horndeski/DHOST</td>
               <td>Modified gravity</td>
+              <td>Higher-derivative structure</td>
+              <td>Multiple \(\alpha_i\)</td>
+              <td>Slip + MG effects</td>
+              <td>Curvature–scalar mixing</td>
             </tr>
-
             <tr>
-              <td>f(R) / MG</td>
-              <td>No</td>
-              <td>Effective scalaron</td>
-              <td>\(\alpha_M,\alpha_B,\alpha_T\) etc.</td>
-              <td>Model-dependent</td>
-              <td>Altered gravitational action</td>
+              <td>f(R), MG</td>
+              <td>Modified gravity</td>
+              <td>Effective scalar</td>
+              <td>\(\alpha_M,\alpha_B,\alpha_T...\)</td>
+              <td>Scale-dependent growth</td>
+              <td>Modified action</td>
             </tr>
-
-            <tr>
-              <td>Interacting / unified dark fluids</td>
-              <td>Model-dependent</td>
-              <td>1–2 effective fields</td>
-              <td>Model-dependent</td>
-              <td>Model-dependent</td>
-              <td>Dark-sector coupling</td>
-            </tr>
-
             <tr>
               <td><strong>QKDE</strong></td>
-              <td><strong>Yes</strong></td>
-              <td><strong>1 canonical scalar</strong></td>
-              <td><strong>\(\alpha_K > 0\), others 0</strong></td>
-              <td><strong>\(c_s^2 = 1\)</strong></td>
-              <td><strong>Time-dependent \(K(t)\)</strong></td>
+              <td><strong>Pure GR</strong></td>
+              <td><strong>Canonical with time-dependent \(K(t)\)</strong></td>
+              <td><strong>\(\alpha_K>0;\) others 0</strong></td>
+              <td><strong>\(c_s^2=1,\ \Phi=\Psi\)</strong></td>
+              <td><strong>Kinetic normalization drift</strong></td>
             </tr>
-
           </tbody>
         </table>
 
-        <p style="margin-top: 12px;">
-          QKDE sits between \(\Lambda\)CDM and quintessence but is orthogonal to k-essence
-          and modified gravity in functional form and phenomenology.
-        </p>
-
       </div>
     </details>
 
-    <!-- ====================== MODELS ====================== -->
+    <!-- ============================================================
+         4. DETAILED MODEL SECTIONS
+    ============================================================ -->
 
-    <!-- ΛCDM -->
     <details>
-      <summary><span class="summary-label">\(\Lambda\)CDM</span></summary>
+      <summary><span class="summary-label">ΛCDM</span></summary>
       <div class="details-body">
 
-        <p><strong>Definition:</strong> Constant vacuum energy, no new fields, exact GR.</p>
-
-        <p><strong>Key differences from QKDE:</strong></p>
+        <strong>Difference from QKDE:</strong>
         <ul>
-          <li>\(\Lambda\)CDM has no scalar; QKDE has one.</li>
-          <li>\(\Lambda\)CDM has fixed \(w = -1\); QKDE produces dynamical \(w_{\rm eff}(a)\).</li>
-          <li>QKDE introduces \(\alpha_K\neq 0\); \(\Lambda\)CDM has all \(\alpha_i = 0\).</li>
+          <li>No scalar degree of freedom.</li>
+          <li>No kinetic sector, no \(K(t)\), no \(\alpha_K\).</li>
+          <li>Expansion history is fixed, whereas QKDE produces controlled deviations.</li>
         </ul>
 
-        <p><strong>Relationship:</strong>  
-        QKDE contains \(\Lambda\)CDM as the special case \(K(t) \to \text{const}\).
-        </p>
+        <strong>Relationship:</strong>  
+        QKDE → ΛCDM when \(K(t)\to\mathrm{const}\) and \(V\to\mathrm{const}\).
 
       </div>
     </details>
 
-    <!-- Quintessence -->
+
     <details>
       <summary><span class="summary-label">Quintessence</span></summary>
       <div class="details-body">
-
-        <p><strong>Definition:</strong> Canonical scalar with fixed kinetic normalization and a potential.</p>
-
-        <p><strong>Distinctive differences from QKDE:</strong></p>
+        <p><strong>Why QKDE is not quintessence:</strong></p>
         <ul>
-          <li>Quintessence uses \(P = X - V(\phi)\); QKDE uses \(P = K(t)X - V(\phi)\).</li>
-          <li>In QKDE, \(K(t)\) is a physical background function and cannot be removed by field redefinition.</li>
-          <li>Quintessence dynamics are potential-driven; QKDE shifts dynamics into a kinetic drift.</li>
-          <li>Heavy-field or curvature-suppressed origins for \(K(t)\) have no quintessence analogue.</li>
+          <li>
+            Quintessence has <em>fixed</em> kinetic normalization \(K=1\); QKDE has a
+            <em>physical</em> time-dependent \(K(t)\) that cannot be removed by any field redefinition
+            consistent with EFT–DE structure.
+          </li>
+          <li>
+            QKDE’s running \(K\) changes the background system and its mapping into
+            EFT–DE in a way no quintessence potential can mimic.
+          </li>
+          <li>
+            The UV motivation (curvature-suppressed \(R X\) operator) has no quintessence analogue.
+          </li>
         </ul>
 
-        <!-- NESTED: WHY IT IS NOT QUINTESSENCE -->
-        <details>
-          <summary><span class="summary-label">Why QKDE is <em>not</em> quintessence</span></summary>
-          <div class="details-body">
-            <ul>
-              <li>A time-dependent \(K(t)\) produces effects that cannot be absorbed into a redefined scalar field without breaking GR or changing the EFT mapping.</li>
-              <li>Quintessence has no operator-level mechanism for kinetic drift; QKDE does (e.g. \(R X\) suppression).</li>
-              <li>The expansion freedom in QKDE comes from \(K(t)\), not from altering \(V(\phi)\).</li>
-            </ul>
-            <p><strong>Bottom line:</strong>  
-            QKDE ≠ quintessence; they occupy different directions in theory space.
-            </p>
-          </div>
-        </details>
-
+        <p><strong>Result:</strong>  
+        Quintessence is <em>potential-driven</em>; QKDE is <em>kinetic-normalization–driven</em>.
+        They are not equivalent models.
+        </p>
       </div>
     </details>
 
-    <!-- k-essence -->
+
     <details>
       <summary><span class="summary-label">k-essence</span></summary>
       <div class="details-body">
 
-        <p><strong>Definition:</strong> Scalar with general nonlinear kinetic structure \(P(X,\phi)\).</p>
-
-        <p><strong>Distinctive differences from QKDE:</strong></p>
+        <p><strong>Why QKDE is not k-essence:</strong></p>
         <ul>
-          <li>k-essence allows arbitrary functional dependence; QKDE is linear in \(X\).</li>
-          <li>k-essence generically allows \(c_s^2\neq 1\); QKDE enforces \(c_s^2=1\).</li>
-          <li>k-essence often induces clustering or scale dependence; QKDE does not.</li>
-          <li>QKDE’s \(K(t)\) depends on time only, not on \(X\) or \(\phi\).</li>
+          <li>k-essence allows arbitrary nonlinear \(P(X,\phi)\); QKDE enforces exact linearity in \(X\).</li>
+          <li>
+            Generic k-essence modifies the sound speed (\(c_s^2\neq1\)) and clustering.
+            QKDE <emforces> canonical propagation</em> with \(c_s^2 = 1\).
+          </li>
+          <li>
+            QKDE’s \(K(t)\) comes specifically from curvature-suppressed operators and
+            heavy-field integration, not arbitrary phenomenology.
+          </li>
         </ul>
 
-        <!-- NESTED -->
-        <details>
-          <summary><span class="summary-label">Why QKDE is <em>not</em> k-essence</span></summary>
-          <div class="details-body">
-            <ul>
-              <li>QKDE forbids nonlinear kinetic terms; it is <em>not</em> a truncation of k-essence because the structure \(K(t)X\) is physically motivated and fixed.</li>
-              <li>k-essence’s hallmark — variable sound speed — is absent in QKDE by construction.</li>
-              <li>k-essence lacks the EFT and QFT-in-curved-space motivation behind \(K(t)\).</li>
-            </ul>
-            <p><strong>Bottom line:</strong>  
-              QKDE is too constrained to be classified as generic k-essence.
-          </div>
-        </details>
-
-      </div>
-    </details>
-
-    <!-- Horndeski / DHOST -->
-    <details>
-      <summary><span class="summary-label">Horndeski & beyond-Horndeski (DHOST)</span></summary>
-      <div class="details-body">
-
-        <p><strong>Definition:</strong> Most general scalar–tensor theories with second-order equations or their extensions.</p>
-
-        <p><strong>Key differences from QKDE:</strong></p>
-        <ul>
-          <li>These models activate \(\alpha_B,\alpha_T,\alpha_M,\alpha_H\); QKDE sets all of them to zero.</li>
-          <li>GW170817 constraints strongly disfavor many of these theories; QKDE is automatically compatible.</li>
-          <li>Horndeski implies modified gravity; QKDE preserves GR exactly.</li>
-        </ul>
-
-      </div>
-    </details>
-
-    <!-- Modified Gravity -->
-    <details>
-      <summary><span class="summary-label">Modified gravity (f(R), scalar–tensor, etc.)</span></summary>
-      <div class="details-body">
-
-        <p><strong>Key differences from QKDE:</strong></p>
-        <ul>
-          <li>MG alters the Einstein–Hilbert action; QKDE does not.</li>
-          <li>MG generally yields \(\mu(a,k)\neq 1\) and \(\eta\neq 0\); QKDE predicts exact GR values.</li>
-          <li>MG often requires screening (chameleon, Vainshtein); QKDE requires none.</li>
-        </ul>
-
-      </div>
-    </details>
-
-    <!-- Tracker models -->
-    <details>
-      <summary><span class="summary-label">Tracker models & scaling solutions</span></summary>
-      <div class="details-body">
-        <p><strong>Definition:</strong> Potentials designed so that \(w_\phi\) tracks background fluids.</p>
-        <p><strong>Difference:</strong> QKDE’s dynamics are not set by potential slope but by drift in \(K(t)\); tracking behavior is neither required nor implied.</p>
-      </div>
-    </details>
-
-    <!-- Unified/Interacting -->
-    <details>
-      <summary><span class="summary-label">Unified / interacting dark sector</span></summary>
-      <div class="details-body">
-        <p>These alter conservation equations; QKDE does not.</p>
-        <p>QKDE keeps matter, radiation, and the scalar separately conserved except for the \(K'(t)\) term.</p>
-      </div>
-    </details>
-
-    <!-- FINAL POSITION -->
-    <details>
-      <summary><span class="summary-label">Theory-space position & null tests</span></summary>
-      <div class="details-body">
-
-        <p><strong>QKDE occupies a unique, small region of theory space:</strong></p>
-        <ul>
-          <li>Single canonical scalar; no new forces.</li>
-          <li>Exactly Einsteinian metric sector.</li>
-          <li>Only \(\alpha_K\) active; others vanish identically.</li>
-          <li>Canonical perturbations, luminal tensors.</li>
-        </ul>
-
-        <p><strong>Sharp null predictions:</strong></p>
-        <ul>
-          <li>\(\mu(a,k) = 1\)</li>
-          <li>\(\Sigma(a,k) = 1\)</li>
-          <li>\(\eta(a,k) = 0\)</li>
-          <li>\(c_T^2 = 1\)</li>
-        </ul>
-
-        <p>
-          Any deviation rules out QKDE. Few dark-energy models are <em>this falsifiable</em>
-          while remaining GR-consistent.
+        <p><strong>Result:</strong>  
+        QKDE lies inside the broad k-essence umbrella only taxonomically;
+        dynamically and observationally it is a different, much more constrained corner.
         </p>
+      </div>
+    </details>
 
+
+    <details>
+      <summary><span class="summary-label">Modified Gravity (Horndeski, DHOST, f(R))</span></summary>
+      <div class="details-body">
+        <p>QKDE is orthogonal to all MG classes because:</p>
+        <ul>
+          <li>MG modifies the Einstein–Hilbert term; QKDE does not.</li>
+          <li>MG predicts \(\mu\neq1\), \(\Sigma\neq1\), scale-dependent growth; QKDE enforces strict GR values.</li>
+          <li>MG often gives slip (\(\Phi\neq\Psi\)); QKDE enforces equality.</li>
+          <li>MG activates \(\alpha_B, \alpha_M, \alpha_T, \alpha_H\); QKDE sets them to zero.</li>
+        </ul>
+      </div>
+    </details>
+
+
+    <details>
+      <summary><span class="summary-label">Interacting & Unified Dark Sector</span></summary>
+      <div class="details-body">
+        <ul>
+          <li>QKDE introduces no dark-sector interaction; matter and radiation conserve normally.</li>
+          <li>Unified dark fluids attempt to mimic CDM + DE jointly; QKDE does not.</li>
+          <li>QKDE’s dynamics arise from kinetic normalization only, not interaction terms.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- ============================================================
+         5. NON-EQUIVALENCE SUMMARY
+    ============================================================ -->
+    <details>
+      <summary><span class="summary-label">Non-Equivalence Summary (What QKDE Cannot Be)</span></summary>
+      <div class="details-body">
+        <ul>
+          <li><strong>Not quintessence:</strong> running \(K(t)\) cannot be gauged away or absorbed into a redefined potential.</li>
+          <li><strong>Not k-essence:</strong> no nonlinear \(P(X,\phi)\), no altered sound speed, no clustering DE.</li>
+          <li><strong>Not modified gravity:</strong> QKDE keeps GR untouched and predicts strict null tests.</li>
+          <li><strong>Not interacting DE:</strong> no energy exchange, no dark-sector couplings.</li>
+          <li><strong>Not unified dark fluid:</strong> DE and matter remain separate sectors.</li>
+        </ul>
+        <p>
+          The combination of <em>(i)</em> canonical perturbations, <em>(ii)</em> GR metric sector,
+          <em>(iii)</em> single active EFT function (\(\alpha_K\)), and <em>(iv)</em> UV motivation via
+          curvature-suppressed operators gives QKDE a uniquely identifiable footprint.
+        </p>
       </div>
     </details>
 
