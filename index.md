@@ -484,10 +484,10 @@ html {
   <a href="#what-this-work-proposes">This work</a>
   <a href="#symbol-index">Symbols</a>
   <a href="#derivations">Derivations</a>
-  <a href="calculator.html">Calculator</a>
   <a href="#comparison-qkde">Comparisons</a>
   <a href="#references-qkde">References</a>
   <a href="#cite-qkde">Cite</a>
+  <a href="calculator.html">Calculator</a>
   <a class="nav-button" href="QKDE_v.3F.pdf">
     View PDF
   </a>
