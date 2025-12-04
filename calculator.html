@@ -959,6 +959,10 @@ document.querySelectorAll(".panel-toggle-btn").forEach(btn => {
   });
 });
 
+
+
+
+  
 /* ============================================================
    THEME TOGGLE
 ============================================================ */
@@ -971,6 +975,10 @@ themeToggle.addEventListener("click", () => {
   themeToggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
 });
 
+
+
+
+  
 /* ============================================================
    CORE COSMOLOGY FUNCTIONS
 ============================================================ */
@@ -1003,6 +1011,10 @@ function integrateChi(H0, Om, Or, Ol, zmax, steps=400) {
   return (c/H0) * (dz/3) * sum;
 }
 
+
+
+
+  
 /* ============================================================
    GR GROWTH SOLVER
 ============================================================ */
@@ -1063,6 +1075,10 @@ function solveGrowth(z, Om0, Or0, Ol0) {
   return { Dnorm: D_target / D2, f };
 }
 
+
+
+
+  
 /* ============================================================
    QKDE K(a)
 ============================================================ */
@@ -1071,6 +1087,10 @@ function K_a(a, K0, p) {
   return 1 + K0 * Math.exp(-p*N);
 }
 
+
+
+
+  
 /* ============================================================
    CALCULATOR 1: ΛCDM BACKGROUND
 ============================================================ */
@@ -1102,6 +1122,10 @@ D_L  = ${DL.toFixed(4)} Mpc
 });
 attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
 
+
+
+
+  
 /* ============================================================
    CALCULATOR 2: QKDE K(z)
 ============================================================ */
@@ -1120,6 +1144,10 @@ K(0) = ${1+K0}`);
 });
 attachFormulaToggle("qkde-formula-toggle", "qkde-formulas");
 
+
+
+
+  
 /* ============================================================
    CALCULATOR 3: GR GROWTH AT ONE z
 ============================================================ */
@@ -1137,6 +1165,9 @@ f(z) = ${g.f.toFixed(6)}`);
 });
 attachFormulaToggle("grow-formula-toggle", "grow-formulas");
 
+
+
+  
 /* ============================================================
    CALCULATOR 4: ΛCDM vs QKDE SNAPSHOT
 ============================================================ */
@@ -1170,24 +1201,49 @@ f_LCDM(z) = ${g_LCDM.f.toFixed(6)}`);
   }
 });
 
-/* ============================================================
-   ADVANCED FULL-WIDTH GROWTH COMPARATOR
+
+
+  /* ============================================================
+   ADVANCED FULL-WIDTH GROWTH COMPARATOR — FIXED VERSION
 ============================================================ */
 let growthChart = null;
 
+/* ------------------------------------------------------------
+   Solve growth from scratch for each model
+------------------------------------------------------------ */
 function solveGrowthGeneric(aArray, E_func, Om0, Or0, Ol0) {
-  const N_start = Math.log(1e-3);
+
+  const a_min = 1e-3;
+  const N_start = Math.log(a_min);
   const steps = 1500;
-  let D = Math.exp(N_start);
+  const dN = (0 - N_start)/steps;
+
+  // initial conditions deep in matter era: D ~ a, D' = D
+  let D = a_min;
   let F = D;
   let N = N_start;
+
+  // cache results
+  const results = [];
+  let index = 0;
+
+  function dlnH_dN(a) {
+    const E = E_func(a);
+    const epsilon = 1e-6;
+    const ap = a * (1 + epsilon);
+    const Ep = E_func(ap);
+    return (Math.log(Ep) - Math.log(E)) / Math.log(1 + epsilon);
+  }
 
   function derivs(Nv, Dv, Fv) {
     const a = Math.exp(Nv);
     const E = E_func(a);
-    const dlnH = (Math.log(E_func(a+1e-6)) - Math.log(E)) / 1e-6; // numerical derivative
-    const OmA = (Om0/a**3) / (E*E);
-    return { Dp: Fv, Fp: -(2 + dlnH)*Fv + 1.5*OmA*Dv };
+    const OmA = (Om0 / (a*a*a)) / (E*E);
+    const dlnH = dlnH_dN(a);
+    return {
+      Dp: Fv,
+      Fp: -(2 + dlnH)*Fv + 1.5*OmA*Dv
+    };
   }
 
   function rk(Nv, Dv, Fv, h) {
@@ -1201,25 +1257,32 @@ function solveGrowthGeneric(aArray, E_func, Om0, Or0, Ol0) {
     };
   }
 
-  const results = [];
+  /* Integrate from N_start to N=0 */
+  let a_target = aArray[index];
 
-  for (let a of aArray) {
-    const N_end = Math.log(a);
-    const dN = (N_end - N)/steps;
+  while (index < aArray.length) {
+    const N_target = Math.log(a_target);
 
-    for (let i=0;i<steps;i++) {
+    if (N < N_target - 1e-12) {
       const step = rk(N, D, F, dN);
-      D = step.D;
-      F = step.F;
+      D = step.D; F = step.F;
       N += dN;
+    } else {
+      results.push(D);
+      index++;
+      if (index < aArray.length)
+        a_target = aArray[index];
     }
-    results.push(D);
   }
 
-  const D_today = results[results.length-1];
-  return results.map(x => x/D_today);
+  // normalize so D(a=1)=1
+  const D_today = results[results.length - 1];
+  return results.map(x => x / D_today);
 }
 
+/* ------------------------------------------------------------
+   ADVANCED COMPARATOR BUTTON
+------------------------------------------------------------ */
 byId("adv-growth-compute").addEventListener("click", () => {
   const Om0 = parseFloat(byId("adv-om0").value);
   const Or0 = parseFloat(byId("adv-or0").value);
@@ -1237,64 +1300,81 @@ byId("adv-growth-compute").addEventListener("click", () => {
   const showCPL  = byId("adv-show-kess").checked;
   const showQKDE = byId("adv-show-qkde").checked;
 
-  const aArray = Array.from({length:Npts}, (_,i)=> 1 - i*(1-1/(1+zmax))/(Npts-1));
+  /* Build scale-factor sampling */
+  const a_min = 1/(1+zmax);
+  const aArray = Array.from({length:Npts}, (_,i)=>
+    a_min + i*(1-a_min)/(Npts-1)
+  );
 
-  /* E(a) definitions */
-  const E_LCDM = a => Math.sqrt(Om0/a**3 + Or0/a**4 + (1-Om0-Or0));
-  const E_Quint = a => Math.sqrt(Om0/a**3 + Or0/a**4 + (1-Om0-Or0)*a**(-3*(1+wQ)));
+  /* Backgrounds */
+  const Ol0 = 1 - Om0 - Or0;
+
+  const E_LCDM = a =>
+    Math.sqrt(Om0/a**3 + Or0/a**4 + Ol0);
+
+  const E_Quint = a =>
+    Math.sqrt(Om0/a**3 + Or0/a**4 + Ol0 * a**(-3*(1+wQ)));
+
   const E_CPL = a => {
-    const ode = (1-Om0-Or0) * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1-a));
+    const ode = Ol0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1-a));
     return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
   };
-  const E_QKDE = a => E_LCDM(a) * Math.sqrt(K_a(a, K0, p));
 
+  const E_QKDE = a => {
+    const K = 1 + K0 * a**(-p);
+    return E_LCDM(a) * Math.sqrt(Math.max(K, 0));
+  };
+
+  /* Solve & plot */
   const datasets = [];
 
   if (showLCDM) datasets.push({
-    label: "ΛCDM",
-    data: solveGrowthGeneric(aArray, E_LCDM, Om0, Or0, 1-Om0-Or0),
-    borderColor: "#66fcf1", tension:0.1
+    label:"ΛCDM",
+    data: solveGrowthGeneric(aArray, E_LCDM, Om0, Or0, Ol0),
+    borderColor:"#66fcf1", tension:0.15
   });
 
   if (showQ) datasets.push({
-    label: "Quintessence (w)",
-    data: solveGrowthGeneric(aArray, E_Quint, Om0, Or0, 1-Om0-Or0),
-    borderColor: "#ffb347", tension:0.1
+    label:"Quintessence (w)",
+    data: solveGrowthGeneric(aArray, E_Quint, Om0, Or0, Ol0),
+    borderColor:"#ffb347", tension:0.15
   });
 
   if (showCPL) datasets.push({
-    label: "CPL",
-    data: solveGrowthGeneric(aArray, E_CPL, Om0, Or0, 1-Om0-Or0),
-    borderColor: "#c07cff", tension:0.1
+    label:"CPL",
+    data: solveGrowthGeneric(aArray, E_CPL, Om0, Or0, Ol0),
+    borderColor:"#c07cff", tension:0.15
   });
 
   if (showQKDE) datasets.push({
-    label: "QKDE (H×√K)",
-    data: solveGrowthGeneric(aArray, E_QKDE, Om0, Or0, 1-Om0-Or0),
-    borderColor: "#45d9a4", tension:0.1
+    label:"QKDE (H×√K)",
+    data: solveGrowthGeneric(aArray, E_QKDE, Om0, Or0, Ol0),
+    borderColor:"#45d9a4", tension:0.15
   });
 
   const ctx = byId("adv-growth-canvas").getContext("2d");
   if (growthChart) growthChart.destroy();
 
   growthChart = new Chart(ctx, {
-    type: "line",
-    data: { labels: aArray, datasets },
-    options: {
-      responsive: true,
-      scales: {
-        x: { title: { display:true, text:"Scale factor a" }},
-        y: { title: { display:true, text:"D(a) normalized" }}
+    type:"line",
+    data:{ labels:aArray.map(a=>a.toFixed(3)), datasets },
+    options:{
+      responsive:true,
+      scales:{
+        x:{ title:{display:true, text:"Scale factor a"} },
+        y:{ title:{display:true, text:"D(a) normalized"} }
       },
-      plugins: { legend:{ labels:{ color:"white" }} }
+      plugins:{
+        legend:{ labels:{ color:"white" }},
+      }
     }
   });
 
   setOutput(byId("adv-growth-info"),
-`Models plotted:
+`Plotted:
 ${showLCDM ? "• ΛCDM\n" : ""}
-${showQ ? "• Quintessence\n" : ""}
-${showCPL ? "• CPL\n" : ""}
+${showQ    ? "• Quintessence\n" : ""}
+${showCPL  ? "• CPL\n" : ""}
 ${showQKDE ? "• QKDE (H×√K)\n" : ""}`);
 });
 </script>
