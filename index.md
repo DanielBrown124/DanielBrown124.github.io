@@ -3072,43 +3072,7 @@ document.addEventListener("DOMContentLoaded", updateCitation);
 </script>
 
 <!-- ===== Toast Styling ===== -->
-<style>
-.toast {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background: rgba(40, 180, 255, 0.18);
-  border: 1px solid rgba(102,252,241,0.45);
-  backdrop-filter: blur(6px);
-  padding: 10px 18px;
-  border-radius: 8px;
-  color: #e8faff;
-  font-size: 0.85rem;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .3s ease, transform .3s ease;
-  z-index: 9999;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.cite-btn-alt {
-  background: rgba(6,12,20,0.65);
-  border: 1px solid rgba(160,200,255,0.4);
-  padding: 8px 14px;
-  border-radius: 999px;
-  color: #dff6ff;
-  font-size: 0.82rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .2s ease, border-color .2s ease;
-}
-.cite-btn-alt:hover {
-  background: rgba(20,40,60,0.85);
-  border-color: rgba(102,252,241,0.55);
-}
-</style>
+
 
 
 
