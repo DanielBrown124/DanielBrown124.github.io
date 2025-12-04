@@ -895,7 +895,7 @@ An effective dark energy framework with the Einstein–Hilbert metric sector int
     <span>GITHUB REPOSITORY</span>
   </a>
 
-  <a href="https://doi.org/10.5281/zenodo.17757109" class="social-link" target="_blank">
+  <a href="https://doi.org/10.5281/zenodo.17774687" class="social-link" target="_blank">
     <span class="social-icon">
     <img src="zenodo.ico" alt="ZENODO logo" />
   </span>
@@ -2847,11 +2847,11 @@ function updateCitation() {
   doi = {10.5281/zenodo.17774687},
   url = {(https://doi.org/10.5281/zenodo.17774687)}
 }`,
-    apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109`,
-    mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17757109.`,
-    chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17757109.`,
-    ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17757109.`,
-    harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17757109.`
+    apa: `Brown, D. (2025). *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687`,
+    mla: `Brown, Daniel. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo, 2025, doi:10.5281/zenodo.17774687.`,
+    chicago: `Brown, Daniel. 2025. *Quantum–Kinetic Dark Energy (QKDE).* Zenodo. https://doi.org/10.5281/zenodo.17774687.`,
+    ieee: `D. Brown, "Quantum–Kinetic Dark Energy (QKDE)," Zenodo, 2025. doi:10.5281/zenodo.17774687.`,
+    harvard: `Brown, D. (2025) “Quantum–Kinetic Dark Energy (QKDE).” Zenodo. doi:10.5281/zenodo.17774687.`
   };
 
   output.textContent = citations[style];
