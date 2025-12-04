@@ -1265,11 +1265,13 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
 <hr>
 
 <details id="symbol-index">
-  <summary><span class="summary-label">Symbol index</span></summary>
+  <summary><span class="summary-label">Symbol Index</span></summary>
   <div class="details-body">
 
     <p>
-    Key symbols and definitions used throughout the work. Units are in natural conventions \(c = \hbar = 1\); mass dimensions are indicated where relevant.
+      Complete list of symbols used in the QKDE framework. Natural units
+      \(c=\hbar=1\) are used. Mass dimension is shown where meaningful.
+      Definitions match <em>exactly</em> those used in the monograph.
     </p>
 
     <table class="symbol-table">
@@ -1280,91 +1282,123 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
           <th>Definition / Role</th>
         </tr>
       </thead>
+
       <tbody>
+
+        <!-- COSMOLOGY BASICS -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Cosmological background</th></tr>
+
         <tr>
           <td>\(a(t)\)</td>
           <td>1</td>
-          <td>Scale factor; \(N \equiv \ln a\) is the e-fold time.</td>
+          <td>Scale factor; normalized to \(a_0=1\).</td>
+        </tr>
+        <tr>
+          <td>\(N\)</td>
+          <td>1</td>
+          <td>E-fold time: \(N=\ln a\). Derivatives: \(f'=\mathrm{d}f/\mathrm{d}N\).</td>
         </tr>
         <tr>
           <td>\(z\)</td>
           <td>1</td>
-          <td>Redshift; \(z(N) = e^{-N} - 1\).</td>
+          <td>Redshift: \(z=e^{-N}-1\).</td>
         </tr>
         <tr>
-          <td>\(H, H_0\)</td>
+          <td>\(H=\dot a/a,\ H_0\)</td>
           <td>M</td>
-          <td>Hubble rate and its value today.</td>
+          <td>Hubble rate and present value.</td>
         </tr>
         <tr>
           <td>\(E\)</td>
           <td>1</td>
-          <td>Hubble e-fold derivative: \(E \equiv H'/H\).</td>
+          <td>Dimensionless Hubble derivative: \(E = H'/H\).</td>
         </tr>
         <tr>
           <td>\(R\)</td>
           <td>M\(^2\)</td>
-          <td>FRW Ricci scalar: \(R = 6(2H^2 + \dot H) = 6H^2(2 + E)\).</td>
+          <td>Ricci scalar in FRW: \(R = 6H^2(2+E)\).</td>
         </tr>
         <tr>
-          <td>\(M_{\rm pl}\)</td>
-          <td>M</td>
-          <td>Reduced Planck mass, \(M_{\rm pl} = (8\pi G)^{-1/2}\).</td>
+          <td>\(q\)</td>
+          <td>1</td>
+          <td>Deceleration parameter: \(q = -1 - E\).</td>
         </tr>
         <tr>
-          <td>\(\rho_i, p_i\)</td>
+          <td>\(w_{\rm eff}\)</td>
+          <td>1</td>
+          <td>Effective equation of state: \(w_{\rm eff} = -1 - \tfrac{2}{3}E\).</td>
+        </tr>
+
+        <!-- ENERGY CONTENT -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Energy densities, matter components</th></tr>
+
+        <tr>
+          <td>\(\rho_i,p_i\)</td>
           <td>M\(^4\)</td>
-          <td>Energy density and pressure for \(i \in \{m,r,\phi\}\).</td>
+          <td>Energy density and pressure of component \(i\in\{m,r,\phi\}\).</td>
         </tr>
         <tr>
           <td>\(\Omega_i\)</td>
           <td>1</td>
-          <td>\(\Omega_i \equiv \rho_i/(3M_{\rm pl}^2 H^2)\).</td>
+          <td>Density fraction: \(\Omega_i = \rho_i/(3M_{\rm pl}^2H^2)\).</td>
         </tr>
         <tr>
-          <td>\(w_{\rm eff}, q\)</td>
-          <td>1</td>
-          <td>\(w_{\rm eff} = -1 - \tfrac{2}{3} E\), \(q = -1 - E\).</td>
+          <td>\(M_{\rm pl}\)</td>
+          <td>M</td>
+          <td>Reduced Planck mass: \(M_{\rm pl} = (8\pi G)^{-1/2}\).</td>
         </tr>
+
+        <!-- DISTANCES & OBSERVABLES -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Distances & observable functions</th></tr>
+
         <tr>
-          <td>\(\chi\)</td>
+          <td>\(\chi(z)\)</td>
           <td>M\(^{-1}\)</td>
-          <td>Comoving distance: \(\chi(z) = \int_0^z \mathrm{d}z'/H(z')\).</td>
+          <td>Comoving distance: \(\chi=\int_0^z H^{-1}\,\mathrm{d}z'\).</td>
         </tr>
         <tr>
           <td>\(D_A, D_L\)</td>
           <td>M\(^{-1}\)</td>
-          <td>Angular-diameter and luminosity distances: \(D_A = \chi/(1+z)\), \(D_L = (1+z)\chi\).</td>
+          <td>Angular-diameter and luminosity distances. \(D_L=(1+z)^2D_A\).</td>
         </tr>
         <tr>
-          <td>\(D_V\)</td>
+          <td>\(D_V(z)\)</td>
           <td>M\(^{-1}\)</td>
-          <td>Volume-averaged BAO distance: \(D_V = [(1+z)^2 D_A^2 z/H]^{1/3}\).</td>
+          <td>BAO distance: \(D_V=[(1+z)^2D_A^2 z/H]^{1/3}\).</td>
         </tr>
         <tr>
           <td>\(F_{\rm AP}\)</td>
           <td>1</td>
-          <td>Alcock–Paczyński combination: \(F_{\rm AP} = (1+z) D_A H^{-1}\).</td>
+          <td>Alcock–Paczyński parameter: \(F_{\rm AP}=(1+z)D_A/H\).</td>
         </tr>
         <tr>
           <td>\(r_d\)</td>
           <td>M\(^{-1}\)</td>
-          <td>Sound horizon at drag epoch: \(r_d = \int_{z_d}^{\infty} c_s/H \,\mathrm{d}z\).</td>
+          <td>Sound horizon at drag epoch.</td>
         </tr>
         <tr>
-          <td>\(\eta\) (conformal time)</td>
-          <td>M\(^{-1}\)</td>
-          <td>Conformal time, defined by \(\mathrm{d}t = a\,\mathrm{d}\eta\).</td>
+          <td>\(\mu_{\rm SN}\)</td>
+          <td>1</td>
+          <td>Distance modulus: \(\mu=5\log_{10}(D_L/{\rm Mpc})+25\).</td>
         </tr>
+
+        <!-- SCALAR FIELD -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Scalar-field sector</th></tr>
+
         <tr>
           <td>\(\phi\)</td>
           <td>M</td>
           <td>Homogeneous scalar field.</td>
         </tr>
         <tr>
+          <td>\(s\)</td>
+          <td>1</td>
+          <td>Scalar velocity in e-folds: \(s = \phi'\).</td>
+        </tr>
+        <tr>
           <td>\(X\)</td>
           <td>M\(^4\)</td>
-          <td>Kinetic invariant: \(X \equiv -\tfrac12 g^{\mu\nu} \partial_\mu\phi \partial_\nu\phi\); FRW: \(X = \tfrac12 \dot\phi^2\).</td>
+          <td>Kinetic invariant: \(X=-\tfrac12 g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi\). FRW: \(X=\tfrac12\dot\phi^2\).</td>
         </tr>
         <tr>
           <td>\(V(\phi)\)</td>
@@ -1374,158 +1408,171 @@ where \(\mu\) is the effective Newton constant, \(\Sigma\) the effective lensing
         <tr>
           <td>\(K(t)\)</td>
           <td>1</td>
-          <td>Background kinetic normalization; \(K>0\) for ghost freedom.</td>
+          <td>Kinetic normalization; must satisfy \(K>0\) (ghost freedom).</td>
         </tr>
         <tr>
-          <td>\(\alpha, M\)</td>
-          <td>1, M</td>
-          <td>Curvature model parameters in \(K = 1 + \alpha R/M^2\).</td>
-        </tr>
-        <tr>
-          <td>\(K_0, p, N_p\)</td>
-          <td>1, 1, 1</td>
-          <td>Running form parameters: \(K(N) = 1 + K_0 e^{-pN} = 1 + K_p e^{-p(N-N_p)}\).</td>
-        </tr>
-        <tr>
-          <td>\(K'/K\)</td>
-          <td>1</td>
-          <td>E-fold derivative of \(K\); closed algebraic expression in the curvature model.</td>
-        </tr>
-        <tr>
-          <td>\(\rho_\phi, p_\phi\)</td>
+          <td>\(\rho_\phi,p_\phi\)</td>
           <td>M\(^4\)</td>
-          <td>\(\rho_\phi = KX + V\), \(p_\phi = KX - V\).</td>
+          <td>\(\rho_\phi=KX+V,\quad p_\phi=KX-V.\)</td>
         </tr>
         <tr>
           <td>\(w_\phi\)</td>
           <td>1</td>
-          <td>Scalar equation of state: \(w_\phi = (KX - V)/(KX + V)\).</td>
+          <td>Scalar equation of state: \(w_\phi=(KX-V)/(KX+V)\).</td>
+        </tr>
+
+        <!-- QKDE KINETIC MODELS -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">QKDE kinetic-normalization models</th></tr>
+
+        <tr>
+          <td>\(\alpha, M\)</td>
+          <td>1, M</td>
+          <td>Curvature-driven model: \(K=1+\alpha R/M^2\).</td>
         </tr>
         <tr>
-          <td>\(\Phi, \Psi\)</td>
+          <td>\(K_0,p,N_p\)</td>
+          <td>1,1,1</td>
+          <td>Running form: \(K(N)=1+K_0 e^{-pN}\).\newline 
+              Optional shifted form: \(K=1+K_p e^{-p(N-N_p)}\).</td>
+        </tr>
+        <tr>
+          <td>\(K'/K\)</td>
           <td>1</td>
-          <td>Bardeen potentials (Newtonian gauge); here \(\Phi = \Psi\).</td>
+          <td>E-fold derivative of \(K\). Exact expression in curvature model.</td>
+        </tr>
+
+        <!-- PERTURBATIONS -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Perturbations and EFT–DE</th></tr>
+
+        <tr>
+          <td>\(\Phi,\Psi\)</td>
+          <td>1</td>
+          <td>Newtonian potentials; in QKDE: \(\Phi=\Psi\).</td>
         </tr>
         <tr>
-          <td>\(v, z\)</td>
+          <td>\(v,z\)</td>
           <td>M, M</td>
-          <td>Gauge-invariant variables: \(v = a(\delta\phi + \dot\phi\,\Phi/H)\); \(z^2 = a^2 K \dot\phi^2/H^2\).</td>
+          <td>Scalar perturbation variables: \(v=a(\delta\phi+\dot\phi\,\Phi/H)\); \(z^2=a^2K\dot\phi^2/H^2\).</td>
         </tr>
         <tr>
           <td>\(\mathcal{R}\)</td>
           <td>1</td>
-          <td>Comoving curvature perturbation: \(\mathcal{R} = v/z\).</td>
+          <td>Comoving curvature perturbation: \(\mathcal{R}=v/z\).</td>
         </tr>
         <tr>
           <td>\(c_s^2\)</td>
           <td>1</td>
-          <td>Scalar sound speed; in QKDE, \(c_s^2 = 1\).</td>
+          <td>Scalar sound speed; QKDE enforces \(c_s^2=1\).</td>
         </tr>
         <tr>
           <td>\(c_T^2\)</td>
           <td>1</td>
-          <td>Tensor propagation speed; in QKDE, \(c_T^2 = 1\).</td>
+          <td>Tensor propagation speed; QKDE requires \(c_T^2=1\).</td>
+        </tr>
+
+        <tr>
+          <td>\(\alpha_K\)</td>
+          <td>1</td>
+          <td>Kinetic EFT–DE function: \(\alpha_K = K\dot\phi^2/(H^2 M_{\rm pl}^2)\ge 0\).</td>
         </tr>
         <tr>
-          <td>\(\alpha_K, \alpha_B, \alpha_M, \alpha_T, \alpha_H\)</td>
+          <td>\(\alpha_B,\alpha_M,\alpha_T,\alpha_H\)</td>
           <td>1</td>
-          <td>EFT–DE functions. In QKDE: \(\alpha_K = K \dot\phi^2/(H^2 M_{\rm pl}^2) \ge 0\); all others vanish.</td>
+          <td>EFT–DE functions; all vanish in QKDE.</td>
         </tr>
         <tr>
           <td>\(\mu(a,k)\)</td>
           <td>1</td>
-          <td>Linear effective Newton constant in modified Poisson equation; here \(\mu = 1\).</td>
+          <td>Effective Newton constant; QKDE predicts \(\mu=1\).</td>
         </tr>
         <tr>
           <td>\(\Sigma(a,k)\)</td>
           <td>1</td>
-          <td>Effective lensing modifier; here \(\Sigma = 1\).</td>
+          <td>Lensing modifier; QKDE predicts \(\Sigma=1\).</td>
         </tr>
         <tr>
           <td>\(\eta(a,k)\)</td>
           <td>1</td>
-          <td>Gravitational slip: \(\eta \equiv \Phi/\Psi - 1\); here \(\eta = 0\).</td>
+          <td>Slip parameter; QKDE predicts \(\eta=0\).</td>
+        </tr>
+
+        <!-- GROWTH -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Growth of structure</th></tr>
+
+        <tr>
+          <td>\(D(a)\)</td>
+          <td>1</td>
+          <td>Linear growth factor, obeying GR growth equation with modified \(H(a)\).</td>
         </tr>
         <tr>
-          <td>\(k, \ell\)</td>
+          <td>\(f\)</td>
+          <td>1</td>
+          <td>Growth rate: \(f=\mathrm{d}\ln D/\mathrm{d}\ln a\).</td>
+        </tr>
+        <tr>
+          <td>\(\sigma_{8,0}\)</td>
+          <td>1</td>
+          <td>Amplitude of matter fluctuations at \(z=0\).</td>
+        </tr>
+        <tr>
+          <td>\(f\sigma_8(z)\)</td>
+          <td>1</td>
+          <td>RSD observable: \(f(z)\sigma_{8,0}D(z)/D(0)\).</td>
+        </tr>
+
+        <!-- RESIDUALS / CONSISTENCY -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Consistency & residuals</th></tr>
+
+        <tr>
+          <td>\(C_F\)</td>
+          <td>1</td>
+          <td>Friedmann-closure residual: \(1-\Omega_m-\Omega_r-\Omega_\phi\).</td>
+        </tr>
+        <tr>
+          <td>\(C_R\)</td>
+          <td>1</td>
+          <td>Raychaudhuri residual in e-fold form.</td>
+        </tr>
+        <tr>
+          <td>\(C_\phi\)</td>
+          <td>1</td>
+          <td>Klein–Gordon residual.</td>
+        </tr>
+        <tr>
+          <td>\(C_{R/H^2}\)</td>
+          <td>1</td>
+          <td>Residual of identity \(R/H^2 = 6(2+H'/H)\).</td>
+        </tr>
+        <tr>
+          <td>\(C_{\nabla\cdot T_\phi}\)</td>
+          <td>1</td>
+          <td>Residual from non-conservation due to time-dependent \(K'(N)\).</td>
+        </tr>
+
+        <!-- MISC -->
+        <tr><th colspan="3" style="background:rgba(80,120,150,0.25);">Miscellaneous</th></tr>
+
+        <tr>
+          <td>\(k,\ell\)</td>
           <td>M, 1</td>
           <td>Comoving wavenumber and multipole index.</td>
         </tr>
         <tr>
           <td>\(P(k,z)\)</td>
           <td>M\(^{-3}\)</td>
-          <td>Linear matter power spectrum; scales as \(P(k,z) = D^2(z) P(k,0)\).</td>
-        </tr>
-        <tr>
-          <td>\(D(a)\)</td>
-          <td>1</td>
-          <td>Linear growth factor, satisfying the GR growth equation with modified \(H(a)\).</td>
-        </tr>
-        <tr>
-          <td>\(f\)</td>
-          <td>1</td>
-          <td>Growth rate: \(f \equiv \mathrm{d}\ln D / \mathrm{d}\ln a\).</td>
-        </tr>
-        <tr>
-          <td>\(\sigma_{8,0}\)</td>
-          <td>1</td>
-          <td>RMS matter fluctuation in \(8\,h^{-1}\,\mathrm{Mpc}\) at \(z=0\).</td>
-        </tr>
-        <tr>
-          <td>\(f\sigma_8(z)\)</td>
-          <td>1</td>
-          <td>RSD observable: \(f(z)\,\sigma_{8,0}\,D(z)/D(0)\).</td>
-        </tr>
-        <tr>
-          <td>\(s\)</td>
-          <td>1</td>
-          <td>Background scalar velocity in e-fold time: \(s \equiv \phi'\).</td>
-        </tr>
-        <tr>
-          <td>\(y_H\)</td>
-          <td>1</td>
-          <td>Log-Hubble variable: \(y_H \equiv \ln H\).</td>
-        </tr>
-        <tr>
-          <td>\(C_F\)</td>
-          <td>1</td>
-          <td>Friedmann-closure residual: \(C_F = 1 - \Omega_m - \Omega_r - \Omega_\phi\).</td>
-        </tr>
-        <tr>
-          <td>\(C_R\)</td>
-          <td>1</td>
-          <td>Raychaudhuri residual in e-fold form (used as a consistency check).</td>
-        </tr>
-        <tr>
-          <td>\(C_\phi\)</td>
-          <td>1</td>
-          <td>Background Klein–Gordon residual (consistency of scalar equation).</td>
-        </tr>
-        <tr>
-          <td>\(C_{R/H^2}\)</td>
-          <td>1</td>
-          <td>Residual for the identity \(R/H^2 = 6(2 + H'/H)\).</td>
-        </tr>
-        <tr>
-          <td>\(C_{\nabla\cdot T_\phi}\)</td>
-          <td>1</td>
-          <td>Residual measuring non-conservation due to \(K'(N)\) in the scalar energy–momentum tensor.</td>
-        </tr>
-        <tr>
-          <td>\(\mu_{\rm SN}(z)\)</td>
-          <td>1</td>
-          <td>Distance modulus: \(\mu_{\rm SN}(z) = 5\log_{10}(D_L/\mathrm{Mpc}) + 25\).</td>
+          <td>Linear matter power spectrum \(P(k,z)=D^2(z)P(k,0)\).</td>
         </tr>
         <tr>
           <td>\(Q_\mu\)</td>
           <td>M\(^3\)</td>
-          <td>Source term for an interaction four-vector \(Q_\mu\) when present (used for bookkeeping of energy exchange).</td>
+          <td>Interaction four-vector for bookkeeping when energy exchange is considered (unused in minimal QKDE).</td>
         </tr>
+
       </tbody>
     </table>
 
   </div>
-  </details>
+</details>
 <details id="derivations">
   <summary><span class="summary-label">Derivations</span></summary>
   <div class="details-body">
