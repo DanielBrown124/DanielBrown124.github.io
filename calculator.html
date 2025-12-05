@@ -574,8 +574,13 @@ select.calc-input {
     CPL-type k-essence, and QKDE’s kinetic drift at the level of <em>H(a)</em>, distances, and growth.
   </p>
 
- <!-- ============================================================
-     PANEL 1: ΛCDM BACKGROUND DASHBOARD (C2)
+
+
+
+  
+
+<!-- ============================================================
+     PANEL 1: ΛCDM BACKGROUND DASHBOARD (FULL UPGRADE)
 ============================================================ -->
 <section class="calc-panel" id="panel-lcdm">
   <div class="calc-panel-header">
@@ -593,12 +598,14 @@ select.calc-input {
         </div>
       </div>
 
-      <h4>Flat ΛCDM reference (background + lightcone)</h4>
+      <h4>ΛCDM with optional curvature (background + lightcone)</h4>
       <p class="calc-note">
-        Computes the standard ΛCDM background from \(\{H_0,\Omega_{m0},\Omega_{r0},\Omega_{\Lambda0}\}\):
-        \(E(z)\), \(H(z)\), comoving distance \(\chi(z)\), angular and luminosity distances,
-        SN distance modulus \(\mu(z)\), the matter fraction \(\Omega_m(z)\),
-        lookback time \(t_L(z)\), age of the Universe \(t_0\), and the BAO distance \(D_V(z)\).
+        Computes the standard ΛCDM background from \(\{H_0,\Omega_{m0},\Omega_{r0},\Omega_{\Lambda0}\}\),
+        allowing a derived curvature \(\Omega_{k0}=1-\Omega_{m0}-\Omega_{r0}-\Omega_{\Lambda0}\) when flatness
+        is not enforced. Outputs \(E(z)\), \(H(z)\), comoving distances, angular and luminosity distances,
+        SN distance modulus \(\mu(z)\), the density fractions \(\Omega_i(z)\), lookback time \(t_L(z)\),
+        age of the Universe \(t_0\), BAO distance \(D_V(z)\), and the comoving volume element
+        \(dV/dz\,d\Omega\).
       </p>
 
       <!-- Core parameter inputs -->
@@ -625,7 +632,7 @@ select.calc-input {
         </div>
         <div>
           <label class="calc-label">z-steps (for χ, t)</label>
-          <input id="lcdm-steps" class="calc-input" type="number" value="500" step="50" min="100">
+          <input id="lcdm-steps" class="calc-input" type="number" value="600" step="100" min="200">
         </div>
       </div>
 
@@ -635,7 +642,7 @@ select.calc-input {
           <label class="calc-label">Flatness constraint</label>
           <label style="font-size:0.8rem; opacity:0.9;">
             <input type="checkbox" id="lcdm-flat" checked>
-            Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1 (auto-adjust ΩΛ₀)
+            Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1 (Ωₖ₀ → 0, auto-adjust ΩΛ₀)
           </label>
         </div>
         <div>
@@ -646,23 +653,38 @@ select.calc-input {
           </label>
         </div>
         <div>
+          <label class="calc-label">Derived Ωₖ₀</label>
+          <input id="lcdm-ok" class="calc-input" type="text" value="0" disabled>
+        </div>
+        <div>
           <label class="calc-label">Plot z<sub>max</sub></label>
           <input id="lcdm-zmax-plot" class="calc-input" type="number" value="3" step="0.5" min="0.1">
         </div>
+      </div>
+
+      <div class="calc-input-row" style="margin-top:6px;">
         <div>
           <label class="calc-label">Quantity to plot</label>
           <select id="lcdm-plot-y" class="calc-input">
             <option value="E">E(z)</option>
             <option value="H">H(z)/H₀</option>
-            <option value="chi">χ(z) [Mpc]</option>
+            <option value="DC">D_C(z) [Mpc]</option>
+            <option value="DM">D_M(z) [Mpc]</option>
             <option value="DA">D_A(z) [Mpc]</option>
             <option value="DL">D_L(z) [Mpc]</option>
           </select>
+        </div>
+        <div>
+          <label class="calc-label">Export grid</label>
+          <p style="font-size:0.78rem; margin:0; opacity:0.9;">
+            Use the CSV button to download a z–distance table for external analysis.
+          </p>
         </div>
       </div>
 
       <div class="calc-action-row">
         <button class="calc-btn" id="lcdm-compute" type="button">Compute ΛCDM</button>
+        <button class="calc-btn secondary" id="lcdm-export-csv" type="button">Export z-grid (CSV)</button>
         <button class="calc-btn secondary" id="lcdm-formula-toggle" type="button">Show formulas</button>
       </div>
 
@@ -675,21 +697,40 @@ select.calc-input {
       <!-- Formulas -->
       <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
         <div class="calc-formula-inner">
-          <p>\(E(z)=\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda0}}\)</p>
+          <p>\(\Omega_{k0} = 1-\Omega_{m0}-\Omega_{r0}-\Omega_{\Lambda0}\)</p>
+          <p>\(E(z)=\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4
+              + \Omega_{k0}(1+z)^2 + \Omega_{\Lambda0}}\)</p>
           <p>\(H(z)=H_0 E(z)\)</p>
-          <p>\(\chi(z)=c \displaystyle \int_0^z \frac{dz'}{H(z')}\)</p>
-          <p>\(D_A(z)=\chi/(1+z), \quad D_L(z)=(1+z)\chi\)</p>
+          <p>\(D_H = c/H_0\)</p>
+          <p>\(D_C(z)=D_H \displaystyle\int_0^z \frac{dz'}{E(z')}\)</p>
+          <p>
+            \(S_k(\chi) =
+            \begin{cases}
+              \frac{1}{\sqrt{\Omega_{k0}}}\sinh(\sqrt{\Omega_{k0}}\,\chi) & \Omega_{k0}>0 \\
+              \chi & \Omega_{k0}=0 \\
+              \frac{1}{\sqrt{|\Omega_{k0}|}}\sin(\sqrt{|\Omega_{k0}|}\,\chi) & \Omega_{k0}<0
+            \end{cases}\)
+          </p>
+          <p>\(D_M(z)=D_H\,S_k\!\left(\displaystyle\int_0^z \frac{dz'}{E(z')}\right)\)</p>
+          <p>\(D_A(z)=D_M/(1+z), \quad D_L(z)=(1+z)D_M\)</p>
           <p>\(\mu(z) = 5\log_{10}(D_L/\mathrm{Mpc}) + 25\)</p>
-          <p>\(\Omega_m(z) = \dfrac{\Omega_{m0}(1+z)^3}{E(z)^2}\)</p>
+          <p>\(\Omega_m(z) = \dfrac{\Omega_{m0}(1+z)^3}{E(z)^2}\), similarly for \(\Omega_r(z),\Omega_\Lambda(z),\Omega_k(z)\).</p>
           <p>\(t_L(z) = \displaystyle\int_0^z \frac{dz'}{(1+z')H(z')}\), \quad
              \(t_0 = \displaystyle\int_0^{z_{\rm max}}\frac{dz'}{(1+z')H(z')}\)</p>
           <p>\(D_V(z) = \left[ (1+z)^2 D_A^2 \frac{cz}{H(z)}\right]^{1/3}\)</p>
+          <p>\(\frac{dV}{dz\,d\Omega} = \frac{c}{H(z)} D_M^2\)</p>
         </div>
       </div>
     </article>
   </div>
 </section>
 
+
+
+
+
+
+  
   <!-- ============================================================
        PANEL 2: QKDE RUNNING K
   ============================================================ -->
@@ -1003,9 +1044,6 @@ document.querySelectorAll(".panel-toggle-btn").forEach(btn => {
   });
 });
 
-
-
-
   
 /* ============================================================
    THEME TOGGLE
@@ -1141,97 +1179,147 @@ const C_LIGHT = 299792.458;          // km/s
 const MPC_IN_KM = 3.085677581e19;    // km
 const SEC_PER_GYR = 3.15576e16;      // s in 1 Gyr
 
+
+
+
+  
 /* ============================================================
-   ΛCDM BASIC FUNCTIONS
+   CORE COSMOLOGY + ΛCDM HELPERS (WITH CURVATURE)
 ============================================================ */
-function Ez_LCDM(z, Om0, Or0, Ol0) {
+
+/* Physical constants */
+const C_LIGHT = 299792.458;          // km/s
+const MPC_IN_KM = 3.085677581e19;    // km
+const SEC_PER_GYR = 3.15576e16;      // s in 1 Gyr
+
+/* Background E(z), E(a) including curvature Ω_k0 = 1 - Ω_m0 - Ω_r0 - Ω_Λ0 */
+function E_z(z, Om0, Or0, Ol0) {
+  const Ok0 = 1 - Om0 - Or0 - Ol0;
+  const zp1 = 1 + z;
   return Math.sqrt(
-    Om0 * Math.pow(1 + z, 3) +
-    Or0 * Math.pow(1 + z, 4) +
+    Om0 * zp1**3 +
+    Or0 * zp1**4 +
+    Ok0 * zp1**2 +
     Ol0
   );
 }
 
-function H_LCDM(H0, z, Om0, Or0, Ol0) {
-  return H0 * Ez_LCDM(z, Om0, Or0, Ol0);
+function E_a(a, Om0, Or0, Ol0) {
+  const Ok0 = 1 - Om0 - Or0 - Ol0;
+  return Math.sqrt(
+    Om0/a**3 +
+    Or0/a**4 +
+    Ok0/a**2 +
+    Ol0
+  );
 }
 
-/**
- * Comoving distance χ(z) in Mpc via Simpson integration.
- */
-function integrateChi(H0, Om0, Or0, Ol0, zmax, Nsteps) {
-  const N = Math.max(100, (Nsteps|0));
-  const dz = zmax / N;
-  let sum = 0;
-
-  for (let i = 0; i <= N; i++) {
-    const z = i * dz;
-    const w = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
-    sum += w / Ez_LCDM(z, Om0, Or0, Ol0);
-  }
-
-  const integral = (dz / 3) * sum;   // dimensionless
-  return (C_LIGHT / H0) * integral;  // Mpc
+function Omega_m(a, Om0, Or0, Ol0) {
+  const E = E_a(a, Om0, Or0, Ol0);
+  return (Om0/a**3) / (E*E);
 }
 
-/**
- * Lookback time t_L(z) in Gyr via Simpson integration:
- * t_L(z) = ∫ dz / ((1+z)H(z)).
- */
-function integrateLookbackTime(H0, Om0, Or0, Ol0, zmax, Nsteps) {
-  const N = Math.max(200, (Nsteps|0));
-  const dz = zmax / N;
-
-  let sum = 0;
-  for (let i = 0; i <= N; i++) {
-    const z = i * dz;
-    const w = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
-    const E = Ez_LCDM(z, Om0, Or0, Ol0);
-    sum += w / ((1 + z) * E);
-  }
-
-  const integral = (dz / 3) * sum; // dimensionless
-  const H0_s = H0 / MPC_IN_KM;     // 1/s
-  const t_seconds = integral / H0_s;
-  return t_seconds / SEC_PER_GYR;  // Gyr
-}
-
-/**
- * BAO volume distance D_V(z) in Mpc.
- * D_V(z) = [ (1+z)^2 D_A^2 (c z / H(z)) ]^{1/3}
- */
-function computeDv(H0, Om0, Or0, Ol0, z, chi, H) {
-  const DA = chi / (1 + z);
-  const term = Math.pow(1 + z, 2) * DA * DA * (C_LIGHT * z / H);
-  return Math.cbrt(term);
-}
-
-/**
- * Standard radiation density from T_CMB and N_eff.
- * Ω_r0 ≈ Ω_γ0 (1 + 0.2271 N_eff), Ω_γ0 ≈ 2.47e-5 / h^2
- */
+/* Standard radiation density from T_CMB and N_eff.
+   Ω_r0 ≈ Ω_γ0(1+0.2271 N_eff), Ω_γ0 ≈ 2.47e-5 / h^2 */
 function standardOmegaR0(H0, Tcmb = 2.7255, Neff = 3.046) {
   const h = H0 / 100;
   const Omega_gamma_0 = 2.47e-5 * Math.pow(Tcmb / 2.7255, 4) / (h * h);
   return Omega_gamma_0 * (1 + 0.2271 * Neff);
 }
 
+/* Dimensionless comoving distance integral:
+   χ̃(z) = ∫0^z dz'/E(z')  (no c/H0 factor) */
+function integrateChiDimless(Om0, Or0, Ol0, zmax, Nsteps) {
+  const N = Math.max(200, (Nsteps|0));
+  const dz = zmax / N;
+  let sum = 0;
+
+  for (let i = 0; i <= N; i++) {
+    const z = i * dz;
+    const w = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
+    sum += w / E_z(z, Om0, Or0, Ol0);
+  }
+
+  return (dz / 3) * sum; // dimensionless
+}
+
+/* Full set of distances at one redshift z */
+function lcdmDistancesAtZ(H0, Om0, Or0, Ol0, z, Nsteps) {
+  const Ok0 = 1 - Om0 - Or0 - Ol0;
+  const DH = C_LIGHT / H0;                     // Hubble distance [Mpc]
+  const chiDimless = integrateChiDimless(Om0, Or0, Ol0, z, Nsteps);
+  const DC = DH * chiDimless;                  // line-of-sight comoving
+  let DM;                                      // transverse comoving
+
+  if (Math.abs(Ok0) < 1e-7) {
+    DM = DC;
+  } else {
+    const sqrtOk = Math.sqrt(Math.abs(Ok0));
+    if (Ok0 > 0) {
+      DM = DH / sqrtOk * Math.sinh(sqrtOk * chiDimless);
+    } else {
+      DM = DH / sqrtOk * Math.sin(sqrtOk * chiDimless);
+    }
+  }
+
+  const DA = DM / (1 + z);
+  const DL = DM * (1 + z);
+
+  return { DC, DM, DA, DL };
+}
+
+/* Lookback time t_L(z) in Gyr:
+   t_L(z) = ∫0^z dz / ((1+z) H(z)) */
+function integrateLookbackTime(H0, Om0, Or0, Ol0, zmax, Nsteps) {
+  const N = Math.max(400, (Nsteps|0));
+  const dz = zmax / N;
+  let sum = 0;
+
+  for (let i = 0; i <= N; i++) {
+    const z = i * dz;
+    const w = (i === 0 || i === N) ? 1 : (i % 2 === 0 ? 2 : 4);
+    sum += w / ((1 + z) * E_z(z, Om0, Or0, Ol0));
+  }
+
+  const integral = (dz / 3) * sum;   // dimensionless
+  const H0_s = H0 / MPC_IN_KM;       // 1/s
+  const t_seconds = integral / H0_s;
+  return t_seconds / SEC_PER_GYR;    // Gyr
+}
+
+/* BAO volume distance D_V(z) in Mpc:
+   D_V(z) = [ (1+z)^2 D_A^2 (c z / H(z)) ]^{1/3} */
+function computeDv(H0, Om0, Or0, Ol0, z, DA, Ez) {
+  const H = H0 * Ez;
+  const term = Math.pow(1 + z, 2) * DA * DA * (C_LIGHT * z / H);
+  return Math.cbrt(term);
+}
+
+/* Comoving volume element dV/dz dΩ [Mpc^3] */
+function differentialVolume(H0, Om0, Or0, Ol0, z, DM, Ez) {
+  const H = H0 * Ez;
+  return (C_LIGHT / H) * DM * DM;
+}
+
+
 /* ============================================================
-   CALCULATOR 1: ΛCDM BACKGROUND DASHBOARD (C2)
+   CALCULATOR 1: ΛCDM BACKGROUND DASHBOARD (FULL UPGRADE)
 ============================================================ */
 
 let lcdmChart = null;
 
+/* Update small diagnostic plot for Panel 1 */
 function updateLCDMChart(params, plotType) {
   const { H0, Om0, Or0, Ol0, zPlotMax, Nchi } = params;
 
-  const Nz = 150;
+  const Nz = 180;
   const dz = zPlotMax / Nz;
 
-  const zArr = [];
-  const EArr = [];
-  const HArr = [];
-  const chiArr = [];
+  const zArr  = [];
+  const EArr  = [];
+  const HArr  = [];
+  const DCarr = [];
+  const DMarr = [];
   const DAarr = [];
   const DLarr = [];
 
@@ -1239,28 +1327,31 @@ function updateLCDMChart(params, plotType) {
     const z = i * dz;
     zArr.push(z);
 
-    const E = Ez_LCDM(z, Om0, Or0, Ol0);
-    const H = H0 * E;
-    EArr.push(E);
+    const Ez = E_z(z, Om0, Or0, Ol0);
+    const H  = H0 * Ez;
+    EArr.push(Ez);
     HArr.push(H / H0);
 
-    // compute χ(z) with same Nchi each time (okay for Nz ~ 150)
-    const chi = integrateChi(H0, Om0, Or0, Ol0, z, Nchi);
-    chiArr.push(chi);
-    DAarr.push(chi / (1 + z));
-    DLarr.push(chi * (1 + z));
+    const dists = lcdmDistancesAtZ(H0, Om0, Or0, Ol0, z, Nchi);
+    DCarr.push(dists.DC);
+    DMarr.push(dists.DM);
+    DAarr.push(dists.DA);
+    DLarr.push(dists.DL);
   }
 
-  let yArr;
-  let yLabel;
+  let yArr, yLabel;
   switch (plotType) {
     case "H":
       yArr = HArr;
       yLabel = "H(z)/H₀";
       break;
-    case "chi":
-      yArr = chiArr;
-      yLabel = "χ(z) [Mpc]";
+    case "DC":
+      yArr = DCarr;
+      yLabel = "D_C(z) [Mpc]";
+      break;
+    case "DM":
+      yArr = DMarr;
+      yLabel = "D_M(z) [Mpc]";
       break;
     case "DA":
       yArr = DAarr;
@@ -1283,7 +1374,7 @@ function updateLCDMChart(params, plotType) {
   lcdmChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: zArr,
+      labels: zArr.map(v => v.toFixed(2)),
       datasets: [{
         label: yLabel,
         data: yArr,
@@ -1309,95 +1400,108 @@ function updateLCDMChart(params, plotType) {
   });
 }
 
-/* --- Main compute handler --- */
+/* --- Main compute handler for Panel 1 --- */
 byId("lcdm-compute").addEventListener("click", () => {
   try {
-    let z   = parseFloat(byId("lcdm-z").value);
-    let H0  = parseFloat(byId("lcdm-h0").value);
-    let Om0 = parseFloat(byId("lcdm-om").value);
-    let Or0 = parseFloat(byId("lcdm-or").value);
-    let Ol0 = parseFloat(byId("lcdm-ol").value);
-    const steps = parseInt(byId("lcdm-steps").value);
-    const zPlotMax = parseFloat(byId("lcdm-zmax-plot").value);
-    const plotType = byId("lcdm-plot-y").value;
+    const z          = parseFloat(byId("lcdm-z").value);
+    let   H0         = parseFloat(byId("lcdm-h0").value);
+    let   Om0        = parseFloat(byId("lcdm-om").value);
+    let   Or0        = parseFloat(byId("lcdm-or").value);
+    let   Ol0        = parseFloat(byId("lcdm-ol").value);
+    const steps      = parseInt(byId("lcdm-steps").value);
+    const zPlotMax   = parseFloat(byId("lcdm-zmax-plot").value);
+    const plotType   = byId("lcdm-plot-y").value;
+    const autoRad    = byId("lcdm-auto-rad").checked;
+    const enforceFlat= byId("lcdm-flat").checked;
 
-    if (!(z >= 0)) throw new Error("Redshift z must be ≥ 0.");
-    if (!(H0 > 0)) throw new Error("H₀ must be positive.");
-    if (!(steps >= 100)) throw new Error("z-steps must be ≥ 100.");
+    if (!(z >= 0))   throw new Error("Redshift z must be ≥ 0.");
+    if (!(H0 > 0))   throw new Error("H₀ must be positive.");
+    if (!(steps >= 200)) throw new Error("z-steps must be ≥ 200.");
     if (!(zPlotMax > 0)) throw new Error("Plot z_max must be > 0.");
 
-    /* --- Radiation: auto-standard if chosen --- */
-    const autoRad = byId("lcdm-auto-rad").checked;
+    /* --- Standard radiation if chosen --- */
     if (autoRad) {
       Or0 = standardOmegaR0(H0);
       byId("lcdm-or").value = Or0.toExponential(3);
     }
 
-    /* --- Enforce flatness if checkbox checked --- */
-    const enforceFlat = byId("lcdm-flat").checked;
+    /* --- Enforce flatness if checked --- */
     if (enforceFlat) {
       Ol0 = 1 - Om0 - Or0;
       byId("lcdm-ol").value = Ol0.toFixed(6);
     }
 
-    /* --- Validate Ω's --- */
-    const Otot = Om0 + Or0 + Ol0;
-    if (!(Otot > 0)) throw new Error("Ω_total must be > 0.");
-    if (Otot < 0.8 || Otot > 1.2) {
-      console.warn("Ω_total far from 1; distances may not correspond to a strictly flat model.");
+    const Ok0 = 1 - Om0 - Or0 - Ol0;
+    byId("lcdm-ok").value = Ok0.toFixed(6);
+
+    const Otot0 = Om0 + Or0 + Ol0 + Ok0;
+    if (!(Otot0 > 0)) throw new Error("Ω_total must be > 0.");
+    if (Math.abs(Otot0 - 1) > 0.2) {
+      console.warn("Ω_total far from 1; strong curvature / non-standard background.");
     }
 
-    /* --- Basic background quantities at z --- */
-    const E = Ez_LCDM(z, Om0, Or0, Ol0);
-    const H = H0 * E;
+    /* --- Background at z --- */
+    const Ez = E_z(z, Om0, Or0, Ol0);
+    const H  = H0 * Ez;
 
     /* --- Distances --- */
-    const chi = integrateChi(H0, Om0, Or0, Ol0, z, steps);
-    const DA = chi / (1 + z);
-    const DL = chi * (1 + z);
+    const dists = lcdmDistancesAtZ(H0, Om0, Or0, Ol0, z, steps);
+    const DC = dists.DC;
+    const DM = dists.DM;
+    const DA = dists.DA;
+    const DL = dists.DL;
+
     const mu = 5 * Math.log10(DL) + 25;
 
-    /* --- Density parameters --- */
-    const E2 = E * E;
-    const OmegaMz = (Om0 * Math.pow(1 + z, 3)) / E2;
-    const OmegaRz = (Or0 * Math.pow(1 + z, 4)) / E2;
+    /* --- Density parameters at z --- */
+    const E2 = Ez*Ez;
+    const zp1 = 1 + z;
+    const OmegaMz = (Om0 * zp1**3) / E2;
+    const OmegaRz = (Or0 * zp1**4) / E2;
     const OmegaLz = Ol0 / E2;
-    const Otot0 = Om0 + Or0 + Ol0;
+    const OmegaKz = Ok0 * zp1**2 / E2;
 
     /* --- Times --- */
     const tL = integrateLookbackTime(H0, Om0, Or0, Ol0, z, steps);
-    const t0 = integrateLookbackTime(H0, Om0, Or0, Ol0, 20, steps * 2); // integrate to z=20 as proxy for age
+    // integrate to high z (e.g. z=4000) as proxy for age
+    const t0 = integrateLookbackTime(H0, Om0, Or0, Ol0, 4000, steps * 2);
     const t_z = t0 - tL;
 
-    /* --- BAO distance D_V --- */
-    const Dv = computeDv(H0, Om0, Or0, Ol0, z, chi, H);
+    /* --- BAO distance & volume element --- */
+    const Dv      = computeDv(H0, Om0, Or0, Ol0, z, DA, Ez);
+    const dV_dzdO = differentialVolume(H0, Om0, Or0, Ol0, z, DM, Ez);
 
     /* --- Output text --- */
     setOutput(byId("lcdm-output"),
 `=== ΛCDM Background @ z = ${z.toFixed(4)} ===
-H₀          = ${H0.toFixed(3)} km/s/Mpc
-Ωₘ₀         = ${Om0.toFixed(6)}
-Ωᵣ₀         = ${Or0.toExponential(3)}
-ΩΛ₀         = ${Ol0.toFixed(6)}
-Ω_total(0)  = ${Otot0.toFixed(6)}
+H₀            = ${H0.toFixed(3)} km/s/Mpc
 
-E(z)        = ${E.toFixed(6)}
-H(z)        = ${H.toFixed(4)} km/s/Mpc
+Ωₘ₀           = ${Om0.toFixed(6)}
+Ωᵣ₀           = ${Or0.toExponential(3)}
+ΩΛ₀           = ${Ol0.toFixed(6)}
+Ωₖ₀           = ${Ok0.toFixed(6)}
+Ω_total(0)    = ${Otot0.toFixed(6)}
 
-χ(z)        = ${chi.toFixed(4)} Mpc
-D_A(z)      = ${DA.toFixed(4)} Mpc
-D_L(z)      = ${DL.toFixed(4)} Mpc
-μ(z)        = ${mu.toFixed(4)} mag
+E(z)          = ${Ez.toFixed(6)}
+H(z)          = ${H.toFixed(4)} km/s/Mpc
 
-Ω_m(z)      = ${OmegaMz.toFixed(6)}
-Ω_r(z)      = ${OmegaRz.toExponential(3)}
-Ω_Λ(z)      = ${OmegaLz.toFixed(6)}
+D_C(z)        = ${DC.toFixed(4)} Mpc  (comoving line-of-sight)
+D_M(z)        = ${DM.toFixed(4)} Mpc  (transverse comoving)
+D_A(z)        = ${DA.toFixed(4)} Mpc
+D_L(z)        = ${DL.toFixed(4)} Mpc
+μ(z)          = ${mu.toFixed(4)} mag
 
-t_L(z)      = ${tL.toFixed(3)} Gyr (lookback)
-t(z)        = ${t_z.toFixed(3)} Gyr (cosmic time)
-t₀          = ${t0.toFixed(3)} Gyr (age of Universe)
+Ω_m(z)        = ${OmegaMz.toFixed(6)}
+Ω_r(z)        = ${OmegaRz.toExponential(3)}
+Ω_Λ(z)        = ${OmegaLz.toFixed(6)}
+Ω_k(z)        = ${OmegaKz.toFixed(6)}
 
-D_V(z)      = ${Dv.toFixed(4)} Mpc`);
+t_L(z)        = ${tL.toFixed(3)} Gyr (lookback)
+t(z)          = ${t_z.toFixed(3)} Gyr (cosmic time)
+t₀            = ${t0.toFixed(3)} Gyr (age of Universe)
+
+D_V(z)        = ${Dv.toFixed(4)} Mpc
+dV/dz dΩ      = ${dV_dzdO.toExponential(3)} Mpc³`);
 
     /* --- Update diagnostic plot --- */
     updateLCDMChart(
@@ -1410,9 +1514,9 @@ D_V(z)      = ${Dv.toFixed(4)} Mpc`);
   }
 });
 
-/* ============================================================
+/* ------------------------------------------------------------
    ΛCDM PRESETS (Planck / Local H₀ / WMAP-like)
-============================================================ */
+------------------------------------------------------------ */
 (function attachLCDMPresets() {
   const buttons = document.querySelectorAll("#lcdm-card [data-lcdm-preset]");
 
@@ -1432,33 +1536,30 @@ D_V(z)      = ${Dv.toFixed(4)} Mpc`);
       if (preset === "planck") {
         H0Input.value = 67.4;
         OmInput.value = 0.315;
-        autoRad.checked = true;
-        const Or = standardOmegaR0(67.4);
-        OrInput.value = Or.toExponential(3);
-        flatBox.checked = true;
-        const Ol = 1 - parseFloat(OmInput.value) - parseFloat(OrInput.value);
-        OlInput.value = Ol.toFixed(6);
       }
       else if (preset === "local") {
         H0Input.value = 73.0;
         OmInput.value = 0.30;
-        autoRad.checked = true;
-        const Or = standardOmegaR0(73.0);
-        OrInput.value = Or.toExponential(3);
-        flatBox.checked = true;
-        const Ol = 1 - parseFloat(OmInput.value) - parseFloat(OrInput.value);
-        OlInput.value = Ol.toFixed(6);
       }
       else if (preset === "wmap") {
         H0Input.value = 70.0;
         OmInput.value = 0.28;
-        autoRad.checked = true;
-        const Or = standardOmegaR0(70.0);
-        OrInput.value = Or.toExponential(3);
-        flatBox.checked = true;
-        const Ol = 1 - parseFloat(OmInput.value) - parseFloat(OrInput.value);
-        OlInput.value = Ol.toFixed(6);
       }
+
+      autoRad.checked = true;
+      const Or = standardOmegaR0(parseFloat(H0Input.value));
+      OrInput.value = Or.toExponential(3);
+
+      flatBox.checked = true;
+      const Om0 = parseFloat(OmInput.value);
+      const Or0 = parseFloat(OrInput.value);
+      const Ol0 = 1 - Om0 - Or0;
+      OlInput.value = Ol0.toFixed(6);
+
+      // update derived Ωk0 display
+      const Ok0 = 1 - Om0 - Or0 - Ol0;
+      const okField = byId("lcdm-ok");
+      if (okField) okField.value = Ok0.toFixed(6);
     });
   });
 })();
@@ -1466,6 +1567,85 @@ D_V(z)      = ${Dv.toFixed(4)} Mpc`);
 /* Attach formula toggle for this panel */
 attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
 
+/* ------------------------------------------------------------
+   CSV EXPORT: z–distance table
+------------------------------------------------------------ */
+byId("lcdm-export-csv").addEventListener("click", () => {
+  try {
+    const H0  = parseFloat(byId("lcdm-h0").value);
+    const Om0 = parseFloat(byId("lcdm-om").value);
+    let   Or0 = parseFloat(byId("lcdm-or").value);
+    let   Ol0 = parseFloat(byId("lcdm-ol").value);
+    const autoRad  = byId("lcdm-auto-rad").checked;
+    const enforceFlat = byId("lcdm-flat").checked;
+    const zPlotMax = parseFloat(byId("lcdm-zmax-plot").value);
+
+    if (!(H0 > 0)) throw new Error("H₀ must be positive.");
+    if (!(zPlotMax > 0)) throw new Error("Plot z_max must be > 0.");
+
+    if (autoRad) Or0 = standardOmegaR0(H0);
+    if (enforceFlat) Ol0 = 1 - Om0 - Or0;
+
+    const Nz = 200;
+    const dz = zPlotMax / Nz;
+
+    const rows = [];
+    rows.push([
+      "z",
+      "E(z)",
+      "H_over_H0",
+      "D_C_Mpc",
+      "D_M_Mpc",
+      "D_A_Mpc",
+      "D_L_Mpc",
+      "mu_mag",
+      "dV_dz_dOmega_Mpc3"
+    ].join(","));
+
+    for (let i = 0; i <= Nz; i++) {
+      const z = i * dz;
+      const Ez = E_z(z, Om0, Or0, Ol0);
+      const dists = lcdmDistancesAtZ(H0, Om0, Or0, Ol0, z, 600);
+      const DC = dists.DC;
+      const DM = dists.DM;
+      const DA = dists.DA;
+      const DL = dists.DL;
+      const mu = 5 * Math.log10(DL) + 25;
+      const dV = differentialVolume(H0, Om0, Or0, Ol0, z, DM, Ez);
+
+      rows.push([
+        z.toFixed(6),
+        Ez.toFixed(8),
+        (Ez).toFixed(8),
+        DC.toFixed(8),
+        DM.toFixed(8),
+        DA.toFixed(8),
+        DL.toFixed(8),
+        mu.toFixed(8),
+        dV.toExponential(8)
+      ].join(","));
+    }
+
+    const blob = new Blob([rows.join("\n")], { type: "text/csv" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href = url;
+    a.download = "lcdm_background_z_grid.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  catch (err) {
+    alert("CSV export error: " + err.message);
+  }
+});
+
+
+
+
+
+  
 
   
 /* ============================================================
