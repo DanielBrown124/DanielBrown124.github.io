@@ -503,6 +503,9 @@ select.calc-input {
       inset 0 0 22px rgba(102,252,241,0.06);
   padding: 28px 24px 32px;
   position: relative;
+
+  /* NEW: allow expansion */
+  overflow: visible;
 }
 
 .calc-card-wide h3 {
@@ -516,12 +519,8 @@ select.calc-input {
 
 .calc-card-wide canvas {
   width: 100%;
-
-  /* NEW: instead of fixed 420px height */
-  height: auto;
-
-  /* maintain clean proportions */
-  aspect-ratio: 16 / 9;
+  height: auto;                /* NEW */
+  aspect-ratio: 16 / 9;        /* NEW */
 
   margin-top: 16px;
   border-radius: 10px;
@@ -531,7 +530,6 @@ select.calc-input {
       0 0 14px rgba(102,252,241,0.10),
       inset 0 0 12px rgba(102,252,241,0.05);
 }
-
 
 /* Info box under plot */
 #adv-growth-info {
