@@ -1969,7 +1969,7 @@ QKDE (ρ_DE ∝ K(1)/K(a)):
     }
 
 // ============================================================
-// PANEL 5 — ADVANCED GROWTH COMPARATOR (CLEAN + CORRECTED)
+// PANEL 5 — ADVANCED GROWTH COMPARATOR (FIXED CATEGORY AXIS)
 // ============================================================
 
 let growthChart = null;
@@ -1997,9 +1997,9 @@ if (advComputeBtn) {
       const zmax = parseFloat(byId("adv-zmax").value);
       const Npts = parseInt(byId("adv-samples").value, 10);
 
-      const wQ = parseFloat(byId("adv-wq").value);
-      const w0 = parseFloat(byId("adv-w0").value);
-      const wa = parseFloat(byId("adv-wa").value);
+      const wQ  = parseFloat(byId("adv-wq").value);
+      const w0  = parseFloat(byId("adv-w0").value);
+      const wa  = parseFloat(byId("adv-wa").value);
       const K0q = parseFloat(byId("adv-k0q").value);
       const pq  = parseFloat(byId("adv-pq").value);
 
@@ -2011,11 +2011,16 @@ if (advComputeBtn) {
       const xMode = byId("adv-xaxis").value; // "a" or "z"
       const norm  = byId("adv-norm").value;  // "Da" or "Da_over_a"
 
-      if (!(zmax > 0)) throw new Error("z_max must be > 0");
+      if (!(zmax > 0))  throw new Error("z_max must be > 0");
       if (!(Npts >= 40)) throw new Error("Samples must be ≥ 40");
 
       const ODE0 = 1 - Om0 - Or0;
       if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive.");
+
+      // Require at least one model
+      if (!showLCDM && !showQ && !showCPL && !showQKDE) {
+        throw new Error("Select at least one model to plot.");
+      }
 
       // -------------------------------
       // Build scale factor grid
@@ -2024,37 +2029,50 @@ if (advComputeBtn) {
       const aArray = Array.from({ length: Npts }, (_, i) =>
         a_min + (1 - a_min) * (i / (Npts - 1))
       );
-
       const zArray = aArray.map(a => 1 / a - 1);
 
       // -------------------------------
-      // Background models
+      // Background E(a) models
       // -------------------------------
-      const E_LCDM = (a) => Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
+      const E_LCDM = (a) =>
+        Math.sqrt(Om0 / a**3 + Or0 / a**4 + ODE0);
 
       const E_Quint = (a) =>
-        Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * a**(-3*(1 + wQ)));
+        Math.sqrt(
+          Om0 / a**3 +
+          Or0 / a**4 +
+          ODE0 * a**(-3 * (1 + wQ))
+        );
 
       const E_CPL = (a) => {
-        const ode = ODE0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1 - a));
-        return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
+        const ode = ODE0 *
+          a**(-3 * (1 + w0 + wa)) *
+          Math.exp(-3 * wa * (1 - a));
+        return Math.sqrt(
+          Om0 / a**3 +
+          Or0 / a**4 +
+          ode
+        );
       };
 
       const K_today = 1 + K0q;
       const E_QKDE = (a) => {
         const K = K_a(a, K0q, pq);
         return Math.sqrt(
-          Om0/a**3 + Or0/a**4 + ODE0 * (K_today / K)
+          Om0 / a**3 +
+          Or0 / a**4 +
+          ODE0 * (K_today / K)
         );
       };
 
       // -------------------------------
-      // Normalization choice
+      // Normalization helper
       // -------------------------------
-      function normalize(D) {
-        return norm === "Da_over_a"
-          ? D.map((v, i) => v / aArray[i])
-          : D;
+      function normalize(Darr) {
+        if (norm === "Da_over_a") {
+          return Darr.map((D, i) => D / aArray[i]);
+        }
+        return Darr;
       }
 
       // -------------------------------
@@ -2080,16 +2098,20 @@ if (advComputeBtn) {
       if (showQKDE) addModel("QKDE (ρ_DE ∝ K(1)/K(a))", E_QKDE);
 
       // -------------------------------
-      // x–axis numeric array
+      // x–axis labels (category axis)
       // -------------------------------
       const xNumeric = (xMode === "z") ? zArray : aArray;
+      const xLabels = xNumeric.map(v =>
+        (xMode === "z" ? v.toFixed(3) : v.toFixed(3))
+      );
+
       const xTitle = (xMode === "z") ? "Redshift z" : "Scale factor a";
       const yTitle = (norm === "Da_over_a")
         ? "D(a)/a (normalized)"
         : "D(a) (D(1)=1)";
 
       // -------------------------------
-      // DRAW CHART (fixed, working)
+      // DRAW CHART (category x-axis)
       // -------------------------------
       const canvas = byId("adv-growth-canvas");
       if (!canvas) return;
@@ -2100,16 +2122,14 @@ if (advComputeBtn) {
       growthChart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: xNumeric,
+          labels: xLabels,
           datasets
         },
         options: {
-          parsing: false,
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             x: {
-              type: "linear",
               title: { display: true, text: xTitle }
             },
             y: {
@@ -2125,9 +2145,9 @@ if (advComputeBtn) {
       // -------------------------------
       let info = "Plotted models:\n";
       if (showLCDM) info += "• ΛCDM\n";
-      if (showQ)    info += "• Quintessence\n";
-      if (showCPL)  info += "• CPL\n";
-      if (showQKDE) info += "• QKDE (Option B)\n";
+      if (showQ)    info += "• Quintessence (constant w)\n";
+      if (showCPL)  info += "• CPL w(a)\n";
+      if (showQKDE) info += "• QKDE (ρ_DE ∝ K(1)/K(a))\n";
 
       info += `\nGrid: ${Npts} points, z_max = ${zmax}\n`;
       info += `Normalization: ${norm}\n`;
