@@ -376,3 +376,635 @@
     </section>
   </main>
 </div> <!-- /page -->
+
+
+<!-- ======================= LAB SCRIPT ======================= -->
+<script>
+(function() {
+  "use strict";
+
+  /* ========= STATE ========= */
+  const state = {
+    models: {
+      lcdm: true,
+      wcdm: true,
+      cpl: true,
+      qkde: true,
+    },
+    params: {},
+    data: {
+      sn: null,
+      bao: null,
+      hz: null,
+      fs8: null,
+    }
+  };
+
+  /* ========= UTILITIES ========= */
+  const c_kms = 299792.458; // km/s
+
+  function linspace(start, end, n) {
+    const arr = new Array(n);
+    const step = (end - start) / (n - 1);
+    for (let i = 0; i < n; i++) {
+      arr[i] = start + step * i;
+    }
+    return arr;
+  }
+
+  function trapz(x, y) {
+    let sum = 0;
+    for (let i = 1; i < x.length; i++) {
+      sum += 0.5 * (y[i] + y[i-1]) * (x[i] - x[i-1]);
+    }
+    return sum;
+  }
+
+  function parseCSV(text) {
+    const lines = text.trim().split(/\r?\n/);
+    if (!lines.length) return null;
+    const header = lines[0].split(",").map(h => h.trim());
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      const cols = line.split(",");
+      const row = {};
+      header.forEach((h, idx) => {
+        const v = cols[idx] !== undefined ? cols[idx].trim() : "";
+        const num = Number(v);
+        row[h] = isNaN(num) ? v : num;
+      });
+      rows.push(row);
+    }
+    return { header, rows };
+  }
+
+  /* ========= MODEL BACKGROUND ========= */
+
+  function E_of_z(model, z, p) {
+    const Om0 = p.Om0;
+    const Or0 = p.Or0;
+    const Ode0 = p.Ode0;
+    let Ok0 = 1 - Om0 - Or0 - Ode0;
+    if (p.flat) Ok0 = 0;
+    const zp1 = 1 + z;
+    const rho_m = Om0 * Math.pow(zp1, 3);
+    const rho_r = Or0 * Math.pow(zp1, 4);
+    const rho_k = Ok0 * Math.pow(zp1, 2);
+    let rho_de;
+
+    if (model === "lcdm") {
+      rho_de = Ode0;
+    } else if (model === "wcdm") {
+      const w = p.wc;
+      rho_de = Ode0 * Math.pow(zp1, 3 * (1 + w));
+    } else if (model === "cpl") {
+      const w0 = p.w0;
+      const wa = p.wa;
+      const a = 1 / (1 + z);
+      // CPL: rho_de ∝ a^{-3(1+w0+wa)} exp[ -3 wa (1-a) ]
+      const exponent = -3 * (1 + w0 + wa) * Math.log(a) - 3 * wa * (1 - a);
+      rho_de = Ode0 * Math.exp(exponent);
+    } else if (model === "qkde") {
+      // QKDE: rho_de(a) ∝ K(1)/K(a), K(a)=1+K0 a^{-p}
+      const a = 1 / (1 + z);
+      const K0 = p.K0;
+      const pK = p.pK;
+      const K_a = 1 + K0 * Math.pow(a, -pK);
+      const K_1 = 1 + K0;
+      rho_de = Ode0 * (K_1 / K_a);
+    } else {
+      rho_de = Ode0;
+    }
+    return Math.sqrt(rho_m + rho_r + rho_k + rho_de);
+  }
+
+  function computeBackgroundGrid(p) {
+    const zmax = p.zmax;
+    const n = p.nsamples;
+    const zArr = linspace(0, zmax, n);
+    const models = ["lcdm", "wcdm", "cpl", "qkde"];
+    const result = {};
+    models.forEach(m => {
+      if (!state.models[m]) return;
+      const E = zArr.map(z => E_of_z(m, z, p));
+      const Hz = E.map(e => p.H0 * e);
+      // comoving distance
+      const invE = E.map(e => 1 / e);
+      const Dc = [];
+      for (let i = 0; i < zArr.length; i++) {
+        const zSub = zArr.slice(0, i + 1);
+        const invESub = invE.slice(0, i + 1);
+        Dc.push((c_kms / p.H0) * trapz(zSub, invESub));
+      }
+      const aArr = zArr.map(z => 1 / (1 + z));
+      result[m] = { z: zArr, a: aArr, E, Hz, Dc };
+    });
+    return result;
+  }
+
+  /* ========= GROWTH ========= */
+
+  function computeGrowthOnBackground(bg, p) {
+    // Simple GR growth solution in N = ln a
+    const aArr = bg.a;
+    const n = aArr.length;
+    const NArr = aArr.map(a => Math.log(a));
+    const D = new Array(n).fill(0);
+    const Dp = new Array(n).fill(0);
+
+    // set initial conditions at early a ~ first index (assume matter-dominated D ~ a)
+    D[0] = aArr[0];
+    Dp[0] = D[0]; // dD/dN ~ D in matter-domination
+
+    for (let i = 1; i < n; i++) {
+      const a = aArr[i];
+      const z = 1 / a - 1;
+      const E = bg.E[i];
+      const HprimeOverH = compute_Hprime_over_H(bg, i, NArr);
+      const Omz = omega_m_of_z(z, p, bg.E[i]);
+
+      // Growth equation: D'' + (2 + H'/H) D' - 1.5 Om D = 0
+      const Nstep = NArr[i] - NArr[i-1];
+      const Dpp = (1.5 * Omz * D[i-1]) - (2 + HprimeOverH) * Dp[i-1];
+
+      Dp[i] = Dp[i-1] + Dpp * Nstep;
+      D[i] = D[i-1] + Dp[i-1] * Nstep;
+    }
+
+    // normalize to D(a=1)=1
+    const idx1 = bg.a.reduce((bestIdx, a, idx) =>
+      Math.abs(a - 1) < Math.abs(bg.a[bestIdx] - 1) ? idx : bestIdx, 0);
+    const D1 = D[idx1] || 1;
+    const Dnorm = D.map(val => val / D1);
+
+    return { a: bg.a, z: bg.z, D: Dnorm };
+  }
+
+  function omega_m_of_z(z, p, E_z) {
+    const Om0 = p.Om0;
+    const Or0 = p.Or0;
+    const Ode0 = p.Ode0;
+    let Ok0 = 1 - Om0 - Or0 - Ode0;
+    if (p.flat) Ok0 = 0;
+    const zp1 = 1 + z;
+    const num = Om0 * Math.pow(zp1, 3);
+    const denom = Math.pow(E_z, 2);
+    return num / denom;
+  }
+
+  function compute_Hprime_over_H(bg, i, NArr) {
+    if (i === 0 || i === bg.E.length - 1) {
+      return 0;
+    }
+    const lnH_next = Math.log(bg.Hz[i+1]);
+    const lnH_prev = Math.log(bg.Hz[i-1]);
+    const dN = NArr[i+1] - NArr[i-1];
+    return (lnH_next - lnH_prev) / dN;
+  }
+
+  /* ========= χ² ========= */
+
+  function computeChi2(target, modelName, bgGrid, growthGrid, p) {
+    const data = state.data[target];
+    if (!data || !data.rows.length) {
+      return { chi2: null, ndof: null, message: "No data loaded for " + target };
+    }
+    let chi2 = 0;
+    let n = 0;
+
+    if (target === "sn") {
+      const bg = bgGrid[modelName];
+      if (!bg) return { chi2: null, ndof: null, message: "Model grid missing" };
+
+      for (const row of data.rows) {
+        const z = row.z;
+        const mu_obs = row.mu;
+        const sig = row.sigma_mu;
+        if (!isFinite(z) || !isFinite(mu_obs) || !isFinite(sig) || sig <= 0) continue;
+        const mu_th = mu_of_z(z, modelName, p);
+        const diff = (mu_obs - mu_th) / sig;
+        chi2 += diff * diff;
+        n++;
+      }
+    } else if (target === "hz") {
+      const bg = bgGrid[modelName];
+      if (!bg) return { chi2: null, ndof: null, message: "Model grid missing" };
+      for (const row of data.rows) {
+        const z = row.z;
+        const Hz_obs = row.Hz;
+        const sig = row.sigma_Hz;
+        if (!isFinite(z) || !isFinite(Hz_obs) || !isFinite(sig) || sig <= 0) continue;
+        const Hz_th = H_of_z(z, modelName, p);
+        const diff = (Hz_obs - Hz_th) / sig;
+        chi2 += diff * diff;
+        n++;
+      }
+    }
+    // (You can extend BAO and fs8 following same pattern)
+
+    return {
+      chi2: n ? chi2 : null,
+      ndof: n ? n : null,
+      message: n ? "" : "No valid data points parsed."
+    };
+  }
+
+  function mu_of_z(z, modelName, p) {
+    // quick one-off DC and DL at z using trapz on small grid
+    const zArr = linspace(0, z, 200);
+    const EArr = zArr.map(zz => E_of_z(modelName, zz, p));
+    const invE = EArr.map(e => 1/e);
+    const Dc = (c_kms / p.H0) * trapz(zArr, invE);
+    const DL = (1 + z) * Dc;
+    return 5 * Math.log10(DL) + 25;
+  }
+
+  function H_of_z(z, modelName, p) {
+    return p.H0 * E_of_z(modelName, z, p);
+  }
+
+  /* ========= PARAM GATHERING ========= */
+
+  function readParamsFromUI() {
+    const H0  = Number(document.getElementById("lab-h0").value || 67.4);
+    const Om0 = Number(document.getElementById("lab-om0").value || 0.3);
+    const Or0 = Number(document.getElementById("lab-or0").value || 0.0);
+    const Ode0 = Number(document.getElementById("lab-ode0").value || 0.7);
+    const flat = document.getElementById("lab-flat").checked;
+    const zmax = Number(document.getElementById("lab-zmax").value || 3);
+    const nsamples = Number(document.getElementById("lab-nsamples").value || 200);
+
+    const wc  = Number(document.getElementById("lab-wc").value || -0.9);
+    const w0  = Number(document.getElementById("lab-w0").value || -0.9);
+    const wa  = Number(document.getElementById("lab-wa").value || 0.0);
+    const K0  = Number(document.getElementById("lab-k0").value || 0.5);
+    const pK  = Number(document.getElementById("lab-p").value || 1.0);
+
+    return {
+      H0, Om0, Or0, Ode0, flat,
+      zmax, nsamples,
+      wc, w0, wa, K0, pK
+    };
+  }
+
+  /* ========= PLOTS ========= */
+
+  function plotBackground(bgGrid, p) {
+    const traces = [];
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const bg = bgGrid[model];
+      traces.push({
+        x: bg.z,
+        y: bg.E,
+        mode: "lines",
+        name: model.toUpperCase() + " – E(z)"
+      });
+    });
+
+    Plotly.newPlot("lab-plot-background", traces, {
+      xaxis: { title: "z" },
+      yaxis: { title: "E(z)", type: "linear" },
+      margin: { t: 30 }
+    }, {responsive:true});
+
+    const zEval = Number(document.getElementById("lab-z-eval").value || 0.5);
+    let summary = "Background values at z* = " + zEval.toFixed(3) + ":\n";
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const Ez = E_of_z(model, zEval, p);
+      const Hz = p.H0 * Ez;
+      summary += "  " + model.toUpperCase() + ": E(z*) = " + Ez.toFixed(4) +
+                 ", H(z*) ≈ " + Hz.toFixed(2) + " km/s/Mpc\n";
+    });
+    document.getElementById("lab-info-background").textContent = summary;
+  }
+
+  function plotDistances(bgGrid, p) {
+    const yq = document.getElementById("lab-yquantity").value;
+    const traces = [];
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const bg = bgGrid[model];
+
+      const DL = bg.Dc.map((Dc,i) => (1 + bg.z[i]) * Dc);
+      const DA = bg.Dc.map((Dc,i) => Dc / (1 + bg.z[i]));
+      let y, label;
+
+      if (yq === "DC") { y = bg.Dc; label = "D_C(z) [Mpc]"; }
+      else if (yq === "DA") { y = DA; label = "D_A(z) [Mpc]"; }
+      else if (yq === "DL") { y = DL; label = "D_L(z) [Mpc]"; }
+      else if (yq === "mu") {
+        y = DL.map(DL_i => 5 * Math.log10(DL_i) + 25);
+        label = "μ(z)";
+      } else {
+        y = bg.Dc;
+        label = "D_C(z) [Mpc]";
+      }
+
+      traces.push({
+        x: bg.z,
+        y,
+        mode: "lines",
+        name: model.toUpperCase()
+      });
+
+      Plotly.newPlot("lab-plot-distances", traces, {
+        xaxis: { title: "z" },
+        yaxis: { title: label },
+        margin: { t: 30 }
+      }, {responsive:true});
+    });
+
+    document.getElementById("lab-info-distances").textContent =
+      "Distances computed from comoving line-of-sight integral. Y quantity: " +
+      document.getElementById("lab-yquantity").value;
+  }
+
+  function plotGrowth(bgGrid, p) {
+    const yq = document.getElementById("lab-yquantity").value;
+    const traces = [];
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const bg = bgGrid[model];
+      const gr = computeGrowthOnBackground(bg, p);
+      let y, label;
+      if (yq === "growthD_over_a") {
+        y = gr.D.map((D,i) => D / gr.a[i]);
+        label = "D(a)/a";
+      } else {
+        y = gr.D;
+        label = "D(a)";
+      }
+
+      traces.push({
+        x: gr.a,
+        y,
+        mode: "lines",
+        name: model.toUpperCase()
+      });
+    });
+
+    Plotly.newPlot("lab-plot-growth", traces, {
+      xaxis: { title: "a" },
+      yaxis: { title: yq === "growthD_over_a" ? "D(a)/a" : "D(a)" },
+      margin: { t: 30 }
+    }, {responsive:true});
+
+    document.getElementById("lab-info-growth").textContent =
+      "GR growth solved with D'' + (2+H'/H)D' - 3/2 Ω_m(a) D = 0, normalized to D(a=1)=1.";
+  }
+
+  function plotQKDEDiagnostics(bgGrid, p) {
+    if (!state.models.qkde || !bgGrid.qkde) {
+      document.getElementById("lab-info-qkde").textContent =
+        "Enable QKDE model to see diagnostics.";
+      Plotly.newPlot("lab-plot-qkde", [], {margin:{t:30}}, {responsive:true});
+      return;
+    }
+    const bg = bgGrid.qkde;
+    const aArr = bg.a;
+    const zArr = bg.z;
+    const K0 = p.K0;
+    const pK = p.pK;
+
+    const Ka = aArr.map(a => 1 + K0 * Math.pow(a, -pK));
+    const dlnK_dlnA = aArr.map(a => {
+      const K = 1 + K0 * Math.pow(a, -pK);
+      const dK_dlnA = -pK * K0 * Math.pow(a, -pK);
+      return dK_dlnA / K;
+    });
+    const w_eff = dlnK_dlnA.map(v => -1 - v/3);
+
+    const traceK = {
+      x: zArr, y: Ka,
+      name: "K(a)",
+      mode: "lines",
+      yaxis: "y1"
+    };
+
+    const tracew = {
+      x: zArr, y: w_eff,
+      name: "w_eff(a)",
+      mode: "lines",
+      yaxis: "y2"
+    };
+
+    Plotly.newPlot("lab-plot-qkde", [traceK, tracew], {
+      xaxis: { title: "z" },
+      yaxis: { title: "K(a)", side: "left" },
+      yaxis2: {
+        title: "w_eff(a)",
+        overlaying: "y",
+        side: "right"
+      },
+      margin: { t: 30 }
+    }, {responsive:true});
+
+    document.getElementById("lab-info-qkde").textContent =
+      "K(a) = 1 + K0 a^{-p}, w_eff(a) = -1 - (1/3) d ln K / d ln a.\n" +
+      "When K is constant, w_eff → -1 and QKDE reduces to ΛCDM.";
+  }
+
+  function plotDataVsModels(bgGrid, p) {
+    const target = document.getElementById("lab-fit-target").value;
+    const traces = [];
+
+    // Model prediction trace
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const bg = bgGrid[model];
+      let x, y, label;
+
+      if (target === "sn") {
+        const DL = bg.Dc.map((Dc,i) => (1 + bg.z[i]) * Dc);
+        x = bg.z;
+        y = DL.map(DL_i => 5 * Math.log10(DL_i) + 25);
+        label = model.toUpperCase() + " μ(z)";
+      } else if (target === "hz") {
+        x = bg.z;
+        y = bg.Hz;
+        label = model.toUpperCase() + " H(z)";
+      } else {
+        x = bg.z;
+        y = bg.Dc;
+        label = model.toUpperCase() + " D_C(z)";
+      }
+
+      traces.push({
+        x, y,
+        mode: "lines",
+        name: label
+      });
+    });
+
+    // Data trace
+    const data = state.data[target];
+    if (data && data.rows.length) {
+      let xd = [], yd = [], errd = [];
+      if (target === "sn") {
+        for (const r of data.rows) {
+          xd.push(r.z);
+          yd.push(r.mu);
+          errd.push(r.sigma_mu);
+        }
+      } else if (target === "hz") {
+        for (const r of data.rows) {
+          xd.push(r.z);
+          yd.push(r.Hz);
+          errd.push(r.sigma_Hz);
+        }
+      }
+
+      if (xd.length) {
+        traces.push({
+          x: xd,
+          y: yd,
+          error_y: { type: "data", array: errd, visible: true },
+          mode: "markers",
+          name: target.toUpperCase() + " data"
+        });
+      }
+    }
+
+    Plotly.newPlot("lab-plot-data", traces, {
+      xaxis: { title: "z" },
+      yaxis: { title: target.toUpperCase() + " observable" },
+      margin: { t: 30 }
+    }, {responsive:true});
+
+    document.getElementById("lab-info-data").textContent =
+      "Data target: " + target.toUpperCase() +
+      ". Models shown: " + Object.keys(bgGrid).filter(m => state.models[m]).join(", ");
+  }
+
+  function updateSummary(bgGrid, p, chi2Results) {
+    const zEval = Number(document.getElementById("lab-z-eval").value || 0.5);
+    let text = "";
+    text += "=== Current Parameters ===\n";
+    text += "H0   = " + p.H0 + " km/s/Mpc\n";
+    text += "Om0  = " + p.Om0 + "\n";
+    text += "Or0  = " + p.Or0 + "\n";
+    text += "Ode0 = " + p.Ode0 + "\n";
+    text += "Flat = " + (p.flat ? "yes" : "no") + "\n\n";
+
+    text += "=== Background at z* = " + zEval.toFixed(3) + " ===\n";
+    Object.keys(bgGrid).forEach(model => {
+      if (!state.models[model]) return;
+      const Ez = E_of_z(model, zEval, p);
+      const Hz = p.H0 * Ez;
+      text += model.toUpperCase() + ": E(z*) = " + Ez.toFixed(4) +
+              ", H(z*) ≈ " + Hz.toFixed(2) + " km/s/Mpc\n";
+    });
+
+    if (chi2Results && chi2Results.length) {
+      text += "\n=== χ² (current params) ===\n";
+      chi2Results.forEach(r => {
+        if (r.chi2 === null) return;
+        text += r.model.toUpperCase() + " vs " + r.target.toUpperCase() +
+                ": χ² = " + r.chi2.toFixed(2) +
+                " for " + r.ndof + " points\n";
+      });
+    }
+
+    document.getElementById("lab-info-summary").textContent = text;
+  }
+
+  /* ========= EVENT WIRING ========= */
+
+  function setUpEvents() {
+    // Model toggles
+    document.querySelectorAll(".lab-model-toggle").forEach(el => {
+      el.addEventListener("change", () => {
+        const m = el.getAttribute("data-model");
+        state.models[m] = el.checked;
+      });
+    });
+
+    // Tabs
+    document.querySelectorAll(".lab-tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("data-tab");
+        document.querySelectorAll(".lab-tab-btn").forEach(b => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        document.querySelectorAll(".lab-panel").forEach(p => {
+          p.hidden = p.getAttribute("data-tab") !== tab;
+        });
+      });
+    });
+
+    // File inputs
+    const fileMap = {
+      "lab-data-sn": "sn",
+      "lab-data-bao": "bao",
+      "lab-data-hz": "hz",
+      "lab-data-fs8": "fs8"
+    };
+    Object.keys(fileMap).forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener("change", (ev) => {
+        const file = ev.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const parsed = parseCSV(reader.result);
+          state.data[fileMap[id]] = parsed;
+          document.getElementById("lab-chi2-output").textContent =
+            "Loaded " + (parsed ? parsed.rows.length : 0) +
+            " rows for " + fileMap[id].toUpperCase() + ".";
+        };
+        reader.readAsText(file);
+      });
+    });
+
+    // Update plots
+    document.getElementById("lab-update-plots").addEventListener("click", () => {
+      const p = readParamsFromUI();
+      state.params = p;
+      const bg = computeBackgroundGrid(p);
+      plotBackground(bg, p);
+      plotDistances(bg, p);
+      plotGrowth(bg, p);
+      plotQKDEDiagnostics(bg, p);
+      plotDataVsModels(bg, p);
+      updateSummary(bg, p, null);
+    });
+
+    // χ² button
+    document.getElementById("lab-fit-chi2").addEventListener("click", () => {
+      const p = readParamsFromUI();
+      state.params = p;
+      const bg = computeBackgroundGrid(p);
+      const target = document.getElementById("lab-fit-target").value;
+      const results = [];
+      Object.keys(bg).forEach(model => {
+        if (!state.models[model]) return;
+        const res = computeChi2(target, model, bg, null, p);
+        results.push({ model, target, ...res });
+      });
+      let msg = "";
+      results.forEach(r => {
+        if (r.chi2 === null) {
+          msg += r.model.toUpperCase() + ": " + (r.message || "no χ²") + "\n";
+        } else {
+          msg += r.model.toUpperCase() + ": χ² = " + r.chi2.toFixed(2) +
+                 " for " + r.ndof + " points\n";
+        }
+      });
+      document.getElementById("lab-chi2-output").textContent = msg;
+      updateSummary(bg, p, results);
+      plotDataVsModels(bg, p);
+    });
+
+    // Initial plot on load
+    document.getElementById("lab-update-plots").click();
+  }
+
+  document.addEventListener("DOMContentLoaded", setUpEvents);
+})();
+</script>
+
+</body>
+</html>
