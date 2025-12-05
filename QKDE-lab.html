@@ -1,1 +1,378 @@
-UNDER CONSTRUCTION
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QKDE Lab – Cosmology Analysis Environment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Plotly for interactive plotting -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+
+<div class="page" id="qkde-lab-page">
+
+  <!-- ======================= TITLE & INTRO ======================= -->
+  <header>
+    <h1>QKDE Cosmology Lab</h1>
+    <p class="center" style="opacity:0.9;">
+      ΛCDM • wCDM • CPL • QKDE • SN Ia • BAO • H(z) • fσ₈ • χ² Fits
+    </p>
+
+    <p class="calc-intro">
+      <strong>QKDE Lab</strong> is a single integrated environment for serious cosmology work:
+      compare backgrounds, distances, and growth across multiple models, overlay real data,
+      and compute simple χ² statistics – all in the browser, with exact GR equations.
+    </p>
+
+    <details style="margin-top:8px;">
+      <summary><strong>🧪 How to use QKDE Lab (quick guide)</strong></summary>
+      <div style="margin-top:8px; font-size:0.9rem; opacity:0.95;">
+        <ol style="padding-left:18px;">
+          <li>
+            <strong>Choose models</strong> in the left panel (ΛCDM, wCDM, CPL, QKDE).
+          </li>
+          <li>
+            <strong>Set parameters</strong> (H₀, Ωₘ₀, Ωᵣ₀, w, K₀, p, etc.).
+          </li>
+          <li>
+            <strong>Select a quantity</strong> and a tab on the right
+            (<em>Background</em>, <em>Distances</em>, <em>Growth</em>, <em>Data vs Models</em>, <em>QKDE Diagnostics</em>).
+          </li>
+          <li>
+            <strong>(Optional) Load data</strong> via CSV (SN, BAO, H(z), or fσ₈) and
+            press <em>Compute χ²</em> to get model-data comparisons.
+          </li>
+          <li>
+            Use the <strong>Export Plot</strong> button on the plot toolbar to save publication-quality figures.
+          </li>
+        </ol>
+        <p>
+          This page is designed to complement the simpler QKDE calculators: here you get one
+          unified, research-oriented lab instead of many small tools.
+        </p>
+      </div>
+    </details>
+  </header>
+
+  <!-- ======================= LAYOUT ======================= -->
+  <main id="lab-layout" style="display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap;">
+
+    <!-- ================= LEFT: CONTROL SIDEBAR ================= -->
+    <aside id="lab-controls" style="flex:0 0 320px; max-width:360px;">
+      <!-- MODEL SELECTION -->
+      <section class="lab-block" aria-labelledby="lab-models-title">
+        <h2 id="lab-models-title">1. Models</h2>
+        <p style="font-size:0.85rem; opacity:0.9;">
+          Select which cosmological models to include. All share the same H₀ and Ωᵣ₀; each model
+          has its own dark-energy parameters.
+        </p>
+
+        <div>
+          <label>
+            <input type="checkbox" class="lab-model-toggle" data-model="lcdm" checked>
+            ΛCDM (w = −1, K = const)
+          </label><br>
+          <label>
+            <input type="checkbox" class="lab-model-toggle" data-model="wcdm" checked>
+            wCDM (constant w)
+          </label><br>
+          <label>
+            <input type="checkbox" class="lab-model-toggle" data-model="cpl" checked>
+            CPL (w(a) = w₀ + wₐ(1−a))
+          </label><br>
+          <label>
+            <input type="checkbox" class="lab-model-toggle" data-model="qkde" checked>
+            QKDE (ρ<sub>DE</sub> ∝ K(1)/K(a))
+          </label>
+        </div>
+      </section>
+
+      <!-- GLOBAL BACKGROUND PARAMETERS -->
+      <section class="lab-block" aria-labelledby="lab-global-title">
+        <h2 id="lab-global-title">2. Global Background</h2>
+
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label" for="lab-h0">H₀ [km/s/Mpc]</label>
+            <input id="lab-h0" class="calc-input" type="number" value="67.4" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label" for="lab-om0">Ωₘ₀</label>
+            <input id="lab-om0" class="calc-input" type="number" value="0.315" step="0.001">
+          </div>
+        </div>
+
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label" for="lab-or0">Ωᵣ₀</label>
+            <input id="lab-or0" class="calc-input" type="number" value="5e-5" step="1e-5">
+          </div>
+          <div>
+            <label class="calc-label" for="lab-ode0">Ω<sub>DE,0</sub></label>
+            <input id="lab-ode0" class="calc-input" type="number" value="0.685" step="0.001">
+          </div>
+        </div>
+
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label" for="lab-zmax">z<sub>max</sub> grid</label>
+            <input id="lab-zmax" class="calc-input" type="number" value="3" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label" for="lab-nsamples">Samples</label>
+            <input id="lab-nsamples" class="calc-input" type="number" value="300" min="50" step="50">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.85rem;">
+            <input type="checkbox" id="lab-flat" checked>
+            Flat universe: Ωₖ₀ = 0 (infer from others)
+          </label>
+        </div>
+      </section>
+
+      <!-- MODEL-SPECIFIC PARAMETERS -->
+      <section class="lab-block" aria-labelledby="lab-model-params-title">
+        <h2 id="lab-model-params-title">3. Dark-Energy & QKDE Parameters</h2>
+
+        <details open>
+          <summary><strong>ΛCDM</strong> (w = −1)</summary>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            No extra parameters beyond Ω<sub>DE,0</sub>. Included for reference.
+          </p>
+        </details>
+
+        <details open>
+          <summary><strong>wCDM</strong></summary>
+          <div class="calc-input-row">
+            <div>
+              <label class="calc-label" for="lab-wc">w (constant)</label>
+              <input id="lab-wc" class="calc-input" type="number" value="-0.9" step="0.02">
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary><strong>CPL</strong> w(a) = w₀ + wₐ(1−a)</summary>
+          <div class="calc-input-row">
+            <div>
+              <label class="calc-label" for="lab-w0">w₀</label>
+              <input id="lab-w0" class="calc-input" type="number" value="-0.9" step="0.02">
+            </div>
+            <div>
+              <label class="calc-label" for="lab-wa">wₐ</label>
+              <input id="lab-wa" class="calc-input" type="number" value="0.2" step="0.05">
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary><strong>QKDE</strong> (ρ<sub>DE</sub> ∝ K(1)/K(a))</summary>
+          <div class="calc-input-row">
+            <div>
+              <label class="calc-label" for="lab-k0">K₀</label>
+              <input id="lab-k0" class="calc-input" type="number" value="0.5" step="0.05">
+            </div>
+            <div>
+              <label class="calc-label" for="lab-p">p</label>
+              <input id="lab-p" class="calc-input" type="number" value="1.0" step="0.1">
+            </div>
+          </div>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            We use K(a) = 1 + K₀ a<sup>−p</sup> and
+            ρ<sub>DE</sub>(a) ∝ K(1)/K(a), giving
+            w(a) = −1 − (1/3) d ln K / d ln a.
+          </p>
+        </details>
+      </section>
+
+      <!-- DATA IMPORT & FIT OPTIONS -->
+      <section class="lab-block" aria-labelledby="lab-data-title">
+        <h2 id="lab-data-title">4. Data & χ²</h2>
+
+        <p style="font-size:0.85rem; opacity:0.9;">
+          Load observational datasets (CSV) and compare to models.
+          Supported columns are shown under each input.
+        </p>
+
+        <details>
+          <summary><strong>SN Ia</strong> (distance modulus μ)</summary>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            CSV columns: z, mu, sigma_mu
+          </p>
+          <input type="file" id="lab-data-sn" accept=".csv">
+        </details>
+
+        <details>
+          <summary><strong>BAO</strong></summary>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            CSV columns (example): z, DV, sigma_DV
+          </p>
+          <input type="file" id="lab-data-bao" accept=".csv">
+        </details>
+
+        <details>
+          <summary><strong>H(z)</strong> (cosmic chronometers)</summary>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            CSV columns: z, Hz, sigma_Hz
+          </p>
+          <input type="file" id="lab-data-hz" accept=".csv">
+        </details>
+
+        <details>
+          <summary><strong>fσ₈(z)</strong></summary>
+          <p style="font-size:0.8rem; opacity:0.9;">
+            CSV columns: z, fs8, sigma_fs8
+          </p>
+          <input type="file" id="lab-data-fs8" accept=".csv">
+        </details>
+
+        <div class="calc-input-row" style="margin-top:10px;">
+          <div>
+            <label class="calc-label" for="lab-fit-target">χ² target</label>
+            <select id="lab-fit-target" class="calc-input">
+              <option value="sn">SN μ(z)</option>
+              <option value="bao">BAO D<sub>V</sub>(z)</option>
+              <option value="hz">H(z)</option>
+              <option value="fs8">fσ₈(z)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-action-row" style="margin-top:8px;">
+          <button class="calc-btn" id="lab-fit-chi2">Compute χ² (current params)</button>
+        </div>
+
+        <pre id="lab-chi2-output" class="calc-output-mini" style="margin-top:4px;"></pre>
+      </section>
+
+      <!-- PLOT CONFIG -->
+      <section class="lab-block" aria-labelledby="lab-plot-title">
+        <h2 id="lab-plot-title">5. Plot Configuration</h2>
+
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label" for="lab-yquantity">Y quantity</label>
+            <select id="lab-yquantity" class="calc-input">
+              <option value="E">E(z)</option>
+              <option value="Hz">H(z)</option>
+              <option value="DC">D<sub>C</sub>(z)</option>
+              <option value="DA">D<sub>A</sub>(z)</option>
+              <option value="DL">D<sub>L</sub>(z)</option>
+              <option value="mu">μ(z)</option>
+              <option value="growthD">D(a)</option>
+              <option value="growthD_over_a">D(a)/a</option>
+            </select>
+          </div>
+          <div>
+            <label class="calc-label" for="lab-xaxis">X axis</label>
+            <select id="lab-xaxis" class="calc-input">
+              <option value="z">z</option>
+              <option value="a">a</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label" for="lab-scale-y">Y scale</label>
+            <select id="lab-scale-y" class="calc-input">
+              <option value="linear">Linear</option>
+              <option value="log">Log</option>
+            </select>
+          </div>
+          <div>
+            <label class="calc-label" for="lab-z-eval">Single redshift z*</label>
+            <input id="lab-z-eval" class="calc-input" type="number" value="0.5" step="0.01">
+          </div>
+        </div>
+
+        <div class="calc-action-row" style="margin-top:8px;">
+          <button class="calc-btn" id="lab-update-plots">Update Plots</button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- ================= RIGHT: VISUALIZATION AREA ================= -->
+    <section id="lab-visualization" style="flex:1 1 480px; min-width:0;">
+
+      <!-- TAB BUTTONS -->
+      <nav id="lab-tabs" style="margin-bottom:8px;">
+        <button class="lab-tab-btn is-active" data-tab="background">Background</button>
+        <button class="lab-tab-btn" data-tab="distances">Distances</button>
+        <button class="lab-tab-btn" data-tab="growth">Growth</button>
+        <button class="lab-tab-btn" data-tab="datavsmodels">Data vs Models</button>
+        <button class="lab-tab-btn" data-tab="qkde">QKDE Diagnostics</button>
+        <button class="lab-tab-btn" data-tab="summary">Summary</button>
+      </nav>
+
+      <!-- PANELS -->
+      <div id="lab-panels">
+
+        <!-- BACKGROUND PANEL -->
+        <section class="lab-panel" data-tab="background" aria-label="Background panel">
+          <h2>Background Expansion</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            E(z) and H(z) for the selected models. Use controls on the left to adjust parameters.
+          </p>
+          <div id="lab-plot-background" style="width:100%; height:360px;"></div>
+          <pre id="lab-info-background" class="calc-output-mini"></pre>
+        </section>
+
+        <!-- DISTANCES PANEL -->
+        <section class="lab-panel" data-tab="distances" aria-label="Distances panel" hidden>
+          <h2>Distances</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            Comoving, angular-diameter, and luminosity distances, along with μ(z).
+          </p>
+          <div id="lab-plot-distances" style="width:100%; height:360px;"></div>
+          <pre id="lab-info-distances" class="calc-output-mini"></pre>
+        </section>
+
+        <!-- GROWTH PANEL -->
+        <section class="lab-panel" data-tab="growth" aria-label="Growth panel" hidden>
+          <h2>Linear Growth</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            GR growth D(a) solved on each background. Normalized to D(a=1)=1.
+          </p>
+          <div id="lab-plot-growth" style="width:100%; height:360px;"></div>
+          <pre id="lab-info-growth" class="calc-output-mini"></pre>
+        </section>
+
+        <!-- DATA VS MODELS PANEL -->
+        <section class="lab-panel" data-tab="datavsmodels" aria-label="Data vs Models panel" hidden>
+          <h2>Data vs Models</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            Loaded datasets (SN, BAO, H(z), fσ₈) plotted alongside model predictions.
+            Use the left panel to load CSV and choose the χ² target.
+          </p>
+          <div id="lab-plot-data" style="width:100%; height:360px;"></div>
+          <pre id="lab-info-data" class="calc-output-mini"></pre>
+        </section>
+
+        <!-- QKDE DIAGNOSTICS PANEL -->
+        <section class="lab-panel" data-tab="qkde" aria-label="QKDE diagnostics panel" hidden>
+          <h2>QKDE Diagnostics</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            K(a), w<sub>eff</sub>(a), and divergence from ΛCDM as a function of time.
+          </p>
+          <div id="lab-plot-qkde" style="width:100%; height:360px;"></div>
+          <pre id="lab-info-qkde" class="calc-output-mini"></pre>
+        </section>
+
+        <!-- SUMMARY PANEL -->
+        <section class="lab-panel" data-tab="summary" aria-label="Summary panel" hidden>
+          <h2>Model & Fit Summary</h2>
+          <p style="font-size:0.9rem; opacity:0.9;">
+            High-level summary of current parameters, key observables at z*, and χ² values
+            for each active model (if data are loaded).
+          </p>
+          <pre id="lab-info-summary" class="calc-output" style="min-height:220px;"></pre>
+        </section>
+
+      </div>
+    </section>
+  </main>
+</div> <!-- /page -->
