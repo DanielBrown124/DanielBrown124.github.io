@@ -570,22 +570,49 @@ select.calc-input {
 
 <div class="page">
 
-  <!-- ================= TITLE ================= -->
+  <!-- ======================= TITLE ======================= -->
   <header>
     <h1>QKDE Interactive Calculator Suite</h1>
+
     <p class="center" style="opacity:0.9;">
-      ΛCDM • QKDE • Growth • Kinetic Drift Tools
+      ΛCDM • QKDE • GR Growth • Kinetic Drift • Background & Distance Tools
     </p>
 
     <p class="calc-intro">
-      These tools implement exact GR background and linear-growth equations for simple dark-energy models,
-      and a running kinetic normalization for QKDE. Use them to compare ΛCDM, constant-w quintessence,
-      CPL-type k-essence, and QKDE’s kinetic drift at the level of <em>H(a)</em>, distances, and growth.
+      A complete set of cosmological calculators implementing
+      <strong>exact General Relativity background equations</strong>,
+      <strong>linear growth equations</strong>, and
+      <strong>QKDE kinetic-drift models</strong>.
+      <br><br>
+      You can use this suite to:
+      <ul style="margin-top:6px;">
+        <li>Compute <strong>ΛCDM distances</strong>: \(D_C,D_M,D_A,D_L,\mu(z)\).</li>
+        <li>Study <strong>background evolution</strong> with curvature or flatness.</li>
+        <li>Analyze <strong>QKDE running K(a)</strong> and its dynamical implications.</li>
+        <li>Compare <strong>GR growth</strong> across ΛCDM, quintessence, CPL, and QKDE.</li>
+        <li>Export tables for research and plotting scripts.</li>
+      </ul>
+      All equations follow standard GR cosmology; no approximations or fitting templates are used.
     </p>
+
+    <details style="margin-top:10px;">
+      <summary><strong>📘 Quick-start tutorial (optional)</strong></summary>
+      <div style="margin-top:8px; font-size:0.9rem; opacity:0.95;">
+        <p><strong>1. Choose a panel</strong> depending on what you want to compute.</p>
+        <p><strong>2. Enter cosmological parameters.</strong>  
+          Presets like “Planck 2018” auto-fill standard values.</p>
+        <p><strong>3. Click compute.</strong>  
+          The output updates instantly.</p>
+        <p><strong>4. Use “Show Formulas”</strong> to reveal equations for transparency.</p>
+        <p><strong>5. Use CSV export</strong> if you want to import the computed grid into Python, MATLAB, Mathematica, or R.</p>
+      </div>
+    </details>
   </header>
 
+
+
   <!-- ============================================================
-       PANEL 1B: ΛCDM BACKGROUND DASHBOARD (ADVANCED)
+       PANEL 1: ΛCDM BACKGROUND + DISTANCES
   ============================================================ -->
   <section class="calc-panel" id="panel-lcdm" aria-labelledby="lcdm-panel-title">
     <div class="calc-panel-header">
@@ -594,72 +621,91 @@ select.calc-input {
     </div>
 
     <div class="calc-panel-body">
+
       <article class="calc-card" id="lcdm-card">
 
+        <!-- Section header -->
         <div class="calc-header-row">
           <h3>ΛCDM Background &amp; Distances</h3>
 
           <div class="calc-pill-row">
             <button class="calc-pill is-active" data-lcdm-preset="planck">Planck 2018</button>
-            <button class="calc-pill" data-lcdm-preset="local">Local H₀ (SH0ES-like)</button>
+            <button class="calc-pill" data-lcdm-preset="local">Local H₀</button>
             <button class="calc-pill" data-lcdm-preset="wmap">WMAP-like</button>
           </div>
         </div>
 
-        <h4 class="calc-subheading">Background model with optional curvature</h4>
         <p class="calc-note">
-          Computes ΛCDM from \(\{H_0,\Omega_{m0},\Omega_{r0},\Omega_{\Lambda0}\}\).
-          If flatness is enforced, \(\Omega_{k0}=0\). Otherwise the curvature is derived.
+          This calculator evaluates the complete ΛCDM background, including expansion rate,
+          distances, density fractions, and timescales. Toggle formulas at the bottom to see all
+          underlying equations.
         </p>
+
+        <details style="margin-bottom:12px;">
+          <summary><strong>What this tool computes</strong></summary>
+          <ul style="margin-top:6px;">
+            <li>E(z), H(z)</li>
+            <li>Comoving, angular-diameter, and luminosity distances</li>
+            <li>Distance modulus μ(z)</li>
+            <li>Ωₘ(z), Ωᵣ(z), ΩΛ(z), Ωₖ(z)</li>
+            <li>Lookback time and age of universe</li>
+            <li>BAO volume distance D_V(z)</li>
+            <li>Comoving volume element dV/dz dΩ</li>
+          </ul>
+        </details>
 
 
         <!-- ================= INPUT SECTION ================= -->
         <div class="calc-section">
-          <h4 class="calc-section-title">Input parameters</h4>
+
+          <h4 class="calc-section-title">Input Parameters</h4>
+          <p style="opacity:0.85; margin-top:-4px;">
+            Enter your cosmological parameters or use one of the presets above.
+          </p>
+
           <div class="calc-input-row">
 
             <div>
-              <label class="calc-label" for="lcdm-z">Evaluation redshift z</label>
-              <input id="lcdm-z" class="calc-input" type="number" value="0.5" step="0.01">
+              <label class="calc-label" for="lcdm-z">Evaluation redshift</label>
+              <input id="lcdm-z" class="calc-input" value="0.5" type="number" step="0.01">
             </div>
 
             <div>
-              <label class="calc-label" for="lcdm-h0">H₀ [km/s/Mpc]</label>
-              <input id="lcdm-h0" class="calc-input" type="number" value="67.4" step="0.1">
+              <label class="calc-label" for="lcdm-h0">H₀ (km/s/Mpc)</label>
+              <input id="lcdm-h0" class="calc-input" value="67.4" step="0.1">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-om">Ωₘ₀</label>
-              <input id="lcdm-om" class="calc-input" type="number" value="0.315" step="0.001">
+              <input id="lcdm-om" class="calc-input" value="0.315" step="0.001">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-or">Ωᵣ₀</label>
-              <input id="lcdm-or" class="calc-input" type="number" value="5e-5" step="1e-5">
+              <input id="lcdm-or" class="calc-input" value="5e-5" step="1e-5">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-ol">ΩΛ₀</label>
-              <input id="lcdm-ol" class="calc-input" type="number" value="0.68495" step="0.0001">
+              <input id="lcdm-ol" class="calc-input" value="0.68495" step="0.0001">
             </div>
 
             <div>
-              <label class="calc-label" for="lcdm-steps">z-steps for χ, t</label>
-              <input id="lcdm-steps" class="calc-input" type="number" value="600" step="100">
+              <label class="calc-label" for="lcdm-steps">z-grid resolution</label>
+              <input id="lcdm-steps" class="calc-input" value="600" step="100">
             </div>
-
           </div>
 
 
-          <!-- ================= CONSTRAINTS ================= -->
-          <h4 class="calc-section-title" style="margin-top:16px;">Model constraints</h4>
+          <!-- ================= MODEL CONSTRAINTS ================= -->
+          <h4 class="calc-section-title" style="margin-top:16px;">Model Constraints</h4>
           <div class="calc-input-row">
 
             <div>
-              <label class="calc-label">Flatness constraint</label>
+              <label class="calc-label">Flatness</label>
               <label style="font-size:0.8rem;">
                 <input id="lcdm-flat" type="checkbox" checked>
-                Enforce Ωₘ₀+Ωᵣ₀+ΩΛ₀ = 1
+                Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1
               </label>
             </div>
 
@@ -667,43 +713,43 @@ select.calc-input {
               <label class="calc-label">Standard radiation</label>
               <label style="font-size:0.8rem;">
                 <input id="lcdm-auto-rad" type="checkbox" checked>
-                Use standard \(T_{\rm CMB}\), \(N_{\rm eff}=3.046\)
+                Use T<sub>CMB</sub> & standard N<sub>eff</sub>
               </label>
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-ok">Derived Ωₖ₀</label>
-              <input id="lcdm-ok" class="calc-input" type="text" disabled>
+              <input id="lcdm-ok" class="calc-input" disabled>
             </div>
 
             <div>
-              <label class="calc-label" for="lcdm-zmax-plot">Plot z<sub>max</sub></label>
-              <input id="lcdm-zmax-plot" class="calc-input" type="number" value="3" step="0.5">
+              <label class="calc-label" for="lcdm-zmax-plot">Plot range z<sub>max</sub></label>
+              <input id="lcdm-zmax-plot" class="calc-input" value="3" step="0.5">
             </div>
 
           </div>
 
 
           <!-- ================= PLOT OPTIONS ================= -->
-          <h4 class="calc-section-title" style="margin-top:16px;">Plot options</h4>
+          <h4 class="calc-section-title" style="margin-top:16px;">Plot Options</h4>
           <div class="calc-input-row">
 
             <div>
               <label class="calc-label" for="lcdm-plot-y">Quantity to plot</label>
               <select id="lcdm-plot-y" class="calc-input">
                 <option value="E">E(z)</option>
-                <option value="H">H(z)/H₀</option>
-                <option value="DC">D_C(z)</option>
-                <option value="DM">D_M(z)</option>
-                <option value="DA">D_A(z)</option>
-                <option value="DL">D_L(z)</option>
+                <option value="H">H(z) / H₀</option>
+                <option value="DC">D<sub>C</sub>(z)</option>
+                <option value="DM">D<sub>M</sub>(z)</option>
+                <option value="DA">D<sub>A</sub>(z)</option>
+                <option value="DL">D<sub>L</sub>(z)</option>
               </select>
             </div>
 
             <div>
               <label class="calc-label">CSV export</label>
-              <p style="font-size:0.8rem;">
-                Download z–distance table.
+              <p style="font-size:0.8rem; line-height:1.2; opacity:0.85;">
+                Download a numerical table for external analysis.
               </p>
             </div>
 
@@ -714,87 +760,79 @@ select.calc-input {
         <!-- ================= ACTION BUTTONS ================= -->
         <div class="calc-action-row">
           <button class="calc-btn" id="lcdm-compute">Compute ΛCDM</button>
-          <button class="calc-btn secondary" id="lcdm-export-csv">Export z-grid</button>
-          <button class="calc-btn secondary" id="lcdm-formula-toggle">Show formulas</button>
+          <button class="calc-btn secondary" id="lcdm-export-csv">Export z-grid (CSV)</button>
+          <button class="calc-btn secondary" id="lcdm-formula-toggle">Show Formulas</button>
         </div>
+
 
         <!-- ================= OUTPUT ================= -->
         <pre id="lcdm-output" class="calc-output"></pre>
         <canvas id="lcdm-canvas" style="margin-top:12px; max-height:260px;"></canvas>
 
 
-        <!-- ================= BEAUTIFIED FORMULA SECTION ================= -->
+        <!-- ================= FORMULAS SECTION ================= -->
         <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
 
-            <h4>Background Definitions</h4>
+            <h4>ΛCDM Background Equations</h4>
 
-            <p><strong>Curvature:</strong><br>
+            <p><strong>(1) Curvature:</strong><br>
             \(\Omega_{k0} = 1-\Omega_{m0}-\Omega_{r0}-\Omega_{\Lambda0}\)</p>
 
-            <p><strong>Dimensionless expansion rate:</strong><br>
+            <p><strong>(2) Dimensionless expansion:</strong><br>
             \(E(z)=\sqrt{\Omega_m(1+z)^3 + \Omega_r(1+z)^4 + \Omega_k(1+z)^2 + \Omega_\Lambda}\)</p>
 
-            <p><strong>Hubble rate:</strong><br>
+            <p><strong>(3) Hubble rate:</strong><br>
             \(H(z)=H_0 E(z)\)</p>
 
             <hr>
 
             <h4>Distances</h4>
 
-            <p><strong>Hubble distance:</strong><br>
+            <p><strong>(4) Hubble distance:</strong><br>
             \(D_H = c/H_0\)</p>
 
-            <p><strong>Comoving radial distance:</strong><br>
-            \(D_C(z)=D_H\!\int_0^z dz'/E(z')\)</p>
+            <p><strong>(5) Comoving radial distance:</strong><br>
+            \(D_C(z)=D_H\!\int_0^z \frac{dz'}{E(z')}\)</p>
 
-            <p><strong>Transverse comoving distance:</strong><br>
-            \(D_M(z)=D_H S_k(\chi)\)</p>
+            <p><strong>(6) Transverse comoving:</strong><br>
+            \(D_M=D_H S_k(\chi)\)</p>
 
-            <p><strong>Angular diameter distance:</strong><br>
-            \(D_A=D_M/(1+z)\)</p>
+            <p><strong>(7) Angular diameter distance:</strong><br>
+            \(D_A=\frac{D_M}{1+z}\)</p>
 
-            <p><strong>Luminosity distance:</strong><br>
+            <p><strong>(8) Luminosity distance:</strong><br>
             \(D_L=(1+z)D_M\)</p>
 
-            <p><strong>Distance modulus:</strong><br>
+            <p><strong>(9) Distance modulus:</strong><br>
             \(\mu = 5\log_{10}(D_L/{\rm Mpc}) + 25\)</p>
 
             <hr>
 
             <h4>Density Fractions</h4>
-
-            <p><strong>Matter:</strong><br>
-            \(\Omega_m(z)=\dfrac{\Omega_{m0}(1+z)^3}{E(z)^2}\)</p>
-
-            <p><strong>Radiation:</strong><br>
-            \(\Omega_r(z)=\dfrac{\Omega_{r0}(1+z)^4}{E(z)^2}\)</p>
-
-            <p><strong>Curvature:</strong><br>
-            \(\Omega_k(z)=\dfrac{\Omega_{k0}(1+z)^2}{E(z)^2}\)</p>
-
-            <p><strong>Dark energy:</strong><br>
-            \(\Omega_\Lambda(z)=\dfrac{\Omega_{\Lambda0}}{E(z)^2}\)</p>
+            <p><strong>(10)</strong>  
+              \(\Omega_i(z)=\frac{\Omega_{i0}(1+z)^{n_i}}{E(z)^2}\)
+            </p>
 
             <hr>
 
             <h4>Timescales</h4>
 
-            <p><strong>Lookback time:</strong><br>
+            <p><strong>(11) Lookback time:</strong><br>
             \(t_L = \int_0^z \frac{dz'}{(1+z')H(z')}\)</p>
 
-            <p><strong>Age of universe:</strong><br>
-            \(t_0 = \int_0^{z_{\rm max}}\!\frac{dz'}{(1+z')H(z')}\)</p>
+            <p><strong>(12) Age:</strong><br>
+            \(t_0 = \int_0^{z_{\rm max}} \frac{dz'}{(1+z')H(z')}\)</p>
 
             <hr>
 
             <h4>BAO & Volume</h4>
 
-            <p><strong>BAO Volume Distance:</strong><br>
+            <p><strong>(13) BAO distance:</strong><br>
             \(D_V = [(1+z)^2 D_A^2 cz/H(z)]^{1/3}\)</p>
 
-            <p><strong>Comoving Volume Element:</strong><br>
-            \(\frac{dV}{dz\,d\Omega} = \frac{cD_M^2}{H(z)}\)</p>
+            <p><strong>(14) Volume element:</strong><br>
+            \(\frac{dV}{dz\,d\Omega}=\frac{cD_M^2}{H(z)}\)</p>
 
           </div>
         </div>
@@ -802,10 +840,7 @@ select.calc-input {
       </article>
     </div>
   </section>
-
-
-
-  <!-- ============================================================
+    <!-- ============================================================
        PANEL 2: QKDE RUNNING K
   ============================================================ -->
   <section class="calc-panel" id="panel-qkde" aria-labelledby="qkde-panel-title">
@@ -825,16 +860,27 @@ select.calc-input {
           </div>
         </div>
 
-        <h4 class="calc-subheading">Running kinetic normalization</h4>
         <p class="calc-note">
-          Implements \(K(N)=1+K_0 e^{-pN}\) with \(N=\ln a\). A slow background drift while the metric
-          and perturbation equations remain pure GR.
+          QKDE introduces a slowly varying kinetic normalization
+          \(K(N)=1+K_0 e^{-pN}\).  
+          This changes the *background evolution* while keeping the
+          **Einstein–Hilbert sector unmodified** and **growth purely GR**.
         </p>
 
+        <details style="margin-bottom:12px;">
+          <summary><strong>What this tool computes</strong></summary>
+          <ul style="margin-top:6px;">
+            <li>Value of K(z)</li>
+            <li>K′/K, used later for growth and effective w(a)</li>
+            <li>Intermediate values used in QKDE snapshots & comparator</li>
+          </ul>
+        </details>
 
-        <!-- ================= INPUT SECTION ================= -->
+
+        <!-- ================= INPUTS ================= -->
         <div class="calc-section">
-          <h4 class="calc-section-title">QKDE parameters</h4>
+          <h4 class="calc-section-title">QKDE Parameters</h4>
+
           <div class="calc-input-row">
 
             <div>
@@ -861,6 +907,7 @@ select.calc-input {
         </div>
 
 
+        <!-- ================= ACTIONS ================= -->
         <div class="calc-action-row">
           <button class="calc-btn" id="qkde-compute">Compute K(z)</button>
           <button class="calc-btn secondary" id="qkde-formula-toggle">Show Formulas</button>
@@ -869,33 +916,33 @@ select.calc-input {
         <pre id="qkde-output" class="calc-output"></pre>
 
 
-        <!-- ================= BEAUTIFIED FORMULA SECTION ================= -->
+        <!-- ================= FORMULAS ================= -->
         <div id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
 
-            <h4>Kinetic Drift Definitions</h4>
+            <h4>QKDE Definitions</h4>
 
-            <p><strong>E-fold time:</strong><br>
-            \(N = -\ln(1+z)\)</p>
+            <p><strong>(1) E-fold time:</strong><br>
+            \(N=-\ln(1+z)\)</p>
 
-            <p><strong>Running kinetic normalization:</strong><br>
+            <p><strong>(2) Kinetic normalization:</strong><br>
             \(K(N)=1+K_0 e^{-pN}\)</p>
 
-            <p><strong>Derivative of K:</strong><br>
-            \(\frac{K'}{K} = -\frac{pK_0 e^{-pN}}{K(N)}\)</p>
+            <p><strong>(3) Derivative:</strong><br>
+            \(\frac{K'}{K} = -\frac{p K_0 e^{-pN}}{K(N)}\)</p>
 
-            <p><strong>Today:</strong><br>
+            <p><strong>(4) Present value:</strong><br>
             \(K(0)=1+K_0\)</p>
 
             <hr>
 
-            <h4>Effective Background (used in comparators)</h4>
+            <h4>Effective Background (used in advanced growth panel)</h4>
 
-            <p><strong>Dark-energy scaling:</strong><br>
+            <p><strong>Energy-density scaling:</strong><br>
             \(\rho_{\rm DE}(a) \propto K(1)/K(a)\)</p>
 
             <p><strong>Effective equation of state:</strong><br>
-            \(w(a)=-1-\frac13\frac{d\ln K}{d\ln a}\)</p>
+            \(w(a)=-1 - \tfrac{1}{3}\frac{d\ln K}{d\ln a}\)</p>
 
           </div>
         </div>
@@ -903,37 +950,49 @@ select.calc-input {
       </article>
     </div>
   </section>
+
+
+
   <!-- ============================================================
-       PANEL 3: GR GROWTH AT ONE REDSHIFT
+       PANEL 3: GROWTH AT ONE REDSHIFT
   ============================================================ -->
   <section class="calc-panel" id="panel-growth" aria-labelledby="growth-panel-title">
+
     <div class="calc-panel-header">
       <div class="calc-panel-title" id="growth-panel-title">GR Linear Growth Factor</div>
       <button class="panel-toggle-btn" data-panel="panel-growth">Hide</button>
     </div>
 
     <div class="calc-panel-body">
+
       <article class="calc-card" id="growth-card">
 
         <div class="calc-header-row">
           <h3>GR Growth D(a)</h3>
-          <span class="calc-pill is-active" style="cursor:default;">GR Only</span>
+          <span class="calc-pill is-active">GR Only</span>
         </div>
 
-        <h4 class="calc-subheading">Linear growth at a ΛCDM background</h4>
         <p class="calc-note">
-          Solves the exact GR growth equation  
-          \(D'' + (2+H'/H)D' - \tfrac32\Omega_m(a)D = 0\)  
-          in e-fold time \(N=\ln a\).  
-          Growth is normalized to \(D(1)=1\).
+          Computes the exact GR growth equation on a
+          ΛCDM background. No approximations.
         </p>
 
+        <details style="margin-bottom:10px;">
+          <summary><strong>What this tool computes</strong></summary>
+          <ul style="margin-top:6px;">
+            <li>Linear growth D(a) normalized to D(1)=1</li>
+            <li>D(z) at the selected evaluation redshift</li>
+            <li>All growth quantities using input Ωₘ₀, Ωᵣ₀, ΩΛ₀</li>
+          </ul>
+        </details>
 
-        <!-- ================= INPUT SECTION ================= -->
+
+        <!-- ================= INPUTS ================= -->
         <div class="calc-section">
-          <h4 class="calc-section-title">Growth parameters</h4>
+          <h4 class="calc-section-title">Growth Parameters</h4>
 
           <div class="calc-input-row">
+
             <div>
               <label class="calc-label" for="grow-om0">Ωₘ₀ (growth)</label>
               <input id="grow-om0" class="calc-input" type="number" value="0.3" step="0.001">
@@ -953,38 +1012,40 @@ select.calc-input {
               <span class="calc-label">Use z from ΛCDM card</span>
               <input class="calc-input" value="linked" disabled>
             </div>
+
           </div>
         </div>
 
 
+        <!-- ================= ACTIONS ================= -->
         <div class="calc-action-row">
           <button class="calc-btn" id="grow-compute">Compute D(z)</button>
-          <button class="calc-btn secondary" id="grow-formula-toggle">Show formulas</button>
+          <button class="calc-btn secondary" id="grow-formula-toggle">Show Formulas</button>
         </div>
 
         <pre id="grow-output" class="calc-output-mini"></pre>
 
 
-        <!-- ================= BEAUTIFIED FORMULA SECTION ================= -->
+        <!-- ================= FORMULAS ================= -->
         <div id="grow-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
 
             <h4>GR Growth Equation</h4>
 
-            <p><strong>Dynamical equation:</strong><br>
-              \(D'' + (2 + H'/H)\,D' - \frac32\Omega_m(a)D = 0\)
+            <p><strong>(1) Differential equation:</strong><br>
+              \(D'' + (2 + H'/H)D' - \frac{3}{2}\Omega_m(a)D = 0\)
             </p>
 
-            <p><strong>Derivative notation:</strong><br>
-              Primes denote \(d/dN\), where \(N=\ln a\)
+            <p><strong>(2) Derivative notation:</strong><br>
+              Primes denote \(d/dN\), \(N = \ln a\)
             </p>
 
-            <p><strong>Normalization:</strong><br>
+            <p><strong>(3) Normalization:</strong><br>
               \(D(1)=1\)
             </p>
 
-            <p><strong>Background quantities from ΛCDM card:</strong><br>
-              \(\Omega_m(a)\), \(H'/H\), and \(H(a)\)
+            <p><strong>(4) Background inputs:</strong><br>
+              Values of \(H'/H\), \(H(a)\), and \(\Omega_m(a)\) come from Panel 1.
             </p>
 
           </div>
@@ -997,7 +1058,7 @@ select.calc-input {
 
 
   <!-- ============================================================
-       PANEL 4: ΛCDM vs QKDE SNAPSHOT
+       PANEL 4: SNAPSHOT COMPARISON
   ============================================================ -->
   <section class="calc-panel" id="panel-compare" aria-labelledby="compare-panel-title">
     <div class="calc-panel-header">
@@ -1006,25 +1067,35 @@ select.calc-input {
     </div>
 
     <div class="calc-panel-body">
+
       <article class="calc-card" id="compare-card">
 
         <div class="calc-header-row">
           <h3>ΛCDM vs QKDE</h3>
           <div class="calc-pill-row">
-            <span class="calc-pill is-active" style="cursor:default;">Quick comparison</span>
+            <span class="calc-pill is-active">Quick comparison</span>
           </div>
         </div>
 
-        <h4 class="calc-subheading">Pointwise comparison at a single redshift</h4>
         <p class="calc-note">
-          Evaluates ΛCDM distances and GR growth, alongside a QKDE
-          kinetic-drift normalization at the same redshift.
+          Compares ΛCDM distances and GR growth to the QKDE kinetic normalization
+          at the same redshift.
         </p>
 
+        <details style="margin-bottom:10px;">
+          <summary><strong>What this tool compares</strong></summary>
+          <ul style="margin-top:6px;">
+            <li>ΛCDM distances (from Panel 1)</li>
+            <li>QKDE K(z), K′(z)</li>
+            <li>GR growth D(z)</li>
+            <li>Interpretive differences between ΛCDM and kinetic-drift models</li>
+          </ul>
+        </details>
 
-        <!-- ================= INPUT SECTION ================= -->
+
+        <!-- ================= INPUTS ================= -->
         <div class="calc-section">
-          <h4 class="calc-section-title">Comparison parameters</h4>
+          <h4 class="calc-section-title">Comparison Parameters</h4>
 
           <div class="calc-input-row">
             <div>
@@ -1050,6 +1121,7 @@ select.calc-input {
         </div>
 
 
+        <!-- ================= ACTIONS ================= -->
         <div class="calc-action-row">
           <button class="calc-btn" id="cmp-compute">Compare at z</button>
         </div>
@@ -1063,7 +1135,7 @@ select.calc-input {
 
 
   <!-- ============================================================
-       PANEL 5: ADVANCED FULL-WIDTH GROWTH COMPARATOR
+       PANEL 5: ADVANCED GROWTH COMPARATOR
   ============================================================ -->
   <section class="calc-panel" id="panel-advanced" aria-labelledby="advanced-panel-title">
     <div class="calc-panel-header">
@@ -1074,23 +1146,32 @@ select.calc-input {
     </div>
 
     <div class="calc-panel-body">
+
       <article class="calc-card-wide" id="advanced-growth-card">
 
         <h3>Growth Comparator (ΛCDM / Quintessence / CPL / QKDE)</h3>
         <p class="calc-note">
-          Computes GR growth across four background families:
-          <strong>ΛCDM</strong>, <strong>constant-w quintessence</strong>,
-          <strong>CPL \(w(a)=w_0+w_a(1-a)\)</strong>, and a
-          <strong>QKDE kinetic-drift background</strong>
-          with \(\rho_{\rm DE}(a)\propto K(1)/K(a)\).
+          Compute and visualize GR growth across four independent background families.
+          This is the **research-level comparison tool**.
         </p>
 
+        <details>
+          <summary><strong>What this tool provides</strong></summary>
+          <ul style="margin-top:6px;">
+            <li>Full D(a) or D(a)/a curves</li>
+            <li>Comparison between ΛCDM, wCDM, CPL, and QKDE</li>
+            <li>CSV export for external plotting (Python, Mathematica, etc.)</li>
+            <li>Scale-factor or redshift parameterizations</li>
+          </ul>
+        </details>
 
-        <!-- ================= INPUT SECTION ================= -->
+
+        <!-- ================= INPUTS ================= -->
         <div class="calc-section">
-          <h4 class="calc-section-title">Background parameters</h4>
+          <h4 class="calc-section-title">Background Parameters</h4>
 
           <div class="calc-input-row">
+
             <div>
               <label class="calc-label" for="adv-om0">Ωₘ₀</label>
               <input id="adv-om0" class="calc-input" value="0.3" type="number" step="0.001">
@@ -1110,12 +1191,12 @@ select.calc-input {
               <label class="calc-label" for="adv-samples">Samples</label>
               <input id="adv-samples" class="calc-input" value="120" type="number" min="40" step="10">
             </div>
+
           </div>
 
+          <h4 class="calc-section-title" style="margin-top:14px;">Model Parameters</h4>
 
-          <h4 class="calc-section-title" style="margin-top:14px;">Model parameters</h4>
           <div class="calc-input-row">
-
             <div>
               <label class="calc-label" for="adv-wq">w<sub>Q</sub> (quintessence)</label>
               <input id="adv-wq" class="calc-input" value="-0.9" type="number" step="0.05">
@@ -1132,24 +1213,24 @@ select.calc-input {
             </div>
 
             <div>
-              <span class="calc-label">Models</span>
+              <label class="calc-label">Models</label>
               <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
               <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
               <label><input type="checkbox" id="adv-show-kess" checked> CPL</label><br>
               <label><input type="checkbox" id="adv-show-qkde" checked> QKDE</label>
             </div>
-
           </div>
 
 
-          <h4 class="calc-section-title" style="margin-top:14px;">Axis & QKDE settings</h4>
+          <h4 class="calc-section-title" style="margin-top:14px;">Axis & QKDE Settings</h4>
+
           <div class="calc-input-row">
 
             <div>
               <label class="calc-label" for="adv-xaxis">x-axis</label>
               <select id="adv-xaxis" class="calc-input">
-                <option value="a">Scale factor a</option>
-                <option value="z">Redshift z</option>
+                <option value="a">Scale factor (a)</option>
+                <option value="z">Redshift (z)</option>
               </select>
             </div>
 
@@ -1178,7 +1259,7 @@ select.calc-input {
         <!-- ================= ACTIONS ================= -->
         <div class="calc-action-row">
           <button class="calc-btn" id="adv-growth-compute">Plot Growth</button>
-          <button class="calc-btn secondary" id="adv-export-csv">Export growth (CSV)</button>
+          <button class="calc-btn secondary" id="adv-export-csv">Export Growth (CSV)</button>
         </div>
 
 
@@ -1187,11 +1268,10 @@ select.calc-input {
         <pre id="adv-growth-info" class="calc-output-mini"></pre>
 
         <p class="calc-footnote">
-          QKDE background implemented as
-          \(\rho_{\rm DE}(a)=\rho_{\rm DE,0}\,K(1)/K(a)\)
-          with \(K(a)=1+K_0 a^{-p}\).
-          Effective EoS:
-          \(w(a) = -1 - \frac13 d\ln K / d\ln a\).
+          QKDE background: \(\rho_{\rm DE}(a)=\rho_0 K(1)/K(a)\),  
+          \(K(a)=1+K_0 a^{-p}\).  
+          Effective equation of state:  
+          \(w(a) = -1 - \frac{1}{3}\frac{d\ln K}{d\ln a}\).
         </p>
 
       </article>
