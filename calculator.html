@@ -883,25 +883,29 @@ select.calc-input {
     </div>
   </section>
 
-  <!-- ============================================================
-       ADVANCED FULL-WIDTH COMPARATOR
+    <!-- ============================================================
+       PANEL 5: ADVANCED GROWTH COMPARATOR (RESEARCH-GRADE)
   ============================================================ -->
   <section class="calc-panel" id="panel-advanced">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE</div>
+      <div class="calc-panel-title">
+        Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE
+      </div>
       <button class="panel-toggle-btn" data-panel="panel-advanced" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
       <article class="calc-card-wide" id="advanced-growth-card">
         <h3>Growth Comparator (ΛCDM / Quintessence / CPL / QKDE)</h3>
         <p class="calc-note">
-          Solves the GR growth equation for three standard background families
-          (ΛCDM, constant-w quintessence, CPL \(w(a)=w_0+w_a(1-a)\)) and a
-          QKDE-inspired background where dark-energy density scales as
-          \(\rho_{\rm DE}(a)\propto K(1)/K(a)\). Growth is always computed with
-          the exact GR equation on each background.
+          Solves the exact GR growth equation
+          \(D'' + (2+H'/H)D' - \tfrac32\Omega_m(a)D = 0\) for:
+          ΛCDM, constant-w quintessence, CPL \(w(a)=w_0+w_a(1-a)\), and a
+          QKDE-inspired background with
+          \(\rho_{\rm DE}(a)\propto K(1)/K(a)\), where \(K(a)=1+K_0 a^{-p}\).
+          Normalization is always set by \(D(a=1)=1\).
         </p>
 
+        <!-- Core cosmology + sampling -->
         <div class="calc-input-row">
           <div>
             <label class="calc-label">Ωₘ₀</label>
@@ -917,10 +921,11 @@ select.calc-input {
           </div>
           <div>
             <label class="calc-label">Samples</label>
-            <input id="adv-samples" class="calc-input" value="120" type="number" min="40" step="10">
+            <input id="adv-samples" class="calc-input" value="160" type="number" min="40" step="10">
           </div>
         </div>
 
+        <!-- Dark energy parameters -->
         <div class="calc-input-row">
           <div>
             <label class="calc-label">w<sub>Q</sub> (quintessence)</label>
@@ -935,15 +940,20 @@ select.calc-input {
             <input id="adv-wa" class="calc-input" value="0.2" type="number" step="0.05">
           </div>
           <div>
+            <label class="calc-label">σ₈,0 (today)</label>
+            <input id="adv-s8" class="calc-input" value="0.81" type="number" step="0.01">
+          </div>
+        </div>
+
+        <!-- Model toggles -->
+        <div class="calc-input-row">
+          <div>
             <label class="calc-label">Models</label>
             <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
             <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
             <label><input type="checkbox" id="adv-show-kess" checked> CPL-type k-essence</label><br>
             <label><input type="checkbox" id="adv-show-qkde" checked> QKDE (ρ∝K(1)/K(a))</label>
           </div>
-        </div>
-
-        <div class="calc-input-row">
           <div>
             <label class="calc-label">x-axis</label>
             <select id="adv-xaxis" class="calc-input">
@@ -959,6 +969,22 @@ select.calc-input {
             </select>
           </div>
           <div>
+            <label class="calc-label">Quantity to plot</label>
+            <select id="adv-ytype" class="calc-input">
+              <option value="Da">D(a)</option>
+              <option value="f">f(a)=d ln D/d ln a</option>
+              <option value="fs8">fσ₈(a)</option>
+              <option value="Omega_m">Ωₘ(a)</option>
+              <option value="H_over_H0">H(a)/H₀</option>
+              <option value="gamma">γ(a)=ln f / ln Ωₘ</option>
+              <option value="w_eff_qkde">w_eff(a) (QKDE)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- QKDE parameters and advanced options -->
+        <div class="calc-input-row">
+          <div>
             <label class="calc-label">K₀ (QKDE)</label>
             <input id="adv-k0q" class="calc-input" value="0.5" type="number" step="0.05">
           </div>
@@ -966,25 +992,75 @@ select.calc-input {
             <label class="calc-label">p (QKDE)</label>
             <input id="adv-pq" class="calc-input" value="1.0" type="number" step="0.1">
           </div>
+          <div>
+            <label class="calc-label">Extra panels</label>
+            <label style="font-size:0.8rem;">
+              <input type="checkbox" id="adv-show-multipanel" checked>
+              Show f and fσ₈ subpanels
+            </label><br>
+            <label style="font-size:0.8rem;">
+              <input type="checkbox" id="adv-show-data" checked>
+              Overlay DESI-like fσ₈(z) points
+            </label>
+          </div>
+          <div>
+            <label class="calc-label">K₀–p scan vs fσ₈</label>
+            <label style="font-size:0.8rem;">
+              <input type="checkbox" id="adv-enable-scan">
+              Enable K₀–p χ² grid
+            </label>
+          </div>
+        </div>
+
+        <!-- Scan ranges (used only if scan enabled) -->
+        <div class="calc-input-row">
+          <div>
+            <label class="calc-label">K₀ range</label>
+            <input id="scan-k0-min" class="calc-input" value="-0.2" type="number" step="0.1">
+            <input id="scan-k0-max" class="calc-input" value="1.2" type="number" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label">p range</label>
+            <input id="scan-p-min" class="calc-input" value="0.1" type="number" step="0.1">
+            <input id="scan-p-max" class="calc-input" value="3.0" type="number" step="0.1">
+          </div>
+          <div>
+            <label class="calc-label">Grid steps</label>
+            <input id="scan-k0-steps" class="calc-input" value="6" type="number" step="1" min="2">
+            <input id="scan-p-steps" class="calc-input" value="6" type="number" step="1" min="2">
+          </div>
+          <div>
+            <label class="calc-label">Scan action</label>
+            <button class="calc-btn secondary" id="adv-scan-run" type="button">Run K₀–p scan</button>
+          </div>
         </div>
 
         <div class="calc-action-row">
           <button class="calc-btn" id="adv-growth-compute" type="button">Plot growth</button>
           <button class="calc-btn secondary" id="adv-export-csv" type="button">
-  Export growth (CSV)
-</button>
+            Export full grid (CSV)
+          </button>
         </div>
 
-        <canvas id="adv-growth-canvas"></canvas>
+        <!-- Main plot + extra subpanels -->
+        <canvas id="adv-growth-canvas" style="height:360px; margin-top:16px;"></canvas>
+        <canvas id="adv-growth-canvas-f" style="height:260px; margin-top:14px;"></canvas>
+        <canvas id="adv-growth-canvas-fs8" style="height:260px; margin-top:14px;"></canvas>
+
         <pre id="adv-growth-info" class="calc-output-mini"></pre>
+        <pre id="adv-scan-output" class="calc-output-mini"></pre>
 
         <p class="calc-footnote">
-          In this comparator, QKDE is implemented as an effective background with
-          \(\rho_{\rm DE}(a)=\rho_{\rm DE,0}\,K(1)/K(a)\), where \(K(a)=1+K_0 a^{-p}\) and
-          \(K(1)=1+K_0\). This corresponds to an effective equation of state
-          \(w(a)=-1-\tfrac{1}{3}\,d\ln K/d\ln a\), so that ΛCDM is recovered when \(K\) is constant.
-          The GR growth equation is then solved on this background exactly, and compared with
-          ΛCDM, constant-w quintessence, and CPL tracks.
+          QKDE is implemented here as an effective background with
+          \(\rho_{\rm DE}(a)=\rho_{\rm DE,0}\,K(1)/K(a)\), where
+          \(K(a)=1+K_0 a^{-p}\) and \(K(1)=1+K_0\). The GR growth equation
+          is then solved exactly on each background. The tool outputs
+          \(D(a)\), the logarithmic growth rate \(f(a)\), the observable
+          combination \(f\sigma_8(a)\), the matter fraction \(\Omega_m(a)\),
+          an effective QKDE \(w_{\rm eff}(a)\), and the growth index
+          \(\gamma(a)=\ln f / \ln \Omega_m\). A simple χ² grid over
+          \((K_0,p)\) is provided for comparison to approximate
+          DESI-like \(f\sigma_8(z)\) points.
         </p>
       </article>
     </div>
@@ -1892,10 +1968,22 @@ QKDE (ρ_DE ∝ K(1)/K(a)):
       });
     }
 
- // ============================================================
+// ============================================================
 // PANEL 5 — ADVANCED GROWTH COMPARATOR (CLEAN + CORRECTED)
 // ============================================================
+
 let growthChart = null;
+
+// -------------------------------
+// Consistent model colors
+// -------------------------------
+function modelColor(name) {
+  if (name === "ΛCDM") return "#00d1ff";
+  if (name === "Quintessence (constant w)") return "#ff9f1c";
+  if (name === "CPL w(a)") return "#b388ff";
+  if (name === "QKDE (ρ_DE ∝ K(1)/K(a))") return "#5cf27d";
+  return "#cccccc";
+}
 
 const advComputeBtn = byId("adv-growth-compute");
 if (advComputeBtn) {
@@ -1909,128 +1997,99 @@ if (advComputeBtn) {
       const zmax = parseFloat(byId("adv-zmax").value);
       const Npts = parseInt(byId("adv-samples").value, 10);
 
-      const wQ   = parseFloat(byId("adv-wq").value);
-      const w0   = parseFloat(byId("adv-w0").value);
-      const wa   = parseFloat(byId("adv-wa").value);
-      const K0q  = parseFloat(byId("adv-k0q").value);
-      const pq   = parseFloat(byId("adv-pq").value);
+      const wQ = parseFloat(byId("adv-wq").value);
+      const w0 = parseFloat(byId("adv-w0").value);
+      const wa = parseFloat(byId("adv-wa").value);
+      const K0q = parseFloat(byId("adv-k0q").value);
+      const pq  = parseFloat(byId("adv-pq").value);
 
       const showLCDM = byId("adv-show-lcdm").checked;
       const showQ    = byId("adv-show-quint").checked;
       const showCPL  = byId("adv-show-kess").checked;
       const showQKDE = byId("adv-show-qkde").checked;
 
-      const xMode = byId("adv-xaxis").value;   // "a" or "z"
-      const norm  = byId("adv-norm").value;    // "Da" or "Da_over_a"
+      const xMode = byId("adv-xaxis").value; // "a" or "z"
+      const norm  = byId("adv-norm").value;  // "Da" or "Da_over_a"
 
-      if (!(zmax > 0))  throw new Error("z_max must be > 0");
+      if (!(zmax > 0)) throw new Error("z_max must be > 0");
       if (!(Npts >= 40)) throw new Error("Samples must be ≥ 40");
 
-      const ODE0 = 1 - Om0 - Or0; // flat for comparator
-      if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive");
+      const ODE0 = 1 - Om0 - Or0;
+      if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive.");
 
       // -------------------------------
       // Build scale factor grid
       // -------------------------------
-      const aMin = 1 / (1 + zmax);
-      const aArray = Array.from(
-        { length: Npts },
-        (_, i) => aMin + (1 - aMin) * (i / (Npts - 1))
+      const a_min = 1 / (1 + zmax);
+      const aArray = Array.from({ length: Npts }, (_, i) =>
+        a_min + (1 - a_min) * (i / (Npts - 1))
       );
 
-      // -------------------------------
-      // Background E(a) models
-      // -------------------------------
-      const E_LCDM = a =>
-        Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
+      const zArray = aArray.map(a => 1 / a - 1);
 
-      const E_Quint = a =>
+      // -------------------------------
+      // Background models
+      // -------------------------------
+      const E_LCDM = (a) => Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
+
+      const E_Quint = (a) =>
         Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * a**(-3*(1 + wQ)));
 
-      const E_CPL = a => {
-        const ode = ODE0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1-a));
+      const E_CPL = (a) => {
+        const ode = ODE0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1 - a));
         return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
       };
 
       const K_today = 1 + K0q;
-      const E_QKDE = a => {
+      const E_QKDE = (a) => {
         const K = K_a(a, K0q, pq);
-        return Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * (K_today / K));
+        return Math.sqrt(
+          Om0/a**3 + Or0/a**4 + ODE0 * (K_today / K)
+        );
       };
 
       // -------------------------------
-      // Normalization helper
+      // Normalization choice
       // -------------------------------
-      function normalize(Darr) {
-        if (norm === "Da_over_a") {
-          return Darr.map((D, i) => D / aArray[i]);
-        }
-        return Darr;
+      function normalize(D) {
+        return norm === "Da_over_a"
+          ? D.map((v, i) => v / aArray[i])
+          : D;
       }
 
       // -------------------------------
-      // Compute model growth arrays
+      // Assemble datasets
       // -------------------------------
       const datasets = [];
 
-      if (showLCDM) {
-        const D = normalize(solveGrowthArray(aArray, E_LCDM, Om0));
+      function addModel(name, Efunc) {
+        const D = normalize(solveGrowthArray(aArray, Efunc, Om0));
         datasets.push({
-          label: "ΛCDM",
+          label: name,
           data: D,
+          borderColor: modelColor(name),
           borderWidth: 2,
           pointRadius: 0,
           tension: 0.15
         });
       }
 
-      if (showQ) {
-        const D = normalize(solveGrowthArray(aArray, E_Quint, Om0));
-        datasets.push({
-          label: "Quintessence (constant w)",
-          data: D,
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.15
-        });
-      }
-
-      if (showCPL) {
-        const D = normalize(solveGrowthArray(aArray, E_CPL, Om0));
-        datasets.push({
-          label: "CPL w(a)",
-          data: D,
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.15
-        });
-      }
-
-      if (showQKDE) {
-        const D = normalize(solveGrowthArray(aArray, E_QKDE, Om0));
-        datasets.push({
-          label: "QKDE (ρ_DE ∝ K(1)/K(a))",
-          data: D,
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.15
-        });
-      }
+      if (showLCDM) addModel("ΛCDM", E_LCDM);
+      if (showQ)    addModel("Quintessence (constant w)", E_Quint);
+      if (showCPL)  addModel("CPL w(a)", E_CPL);
+      if (showQKDE) addModel("QKDE (ρ_DE ∝ K(1)/K(a))", E_QKDE);
 
       // -------------------------------
-      // Build x-axis labels
+      // x–axis numeric array
       // -------------------------------
-      const xLabels =
-        xMode === "z"
-          ? aArray.map(a => (1/a - 1).toFixed(3))
-          : aArray.map(a => a.toFixed(3));
-
-      const xTitle = xMode === "z" ? "Redshift z" : "Scale factor a";
-      const yTitle =
-        norm === "Da_over_a" ? "D(a)/a (normalized)" : "D(a) (D(1)=1)";
+      const xNumeric = (xMode === "z") ? zArray : aArray;
+      const xTitle = (xMode === "z") ? "Redshift z" : "Scale factor a";
+      const yTitle = (norm === "Da_over_a")
+        ? "D(a)/a (normalized)"
+        : "D(a) (D(1)=1)";
 
       // -------------------------------
-      // Draw chart
+      // DRAW CHART (fixed, working)
       // -------------------------------
       const canvas = byId("adv-growth-canvas");
       if (!canvas) return;
@@ -2040,48 +2099,66 @@ if (advComputeBtn) {
 
       growthChart = new Chart(ctx, {
         type: "line",
-        data: { labels: xLabels, datasets },
+        data: {
+          labels: xNumeric,
+          datasets
+        },
         options: {
+          parsing: false,
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: { title: { display: true, text: xTitle } },
-            y: { title: { display: true, text: yTitle } }
+            x: {
+              type: "linear",
+              title: { display: true, text: xTitle }
+            },
+            y: {
+              title: { display: true, text: yTitle }
+            }
           },
           plugins: { legend: { display: true } }
         }
       });
 
-      setOutput(
-        byId("adv-growth-info"),
-        `Plotted models:
-${showLCDM ? "• ΛCDM\n" : ""}${showQ ? "• Quintessence\n" : ""}${
-          showCPL ? "• CPL\n" : ""
-        }${showQKDE ? "• QKDE (Option B)\n" : ""}`
-      );
+      // -------------------------------
+      // Output summary
+      // -------------------------------
+      let info = "Plotted models:\n";
+      if (showLCDM) info += "• ΛCDM\n";
+      if (showQ)    info += "• Quintessence\n";
+      if (showCPL)  info += "• CPL\n";
+      if (showQKDE) info += "• QKDE (Option B)\n";
+
+      info += `\nGrid: ${Npts} points, z_max = ${zmax}\n`;
+      info += `Normalization: ${norm}\n`;
+
+      setOutput(byId("adv-growth-info"), info);
+
     } catch (err) {
       setOutput(byId("adv-growth-info"), err.message, true);
     }
   });
 }
-    // ============================================================
-// PANEL 5 — ADVANCED GROWTH CSV EXPORT (CLEAN VERSION)
+
+
+// ============================================================
+// PANEL 5 — ADVANCED GROWTH CSV EXPORT (CORRECTED)
 // ============================================================
 const advExportBtn = byId("adv-export-csv");
 if (advExportBtn) {
   advExportBtn.addEventListener("click", () => {
     try {
-      // Read inputs (same as compute)
+      // Same input read as above
       const Om0 = parseFloat(byId("adv-om0").value);
       const Or0 = parseFloat(byId("adv-or0").value);
       const zmax = parseFloat(byId("adv-zmax").value);
       const Npts = parseInt(byId("adv-samples").value, 10);
 
-      const wQ   = parseFloat(byId("adv-wq").value);
-      const w0   = parseFloat(byId("adv-w0").value);
-      const wa   = parseFloat(byId("adv-wa").value);
-      const K0q  = parseFloat(byId("adv-k0q").value);
-      const pq   = parseFloat(byId("adv-pq").value);
+      const wQ  = parseFloat(byId("adv-wq").value);
+      const w0  = parseFloat(byId("adv-w0").value);
+      const wa  = parseFloat(byId("adv-wa").value);
+      const K0q = parseFloat(byId("adv-k0q").value);
+      const pq  = parseFloat(byId("adv-pq").value);
 
       const showLCDM = byId("adv-show-lcdm").checked;
       const showQ    = byId("adv-show-quint").checked;
@@ -2098,12 +2175,13 @@ if (advExportBtn) {
       if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive");
 
       const aMin = 1 / (1 + zmax);
-      const aArray = Array.from(
-        { length: Npts },
-        (_, i) => aMin + (1 - aMin) * (i / (Npts - 1))
+      const aArray = Array.from({ length: Npts }, (_, i) =>
+        aMin + (1 - aMin) * (i / (Npts - 1))
       );
 
-      // Background E(a)
+      const zArray = aArray.map(a => 1/a - 1);
+
+      // E-functions
       const E_LCDM = a => Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
       const E_Quint = a =>
         Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * a**(-3*(1+wQ)));
@@ -2118,10 +2196,10 @@ if (advExportBtn) {
       };
 
       const Omega_m = (a, E) => (Om0 / a**3) / (E*E);
-      const w_eff_QKDE = (a) => {
+      const w_eff_Q = (a) => {
         const K = K_a(a, K0q, pq);
         const dlnK = (-pq * K0q * a**(-pq)) / K;
-        return -1 - (1/3) * dlnK;
+        return -1 - (1/3)*dlnK;
       };
 
       function normalize(Darr) {
@@ -2130,36 +2208,22 @@ if (advExportBtn) {
           : Darr;
       }
 
-      // Compute model arrays
+      // Compute models
       const models = [];
 
-      if (showLCDM)
+      function addModel(name, Efunc) {
+        const D = normalize(solveGrowthArray(aArray, Efunc, Om0));
         models.push({
-          name: "LCDM",
-          E: E_LCDM,
-          D: normalize(solveGrowthArray(aArray, E_LCDM, Om0))
+          name,
+          E: Efunc,
+          D
         });
+      }
 
-      if (showQ)
-        models.push({
-          name: "Quintessence",
-          E: E_Quint,
-          D: normalize(solveGrowthArray(aArray, E_Quint, Om0))
-        });
-
-      if (showCPL)
-        models.push({
-          name: "CPL",
-          E: E_CPL,
-          D: normalize(solveGrowthArray(aArray, E_CPL, Om0))
-        });
-
-      if (showQKDE)
-        models.push({
-          name: "QKDE",
-          E: E_QKDE,
-          D: normalize(solveGrowthArray(aArray, E_QKDE, Om0))
-        });
+      if (showLCDM) addModel("LCDM", E_LCDM);
+      if (showQ)    addModel("Quintessence", E_Quint);
+      if (showCPL)  addModel("CPL", E_CPL);
+      if (showQKDE) addModel("QKDE", E_QKDE);
 
       // -----------------------
       // Build CSV
@@ -2170,10 +2234,10 @@ if (advExportBtn) {
       rows.push(`# K0=${K0q}, p=${pq}`);
       rows.push("");
 
-      // Header row
       const header = [
         "index",
-        xMode,
+        "a",
+        "z",
         ...models.map(m => `${m.name}_D`),
         ...models.map(m => `${m.name}_E`),
         ...models.map(m => `${m.name}_Omega_m`)
@@ -2182,38 +2246,37 @@ if (advExportBtn) {
 
       rows.push(header.join(","));
 
-      // Data
       for (let i = 0; i < Npts; i++) {
         const a = aArray[i];
-        const xval = xMode === "z" ? (1/a - 1) : a;
+        const z = zArray[i];
 
-        const dvals = models.map(m => m.D[i].toPrecision(10));
-        const evals = models.map(m => m.E(a).toPrecision(10));
-        const omvals = models.map(m => Omega_m(a, m.E(a)).toPrecision(10));
+        const Dvals = models.map(m => m.D[i].toPrecision(10));
+        const Evals = models.map(m => m.E(a).toPrecision(10));
+        const Omvals = models.map(m => Omega_m(a, m.E(a)).toPrecision(10));
 
         const row = [
           i,
-          xval.toPrecision(10),
-          ...dvals,
-          ...evals,
-          ...omvals
+          a.toPrecision(10),
+          z.toPrecision(10),
+          ...Dvals,
+          ...Evals,
+          ...Omvals
         ];
 
-        if (showQKDE) row.push(w_eff_QKDE(a).toPrecision(10));
+        if (showQKDE) row.push(w_eff_Q(a).toPrecision(10));
 
         rows.push(row.join(","));
       }
 
-      // Download
       const blob = new Blob([rows.join("\n")], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
 
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "qkde_growth_comparison.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const aTag = document.createElement("a");
+      aTag.href = url;
+      aTag.download = "qkde_growth_comparison.csv";
+      document.body.appendChild(aTag);
+      aTag.click();
+      document.body.removeChild(aTag);
       URL.revokeObjectURL(url);
 
     } catch (err) {
