@@ -169,14 +169,18 @@ body {
 /* ================= MAIN PAGE WRAPPER ================= */
 .page {
   max-width: 1100px;
+  width: 100%;
   margin: 8px auto 32px;
   padding: 28px 24px 32px;
-  
+
   background: var(--bg-page);
   border-radius: 18px;
   border: 1px solid var(--border-card);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(10px);
+
+  box-sizing: border-box;
+  overflow-x: hidden;    /* <--- THIS IS THE CRITICAL FIX */
 }
 
 /* ---- Header ---- */
