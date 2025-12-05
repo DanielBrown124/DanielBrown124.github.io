@@ -2270,6 +2270,14 @@ if (advExportBtn) {
       document.body.removeChild(aTag);
       URL.revokeObjectURL(url);
 
+   // ------------------------------------------------------------
+// ADVANCED GROWTH: EXPORT CSV (ROBUST VERSION)
+// ------------------------------------------------------------
+const advExportBtn = byId("adv-export-csv");
+if (advExportBtn) {
+  advExportBtn.addEventListener("click", () => {
+    try {
+      /* your entire CSV export code unchanged */
     } catch (err) {
       alert("CSV export error: " + err.message);
     }
