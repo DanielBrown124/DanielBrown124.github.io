@@ -591,7 +591,7 @@ select.calc-input {
   <section class="calc-panel" id="panel-lcdm" aria-labelledby="lcdm-section-title">
     <div class="calc-panel-header">
       <div class="calc-panel-title" id="lcdm-section-title">ΛCDM background + distances</div>
-      <button class="panel-toggle-btn" data-panel="panel-lcdm" type="button">Hide</button>
+      <button class="panel-toggle-btn" data-panel="panel-lcdm" type="button">Show</button>
     </div>
 
     <div class="calc-panel-body">
@@ -711,18 +711,16 @@ select.calc-input {
         <pre id="lcdm-output" class="calc-output" aria-live="polite"></pre>
         <canvas id="lcdm-canvas" style="margin-top:12px; max-height:260px;"></canvas>
 
-        <!-- Formulas -->
-        <details id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
-          <summary class="visually-hidden">ΛCDM formulas</summary>
+        <!-- Corrected formula box (NO <details>) -->
+        <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
-            <!-- (unchanged formulas) -->
+            <!-- your formulas remain unchanged here -->
           </div>
-        </details>
+        </div>
 
       </article>
     </div>
   </section>
-
 
   <!-- ============================================================
        PANEL 2: QKDE RUNNING K
@@ -730,7 +728,7 @@ select.calc-input {
   <section class="calc-panel" id="panel-qkde" aria-labelledby="qkde-section-title">
     <div class="calc-panel-header">
       <div class="calc-panel-title" id="qkde-section-title">QKDE running kinetic normalization</div>
-      <button class="panel-toggle-btn" data-panel="panel-qkde" type="button">Hide</button>
+      <button class="panel-toggle-btn" data-panel="panel-qkde" type="button">Show</button>
     </div>
 
     <div class="calc-panel-body">
@@ -780,17 +778,16 @@ select.calc-input {
 
         <pre id="qkde-output" class="calc-output" aria-live="polite"></pre>
 
-        <details id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
-          <summary class="visually-hidden">QKDE formulas</summary>
+        <!-- Corrected formula box -->
+        <div id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
             <!-- formulas unchanged -->
           </div>
-        </details>
+        </div>
 
       </article>
     </div>
   </section>
-
 
   <!-- ============================================================
        PANEL 3: GROWTH AT ONE Z
@@ -798,7 +795,7 @@ select.calc-input {
   <section class="calc-panel" id="panel-growth">
     <div class="calc-panel-header">
       <div class="calc-panel-title">GR linear growth factor</div>
-      <button class="panel-toggle-btn" data-panel="panel-growth" type="button">Hide</button>
+      <button class="panel-toggle-btn" data-panel="panel-growth" type="button">Show</button>
     </div>
 
     <div class="calc-panel-body">
@@ -844,17 +841,16 @@ select.calc-input {
 
         <pre id="grow-output" class="calc-output-mini" aria-live="polite"></pre>
 
-        <details id="grow-formulas" class="calc-formula-box" aria-hidden="true">
-          <summary class="visually-hidden">Growth formulas</summary>
+        <!-- Corrected formula box -->
+        <div id="grow-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
             <!-- formulas unchanged -->
           </div>
-        </details>
+        </div>
 
       </article>
     </div>
   </section>
-
 
   <!-- ============================================================
        PANEL 4: LCDM VS QKDE SNAPSHOT
@@ -862,7 +858,7 @@ select.calc-input {
   <section class="calc-panel" id="panel-compare">
     <div class="calc-panel-header">
       <div class="calc-panel-title">ΛCDM vs QKDE snapshot</div>
-      <button class="panel-toggle-btn" data-panel="panel-compare" type="button">Hide</button>
+      <button class="panel-toggle-btn" data-panel="panel-compare" type="button">Show</button>
     </div>
 
     <div class="calc-panel-body">
@@ -911,7 +907,6 @@ select.calc-input {
     </div>
   </section>
 
-
   <!-- ============================================================
        PANEL 5: ADVANCED FULL-WIDTH COMPARATOR
   ============================================================ -->
@@ -919,7 +914,7 @@ select.calc-input {
 
     <div class="calc-panel-header">
       <div class="calc-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE</div>
-      <button class="panel-toggle-btn" data-panel="panel-advanced" type="button">Hide</button>
+      <button class="panel-toggle-btn" data-panel="panel-advanced" type="button">Show</button>
     </div>
 
     <div class="calc-panel-body">
@@ -1024,6 +1019,7 @@ select.calc-input {
           This yields \(w(a) = -1 - \tfrac{1}{3}\,d\ln K/d\ln a\).  
           ΛCDM is recovered when K is constant.
         </p>
+
       </article>
     </div>
   </section>
