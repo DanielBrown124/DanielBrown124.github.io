@@ -1825,89 +1825,283 @@ f(z)               = ${result.f.toFixed(6)}`
       });
     }
 
-   // ============================================================
-// PANEL 4: ΛCDM vs QKDE SNAPSHOT (Option B-style consistency)
-// ============================================================
-const cmpComputeBtn = byId("cmp-compute");
-if (cmpComputeBtn) {
-  cmpComputeBtn.addEventListener("click", () => {
-    try {
-      const z   = parseFloat(byId("cmp-z").value);
-      const Om0 = parseFloat(byId("lcdm-om").value);
-      const Or0 = parseFloat(byId("lcdm-or").value);
-      const H0  = parseFloat(byId("lcdm-h0").value);
-      const K0  = parseFloat(byId("cmp-k0").value);
-      const p   = parseFloat(byId("cmp-p").value);
+    // ============================================================
+    // PANEL 4: ΛCDM vs QKDE SNAPSHOT (Option B-style consistency)
+    // ============================================================
+    const cmpComputeBtn = byId("cmp-compute");
+    if (cmpComputeBtn) {
+      cmpComputeBtn.addEventListener("click", () => {
+        try {
+          const z = parseFloat(byId("cmp-z").value);
+          const Om0 = parseFloat(byId("lcdm-om").value);
+          const Or0 = parseFloat(byId("lcdm-or").value);
+          const H0 = parseFloat(byId("lcdm-h0").value);
+          const K0 = parseFloat(byId("cmp-k0").value);
+          const p = parseFloat(byId("cmp-p").value);
 
-      if (!isFinite(z))  throw new Error("Invalid z.");
-      if (!isFinite(H0)) throw new Error("Invalid H₀.");
-      if (!isFinite(Om0) || !isFinite(Or0))
-        throw new Error("Invalid Ω parameters.");
-      if (!isFinite(K0) || !isFinite(p))
-        throw new Error("Invalid QKDE parameters.");
+          if (!isFinite(z)) throw new Error("Invalid z.");
+          if (!isFinite(Om0) || !isFinite(Or0))
+            throw new Error("Invalid Ω parameters.");
+          if (!isFinite(H0) || H0 <= 0)
+            throw new Error("H₀ must be positive.");
+          if (!isFinite(K0) || !isFinite(p))
+            throw new Error("Invalid QKDE parameters.");
 
-      const a = 1 / (1 + z);
+          const a = 1 / (1 + z);
 
-      // ΛCDM snapshot: always flat here for comparison
-      const Ol0_LCDM = 1 - Om0 - Or0;
-      const E_LCDM   = E_z(z, Om0, Or0, Ol0_LCDM);
-      const H_LCDM   = H0 * E_LCDM;
+          // ΛCDM: assume flat for comparison snapshot
+          const Ol0_LCDM = 1 - Om0 - Or0;
+          const H_LCDM = H0 * E_z(z, Om0, Or0, Ol0_LCDM);
 
-      // QKDE Option B background: ρ_DE(a)=ρ_DE0*K(1)/K(a)
-      const ODE0     = 1 - Om0 - Or0;
-      const K_today  = 1 + K0;
-      const K_here   = K_a(a, K0, p);
+          // QKDE Option B: DE replaces Λ with ρ_DE(a)=ρ_DE,0 K(1)/K(a)
+          const ODE0 = 1 - Om0 - Or0;
+          const K_today = 1 + K0;
+          const K_here = K_a(a, K0, p);
+          const E_QKDE = Math.sqrt(
+            Om0 * a ** -3 +
+              Or0 * a ** -4 +
+              ODE0 * (K_today / K_here)
+          );
+          const H_QKDE = H0 * E_QKDE;
 
-      const E_QK     = Math.sqrt(
-        Om0 * a**(-3) +
-        Or0 * a**(-4) +
-        ODE0 * (K_today / K_here)
-      );
-      const H_QK = H0 * E_QK;
+          const growthL = solveGrowthAtZ_LCDM(
+            z,
+            Om0,
+            Or0,
+            Ol0_LCDM
+          );
 
-      // GR growth (ΛCDM baseline)
-      const gLCDM = solveGrowthAtZ_LCDM(z, Om0, Or0, Ol0_LCDM);
-
-      setOutput(
-        byId("cmp-output"),
-`=== Snapshot @ z = ${z.toFixed(4)} ===
-
+          setOutput(
+            byId("cmp-output"),
+            `=== Snapshot @ z = ${z.toFixed(4)} ===
 ΛCDM:
   H_LCDM(z)  = ${H_LCDM.toFixed(4)} km/s/Mpc
-  D_LCDM(z)  = ${gLCDM.Dnorm.toFixed(6)}
-  f_LCDM(z)  = ${gLCDM.f.toFixed(6)}
+  D_LCDM(z)  = ${growthL.Dnorm.toFixed(6)}
+  f_LCDM(z)  = ${growthL.f.toFixed(6)}
 
 QKDE (ρ_DE ∝ K(1)/K(a)):
   K(a)       = ${K_here.toFixed(6)}
   K(1)       = ${K_today.toFixed(6)}
-  H_QKDE(z)  = ${H_QK.toFixed(4)} km/s/Mpc
+  H_QKDE(z)  = ${H_QKDE.toFixed(4)} km/s/Mpc
 `
-      );
+          );
+        } catch (err) {
+          setOutput(byId("cmp-output"), err.message, true);
+        }
+      });
+    }
 
-    } catch (err) {
-      setOutput(byId("cmp-output"), err.message, true);
+    // ============================================================
+    // PANEL 5: ADVANCED GROWTH COMPARATOR
+    // ============================================================
+    let growthChart = null;
+
+    const advComputeBtn = byId("adv-growth-compute");
+    if (advComputeBtn) {
+      advComputeBtn.addEventListener("click", () => {
+        try {
+          const Om0 = parseFloat(byId("adv-om0").value);
+          const Or0 = parseFloat(byId("adv-or0").value);
+          const zmax = parseFloat(byId("adv-zmax").value);
+          const Npts = parseInt(byId("adv-samples").value, 10);
+
+          const wQ = parseFloat(byId("adv-wq").value);
+          const w0 = parseFloat(byId("adv-w0").value);
+          const wa = parseFloat(byId("adv-wa").value);
+          const K0q = parseFloat(byId("adv-k0q").value);
+          const pq = parseFloat(byId("adv-pq").value);
+
+          const showLCDM = byId("adv-show-lcdm").checked;
+          const showQ = byId("adv-show-quint").checked;
+          const showCPL = byId("adv-show-kess").checked;
+          const showQKDE = byId("adv-show-qkde").checked;
+
+          const xMode = byId("adv-xaxis").value; // "a" or "z"
+          const norm = byId("adv-norm").value; // "Da" or "Da_over_a"
+
+          if (!(zmax > 0)) throw new Error("z_max must be > 0.");
+          if (!(Npts >= 40)) throw new Error("Samples must be ≥ 40.");
+
+          const ODE0 = 1 - Om0 - Or0; // flat for all models here
+          if (ODE0 <= 0) {
+            throw new Error(
+              "Ω_DE,0 ≤ 0. Choose Ωₘ₀ + Ωᵣ₀ < 1 for the growth comparator."
+            );
+          }
+
+          const a_min = 1 / (1 + zmax);
+          const aArray = Array.from({ length: Npts }, (_, i) =>
+            a_min + (1 - a_min) * (i / (Npts - 1))
+          );
+
+          const E_LCDM = (a) =>
+            Math.sqrt(Om0 / a ** 3 + Or0 / a ** 4 + ODE0);
+
+          const E_Quint = (a) =>
+            Math.sqrt(
+              Om0 / a ** 3 +
+                Or0 / a ** 4 +
+                ODE0 * a ** (-3 * (1 + wQ))
+            );
+
+          const E_CPL = (a) => {
+            const ode =
+              ODE0 *
+              a ** (-3 * (1 + w0 + wa)) *
+              Math.exp(-3 * wa * (1 - a));
+            return Math.sqrt(
+              Om0 / a ** 3 +
+                Or0 / a ** 4 +
+                ode
+            );
+          };
+
+          const K_today = 1 + K0q;
+          const E_QKDE = (a) => {
+            const K = K_a(a, K0q, pq);
+            return Math.sqrt(
+              Om0 / a ** 3 +
+                Or0 / a ** 4 +
+                ODE0 * (K_today / K)
+            );
+          };
+
+          function maybeNormalizeDa(Darr) {
+            if (norm === "Da_over_a") {
+              return Darr.map((D, i) => D / aArray[i]);
+            }
+            return Darr;
+          }
+
+          const datasets = [];
+
+          if (showLCDM) {
+            const D_L = maybeNormalizeDa(
+              solveGrowthArray(aArray, E_LCDM, Om0)
+            );
+            datasets.push({
+              label: "ΛCDM",
+              data: D_L,
+              borderWidth: 2,
+              pointRadius: 0,
+              tension: 0.15
+            });
+          }
+
+          if (showQ) {
+            const D_Q = maybeNormalizeDa(
+              solveGrowthArray(aArray, E_Quint, Om0)
+            );
+            datasets.push({
+              label: "Quintessence (w)",
+              data: D_Q,
+              borderWidth: 2,
+              pointRadius: 0,
+              tension: 0.15
+            });
+          }
+
+          if (showCPL) {
+            const D_C = maybeNormalizeDa(
+              solveGrowthArray(aArray, E_CPL, Om0)
+            );
+            datasets.push({
+              label: "CPL",
+              data: D_C,
+              borderWidth: 2,
+              pointRadius: 0,
+              tension: 0.15
+            });
+          }
+
+          if (showQKDE) {
+            const D_QK = maybeNormalizeDa(
+              solveGrowthArray(aArray, E_QKDE, Om0)
+            );
+            datasets.push({
+              label: "QKDE (ρ∝K(1)/K(a))",
+              data: D_QK,
+              borderWidth: 2,
+              pointRadius: 0,
+              tension: 0.15
+            });
+          }
+
+          const xLabels =
+            xMode === "z"
+              ? aArray.map((a) => (1 / a - 1).toFixed(3))
+              : aArray.map((a) => a.toFixed(3));
+
+          const xTitle =
+            xMode === "z" ? "Redshift z" : "Scale factor a";
+          const yTitle =
+            norm === "Da_over_a"
+              ? "D(a)/a (normalized)"
+              : "D(a) (D(1)=1)";
+
+          const advCanvas = byId("adv-growth-canvas");
+          if (!advCanvas) return;
+          const ctx = advCanvas.getContext("2d");
+          if (growthChart) growthChart.destroy();
+
+          growthChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: xLabels,
+              datasets
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  title: { display: true, text: xTitle }
+                },
+                y: {
+                  title: { display: true, text: yTitle }
+                }
+              },
+              plugins: {
+                legend: { display: true }
+              }
+            }
+          });
+
+          setOutput(
+            byId("adv-growth-info"),
+            `Plotted:
+${showLCDM ? "• ΛCDM\n" : ""}${
+              showQ ? "• Quintessence (constant w)\n" : ""
+            }${showCPL ? "• CPL w(a)\n" : ""}${
+              showQKDE ? "• QKDE (ρ∝K(1)/K(a))\n" : ""
+            }`
+          );
+        } catch (err) {
+          setOutput(byId("adv-growth-info"), err.message, true);
+        }
+      });
     }
   });
-}
-
-
-// ============================================================
-// PANEL 5: ADVANCED GROWTH COMPARATOR
-// ============================================================
-let growthChart = null;
-
-const advComputeBtn = byId("adv-growth-compute");
-if (advComputeBtn) {
-  advComputeBtn.addEventListener("click", () => {
+})();
+// ------------------------------------------------------------
+// ADVANCED GROWTH: EXPORT CSV (ROBUST VERSION)
+// ------------------------------------------------------------
+const advExportBtn = byId("adv-export-csv");
+if (advExportBtn) {
+  advExportBtn.addEventListener("click", () => {
     try {
+      // ---------------------------------------
+      // Read inputs
+      // ---------------------------------------
       const Om0 = parseFloat(byId("adv-om0").value);
       const Or0 = parseFloat(byId("adv-or0").value);
       const zmax = parseFloat(byId("adv-zmax").value);
-      const Npts = parseInt(byId("adv-samples").value, 10);
+      const Npts = parseInt(byId("adv-samples").value);
 
-      const wQ  = parseFloat(byId("adv-wq").value);
-      const w0  = parseFloat(byId("adv-w0").value);
-      const wa  = parseFloat(byId("adv-wa").value);
+      const wQ = parseFloat(byId("adv-wq").value);
+      const w0 = parseFloat(byId("adv-w0").value);
+      const wa = parseFloat(byId("adv-wa").value);
+
       const K0q = parseFloat(byId("adv-k0q").value);
       const pq  = parseFloat(byId("adv-pq").value);
 
@@ -1916,224 +2110,162 @@ if (advComputeBtn) {
       const showCPL  = byId("adv-show-kess").checked;
       const showQKDE = byId("adv-show-qkde").checked;
 
-      const xMode = byId("adv-xaxis").value;  // a or z
-      const norm  = byId("adv-norm").value;   // Da or Da_over_a
+      const xMode = byId("adv-xaxis").value; // "a" or "z"
+      const norm  = byId("adv-norm").value;  // "Da" or "Da_over_a"
 
+      // ---------------------------------------
+      // Validation
+      // ---------------------------------------
       if (!(zmax > 0)) throw new Error("z_max must be > 0.");
-      if (Npts < 40) throw new Error("Samples must be ≥ 40.");
+      if (!(Npts >= 40)) throw new Error("Samples must be ≥ 40.");
 
       const ODE0 = 1 - Om0 - Or0;
-      if (ODE0 <= 0) throw new Error("Ω_DE,0 must be > 0.");
+      if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive.");
 
-      // Background grid
-      const a_min  = 1 / (1 + zmax);
+      // ---------------------------------------
+      // Build scale-factor grid
+      // ---------------------------------------
+      const a_min = 1 / (1 + zmax);
       const aArray = Array.from({ length: Npts }, (_, i) =>
-        a_min + (1 - a_min) * (i/(Npts - 1))
+        a_min + (1 - a_min) * (i / (Npts - 1))
       );
 
-      // Backgrounds
-      const E_LCDM = (a) =>
-        Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
+      // ---------------------------------------
+      // Background E(a)
+      // ---------------------------------------
+      const E_LCDM = (a) => Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
 
       const E_Quint = (a) =>
         Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * a**(-3*(1 + wQ)));
 
       const E_CPL = (a) => {
-        const ode = ODE0 * a**(-3*(1 + w0 + wa)) * Math.exp(-3*wa*(1 - a));
+        const ode = ODE0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1 - a));
         return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
       };
 
       const K_today = 1 + K0q;
       const E_QKDE = (a) => {
         const K = K_a(a, K0q, pq);
-        return Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0*(K_today/K));
+        return Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0 * (K_today / K));
       };
 
-      // Optional normalization
-      function renorm(D) {
-        return norm === "Da_over_a" ? D.map((v,i)=>v/aArray[i]) : D;
+      // ---------------------------------------
+      // Additional physics
+      // ---------------------------------------
+      const Omega_m = (a, E) => (Om0 / a**3) / (E*E);
+
+      const w_eff_QKDE = (a) => {
+        const K = K_a(a, K0q, pq);
+        const dlnK_dlnA = (-pq * K0q * a**(-pq)) / K;
+        return -1 - (1/3) * dlnK_dlnA;
+      };
+
+      const normalize = (Darr) =>
+        norm === "Da_over_a" ? Darr.map((D,i) => D / aArray[i]) : Darr;
+
+      // ---------------------------------------
+      // Compute growth arrays
+      // ---------------------------------------
+      const models = [];
+
+      if (showLCDM) {
+        models.push({
+          name: "LCDM",
+          E: E_LCDM,
+          growth: normalize(solveGrowthArray(aArray, E_LCDM, Om0))
+        });
+      }
+      if (showQ) {
+        models.push({
+          name: "Quintessence",
+          E: E_Quint,
+          growth: normalize(solveGrowthArray(aArray, E_Quint, Om0))
+        });
+      }
+      if (showCPL) {
+        models.push({
+          name: "CPL",
+          E: E_CPL,
+          growth: normalize(solveGrowthArray(aArray, E_CPL, Om0))
+        });
+      }
+      if (showQKDE) {
+        models.push({
+          name: "QKDE",
+          E: E_QKDE,
+          growth: normalize(solveGrowthArray(aArray, E_QKDE, Om0)),
+          w_eff: w_eff_QKDE
+        });
       }
 
-      // Build plot datasets
-      const datasets = [];
-
-      if (showLCDM)
-        datasets.push({
-          label:"ΛCDM",
-          data: renorm(solveGrowthArray(aArray, E_LCDM, Om0)),
-          borderWidth:2, pointRadius:0, tension:0.15
-        });
-
-      if (showQ)
-        datasets.push({
-          label:"Quintessence (w)",
-          data: renorm(solveGrowthArray(aArray, E_Quint, Om0)),
-          borderWidth:2, pointRadius:0, tension:0.15
-        });
-
-      if (showCPL)
-        datasets.push({
-          label:"CPL",
-          data: renorm(solveGrowthArray(aArray, E_CPL, Om0)),
-          borderWidth:2, pointRadius:0, tension:0.15
-        });
-
-      if (showQKDE)
-        datasets.push({
-          label:"QKDE (ρ∝K(1)/K(a))",
-          data: renorm(solveGrowthArray(aArray, E_QKDE, Om0)),
-          borderWidth:2, pointRadius:0, tension:0.15
-        });
-
-      const xLabels =
-        xMode === "z"
-        ? aArray.map(a => (1/a - 1).toFixed(3))
-        : aArray.map(a => a.toFixed(3));
-
-      const xTitle =
-        xMode === "z" ? "Redshift z" : "Scale factor a";
-
-      const yTitle =
-        norm === "Da_over_a" ? "D(a)/a (normalized)" : "D(a) (D(1)=1)";
-
-      const canvas = byId("adv-growth-canvas");
-      const ctx    = canvas.getContext("2d");
-      if (growthChart) growthChart.destroy();
-
-      growthChart = new Chart(ctx, {
-        type:"line",
-        data:{ labels:xLabels, datasets },
-        options:{
-          responsive:true,
-          maintainAspectRatio:false,
-          scales:{
-            x:{ title:{display:true,text:xTitle} },
-            y:{ title:{display:true,text:yTitle} }
-          }
-        }
-      });
-
-      setOutput(byId("adv-growth-info"),
-`Plotted:
-${showLCDM ? "• ΛCDM\n" : ""}${showQ ? "• Quintessence\n" : ""}
-${showCPL ? "• CPL w(a)\n" : ""}${showQKDE ? "• QKDE\n" : ""}`
-      );
-
-    } catch (err) {
-      setOutput(byId("adv-growth-info"), err.message, true);
-    }
-  });
-}
-
-// ============================================================
-// PANEL 5 — CSV EXPORT (now inside IIFE, no scope break)
-// ============================================================
-const advExportBtn = byId("adv-export-csv");
-if (advExportBtn) {
-  advExportBtn.addEventListener("click", () => {
-    try {
-      const Om0 = parseFloat(byId("adv-om0").value);
-      const Or0 = parseFloat(byId("adv-or0").value);
-      const zmax = parseFloat(byId("adv-zmax").value);
-      const Npts = parseInt(byId("adv-samples").value, 10);
-
-      const wQ  = parseFloat(byId("adv-wq").value);
-      const w0  = parseFloat(byId("adv-w0").value);
-      const wa  = parseFloat(byId("adv-wa").value);
-      const K0q = parseFloat(byId("adv-k0q").value);
-      const pq  = parseFloat(byId("adv-pq").value);
-
-      const showLCDM = byId("adv-show-lcdm").checked;
-      const showQ    = byId("adv-show-quint").checked;
-      const showCPL  = byId("adv-show-kess").checked;
-      const showQKDE = byId("adv-show-qkde").checked;
-
-      const xMode = byId("adv-xaxis").value;
-      const norm  = byId("adv-norm").value;
-
-      if (!(zmax > 0)) throw new Error("z_max must be > 0.");
-      if (Npts < 40) throw new Error("Samples must be ≥ 40.");
-
-      const ODE0 = 1 - Om0 - Or0;
-      if (ODE0 <= 0) throw new Error("Ω_DE,0 must be positive.");
-
-      const a_min = 1/(1+zmax);
-      const aArray = Array.from({length:Npts}, (_,i)=>
-        a_min + (1-a_min)*(i/(Npts-1))
-      );
-
-      // Backgrounds (same definitions as panel 5 above)
-      const E_LCDM = (a)=>Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0);
-      const E_Quint= (a)=>Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0*a**(-3*(1+wQ)));
-      const E_CPL  = (a)=>{
-        const ode = ODE0*a**(-3*(1+w0+wa))*Math.exp(-3*wa*(1-a));
-        return Math.sqrt(Om0/a**3 + Or0/a**4 + ode);
-      };
-      const K_today = 1 + K0q;
-      const E_QKDE = (a)=>{
-        const K = K_a(a,K0q,pq);
-        return Math.sqrt(Om0/a**3 + Or0/a**4 + ODE0*(K_today/K));
-      };
-
-      const Omega_m = (a,E) => (Om0/a**3)/(E*E);
-      const w_eff = (a)=>{
-        const K = K_a(a,K0q,pq);
-        const dlnK = (-pq*K0q*a**(-pq))/K;
-        return -1 - (1/3)*dlnK;
-      };
-
-      function renorm(D){ return norm==="Da_over_a" ? D.map((v,i)=>v/aArray[i]) : D; }
-
-      const models = [];
-      if (showLCDM) models.push({name:"LCDM",E:E_LCDM, growth:renorm(solveGrowthArray(aArray,E_LCDM,Om0))});
-      if (showQ)    models.push({name:"Quintessence",E:E_Quint,growth:renorm(solveGrowthArray(aArray,E_Quint,Om0))});
-      if (showCPL)  models.push({name:"CPL",E:E_CPL,growth:renorm(solveGrowthArray(aArray,E_CPL,Om0))});
-      if (showQKDE) models.push({name:"QKDE",E:E_QKDE,growth:renorm(solveGrowthArray(aArray,E_QKDE,Om0))});
-
+      // ------------------------------------------------------------
+      // CSV metadata block
+      // ------------------------------------------------------------
       const rows = [];
-      rows.push("# QKDE Tools — Growth Comparator Export");
-      rows.push(`# Om0=${Om0}, Or0=${Or0}, ODE0=${ODE0}`);
-      rows.push(`# QKDE: K0=${K0q}, p=${pq}`);
-      rows.push(`# x-axis=${xMode}, norm=${norm}`);
+      rows.push("# QKDE Cosmology Tools – Growth Comparator Export");
+      rows.push(`# Generated: ${new Date().toISOString()}`);
+      rows.push(`# Om0 = ${Om0}, Or0 = ${Or0}, ODE0 = ${ODE0}`);
+      rows.push(`# Quintessence w = ${wQ}`);
+      rows.push(`# CPL w0 = ${w0}, wa = ${wa}`);
+      rows.push(`# QKDE K0 = ${K0q}, p = ${pq}`);
+      rows.push(`# x-axis = ${xMode}, normalization = ${norm}`);
       rows.push("");
 
-      const header = ["i","a_or_z"];
-      models.forEach(m=>header.push(`${m.name}_D`,`${m.name}_E`,`${m.name}_Omega_m`));
-      if (showQKDE) header.push("QKDE_w_eff");
+      // ------------------------------------------------------------
+      // CSV header
+      // ------------------------------------------------------------
+      const header = [
+        "index",
+        xMode,
+        ...models.map(m => `${m.name}_D(a)`),
+        ...models.map(m => `${m.name}_E(a)`),
+        ...models.map(m => `${m.name}_Omega_m(a)`)
+      ];
+
+      if (showQKDE) header.push("QKDE_w_eff(a)");
+
       rows.push(header.join(","));
 
-      for (let i=0;i<Npts;i++){
+      // ------------------------------------------------------------
+      // Data rows
+      // ------------------------------------------------------------
+      for (let i = 0; i < Npts; i++) {
         const a = aArray[i];
-        const x = xMode==="z" ? (1/a - 1) : a;
+        const xval = xMode === "z" ? (1/a - 1) : a;
 
-        const line = [i, x.toPrecision(10)];
+        const row = [
+          i,
+          xval.toPrecision(10),
+          ...models.map(m => m.growth[i].toPrecision(10)),
+          ...models.map(m => m.E(a).toPrecision(10)),
+          ...models.map(m => Omega_m(a, m.E(a)).toPrecision(10))
+        ];
 
-        models.forEach(m=>{
-          line.push(
-            m.growth[i].toPrecision(10),
-            m.E(a).toPrecision(10),
-            Omega_m(a,m.E(a)).toPrecision(10)
-          );
-        });
+        if (showQKDE) {
+          row.push(w_eff_QKDE(a).toPrecision(10));
+        }
 
-        if (showQKDE) line.push(w_eff(a).toPrecision(10));
-
-        rows.push(line.join(","));
+        rows.push(row.join(","));
       }
 
-      const blob = new Blob([rows.join("\n")],{type:"text/csv"});
+      // ------------------------------------------------------------
+      // Export CSV
+      // ------------------------------------------------------------
+      const blob = new Blob([rows.join("\n")], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
+
       const aTag = document.createElement("a");
       aTag.href = url;
       aTag.download = "qkde_growth_comparator_full.csv";
       document.body.appendChild(aTag);
       aTag.click();
       document.body.removeChild(aTag);
+
       URL.revokeObjectURL(url);
 
     } catch (err) {
-      alert("CSV export error: "+err.message);
+      alert("CSV export error: " + err.message);
     }
   });
 }
-  </script>
+</script>
