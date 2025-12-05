@@ -968,6 +968,9 @@ select.calc-input {
 
         <div class="calc-action-row">
           <button class="calc-btn" id="adv-growth-compute" type="button">Plot growth</button>
+          <button class="calc-btn secondary" id="adv-export-csv" type="button">
+  Export growth (CSV)
+</button>
         </div>
 
         <canvas id="adv-growth-canvas"></canvas>
@@ -2070,4 +2073,92 @@ ${showLCDM ? "• ΛCDM\n" : ""}${
     }
   });
 })();
+  // ------------------------------------------------------------
+// ADVANCED GROWTH: EXPORT CSV
+// ------------------------------------------------------------
+const advExportBtn = byId("adv-export-csv");
+if (advExportBtn) {
+  advExportBtn.addEventListener("click", () => {
+    try {
+      const Om0 = parseFloat(byId("adv-om0").value);
+      const Or0 = parseFloat(byId("adv-or0").value);
+      const zmax = parseFloat(byId("adv-zmax").value);
+      const Npts = parseInt(byId("adv-samples").value);
+
+      const wQ = parseFloat(byId("adv-wq").value);
+      const w0 = parseFloat(byId("adv-w0").value);
+      const wa = parseFloat(byId("adv-wa").value);
+      const K0q = parseFloat(byId("adv-k0q").value);
+      const pq = parseFloat(byId("adv-pq").value);
+
+      const showLCDM = byId("adv-show-lcdm").checked;
+      const showQ = byId("adv-show-quint").checked;
+      const showCPL = byId("adv-show-kess").checked;
+      const showQKDE = byId("adv-show-qkde").checked;
+
+      const xMode = byId("adv-xaxis").value;  // "a" or "z"
+      const norm = byId("adv-norm").value;
+
+      if (!(zmax > 0)) throw new Error("z_max must be > 0.");
+      if (!(Npts >= 40)) throw new Error("Samples ≥ 40.");
+
+      const ODE0 = 1 - Om0 - Or0;
+      if (ODE0 <= 0) throw new Error("Choose Ωₘ₀ + Ωᵣ₀ < 1.");
+
+      const a_min = 1 / (1 + zmax);
+      const aArray = Array.from({ length: Npts }, (_, i) =>
+        a_min + (1 - a_min) * (i / (Npts - 1))
+      );
+
+      // Background E(a) functions
+      const E_LCDM = (a) => Math.sqrt(Om0 / a**3 + Or0 / a**4 + ODE0);
+      const E_Quint = (a) => Math.sqrt(Om0 / a**3 + Or0 / a**4 + ODE0 * a**(-3*(1+wQ)));
+      const E_CPL = (a) => {
+        const ode = ODE0 * a**(-3*(1+w0+wa)) * Math.exp(-3*wa*(1-a));
+        return Math.sqrt(Om0 / a**3 + Or0 / a**4 + ode);
+      };
+      const K_today = 1 + K0q;
+      const E_QKDE = (a) => {
+        const K = K_a(a, K0q, pq);
+        return Math.sqrt(Om0 / a**3 + Or0 / a**4 + ODE0 * (K_today / K));
+      };
+
+      function maybeNormalize(Darr) {
+        return (norm === "Da_over_a") ? Darr.map((D, i) => D / aArray[i]) : Darr;
+      }
+
+      const models = [];
+      if (showLCDM) models.push({ name: "LCDM", data: maybeNormalize(solveGrowthArray(aArray, E_LCDM, Om0)) });
+      if (showQ) models.push({ name: "Quint_w", data: maybeNormalize(solveGrowthArray(aArray, E_Quint, Om0)) });
+      if (showCPL) models.push({ name: "CPL", data: maybeNormalize(solveGrowthArray(aArray, E_CPL, Om0)) });
+      if (showQKDE) models.push({ name: "QKDE", data: maybeNormalize(solveGrowthArray(aArray, E_QKDE, Om0)) });
+
+      // ------------------------------------------------------------
+      // Build CSV
+      // ------------------------------------------------------------
+      const header = ["index", xMode, ...models.map(m => m.name)];
+      const rows = [header.join(",")];
+
+      for (let i = 0; i < Npts; i++) {
+        const a = aArray[i];
+        const xval = (xMode === "z") ? (1/a - 1) : a;
+        const dat = models.map(m => m.data[i].toPrecision(8));
+        rows.push([i, xval.toPrecision(8), ...dat].join(","));
+      }
+
+      const blob = new Blob([rows.join("\n")], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const aTag = document.createElement("a");
+      aTag.href = url;
+      aTag.download = "qkde_growth_comparison.csv";
+      document.body.appendChild(aTag);
+      aTag.click();
+      document.body.removeChild(aTag);
+      URL.revokeObjectURL(url);
+
+    } catch (err) {
+      alert("CSV export error: " + err.message);
+    }
+  });
+}
 </script>
