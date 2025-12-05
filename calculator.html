@@ -1323,19 +1323,28 @@ select.calc-input {
     // ------------------------------------------------------------
     // Panel collapsibles
     // ------------------------------------------------------------
-    document
-      .querySelectorAll(".panel-toggle-btn")
-      .forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const panelId = btn.getAttribute("data-panel");
-          if (!panelId) return;
-          const panel = byId(panelId);
-          if (!panel) return;
-          panel.classList.toggle("collapsed");
-          const isCollapsed = panel.classList.contains("collapsed");
-          btn.textContent = isCollapsed ? "Show" : "Hide";
-        });
-      });
+   // ------------------------------------------------------------
+// Collapse all panels on load, then enable toggles
+// ------------------------------------------------------------
+document.querySelectorAll(".calc-panel").forEach((panel) => {
+  panel.classList.add("collapsed");   // start collapsed
+});
+
+// Set all toggle buttons to “Show”
+document.querySelectorAll(".panel-toggle-btn").forEach((btn) => {
+  btn.textContent = "Show";
+
+  btn.addEventListener("click", () => {
+    const panelId = btn.getAttribute("data-panel");
+    if (!panelId) return;
+    const panel = byId(panelId);
+    if (!panel) return;
+
+    panel.classList.toggle("collapsed");
+    const isCollapsed = panel.classList.contains("collapsed");
+    btn.textContent = isCollapsed ? "Show" : "Hide";
+  });
+});
 
     // ------------------------------------------------------------
     // Formula toggles
