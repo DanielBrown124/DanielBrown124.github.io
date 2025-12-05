@@ -516,8 +516,13 @@ select.calc-input {
 
 .calc-card-wide canvas {
   width: 100%;
-  height: 420px;
-  max-height: 420px;
+
+  /* NEW: instead of fixed 420px height */
+  height: auto;
+
+  /* maintain clean proportions */
+  aspect-ratio: 16 / 9;
+
   margin-top: 16px;
   border-radius: 10px;
   background: rgba(0,0,0,0.25);
@@ -526,6 +531,7 @@ select.calc-input {
       0 0 14px rgba(102,252,241,0.10),
       inset 0 0 12px rgba(102,252,241,0.05);
 }
+
 
 /* Info box under plot */
 #adv-growth-info {
