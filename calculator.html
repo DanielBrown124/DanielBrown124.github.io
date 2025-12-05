@@ -492,20 +492,19 @@ select.calc-input {
 .calc-card-wide {
   width: 100%;
   max-width: 100%;
+  overflow-x: auto;     /* <<< critical fix */
+  overflow-y: visible;
+
   margin-top: 32px;
+  padding: 28px 24px 32px;
+
   background: radial-gradient(circle at 0% 50%, rgba(102,252,241,0.10) 0, transparent 70%),
               radial-gradient(circle at 100% 50%, rgba(102,252,241,0.08) 0, transparent 70%),
               var(--bg-card-wide);
   border-radius: 18px;
   border: 1px solid var(--border-card-wide);
-  box-shadow:
-      0 0 26px rgba(102,252,241,0.16),
-      inset 0 0 22px rgba(102,252,241,0.06);
-  padding: 28px 24px 32px;
+  box-shadow: 0 0 26px rgba(102,252,241,0.16), inset 0 0 22px rgba(102,252,241,0.06);
   position: relative;
-
-  /* NEW: allow expansion */
-  overflow: visible;
 }
 
 .calc-card-wide h3 {
