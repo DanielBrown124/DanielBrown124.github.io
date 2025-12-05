@@ -253,7 +253,7 @@ h2, h3, h4 {
 
 /* Panel body collapsible */
 .calc-panel-body {
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
   overflow: hidden;
 }
 
@@ -265,7 +265,7 @@ h2, h3, h4 {
 
 /* A generous default max-height so content fits before collapse */
 .calc-panel:not(.collapsed) .calc-panel-body {
-  max-height: 2000px;
+  max-height: 3000px;
   opacity: 1;
 }
 
@@ -422,7 +422,7 @@ select.calc-input {
   font-size: 0.8rem;
   white-space: pre-wrap;
   overflow-y: auto;
-  max-height: 210px;
+  max-height: 10000px;
 }
 .calc-output-mini {
   max-height: 1100px;
@@ -443,7 +443,7 @@ select.calc-input {
   border-radius: 8px;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease;
   padding: 0 10px;
   opacity: 0;
 }
