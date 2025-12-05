@@ -571,28 +571,33 @@ select.calc-input {
 <div class="page">
 
   <!-- ================= TITLE ================= -->
-  <h1>QKDE Interactive Calculator Suite</h1>
-  <p class="center" style="opacity:0.9;">ΛCDM • QKDE • Growth • Kinetic Drift Tools</p>
+  <header>
+    <h1>QKDE Interactive Calculator Suite</h1>
+    <p class="center" style="opacity:0.9;">
+      ΛCDM • QKDE • Growth • Kinetic Drift Tools
+    </p>
 
-  <p class="calc-intro">
-    These tools implement exact GR background and linear-growth equations for simple dark-energy models,
-    and a running kinetic normalization for QKDE. Use them to compare ΛCDM, constant-w quintessence,
-    CPL-type k-essence, and QKDE’s kinetic drift at the level of <em>H(a)</em>, distances, and growth.
-  </p>
+    <p class="calc-intro">
+      These tools implement exact GR background and linear-growth equations for simple dark-energy models,
+      and a running kinetic normalization for QKDE. Use them to compare ΛCDM, constant-w quintessence,
+      CPL-type k-essence, and QKDE’s kinetic drift at the level of <em>H(a)</em>, distances, and growth.
+    </p>
+  </header>
 
   <!-- ============================================================
        PANEL 1B: ΛCDM BACKGROUND DASHBOARD (ADVANCED)
   ============================================================ -->
-  <section class="calc-panel" id="panel-lcdm">
+  <section class="calc-panel" id="panel-lcdm" aria-labelledby="lcdm-panel-title">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">ΛCDM background + distances</div>
+      <div class="calc-panel-title" id="lcdm-panel-title">ΛCDM background + distances</div>
       <button class="panel-toggle-btn" data-panel="panel-lcdm" type="button">Hide</button>
     </div>
+
     <div class="calc-panel-body">
-      <article class="calc-card" id="lcdm-card">
+      <article class="calc-card" id="lcdm-card" aria-label="ΛCDM background and distance calculator">
         <div class="calc-header-row">
           <h3>ΛCDM Background &amp; Distances</h3>
-          <div class="calc-pill-row">
+          <div class="calc-pill-row" role="radiogroup" aria-label="ΛCDM presets">
             <button class="calc-pill is-active" data-lcdm-preset="planck">Planck 2018</button>
             <button class="calc-pill" data-lcdm-preset="local">Local H₀ (SH0ES-like)</button>
             <button class="calc-pill" data-lcdm-preset="wmap">WMAP-like</button>
@@ -603,69 +608,69 @@ select.calc-input {
         <p class="calc-note">
           Computes the standard ΛCDM background from \(\{H_0,\Omega_{m0},\Omega_{r0},\Omega_{\Lambda0}\}\),
           allowing a derived curvature \(\Omega_{k0}=1-\Omega_{m0}-\Omega_{r0}-\Omega_{\Lambda0}\) when flatness
-          is not enforced. Outputs \(E(z)\), \(H(z)\), comoving distances, angular and luminosity distances,
+          is not enforced. Outputs \(E(z)\), \(H(z)\), comoving, angular-diameter, and luminosity distances,
           SN distance modulus \(\mu(z)\), the density fractions \(\Omega_i(z)\), lookback time \(t_L(z)\),
           age of the Universe \(t_0\), BAO distance \(D_V(z)\), and the comoving volume element
           \(dV/dz\,d\Omega\).
         </p>
 
         <!-- Core parameter inputs -->
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="ΛCDM core parameters">
           <div>
-            <label class="calc-label">Evaluation redshift z</label>
+            <label class="calc-label" for="lcdm-z">Evaluation redshift z</label>
             <input id="lcdm-z" class="calc-input" type="number" value="0.5" step="0.01" min="0">
           </div>
           <div>
-            <label class="calc-label">H₀ [km/s/Mpc]</label>
+            <label class="calc-label" for="lcdm-h0">H₀ [km/s/Mpc]</label>
             <input id="lcdm-h0" class="calc-input" type="number" value="67.4" step="0.1" min="10">
           </div>
           <div>
-            <label class="calc-label">Ωₘ₀</label>
+            <label class="calc-label" for="lcdm-om">Ωₘ₀</label>
             <input id="lcdm-om" class="calc-input" type="number" value="0.315" step="0.001" min="0" max="2">
           </div>
           <div>
-            <label class="calc-label">Ωᵣ₀</label>
+            <label class="calc-label" for="lcdm-or">Ωᵣ₀</label>
             <input id="lcdm-or" class="calc-input" type="number" value="5e-5" step="1e-5" min="0" max="0.01">
           </div>
           <div>
-            <label class="calc-label">ΩΛ₀</label>
+            <label class="calc-label" for="lcdm-ol">ΩΛ₀</label>
             <input id="lcdm-ol" class="calc-input" type="number" value="0.68495" step="0.0001" min="0" max="2">
           </div>
           <div>
-            <label class="calc-label">z-steps (for χ, t)</label>
+            <label class="calc-label" for="lcdm-steps">z-steps (for χ, t)</label>
             <input id="lcdm-steps" class="calc-input" type="number" value="600" step="100" min="200">
           </div>
         </div>
 
         <!-- Constraints + meta controls -->
-        <div class="calc-input-row" style="margin-top:6px;">
+        <div class="calc-input-row" style="margin-top:6px;" aria-label="ΛCDM constraints and plotting options">
           <div>
-            <label class="calc-label">Flatness constraint</label>
+            <span class="calc-label">Flatness constraint</span>
             <label style="font-size:0.8rem; opacity:0.9;">
               <input type="checkbox" id="lcdm-flat" checked>
               Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1 (Ωₖ₀ → 0, auto-adjust ΩΛ₀)
             </label>
           </div>
           <div>
-            <label class="calc-label">Standard radiation</label>
+            <span class="calc-label">Standard radiation</span>
             <label style="font-size:0.8rem; opacity:0.9;">
               <input type="checkbox" id="lcdm-auto-rad" checked>
               Use standard \(T_{\rm CMB}=2.7255\,\mathrm{K}\), \(N_{\rm eff}=3.046\)
             </label>
           </div>
           <div>
-            <label class="calc-label">Derived Ωₖ₀</label>
+            <label class="calc-label" for="lcdm-ok">Derived Ωₖ₀</label>
             <input id="lcdm-ok" class="calc-input" type="text" value="0" disabled>
           </div>
           <div>
-            <label class="calc-label">Plot z<sub>max</sub></label>
+            <label class="calc-label" for="lcdm-zmax-plot">Plot z<sub>max</sub></label>
             <input id="lcdm-zmax-plot" class="calc-input" type="number" value="3" step="0.5" min="0.1">
           </div>
         </div>
 
         <div class="calc-input-row" style="margin-top:6px;">
           <div>
-            <label class="calc-label">Quantity to plot</label>
+            <label class="calc-label" for="lcdm-plot-y">Quantity to plot</label>
             <select id="lcdm-plot-y" class="calc-input">
               <option value="E">E(z)</option>
               <option value="H">H(z)/H₀</option>
@@ -676,7 +681,7 @@ select.calc-input {
             </select>
           </div>
           <div>
-            <label class="calc-label">Export grid</label>
+            <span class="calc-label">Export grid</span>
             <p style="font-size:0.78rem; margin:0; opacity:0.9;">
               Use the CSV button to download a z–distance table for external analysis.
             </p>
@@ -690,12 +695,12 @@ select.calc-input {
         </div>
 
         <!-- Compact numerical output -->
-        <pre id="lcdm-output" class="calc-output"></pre>
+        <pre id="lcdm-output" class="calc-output" aria-live="polite"></pre>
 
         <!-- Small diagnostic plot -->
-        <canvas id="lcdm-canvas" style="margin-top:12px; max-height:260px;"></canvas>
+        <canvas id="lcdm-canvas" style="margin-top:12px; max-height:260px;" aria-label="ΛCDM diagnostic plot"></canvas>
 
-        <!-- Formulas -->
+        <!-- Formulas (unchanged structure & IDs) -->
         <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
             <p>\(\Omega_{k0} = 1-\Omega_{m0}-\Omega_{r0}-\Omega_{\Lambda0}\)</p>
@@ -729,16 +734,16 @@ select.calc-input {
   <!-- ============================================================
        PANEL 2: QKDE RUNNING K
   ============================================================ -->
-  <section class="calc-panel" id="panel-qkde">
+  <section class="calc-panel" id="panel-qkde" aria-labelledby="qkde-panel-title">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">QKDE running kinetic normalization</div>
+      <div class="calc-panel-title" id="qkde-panel-title">QKDE running kinetic normalization</div>
       <button class="panel-toggle-btn" data-panel="panel-qkde" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
-      <article class="calc-card" id="qkde-card">
+      <article class="calc-card" id="qkde-card" aria-label="QKDE running K calculator">
         <div class="calc-header-row">
           <h3>QKDE Running K</h3>
-          <div class="calc-pill-row">
+          <div class="calc-pill-row" role="radiogroup" aria-label="QKDE presets">
             <button class="calc-pill is-active" data-qkde-preset="mild">Mild drift</button>
             <button class="calc-pill" data-qkde-preset="strong">Strong drift</button>
           </div>
@@ -750,21 +755,21 @@ select.calc-input {
           drift in the kinetic sector while the metric and growth equations remain exactly GR.
         </p>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="QKDE parameters">
           <div>
-            <label class="calc-label">Redshift z</label>
+            <label class="calc-label" for="qkde-z">Redshift z</label>
             <input id="qkde-z" class="calc-input" value="0.5" type="number" step="0.01">
           </div>
           <div>
-            <label class="calc-label">K₀</label>
+            <label class="calc-label" for="qkde-k0">K₀</label>
             <input id="qkde-k0" class="calc-input" value="0.5" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">p</label>
+            <label class="calc-label" for="qkde-p">p</label>
             <input id="qkde-p" class="calc-input" value="1.0" type="number" step="0.1">
           </div>
           <div>
-            <label class="calc-label">Reference K(0)</label>
+            <label class="calc-label" for="qkde-kref">Reference K(0)</label>
             <input id="qkde-kref" class="calc-input" value="1.0" type="number" step="0.01">
           </div>
         </div>
@@ -774,7 +779,7 @@ select.calc-input {
           <button class="calc-btn secondary" id="qkde-formula-toggle" type="button">Show definitions</button>
         </div>
 
-        <pre id="qkde-output" class="calc-output"></pre>
+        <pre id="qkde-output" class="calc-output" aria-live="polite"></pre>
 
         <div id="qkde-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
@@ -791,13 +796,13 @@ select.calc-input {
   <!-- ============================================================
        PANEL 3: GR GROWTH AT ONE REDSHIFT
   ============================================================ -->
-  <section class="calc-panel" id="panel-growth">
+  <section class="calc-panel" id="panel-growth" aria-labelledby="growth-panel-title">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">GR linear growth factor</div>
+      <div class="calc-panel-title" id="growth-panel-title">GR linear growth factor</div>
       <button class="panel-toggle-btn" data-panel="panel-growth" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
-      <article class="calc-card" id="growth-card">
+      <article class="calc-card" id="growth-card" aria-label="GR growth calculator">
         <div class="calc-header-row">
           <h3>GR Growth D(a)</h3>
           <span class="calc-pill is-active" style="cursor:default;">GR Only</span>
@@ -810,21 +815,21 @@ select.calc-input {
           to \(D(0)=1\).
         </p>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="Growth parameters">
           <div>
-            <label class="calc-label">Ωₘ₀ (growth)</label>
+            <label class="calc-label" for="grow-om0">Ωₘ₀ (growth)</label>
             <input id="grow-om0" class="calc-input" value="0.3" type="number" step="0.001">
           </div>
           <div>
-            <label class="calc-label">Ωᵣ₀ (growth)</label>
+            <label class="calc-label" for="grow-or0">Ωᵣ₀ (growth)</label>
             <input id="grow-or0" class="calc-input" value="0" type="number" step="1e-5">
           </div>
           <div>
-            <label class="calc-label">ΩΛ₀ (growth)</label>
+            <label class="calc-label" for="grow-ol0">ΩΛ₀ (growth)</label>
             <input id="grow-ol0" class="calc-input" value="0.7" type="number" step="0.001">
           </div>
           <div>
-            <label class="calc-label">Use z from ΛCDM card</label>
+            <span class="calc-label">Use z from ΛCDM card</span>
             <input class="calc-input" value="linked" disabled>
           </div>
         </div>
@@ -834,7 +839,7 @@ select.calc-input {
           <button class="calc-btn secondary" id="grow-formula-toggle" type="button">Show equation</button>
         </div>
 
-        <pre id="grow-output" class="calc-output-mini"></pre>
+        <pre id="grow-output" class="calc-output-mini" aria-live="polite"></pre>
 
         <div id="grow-formulas" class="calc-formula-box" aria-hidden="true">
           <div class="calc-formula-inner">
@@ -849,13 +854,13 @@ select.calc-input {
   <!-- ============================================================
        PANEL 4: ΛCDM vs QKDE AT ONE z
   ============================================================ -->
-  <section class="calc-panel" id="panel-compare">
+  <section class="calc-panel" id="panel-compare" aria-labelledby="compare-panel-title">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">ΛCDM vs QKDE snapshot</div>
+      <div class="calc-panel-title" id="compare-panel-title">ΛCDM vs QKDE snapshot</div>
       <button class="panel-toggle-btn" data-panel="panel-compare" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
-      <article class="calc-card" id="compare-card">
+      <article class="calc-card" id="compare-card" aria-label="ΛCDM vs QKDE comparison">
         <div class="calc-header-row">
           <h3>ΛCDM vs QKDE</h3>
           <div class="calc-pill-row">
@@ -869,21 +874,21 @@ select.calc-input {
           Uses ΛCDM parameters from the first card and QKDE parameters below.
         </p>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="Snapshot comparison parameters">
           <div>
-            <label class="calc-label">Redshift z</label>
+            <label class="calc-label" for="cmp-z">Redshift z</label>
             <input id="cmp-z" class="calc-input" value="0.5" type="number" step="0.01">
           </div>
           <div>
-            <label class="calc-label">K₀</label>
+            <label class="calc-label" for="cmp-k0">K₀</label>
             <input id="cmp-k0" class="calc-input" value="0.5" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">p</label>
+            <label class="calc-label" for="cmp-p">p</label>
             <input id="cmp-p" class="calc-input" value="1.0" type="number" step="0.1">
           </div>
           <div>
-            <label class="calc-label">Reference K(0)</label>
+            <label class="calc-label" for="cmp-kref">Reference K(0)</label>
             <input id="cmp-kref" class="calc-input" value="1.0" type="number" step="0.01">
           </div>
         </div>
@@ -892,7 +897,7 @@ select.calc-input {
           <button class="calc-btn" id="cmp-compute" type="button">Compare at z</button>
         </div>
 
-        <pre id="cmp-output" class="calc-output-mini"></pre>
+        <pre id="cmp-output" class="calc-output-mini" aria-live="polite"></pre>
       </article>
     </div>
   </section>
@@ -900,13 +905,13 @@ select.calc-input {
   <!-- ============================================================
        ADVANCED FULL-WIDTH COMPARATOR
   ============================================================ -->
-  <section class="calc-panel" id="panel-advanced">
+  <section class="calc-panel" id="panel-advanced" aria-labelledby="advanced-panel-title">
     <div class="calc-panel-header">
-      <div class="calc-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE</div>
+      <div class="calc-panel-title" id="advanced-panel-title">Growth comparator: ΛCDM vs quintessence vs CPL vs QKDE</div>
       <button class="panel-toggle-btn" data-panel="panel-advanced" type="button">Hide</button>
     </div>
     <div class="calc-panel-body">
-      <article class="calc-card-wide" id="advanced-growth-card">
+      <article class="calc-card-wide" id="advanced-growth-card" aria-label="Advanced growth comparator">
         <h3>Growth Comparator (ΛCDM / Quintessence / CPL / QKDE)</h3>
         <p class="calc-note">
           Solves the GR growth equation for three standard background families
@@ -916,40 +921,40 @@ select.calc-input {
           the exact GR equation on each background.
         </p>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="Advanced background parameters">
           <div>
-            <label class="calc-label">Ωₘ₀</label>
+            <label class="calc-label" for="adv-om0">Ωₘ₀</label>
             <input id="adv-om0" class="calc-input" value="0.3" type="number" step="0.001">
           </div>
           <div>
-            <label class="calc-label">Ωᵣ₀</label>
+            <label class="calc-label" for="adv-or0">Ωᵣ₀</label>
             <input id="adv-or0" class="calc-input" value="0" type="number" step="1e-5">
           </div>
           <div>
-            <label class="calc-label">z<sub>max</sub></label>
+            <label class="calc-label" for="adv-zmax">z<sub>max</sub></label>
             <input id="adv-zmax" class="calc-input" value="3" type="number" step="0.1">
           </div>
           <div>
-            <label class="calc-label">Samples</label>
+            <label class="calc-label" for="adv-samples">Samples</label>
             <input id="adv-samples" class="calc-input" value="120" type="number" min="40" step="10">
           </div>
         </div>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="Model parameters">
           <div>
-            <label class="calc-label">w<sub>Q</sub> (quintessence)</label>
+            <label class="calc-label" for="adv-wq">w<sub>Q</sub> (quintessence)</label>
             <input id="adv-wq" class="calc-input" value="-0.9" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">w₀ (CPL)</label>
+            <label class="calc-label" for="adv-w0">w₀ (CPL)</label>
             <input id="adv-w0" class="calc-input" value="-0.9" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">wₐ (CPL)</label>
+            <label class="calc-label" for="adv-wa">wₐ (CPL)</label>
             <input id="adv-wa" class="calc-input" value="0.2" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">Models</label>
+            <span class="calc-label">Models</span>
             <label><input type="checkbox" id="adv-show-lcdm" checked> ΛCDM</label><br>
             <label><input type="checkbox" id="adv-show-quint" checked> Quintessence</label><br>
             <label><input type="checkbox" id="adv-show-kess" checked> CPL-type k-essence</label><br>
@@ -957,27 +962,27 @@ select.calc-input {
           </div>
         </div>
 
-        <div class="calc-input-row">
+        <div class="calc-input-row" aria-label="Axis and QKDE settings">
           <div>
-            <label class="calc-label">x-axis</label>
+            <label class="calc-label" for="adv-xaxis">x-axis</label>
             <select id="adv-xaxis" class="calc-input">
               <option value="a">Scale factor a</option>
               <option value="z">Redshift z</option>
             </select>
           </div>
           <div>
-            <label class="calc-label">Normalization</label>
+            <label class="calc-label" for="adv-norm">Normalization</label>
             <select id="adv-norm" class="calc-input">
               <option value="Da">D(a) with D(1)=1</option>
               <option value="Da_over_a">D(a)/a</option>
             </select>
           </div>
           <div>
-            <label class="calc-label">K₀ (QKDE)</label>
+            <label class="calc-label" for="adv-k0q">K₀ (QKDE)</label>
             <input id="adv-k0q" class="calc-input" value="0.5" type="number" step="0.05">
           </div>
           <div>
-            <label class="calc-label">p (QKDE)</label>
+            <label class="calc-label" for="adv-pq">p (QKDE)</label>
             <input id="adv-pq" class="calc-input" value="1.0" type="number" step="0.1">
           </div>
         </div>
@@ -985,12 +990,12 @@ select.calc-input {
         <div class="calc-action-row">
           <button class="calc-btn" id="adv-growth-compute" type="button">Plot growth</button>
           <button class="calc-btn secondary" id="adv-export-csv" type="button">
-  Export growth (CSV)
-</button>
+            Export growth (CSV)
+          </button>
         </div>
 
-        <canvas id="adv-growth-canvas"></canvas>
-        <pre id="adv-growth-info" class="calc-output-mini"></pre>
+        <canvas id="adv-growth-canvas" aria-label="Growth comparison plot"></canvas>
+        <pre id="adv-growth-info" class="calc-output-mini" aria-live="polite"></pre>
 
         <p class="calc-footnote">
           In this comparator, QKDE is implemented as an effective background with
