@@ -575,7 +575,7 @@ select.calc-input {
     <h1>QKDE Interactive Calculator Suite</h1>
 
     <p class="center" style="opacity:0.9;">
-      ΛCDM • QKDE • GR Growth • Kinetic Drift • Background & Distance Tools
+      ΛCDM • QKDE • GR Growth • Kinetic Drift • Background &amp; Distance Tools
     </p>
 
     <p class="calc-intro">
@@ -583,17 +583,16 @@ select.calc-input {
       <strong>exact General Relativity background equations</strong>,
       <strong>linear growth equations</strong>, and
       <strong>QKDE kinetic-drift models</strong>.
-      <br><br>
-      You can use this suite to:
-      <ul style="margin-top:6px;">
-        <li>Compute <strong>ΛCDM distances</strong>: \(D_C,D_M,D_A,D_L,\mu(z)\).</li>
-        <li>Study <strong>background evolution</strong> with curvature or flatness.</li>
-        <li>Analyze <strong>QKDE running K(a)</strong> and its dynamical implications.</li>
-        <li>Compare <strong>GR growth</strong> across ΛCDM, quintessence, CPL, and QKDE.</li>
-        <li>Export tables for research and plotting scripts.</li>
-      </ul>
       All equations follow standard GR cosmology; no approximations or fitting templates are used.
     </p>
+
+    <ul style="margin-top:6px; padding-left:1.2rem;">
+      <li>Compute <strong>ΛCDM distances</strong>: \(D_C,D_M,D_A,D_L,\mu(z)\).</li>
+      <li>Study <strong>background evolution</strong> with curvature or flatness.</li>
+      <li>Analyze <strong>QKDE running K(a)</strong> and its dynamical implications.</li>
+      <li>Compare <strong>GR growth</strong> across ΛCDM, quintessence, CPL, and QKDE.</li>
+      <li>Export tables for research and plotting scripts.</li>
+    </ul>
 
     <details style="margin-top:10px;">
       <summary><strong>📘 Quick-start tutorial (optional)</strong></summary>
@@ -643,7 +642,7 @@ select.calc-input {
 
         <details style="margin-bottom:12px;">
           <summary><strong>What this tool computes</strong></summary>
-          <ul style="margin-top:6px;">
+          <ul style="margin-top:6px; padding-left:1.2rem;">
             <li>E(z), H(z)</li>
             <li>Comoving, angular-diameter, and luminosity distances</li>
             <li>Distance modulus μ(z)</li>
@@ -672,27 +671,27 @@ select.calc-input {
 
             <div>
               <label class="calc-label" for="lcdm-h0">H₀ (km/s/Mpc)</label>
-              <input id="lcdm-h0" class="calc-input" value="67.4" step="0.1">
+              <input id="lcdm-h0" class="calc-input" value="67.4" step="0.1" type="number">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-om">Ωₘ₀</label>
-              <input id="lcdm-om" class="calc-input" value="0.315" step="0.001">
+              <input id="lcdm-om" class="calc-input" value="0.315" step="0.001" type="number">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-or">Ωᵣ₀</label>
-              <input id="lcdm-or" class="calc-input" value="5e-5" step="1e-5">
+              <input id="lcdm-or" class="calc-input" value="5e-5" step="1e-5" type="number">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-ol">ΩΛ₀</label>
-              <input id="lcdm-ol" class="calc-input" value="0.68495" step="0.0001">
+              <input id="lcdm-ol" class="calc-input" value="0.68495" step="0.0001" type="number">
             </div>
 
             <div>
               <label class="calc-label" for="lcdm-steps">z-grid resolution</label>
-              <input id="lcdm-steps" class="calc-input" value="600" step="100">
+              <input id="lcdm-steps" class="calc-input" value="600" step="100" type="number">
             </div>
           </div>
 
@@ -713,7 +712,7 @@ select.calc-input {
               <label class="calc-label">Standard radiation</label>
               <label style="font-size:0.8rem;">
                 <input id="lcdm-auto-rad" type="checkbox" checked>
-                Use T<sub>CMB</sub> & standard N<sub>eff</sub>
+                Use T<sub>CMB</sub> &amp; standard N<sub>eff</sub>
               </label>
             </div>
 
@@ -724,7 +723,7 @@ select.calc-input {
 
             <div>
               <label class="calc-label" for="lcdm-zmax-plot">Plot range z<sub>max</sub></label>
-              <input id="lcdm-zmax-plot" class="calc-input" value="3" step="0.5">
+              <input id="lcdm-zmax-plot" class="calc-input" value="3" step="0.5" type="number">
             </div>
 
           </div>
@@ -810,7 +809,7 @@ select.calc-input {
             <hr>
 
             <h4>Density Fractions</h4>
-            <p><strong>(10)</strong>  
+            <p><strong>(10)</strong><br>
               \(\Omega_i(z)=\frac{\Omega_{i0}(1+z)^{n_i}}{E(z)^2}\)
             </p>
 
@@ -826,7 +825,7 @@ select.calc-input {
 
             <hr>
 
-            <h4>BAO & Volume</h4>
+            <h4>BAO &amp; Volume</h4>
 
             <p><strong>(13) BAO distance:</strong><br>
             \(D_V = [(1+z)^2 D_A^2 cz/H(z)]^{1/3}\)</p>
@@ -834,13 +833,28 @@ select.calc-input {
             <p><strong>(14) Volume element:</strong><br>
             \(\frac{dV}{dz\,d\Omega}=\frac{cD_M^2}{H(z)}\)</p>
 
+            <hr>
+
+            <h4>Interpretation / Physical Meaning</h4>
+            <ul style="margin-top:6px; padding-left:1.2rem;">
+              <li><strong>Curvature (1):</strong> Encodes whether the Universe is open, flat, or closed today.</li>
+              <li><strong>Expansion (2–3):</strong> \(E(z)\) and \(H(z)\) describe how fast the Universe expands at each redshift.</li>
+              <li><strong>Distances (4–9):</strong> Map between redshift and observable scales (angles, fluxes, magnitudes) for galaxies and supernovae.</li>
+              <li><strong>Density fractions (10):</strong> Track how matter, radiation, curvature, and dark energy compete as the Universe evolves.</li>
+              <li><strong>Timescales (11–12):</strong> Relate redshift to cosmic time: how long ago light was emitted and the total age of the Universe.</li>
+              <li><strong>BAO &amp; volume (13–14):</strong> Directly relevant for galaxy surveys, BAO measurements, and number counts per redshift bin.</li>
+            </ul>
+
           </div>
         </div>
 
       </article>
     </div>
   </section>
-    <!-- ============================================================
+
+
+
+  <!-- ============================================================
        PANEL 2: QKDE RUNNING K
   ============================================================ -->
   <section class="calc-panel" id="panel-qkde" aria-labelledby="qkde-panel-title">
@@ -863,16 +877,17 @@ select.calc-input {
         <p class="calc-note">
           QKDE introduces a slowly varying kinetic normalization
           \(K(N)=1+K_0 e^{-pN}\).  
-          This changes the *background evolution* while keeping the
-          **Einstein–Hilbert sector unmodified** and **growth purely GR**.
+          This changes the <em>background evolution</em> while keeping the
+          <strong>Einstein–Hilbert sector unmodified</strong> and
+          <strong>growth purely GR</strong>.
         </p>
 
         <details style="margin-bottom:12px;">
           <summary><strong>What this tool computes</strong></summary>
-          <ul style="margin-top:6px;">
+          <ul style="margin-top:6px; padding-left:1.2rem;">
             <li>Value of K(z)</li>
             <li>K′/K, used later for growth and effective w(a)</li>
-            <li>Intermediate values used in QKDE snapshots & comparator</li>
+            <li>Intermediate values used in QKDE snapshots &amp; comparator</li>
           </ul>
         </details>
 
@@ -938,11 +953,23 @@ select.calc-input {
 
             <h4>Effective Background (used in advanced growth panel)</h4>
 
-            <p><strong>Energy-density scaling:</strong><br>
+            <p><strong>(5) Energy-density scaling:</strong><br>
             \(\rho_{\rm DE}(a) \propto K(1)/K(a)\)</p>
 
-            <p><strong>Effective equation of state:</strong><br>
+            <p><strong>(6) Effective equation of state:</strong><br>
             \(w(a)=-1 - \tfrac{1}{3}\frac{d\ln K}{d\ln a}\)</p>
+
+            <hr>
+
+            <h4>Interpretation / Physical Meaning</h4>
+            <ul style="margin-top:6px; padding-left:1.2rem;">
+              <li><strong>E-fold time (1):</strong> Uses \(N=\ln a\) as a clock; each unit of N is a factor e in expansion.</li>
+              <li><strong>K(N) (2):</strong> Encodes how the scalar kinetic term is renormalized over cosmic time; \(K_0\) and p control the drift strength and rate.</li>
+              <li><strong>K′/K (3):</strong> Measures how rapidly the kinetic normalization changes; directly feeds into the effective equation of state.</li>
+              <li><strong>Today (4):</strong> Fixes the normalization at z=0, making it easy to match current data or boundary conditions.</li>
+              <li><strong>ρ<sub>DE</sub>(a) (5):</strong> Implements QKDE as a pure-background modification: dark energy tracks the kinetic normalization rather than a potential.</li>
+              <li><strong>w(a) (6):</strong> Shows that deviations from w = −1 are entirely driven by kinetic drift; if K is constant, ΛCDM is recovered exactly.</li>
+            </ul>
 
           </div>
         </div>
@@ -979,7 +1006,7 @@ select.calc-input {
 
         <details style="margin-bottom:10px;">
           <summary><strong>What this tool computes</strong></summary>
-          <ul style="margin-top:6px;">
+          <ul style="margin-top:6px; padding-left:1.2rem;">
             <li>Linear growth D(a) normalized to D(1)=1</li>
             <li>D(z) at the selected evaluation redshift</li>
             <li>All growth quantities using input Ωₘ₀, Ωᵣ₀, ΩΛ₀</li>
@@ -1048,6 +1075,17 @@ select.calc-input {
               Values of \(H'/H\), \(H(a)\), and \(\Omega_m(a)\) come from Panel 1.
             </p>
 
+            <hr>
+
+            <h4>Interpretation / Physical Meaning</h4>
+            <ul style="margin-top:6px; padding-left:1.2rem;">
+              <li><strong>Growth ODE (1):</strong> Encodes how matter perturbations grow under gravity versus Hubble expansion.</li>
+              <li><strong>Friction term (2):</strong> The \(2+H'/H\) piece acts like a friction term: faster expansion suppresses structure growth.</li>
+              <li><strong>Source term:</strong> The \(\tfrac{3}{2}\Omega_m(a)D\) term drives growth; more matter density means stronger gravitational clustering.</li>
+              <li><strong>Normalization (3):</strong> Fixing \(D(1)=1\) makes all models directly comparable at z=0.</li>
+              <li><strong>ΛCDM background (4):</strong> Ensures that any deviation in D(a) when you change models comes only from the background, not from modified gravity.</li>
+            </ul>
+
           </div>
         </div>
 
@@ -1084,7 +1122,7 @@ select.calc-input {
 
         <details style="margin-bottom:10px;">
           <summary><strong>What this tool compares</strong></summary>
-          <ul style="margin-top:6px;">
+          <ul style="margin-top:6px; padding-left:1.2rem;">
             <li>ΛCDM distances (from Panel 1)</li>
             <li>QKDE K(z), K′(z)</li>
             <li>GR growth D(z)</li>
@@ -1152,12 +1190,12 @@ select.calc-input {
         <h3>Growth Comparator (ΛCDM / Quintessence / CPL / QKDE)</h3>
         <p class="calc-note">
           Compute and visualize GR growth across four independent background families.
-          This is the **research-level comparison tool**.
+          This is the <strong>research-level comparison tool</strong>.
         </p>
 
         <details>
           <summary><strong>What this tool provides</strong></summary>
-          <ul style="margin-top:6px;">
+          <ul style="margin-top:6px; padding-left:1.2rem;">
             <li>Full D(a) or D(a)/a curves</li>
             <li>Comparison between ΛCDM, wCDM, CPL, and QKDE</li>
             <li>CSV export for external plotting (Python, Mathematica, etc.)</li>
@@ -1222,7 +1260,7 @@ select.calc-input {
           </div>
 
 
-          <h4 class="calc-section-title" style="margin-top:14px;">Axis & QKDE Settings</h4>
+          <h4 class="calc-section-title" style="margin-top:14px;">Axis &amp; QKDE Settings</h4>
 
           <div class="calc-input-row">
 
