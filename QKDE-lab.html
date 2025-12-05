@@ -8,251 +8,247 @@
   <!-- Plotly for interactive plotting -->
   <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
   <style>
-  ./* ============================
-   GLOBAL LAYOUT & TYPOGRAPHY
-============================= */
+  /* ============================================================
+   JCAP-GRADE PROFESSIONAL COSMOLOGY LAB THEME
+   Clean • Minimal • Academic • High-Readability
+=============================================================== */
+
+/* -------- Global Typography & Page Layout -------- */
 body {
   margin: 0;
   padding: 0;
-  background: #0d0f16;
-  color: #e5e9f0;
-  font-family: system-ui, -apple-system, "Inter", sans-serif;
+  background: #fafafa;
+  color: #222;
+  font-family: "Source Sans Pro", -apple-system, system-ui, sans-serif;
   line-height: 1.55;
 }
 
 .page {
-  max-width: 1500px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 20px 20px 40px;
+  padding: 28px 20px 60px;
 }
 
-/* ============================
-   HEADERS
-============================= */
+/* -------- Academic Header Style -------- */
 h1, h2, h3, h4 {
-  margin: 0 0 6px;
+  font-family: "Libre Baskerville", "Georgia", serif;
+  margin: 0 0 8px;
   font-weight: 500;
-  letter-spacing: 0.3px;
+  color: #1c1c1c;
 }
 
 h1 {
-  font-size: 2.1rem;
+  font-size: 2.2rem;
   text-align: center;
-  color: #a7dbff;
+  margin-bottom: 12px;
 }
 
 h2 {
-  font-size: 1.35rem;
-  margin-bottom: 4px;
-  color: #b8d8ff;
+  font-size: 1.45rem;
+  margin-top: 20px;
 }
 
 h3 {
-  font-size: 1.12rem;
-  color: #d2e7ff;
+  font-size: 1.18rem;
+  margin-top: 16px;
 }
 
 .calc-intro {
   text-align: center;
-  max-width: 900px;
-  margin: 10px auto 18px;
-  opacity: 0.9;
+  max-width: 850px;
+  margin: 0 auto 22px;
+  font-size: 1rem;
+  color: #444;
 }
 
-/* ============================
-   DETAILS ELEMENT
-============================= */
+/* -------- Details (info blocks) -------- */
 details {
-  background: rgba(255,255,255,0.05);
-  padding: 10px 14px;
-  border-radius: 8px;
-  margin: 8px 0 12px;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  margin: 10px 0 18px;
 }
 
 details summary {
   cursor: pointer;
-  color: #9bd1ff;
+  font-weight: 600;
+  color: #333;
 }
 
-details[open] {
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-/* ============================
-   SIDEBAR BLOCKS
-============================= */
-.lab-block {
-  background: rgba(255,255,255,0.04);
-  padding: 14px 14px 16px;
-  margin-bottom: 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.lab-block label {
-  font-size: 0.88rem;
-  display: block;
-  margin: 4px 0;
-  opacity: 0.9;
-}
-
-/* ============================
-   INPUT FIELDS
-============================= */
-.calc-input {
-  width: 100%;
-  padding: 6px 10px;
+/* -------- Panel / Card Layout -------- */
+.calc-panel {
+  border: 1px solid #ddd;
+  background: #ffffff;
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: #e5e9f0;
-  font-size: 0.9rem;
-  box-sizing: border-box;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 
-.calc-input:focus {
-  outline: none;
-  border-color: #88c9ff;
+.calc-panel-header {
+  padding: 12px 18px;
+  border-bottom: 1px solid #e2e2e2;
+  background: #fbfbfb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Two-column input groups */
+.calc-panel-title {
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.calc-panel-body {
+  padding: 18px 20px 26px;
+}
+
+/* -------- Buttons -------- */
+.calc-btn,
+.lab-tab-btn {
+  cursor: pointer;
+  background: #0b4c8c;
+  color: #fff;
+  border: 1px solid #083d70;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  transition: background 0.15s ease;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.calc-btn:hover,
+.lab-tab-btn:hover {
+  background: #115fa8;
+}
+
+.calc-btn.secondary {
+  background: #f7f7f7;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.calc-btn.secondary:hover {
+  background: #ececec;
+}
+
+/* -------- Pills (preset selectors) -------- */
+.calc-pill-row {
+  display: flex;
+  gap: 6px;
+}
+
+.calc-pill {
+  background: #efefef;
+  padding: 4px 10px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.calc-pill.is-active {
+  background: #0b4c8c;
+  color: #fff;
+  border-color: #083d70;
+}
+
+/* -------- Input groups -------- */
+.calc-section {
+  border-left: 3px solid #0b4c8c;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  background: #fafafa;
+}
+
+.calc-section-title {
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 .calc-input-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px 14px;
-  margin-bottom: 12px;
+  gap: 12px 16px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 860px) {
   .calc-input-row {
     grid-template-columns: 1fr;
   }
 }
 
-/* ============================
-   BUTTONS
-============================= */
-.calc-btn,
-.lab-tab-btn {
-  cursor: pointer;
-  background: linear-gradient(135deg, #77c6ff, #8bd5ff);
-  border: 1px solid rgba(255,255,255,0.28);
-  padding: 7px 14px;
-  border-radius: 8px;
-  font-size: 0.85rem;
+.calc-label {
+  font-size: 0.88rem;
   font-weight: 600;
-  color: #0a0f14;
-  letter-spacing: 0.4px;
-  transition: 0.15s ease;
+  margin-bottom: 2px;
+  display: block;
+  color: #333;
 }
 
-.calc-btn:hover,
-.lab-tab-btn:hover {
-  background: linear-gradient(135deg, #98d9ff, #b2e4ff);
+.calc-input {
+  width: 100%;
+  padding: 6px 9px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 0.9rem;
 }
 
-.calc-btn.secondary {
-  background: transparent;
-  border-color: rgba(255,255,255,0.15);
-  color: #d7e9ff;
+.calc-input:focus {
+  outline: none;
+  border-color: #0b4c8c;
 }
 
-.calc-btn.secondary:hover {
-  background: rgba(255,255,255,0.07);
-}
-
-/* ============================
-   TAB BUTTONS
-============================= */
-#lab-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.lab-tab-btn {
-  background: rgba(255,255,255,0.06);
-  color: #d0e7ff;
-}
-
-.lab-tab-btn.is-active {
-  background: #77c6ff;
-  color: #0c1014;
-  border-color: #a8ddff;
-}
-
-/* ============================
-   PANELS
-============================= */
-.lab-panel {
-  background: rgba(255,255,255,0.04);
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.07);
-  min-height: 420px;
-}
-
-.lab-panel p {
-  margin: 4px 0 10px;
-  opacity: 0.9;
-}
-
-/* ============================
-   OUTPUT FIELDS
-============================= */
+/* -------- Outputs -------- */
 .calc-output,
 .calc-output-mini {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
+  background: #f8f8f8;
+  border: 1px solid #d6d6d6;
   padding: 10px;
-  margin-top: 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.82rem;
-  max-height: 240px;
-  overflow-y: auto;
+  font-size: 0.85rem;
   white-space: pre-wrap;
-  color: #cfe5ff;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-top: 14px;
+  color: #222;
 }
 
-/* ============================
-   LAYOUT FLEX
-============================= */
-#lab-layout {
-  display: flex;
-  justify-content: space-between;
+/* -------- Formula Blocks -------- */
+.calc-formula-box {
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 14px;
+  margin-top: 20px;
+  border-radius: 4px;
+  display: none; /* JS toggles this */
 }
 
-#lab-controls {
-  flex: 0 0 320px;
+.calc-formula-inner h4 {
+  margin-top: 12px;
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.05rem;
 }
 
-#lab-visualization {
-  flex: 1 1 auto;
-  min-width: 480px;
+.calc-formula-inner p {
+  margin: 6px 0;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 0.92rem;
+  color: #333;
 }
 
-@media (max-width: 1100px) {
-  #lab-layout {
-    flex-direction: column;
-  }
-  #lab-controls {
-    max-width: 100%;
-  }
-}
-
-/* ============================
-   CANVAS / PLOT AREAS
-============================= */
-#lab-plot-background,
-#lab-plot-distances,
-#lab-plot-growth,
-#lab-plot-data,
-#lab-plot-qkde {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
+/* -------- Plots -------- */
+canvas {
+  width: 100% !important;
+  max-height: 420px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #ffffff;
 }
 </style>
 </head>
