@@ -169,9 +169,9 @@ body {
 /* ================= MAIN PAGE WRAPPER ================= */
 .page {
   max-width: 1100px;
-  width: 100%;
+  width: calc(100% - 32px);   /* prevents bleed on smaller screens */
   margin: 8px auto 32px;
-  padding: 28px 24px 32px;
+  padding: 28px 16px 32px;    /* was 24px — this caused clipping */
 
   background: var(--bg-page);
   border-radius: 18px;
@@ -180,7 +180,7 @@ body {
   backdrop-filter: blur(10px);
 
   box-sizing: border-box;
-  overflow-x: hidden;    /* <--- THIS IS THE CRITICAL FIX */
+  overflow-x: hidden;         
 }
 
 /* ---- Header ---- */
