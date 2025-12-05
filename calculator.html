@@ -582,8 +582,11 @@ select.calc-input {
     <div class="calc-panel-title">ΛCDM background + distances</div>
     <button class="panel-toggle-btn" data-panel="panel-lcdm" type="button">Hide</button>
   </div>
+
   <div class="calc-panel-body">
     <article class="calc-card" id="lcdm-card">
+
+      <!-- HEADER + PRESETS -->
       <div class="calc-header-row">
         <h3>ΛCDM Background &amp; Distances</h3>
         <div class="calc-pill-row">
@@ -594,12 +597,12 @@ select.calc-input {
 
       <h4>Flat ΛCDM reference (background + lightcone)</h4>
       <p class="calc-note">
-        Computes the background expansion and line-of-sight distances in a spatially-flat ΛCDM cosmology:
-        \(H(z)\), comoving distance \(\chi(z)\), angular and luminosity distances,
-        SN distance modulus \(\mu(z)\), and the matter fraction \(\Omega_m(z)\).
-        You can either enforce flatness or explore small departures by hand.
+        Computes \(H(z)\), comoving distance \(\chi(z)\), angular/luminosity distances,
+        and the SN distance modulus \(μ(z)\). Optional flatness enforcement ensures
+        \(\Omega_{m0}+\Omega_{r0}+\Omega_{\Lambda0}=1\).
       </p>
 
+      <!-- INPUTS -->
       <div class="calc-input-row">
         <div>
           <label class="calc-label">Redshift z</label>
@@ -607,11 +610,11 @@ select.calc-input {
         </div>
         <div>
           <label class="calc-label">H₀ [km/s/Mpc]</label>
-          <input id="lcdm-h0" class="calc-input" type="number" value="70" step="0.1" min="10">
+          <input id="lcdm-h0" class="calc-input" type="number" value="70" step="0.1" min="30">
         </div>
         <div>
           <label class="calc-label">Ωₘ₀</label>
-          <input id="lcdm-om" class="calc-input" type="number" value="0.3" step="0.001" min="0" max="2">
+          <input id="lcdm-om" class="calc-input" type="number" value="0.3" step="0.001" min="0" max="5">
         </div>
         <div>
           <label class="calc-label">Ωᵣ₀</label>
@@ -619,48 +622,54 @@ select.calc-input {
         </div>
         <div>
           <label class="calc-label">ΩΛ₀</label>
-          <input id="lcdm-ol" class="calc-input" type="number" value="0.7" step="0.001" min="0" max="2">
+          <input id="lcdm-ol" class="calc-input" type="number" value="0.7" step="0.001" min="-5" max="5">
         </div>
         <div>
-          <label class="calc-label">z-steps (for χ)</label>
-          <input id="lcdm-steps" class="calc-input" type="number" value="400" step="50" min="50">
+          <label class="calc-label">Integration steps (χ)</label>
+          <input id="lcdm-steps" class="calc-input" type="number" value="400" min="50" step="50">
         </div>
       </div>
 
       <div class="calc-input-row" style="margin-top:6px;">
         <div>
           <label class="calc-label">Flatness constraint</label>
-          <label style="font-size:0.8rem; opacity:0.9;">
+          <label style="font-size:0.8rem;">
             <input type="checkbox" id="lcdm-flat" checked>
-            Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1 (auto-adjust ΩΛ₀)
+            Enforce Ωₘ₀ + Ωᵣ₀ + ΩΛ₀ = 1
           </label>
         </div>
+
         <div>
-          <label class="calc-label">Quick info</label>
-          <p style="font-size:0.78rem; margin:0; opacity:0.9;">
-            Output includes Ω<sub>tot</sub> today and Ωₘ(z) at the chosen redshift.
+          <label class="calc-label">Info</label>
+          <p style="font-size:0.8rem; margin:0; opacity:0.9;">
+            Computes extra diagnostics: E(z), Ωₘ(z), Ω<sub>tot</sub>(0), curvature status.
           </p>
         </div>
       </div>
 
+      <!-- ACTIONS -->
       <div class="calc-action-row">
         <button class="calc-btn" id="lcdm-compute" type="button">Compute ΛCDM</button>
-        <button class="calc-btn secondary" id="lcdm-formula-toggle" type="button">Show formulas</button>
+        <button class="calc-btn secondary" id="lcdm-formula-toggle" type="button">
+          Show formulas
+        </button>
       </div>
 
+      <!-- OUTPUT -->
       <pre id="lcdm-output" class="calc-output"></pre>
 
-      <!-- Formulas -->
-      <div id="lcdm-formulas" class="calc-formula-box" aria-hidden="true">
+      <!-- FORMULAS -->
+      <div id="lcdm-formulas" class="calc-formula-box">
         <div class="calc-formula-inner">
           <p>\(E(z)=\sqrt{\Omega_{m0}(1+z)^3 + \Omega_{r0}(1+z)^4 + \Omega_{\Lambda0}}\)</p>
-          <p>\(H(z)=H_0 E(z)\)</p>
-          <p>\(\chi(z)=c \int_0^z \frac{dz'}{H(z')}\)</p>
-          <p>\(D_A=\chi/(1+z), \quad D_L=(1+z)\chi\)</p>
+          <p>\(\chi(z)=c\int_0^z \frac{dz'}{H_0E(z')}\)</p>
+          <p>\(D_A = \chi/(1+z)\)</p>
+          <p>\(D_L = (1+z)\chi\)</p>
           <p>\(\mu = 5\log_{10}(D_L/\mathrm{Mpc}) + 25\)</p>
-          <p>\(\Omega_m(z) = \dfrac{\Omega_{m0}(1+z)^3}{E(z)^2}\)</p>
+          <p>\(\Omega_m(z)=\frac{\Omega_{m0}(1+z)^3}{E(z)^2}\)</p>
         </div>
       </div>
+
     </article>
   </div>
 </section>
@@ -1110,10 +1119,47 @@ function K_a(a, K0, p) {
 
 
   /* ============================================================
+   ΛCDM PRESETS
+============================================================ */
+function applyLCDMPreset(type) {
+  const flat = byId("lcdm-flat").checked;
+
+  if (type === "planck") {
+    byId("lcdm-h0").value = 67.4;
+    byId("lcdm-om").value = 0.315;
+    byId("lcdm-or").value = 5e-5;
+  }
+  if (type === "local") {
+    byId("lcdm-h0").value = 73.0;
+    byId("lcdm-om").value = 0.30;
+    byId("lcdm-or").value = 0.0;
+  }
+
+  if (flat) {
+    const Om0 = parseFloat(byId("lcdm-om").value);
+    const Or0 = parseFloat(byId("lcdm-or").value);
+    const Ol0 = 1 - Om0 - Or0;
+    byId("lcdm-ol").value = Ol0.toFixed(6);
+  }
+
+  document.querySelectorAll("[data-preset]").forEach(b =>
+    b.classList.remove("is-active")
+  );
+  document.querySelector(`[data-preset='${type}']`).classList.add("is-active");
+}
+
+document.querySelector("[data-preset='planck']").addEventListener("click", () => applyLCDMPreset("planck"));
+document.querySelector("[data-preset='local']").addEventListener("click", () => applyLCDMPreset("local"));
+
+
+
+/* ============================================================
    CALCULATOR 1: ΛCDM BACKGROUND (UPGRADED)
 ============================================================ */
 byId("lcdm-compute").addEventListener("click", () => {
   try {
+
+    /* --- Read inputs --- */
     let z   = parseFloat(byId("lcdm-z").value);
     let H0  = parseFloat(byId("lcdm-h0").value);
     let Om0 = parseFloat(byId("lcdm-om").value);
@@ -1121,38 +1167,44 @@ byId("lcdm-compute").addEventListener("click", () => {
     let Ol0 = parseFloat(byId("lcdm-ol").value);
     const steps = parseInt(byId("lcdm-steps").value);
 
-    if (z < 0) throw new Error("Redshift z must be ≥ 0.");
-    if (H0 <= 0) throw new Error("H₀ must be positive.");
-    if (steps < 50) throw new Error("z-steps must be ≥ 50.");
+    /* --- Validation --- */
+    if (!(z >= 0)) throw new Error("Redshift z must be ≥ 0.");
+    if (!(H0 > 0)) throw new Error("H₀ must be > 0.");
+    if (steps < 50) throw new Error("Integration steps must be ≥ 50.");
 
-    /* ---- Enforce flatness if checkbox checked ---- */
+    if (Om0 < 0 || Or0 < 0) throw new Error("Ωₘ₀ and Ωᵣ₀ must be ≥ 0.");
+
     const enforceFlat = byId("lcdm-flat").checked;
     if (enforceFlat) {
       Ol0 = 1 - Om0 - Or0;
       byId("lcdm-ol").value = Ol0.toFixed(6);
     }
 
-    /* ---- Validate Ω's ---- */
-    const Otot = Om0 + Or0 + Ol0;
-    if (Otot <= 0) throw new Error("Ω_total must be > 0.");
+    const Otoday = Om0 + Or0 + Ol0;
+    if (!isFinite(Otoday)) throw new Error("Invalid Ω parameters.");
+    if (Otoday <= 0) throw new Error("Total Ω today must be > 0.");
 
-    /* ---- Background functions ---- */
+    const curvature = Otoday - 1;
+
+    /* --- Compute background functions --- */
     const E = E_z(z, Om0, Or0, Ol0);
+    if (E <= 0) throw new Error("E(z) became non-physical (≤0).");
+
     const H = H0 * E;
 
-    /* ---- Distances ---- */
+    /* --- Lightcone distances --- */
     const chi = integrateChi(H0, Om0, Or0, Ol0, z, steps);
     const DA = chi / (1 + z);
     const DL = chi * (1 + z);
     const mu = 5 * Math.log10(DL) + 25;
 
-    /* ---- Additional physical outputs ---- */
-    const OmegaMz = (Om0 * Math.pow(1+z, 3)) / (E*E);
-    const Otot_today = Om0 + Or0 + Ol0;
+    /* --- Density fraction at z --- */
+    const OmegaMz = (Om0 * Math.pow(1 + z, 3)) / (E * E);
 
-    /* ---- Print output ---- */
-    setOutput(byId("lcdm-output"),
+    /* --- Build output text --- */
+    let text =
 `=== ΛCDM Background at z = ${z} ===
+
 E(z)       = ${E.toFixed(6)}
 H(z)       = ${H.toFixed(4)} km/s/Mpc
 
@@ -1162,16 +1214,23 @@ D_L(z)     = ${DL.toFixed(4)} Mpc
 μ(z)       = ${mu.toFixed(4)}
 
 --- Density parameters ---
-Ω_total(0) = ${Otot_today.toFixed(6)}
+Ω_total(0) = ${Otoday.toFixed(6)}
 Ω_m(z)     = ${OmegaMz.toFixed(6)}
-`);
+`;
+
+    if (!enforceFlat) {
+      text += `Curvature status: Ω_total - 1 = ${curvature.toExponential(3)}\n`;
+    }
+
+    setOutput(byId("lcdm-output"), text);
   }
+
   catch (err) {
     setOutput(byId("lcdm-output"), err.message, true);
   }
 });
 
-/* Attach the formula toggle */
+/* Formulas toggle */
 attachFormulaToggle("lcdm-formula-toggle", "lcdm-formulas");
 
 
